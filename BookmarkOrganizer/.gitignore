@@ -1,8 +1,5 @@
 # Chrome扩展开发 - .gitignore
 
-# 图标PNG文件(需要从SVG生成)
-icons/*.png
-
 # 临时文件
 *.tmp
 *.temp
