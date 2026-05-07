@@ -1,0 +1,6 @@
+<!-- 这是一个SVG占位文件,请替换为实际的48x48 PNG图标 -->
+<!-- 建议使用书签相关的图标设计 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <rect width="48" height="48" fill="#667eea"/>
+  <text x="24" y="32" font-size="24" text-anchor="middle" fill="white">📚</text>
+</svg>

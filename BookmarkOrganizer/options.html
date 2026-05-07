@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>书签整理工具 - 完整版</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>📚 书签整理</h1>
+        <p class="subtitle">完整功能版</p>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-page="scan">
+          <span class="nav-icon">🔍</span>
+          <span class="nav-text">扫描分析</span>
+        </button>
+        <button class="nav-item" data-page="categories">
+          <span class="nav-icon">📂</span>
+          <span class="nav-text">分类建议</span>
+        </button>
+        <button class="nav-item" data-page="duplicates">
+          <span class="nav-icon">🔄</span>
+          <span class="nav-text">重复检测</span>
+        </button>
+        <button class="nav-item" data-page="backups">
+          <span class="nav-icon">💾</span>
+          <span class="nav-text">备份管理</span>
+        </button>
+        <button class="nav-item" data-page="settings">
+          <span class="nav-icon">⚙️</span>
+          <span class="nav-text">设置</span>
+        </button>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <button id="openPopupBtn" class="btn btn-outline">
+          返回快速模式
+        </button>
+      </div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <!-- 扫描分析页面 -->
+      <div id="scanPage" class="page active">
+        <header class="page-header">
+          <h2>扫描分析</h2>
+          <p>分析所有书签,提供分类建议和重复检测</p>
+        </header>
+        
+        <div class="content-body">
+          <div class="action-cards">
+            <div class="action-card primary">
+              <h3>开始扫描</h3>
+              <p>分析书签并自动备份</p>
+              <button id="fullScanBtn" class="btn btn-primary btn-lg">
+                🔍 开始完整扫描
+              </button>
+            </div>
+            
+            <div class="action-card">
+              <h3>快速备份</h3>
+              <p>立即创建书签备份</p>
+              <button id="quickBackupBtn" class="btn btn-secondary">
+                💾 立即备份
+              </button>
+            </div>
+          </div>
+          
+          <!-- 进度条 -->
+          <div id="progressContainer" class="progress-container hidden">
+            <div class="progress-bar">
+              <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <p id="progressText" class="progress-text">正在分析...</p>
+          </div>
+          
+          <!-- 统计信息 -->
+          <div id="statsPanel" class="stats-panel hidden">
+            <div class="stat-card">
+              <div class="stat-value" id="totalBookmarks">0</div>
+              <div class="stat-label">总书签数</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="uncategorizedCount">0</div>
+              <div class="stat-label">未分类</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="duplicatesCount">0</div>
+              <div class="stat-label">重复项</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="categorizedCount">0</div>
+              <div class="stat-label">已分类</div>
+            </div>
+          </div>
+          
+          <div class="info-box">
+            <strong>💡 提示:</strong> 
+            扫描完成后,可以在左侧导航切换到"分类建议"或"重复检测"页面查看详细结果。
+            此页面不会因失焦而关闭,可以持续操作。
+          </div>
+        </div>
+      </div>
+
+      <!-- 分类建议页面 -->
+      <div id="categoriesPage" class="page">
+        <header class="page-header">
+          <h2>分类建议</h2>
+          <p>查看智能分类结果并应用</p>
+        </header>
+
+        <div class="content-body">
+          <div id="categoriesList" class="categories-list-full">
+            <div class="empty-state-large">
+              <div class="empty-icon">📂</div>
+              <h3>暂无分类数据</h3>
+              <p>请先在"扫描分析"页面执行扫描</p>
+              <button data-action="switch-to-page" data-page="scan" class="btn btn-primary">
+                去扫描
+              </button>
+            </div>
+          </div>
+          
+          <div class="fixed-bottom-actions">
+            <button id="applyCategoriesBtnFull" class="btn btn-success btn-lg hidden">
+              ✓ 应用选中的分类
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 重复检测页面 -->
+      <div id="duplicatesPage" class="page">
+        <header class="page-header">
+          <h2>重复检测</h2>
+          <p>查找并清理重复的书签</p>
+        </header>
+
+        <div class="content-body">
+          <div id="duplicatesList" class="duplicates-list-full">
+            <div class="empty-state-large">
+              <div class="empty-icon">🔄</div>
+              <h3>暂无重复数据</h3>
+              <p>请先在"扫描分析"页面执行扫描</p>
+              <button data-action="switch-to-page" data-page="scan" class="btn btn-primary">
+                去扫描
+              </button>
+            </div>
+          </div>
+          
+          <div class="fixed-bottom-actions">
+            <button id="removeDuplicatesBtnFull" class="btn btn-danger btn-lg hidden">
+              🗑 清理选中的重复项
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 备份管理页面 -->
+      <div id="backupsPage" class="page">
+        <header class="page-header">
+          <h2>备份管理</h2>
+          <p>管理书签备份,支持导出和导入</p>
+        </header>
+        
+        <div class="content-body">
+          <div class="backup-info-box">
+            <h3>📍 存储说明</h3>
+            <p>
+              <strong>当前存储位置:</strong> Chrome浏览器内部存储 (chrome.storage.local)<br>
+              <strong>访问限制:</strong> 由于Chrome安全策略,无法直接访问文件系统路径<br>
+              <strong>解决方案:</strong> 使用下方的"导出备份"功能将备份保存到您的电脑
+            </p>
+          </div>
+          
+          <div class="backup-actions-bar">
+            <button id="exportBackupBtn" class="btn btn-primary">
+              📤 导出备份到文件
+            </button>
+            <label class="btn btn-secondary" for="importBackupInput">
+              📥 从文件导入备份
+            </label>
+            <input type="file" id="importBackupInput" accept=".json" style="display: none;">
+            <button id="createBackupBtn" class="btn btn-outline">
+              💾 创建新备份
+            </button>
+          </div>
+          
+          <div id="backupsListFull" class="backups-list-full">
+            <div class="empty-state-large">
+              <div class="empty-icon">💾</div>
+              <h3>暂无备份记录</h3>
+              <p>点击"创建新备份"或"导出备份到文件"</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 设置页面 -->
+      <div id="settingsPage" class="page">
+        <header class="page-header">
+          <h2>设置</h2>
+          <p>自定义插件行为和偏好</p>
+        </header>
+        
+        <div class="content-body">
+          <div class="settings-section">
+            <h3>常规设置</h3>
+            
+            <div class="setting-item">
+              <label class="checkbox-setting">
+                <input type="checkbox" id="autoBackupSetting">
+                <div class="setting-info">
+                  <div class="setting-title">启用自动备份</div>
+                  <div class="setting-desc">扫描前自动创建备份</div>
+                </div>
+              </label>
+            </div>
+            
+            <div class="setting-item">
+              <label class="checkbox-setting">
+                <input type="checkbox" id="showPathSetting" checked>
+                <div class="setting-info">
+                  <div class="setting-title">显示书签路径</div>
+                  <div class="setting-desc">在重复检测中显示文件夹路径</div>
+                </div>
+              </label>
+            </div>
+          </div>
+          
+          <div class="settings-section">
+            <h3>相似度设置</h3>
+            
+            <div class="setting-item">
+              <label>
+                <div class="setting-title">重复检测相似度阈值</div>
+                <div class="setting-desc">范围: 50% - 95%, 默认80%</div>
+                <input type="range" id="similarityThreshold" min="50" max="95" value="80" class="range-input">
+                <div class="range-value"><span id="thresholdValue">80</span>%</div>
+              </label>
+            </div>
+          </div>
+          
+          <div class="settings-section">
+            <h3>数据管理</h3>
+            
+            <div class="setting-item">
+              <button id="clearAllDataBtn" class="btn btn-danger">
+                🗑 清除所有本地数据
+              </button>
+              <div class="setting-desc" style="margin-top: 8px;">
+                清除所有备份和设置(不影响实际书签)
+              </div>
+            </div>
+          </div>
+          
+          <div class="info-box">
+            <strong>ℹ️ 关于数据存储:</strong><br>
+            Chrome扩展的数据存储在浏览器的沙盒环境中,无法指定自定义路径。<br>
+            如需备份到其他位置,请使用"导出备份"功能下载JSON文件。
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- 消息提示 -->
+    <div id="messageBox" class="message-box hidden"></div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "categories": [
+    {
+      "name": "技术开发",
+      "keywords": ["github", "stackoverflow", "mdn", "dev", "code", "编程", "开发", "技术", "程序员", "算法", "数据结构"],
+      "domains": ["github.com", "stackoverflow.com", "mdn.mozilla.org", "developer.mozilla.org", "leetcode.com"]
+    },
+    {
+      "name": "学习资源",
+      "keywords": ["tutorial", "course", "learn", "教程", "课程", "学习", "教育", "培训", "讲座"],
+      "domains": ["coursera.org", "udemy.com", "edx.org", "khanacademy.org", "bilibili.com"]
+    },
+    {
+      "name": "新闻资讯",
+      "keywords": ["news", "新闻", "资讯", "报道", "头条", "媒体", "日报", "周刊"],
+      "domains": ["bbc.com", "cnn.com", "reuters.com", "theguardian.com", "nytimes.com"]
+    },
+    {
+      "name": "社交媒体",
+      "keywords": ["social", "社交", "微博", "微信", "朋友圈", "动态"],
+      "domains": ["twitter.com", "facebook.com", "instagram.com", "weibo.com", "linkedin.com"]
+    },
+    {
+      "name": "购物电商",
+      "keywords": ["shop", "store", "buy", "购物", "电商", "商城", "淘宝", "京东", "拼多多"],
+      "domains": ["amazon.com", "taobao.com", "jd.com", "pinduoduo.com", "ebay.com"]
+    },
+    {
+      "name": "娱乐休闲",
+      "keywords": ["game", "movie", "music", "游戏", "电影", "音乐", "娱乐", "视频", "动漫"],
+      "domains": ["youtube.com", "netflix.com", "spotify.com", "twitch.tv", "bilibili.com"]
+    },
+    {
+      "name": "工作办公",
+      "keywords": ["work", "office", "document", "工作", "办公", "文档", "邮件", "会议", "项目"],
+      "domains": ["docs.google.com", "office.com", "notion.so", "slack.com", "zoom.us"]
+    },
+    {
+      "name": "博客文章",
+      "keywords": ["blog", "article", "post", "博客", "文章", "随笔", "日志", "心得"],
+      "domains": ["medium.com", "zhihu.com", "juejin.cn", "csdn.net", "wordpress.com"]
+    },
+    {
+      "name": "工具网站",
+      "keywords": ["tool", "utility", "converter", "工具", "在线", "转换", "生成器", "计算器"],
+      "domains": ["canva.com", "figma.com", "draw.io", "tinyurl.com"]
+    },
+    {
+      "name": "金融理财",
+      "keywords": ["finance", "bank", "stock", "金融", "银行", "股票", "基金", "理财", "投资"],
+      "domains": ["alipay.com", "paypal.com", "stripe.com", "eastmoney.com"]
+    }
+  ]
+}

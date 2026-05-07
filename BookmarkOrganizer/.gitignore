@@ -1,0 +1,44 @@
+# Chrome扩展开发 - .gitignore
+
+# 图标PNG文件(需要从SVG生成)
+icons/*.png
+
+# 临时文件
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE配置
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 日志文件
+*.log
+npm-debug.log*
+
+# 依赖目录(如果有)
+node_modules/
+
+# 构建输出
+dist/
+build/
+
+# 测试覆盖率
+coverage/
+
+# 环境变量
+.env
+.env.local
+
+# Windows保留设备名
+nul
+NUL

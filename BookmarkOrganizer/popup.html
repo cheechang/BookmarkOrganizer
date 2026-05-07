@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>书签整理工具</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📚 书签整理工具</h1>
+      <p class="subtitle">智能分类 · 去重 · 备份</p>
+    </header>
+
+    <!-- 主控制面板 -->
+    <section class="control-panel">
+      <button id="scanBtn" class="btn btn-primary">
+        🔍 开始扫描分析
+      </button>
+      <button id="backupBtn" class="btn btn-secondary">
+        💾 立即备份
+      </button>
+    </section>
+
+    <!-- 进度条 -->
+    <div id="progressContainer" class="progress-container hidden">
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+      <p id="progressText" class="progress-text">正在分析...</p>
+    </div>
+
+    <!-- 统计信息 -->
+    <div id="statsPanel" class="stats-panel hidden">
+      <div class="stat-item">
+        <span class="stat-value" id="totalBookmarks">0</span>
+        <span class="stat-label">总书签数</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="uncategorizedCount">0</span>
+        <span class="stat-label">未分类</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="duplicatesCount">0</span>
+        <span class="stat-label">重复项</span>
+      </div>
+    </div>
+
+    <!-- 标签页导航 -->
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="categories">分类建议</button>
+      <button class="tab-btn" data-tab="duplicates">重复检测</button>
+      <button class="tab-btn" data-tab="backups">备份管理</button>
+    </nav>
+
+    <!-- 可滚动内容区域 -->
+    <div class="scrollable-content">
+      <!-- 分类建议面板 -->
+      <div id="categoriesTab" class="tab-content active">
+        <div id="categoriesList" class="categories-list">
+          <p class="empty-state">点击"开始扫描分析"查看分类建议</p>
+        </div>
+      </div>
+
+      <!-- 重复检测面板 -->
+      <div id="duplicatesTab" class="tab-content">
+        <div id="duplicatesList" class="duplicates-list">
+          <p class="empty-state">点击"开始扫描分析"检测重复书签</p>
+        </div>
+      </div>
+
+      <!-- 备份管理面板 -->
+      <div id="backupsTab" class="tab-content">
+        <div class="backup-controls">
+          <label class="checkbox-label">
+            <input type="checkbox" id="autoBackupToggle">
+            <span>启用自动备份</span>
+          </label>
+        </div>
+        <div id="backupsList" class="backups-list">
+          <p class="empty-state">暂无备份记录</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 固定底部操作按钮 -->
+    <div class="fixed-actions">
+      <button id="applyCategoriesBtn" class="btn btn-success hidden">
+        ✓ 应用分类
+      </button>
+      <button id="removeDuplicatesBtn" class="btn btn-danger hidden">
+        🗑 清理选中的重复项
+      </button>
+    </div>
+
+    <!-- 消息提示 -->
+    <div id="messageBox" class="message-box hidden"></div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
