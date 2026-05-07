@@ -1,106 +1,97 @@
-# Bookmark Organizer - Chrome书签整理插件
+# Bookmark Organizer
 
-一个智能的Chrome浏览器书签管理工具,支持自动分类、重复检测、备份恢复等功能。
+整理浏览器书签这件事，越拖越痛苦。攒了几百个书签之后，找东西全靠搜索，收藏夹形同虚设。这个扩展就是用来解决这个问题的。
 
-## 功能特性
+Bookmark Organizer 是一个 Chrome 扩展，能帮你自动把杂乱的 bookmark 归类、找出重复收藏的网站、还能在操作前自动备份，搞砸了也能一键恢复。所有数据处理都在本地完成，不上传任何东西到服务器。
 
-### 1. 智能分类
-- 基于关键词和域名自动分析书签
-- 提供置信度评分(高/中/低)
-- 支持10+预定义分类规则
-- 可手动选择要应用的分类
+---
+
+## 能做什么
+
+### 1. 自动分类
+扫描你的全部书签，根据标题、URL 和域名自动推荐分类。比如把含 "github"、"stackoverflow" 的归为"开发"，把 "bilibili"、"youtube" 的归为"娱乐"。每个分类建议会附带一个置信度评分（高/中/低），你可以选择性应用，不满意也可以取消勾选。
+
+分类规则写在 `rules/categories.json` 里，你可以自己加新的分类或者改关键词，不需要改代码。
 
 ### 2. 重复检测
-- 检测完全重复(URL相同)的书签
-- 检测相似重复(同域名且标题相似)的书签
-- 显示相似度百分比
-- 一键清理重复项
+找出两种重复：
+- **完全重复**：URL 完全相同的 bookmark
+- **相似重复**：同域名下标题高度相似的书签（比如 "React - 官方文档" 和 "React Docs"）
 
-### 3. 备份与恢复
-- 整理前自动备份
-- 手动即时备份
-- 保留最近10个备份版本
-- 一键恢复到任意备份点
+检测结果的顶部会显示一组标签，每个标签对应一个重复分组，点击标签就能只看那一组的重复项。每组里可以批量勾选删除，也可以单独点右侧的 🗑 按钮删掉某一个。删除后页面会立刻刷新，不需要重新扫描。
 
-### 4. 文件夹管理
-- 自动创建分类文件夹
-- 批量移动书签到对应文件夹
-- 保持原有书签结构
+鼠标悬停在标签上时，会显示完整的书签标题和 URL，方便确认。
 
-## 安装方法
+### 3. 备份与回滚
+扫描前会自动创建一份备份，保存你当前完整的书签树结构。备份存在浏览器的 `chrome.storage.local` 里，保留最近 10 份，旧的自动清理。任何时候觉得分类搞乱了，进"备份管理"页面点"恢复"就能回退。
 
-### 开发者模式安装
+也支持手动导出备份成 JSON 文件，存到电脑上，换电脑或者重装浏览器时可以直接导入。
 
-1. **下载项目**
+### 4. 两种界面
+点击工具栏图标直接打开**完整版页面**（`options.html`），左侧有导航栏，包含扫描、分类、重复检测、备份管理、设置五个页面，不会随点击外部而关闭。
+
+如果你只需要快速操作，完整版页面里也可以切回弹窗模式（popup），适合临时查看。
+
+---
+
+## 安装
+
+### 方式一：开发者模式加载（适合测试或自用）
+
+1. 克隆仓库到本地：
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/cheechang/BookmarkOrganizer.git
    cd BookmarkOrganizer
    ```
 
-2. **准备图标文件**
-   
-   将 `icons/` 目录下的SVG文件转换为PNG格式:
-   - icon16.png (16x16像素)
-   - icon48.png (48x48像素)
-   - icon128.png (128x128像素)
-   
-   可以使用在线工具如 https://cloudconvert.com/svg-to-png
+2. 确保 `icons/` 目录下有以下 PNG 文件（尺寸必须准确）：
+   - `icon16.png` — 16×16
+   - `icon48.png` — 48×48
+   - `icon128.png` — 128×128
 
-3. **加载到Chrome**
-   - 打开Chrome浏览器
-   - 访问 `chrome://extensions/`
-   - 开启右上角的"开发者模式"
-   - 点击"加载已解压的扩展程序"
-   - 选择 `BookmarkOrganizer` 文件夹
+   如果只有 SVG，可以用任意在线转换工具生成。
 
-4. **开始使用**
-   - 点击浏览器工具栏中的插件图标
-   - 点击"开始扫描分析"按钮
-   - 查看分类建议和重复检测结果
-   - 应用分类或清理重复项
+3. 打开 Chrome，进入 `chrome://extensions/`，开启右上角"开发者模式"。
 
-## 使用方法
+4. 点击"加载已解压的扩展程序"，选择本项目根目录。
 
-### 扫描分析
+5. 工具栏会出现扩展图标，点击即可使用。
 
-1. 点击插件图标打开弹窗
-2. 点击"🔍 开始扫描分析"按钮
-3. 等待分析完成(会自动备份)
-4. 查看统计信息
+### 方式二：Chrome Web Store（审核通过后）
 
-### 应用分类
+后续会提交到 Chrome Web Store，届时可以直接搜索安装。
 
-1. 切换到"分类建议"标签页
-2. 查看各分类下的书签列表
-3. 取消勾选不想移动的书签
-4. 点击"✓ 应用分类"按钮
-5. 确认操作,等待完成
+---
 
-### 清理重复
+## 用法
 
-1. 切换到"重复检测"标签页
-2. 查看重复书签组
-3. 每组选择一个要保留的书签(单选框)
-4. 点击"🗑 清理选中的重复项"
-5. 确认删除操作
+**第一步：扫描**
 
-### 备份管理
+打开扩展后点击"开始扫描分析"。扩展会遍历你的全部书签，分析未分类数量、重复项数量和已分类数量。扫描前会自动创建一个备份。
 
-1. 切换到"备份管理"标签页
-2. 查看历史备份列表
-3. 点击"恢复"按钮恢复到指定备份
-4. 点击"删除"按钮删除不需要的备份
-5. 可以开启/关闭自动备份功能
+**第二步：分类**
+
+切换到"分类建议"页面，你会看到推荐的文件夹结构和每个书签该去的地方。取消不想移动的项，然后点"应用选中的分类"。扩展会自动创建不存在的文件夹，并把书签移过去。
+
+**第三步：去重**
+
+切换到"重复检测"页面，顶部有一排标签，显示每个重复组的名称和数量。点击某个标签筛选该组，勾选你想删的项（至少保留一个），点"清理选中的重复项"。也可以直接点单个书签右侧的删除按钮。
+
+**第四步：备份管理**
+
+在"备份管理"页面可以看到所有历史备份。每个备份显示创建时间和书签数量。点"恢复"可以回退，点"删除"可以释放存储空间。建议定期导出重要备份到本地 JSON 文件。
+
+---
 
 ## 自定义分类规则
 
-编辑 `rules/categories.json` 文件来自定义分类:
+编辑 `rules/categories.json`，按以下格式添加：
 
 ```json
 {
   "categories": [
     {
-      "name": "你的分类名称",
+      "name": "你的分类",
       "keywords": ["关键词1", "关键词2"],
       "domains": ["example.com", "test.org"]
     }
@@ -108,70 +99,100 @@
 }
 ```
 
-修改后需要重新加载插件才能生效。
+修改后需要在 `chrome://extensions/` 页面点击扩展卡片上的刷新按钮重新加载。
 
-## 技术架构
+---
 
-- **Manifest V3**: 最新的Chrome扩展规范
-- **纯前端实现**: 无需后端服务器
-- **本地存储**: 使用Chrome Storage API
-- **异步处理**: 避免阻塞UI线程
+## 项目结构
 
-## 文件结构
+| 文件/目录 | 说明 |
+|---|---|
+| `manifest.json` | 扩展配置，Manifest V3 |
+| `background.js` | Service Worker，处理安装事件和图标点击 |
+| `popup.html` / `popup.css` / `popup.js` | 弹窗界面（快速模式） |
+| `options.html` / `options.css` / `options.js` | 完整版独立页面 |
+| `utils.js` | 公共工具函数：分类引擎、重复检测算法、备份逻辑、书签操作 |
+| `rules/categories.json` | 默认分类规则 |
+| `icons/` | 扩展图标（16px、48px、128px） |
+| `docs/` | 开发文档和变更记录 |
+| `PRIVACY_POLICY.md` | 隐私政策（上架 Chrome Web Store 所需） |
 
-```
-BookmarkOrganizer/
-├── manifest.json          # 插件配置
-├── popup.html             # 弹窗界面
-├── popup.css              # 样式文件
-├── popup.js               # 交互逻辑
-├── background.js          # 后台服务
-├── utils.js               # 工具函数库
-├── rules/
-│   └── categories.json    # 分类规则
-└── icons/
-    ├── icon16.png
-    ├── icon48.png
-    └── icon128.png
-```
+核心逻辑主要在 `utils.js` 里：
+- `analyzeBookmarks()` — 扫描并生成分类建议和重复检测结果
+- `detectDuplicates()` — 基于 URL 和标题相似度检测重复
+- `createBackup()` / `restoreBackup()` — 备份创建与恢复
+- `batchMoveBookmarks()` — 批量移动书签到指定文件夹
 
-## 注意事项
+---
 
-⚠️ **重要提示**:
+## 技术细节
 
-1. **首次使用前建议手动备份**: 虽然插件会自动备份,但建议先通过Chrome书签管理器导出备份
-2. **大量书签可能需要较长时间**: 如果有数千个书签,分析可能需要几分钟
-3. **回滚操作不可逆**: 恢复备份会覆盖当前所有书签,请谨慎操作
-4. **定期清理旧备份**: 备份数据占用存储空间,建议定期删除不需要的备份
+- **Manifest V3**，纯前端实现，没有后端服务
+- 全部数据走 `chrome.storage.local`，不联网
+- CSP 合规：没有内联 `onclick`，所有事件通过 `addEventListener` 绑定
+- 相似度算法基于 Levenshtein 距离（编辑距离），阈值可在设置页面调整（默认 80%）
+- 删除文件夹时自动用 `removeTree` 处理非空目录，避免 `remove()` 抛异常
 
-## 常见问题
+---
 
-### Q: 为什么有些书签没有被分类?
-A: 如果书签的标题和URL都不包含任何分类规则的关键词,且域名也不匹配,则不会被分类。你可以添加新的分类规则。
+## 已知限制
 
-### Q: 如何调整相似度阈值?
-A: 目前硬编码为0.8(80%),可以在后续版本中添加设置选项。
+- 如果书签数量在几千以上，扫描可能需要几秒钟，UI 会显示进度条
+- 备份数据存储在浏览器本地，卸载扩展后会丢失，重要备份请导出到文件
+- 分类规则目前只能手动编辑 JSON，暂不支持在 UI 里增删改
 
-### Q: 备份数据存储在哪里?
-A: 存储在Chrome的本地存储中(`chrome.storage.local`),不会同步到云端。
+---
 
-### Q: 可以撤销操作吗?
-A: 可以通过备份恢复功能撤销,但会恢复到备份时的完整状态。
+## 截图
 
-## 开发计划
+> 以下截图需要在安装扩展后手动截取并替换为实际图片。
 
-- [ ] 添加更多分类规则
-- [ ] 支持用户自定义规则界面
-- [ ] 优化大批量书签处理性能
-- [ ] 添加书签搜索功能
-- [ ] 支持导出/导入分类规则
-- [ ] 添加统计分析图表
-- [ ] 支持多语言界面
+**扫描分析页面**  
+![扫描分析](docs/screenshots/scan.png)
+
+**分类建议页面**  
+![分类建议](docs/screenshots/categories.png)
+
+**重复检测 — 标签筛选**  
+![重复检测](docs/screenshots/duplicates.png)
+
+**备份管理**  
+![备份管理](docs/screenshots/backups.png)
+
+---
 
 ## 许可证
 
+本项目采用 [MIT License](LICENSE) 开源。
+
+简单来说，你可以自由地使用、修改、分发这份代码，包括用于商业项目。唯一的要求是在分发时保留原始许可证和版权声明。
+
+```
 MIT License
 
-## 反馈与支持
+Copyright (c) 2026 cheechang
 
-如有问题或建议,欢迎提交Issue或Pull Request。
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+---
+
+## 反馈
+
+有问题或建议可以提 [Issue](https://github.com/cheechang/BookmarkOrganizer/issues)。代码还在持续迭代中，欢迎 PR。
