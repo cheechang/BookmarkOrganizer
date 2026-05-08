@@ -4,6 +4,7 @@ let categories = [];
 let analysisResults = [];
 let duplicates = [];
 let selectedBookmarks = new Set();
+let currentSettings = {};
 
 // 初始化
 document.addEventListener('DOMContentLoaded', async () => {
@@ -31,6 +32,7 @@ async function loadCategories() {
 async function loadSettings() {
   const result = await chrome.storage.local.get('settings');
   const settings = result.settings || {};
+  currentSettings = settings;
   
   // 自动备份
   const autoBackupSetting = document.getElementById('autoBackupSetting');
@@ -54,6 +56,21 @@ async function loadSettings() {
       thresholdValue.textContent = e.target.value;
       settings.similarityThreshold = parseInt(e.target.value);
       await chrome.storage.local.set({ settings });
+    });
+  }
+  
+  // 显示书签路径
+  const showPathSetting = document.getElementById('showPathSetting');
+  if (showPathSetting) {
+    showPathSetting.checked = settings.showPath !== false;
+    showPathSetting.addEventListener('change', async (e) => {
+      settings.showPath = e.target.checked;
+      await chrome.storage.local.set({ settings });
+      showMessage('设置已保存', 'success');
+      // 如果当前有重复检测数据，立即刷新显示
+      if (duplicates.length > 0) {
+        displayDuplicatesFull(currentFilterGroupFull);
+      }
     });
   }
 }
@@ -396,7 +413,8 @@ function displayDuplicatesFull(filterGroupIndex = null) {
     `;
     
     group.items.forEach((item, idx) => {
-      const pathHtml = item.path ? 
+      const showPath = currentSettings.showPath !== false;
+      const pathHtml = (showPath && item.path) ? 
         `<div class="bookmark-path">📁 ${escapeHtml(item.path)}</div>` : '';
       
       html += `

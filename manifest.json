@@ -1,8 +1,11 @@
 {
   "manifest_version": 3,
   "name": "Bookmark Organizer",
+  "short_name": "书签整理",
   "version": "1.2.1",
   "description": "智能书签整理工具 - 自动分类、去重、备份和恢复",
+  "author": "cheechang",
+  "homepage_url": "https://github.com/cheechang/BookmarkOrganizer",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",

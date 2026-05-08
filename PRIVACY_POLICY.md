@@ -54,7 +54,7 @@ Bookmark Organizer（以下简称"本扩展"）尊重并保护用户的隐私。
 ## 8. 联系方式
 
 如有任何隐私相关的问题或顾虑，请通过 GitHub Issues 联系我们：
-https://github.com/cheechang/MommyBaby/issues
+https://github.com/cheechang/BookmarkOrganizer/issues
 
 ## 9. 政策更新
 

@@ -734,12 +734,6 @@ body {
   border-radius: 6px;
 }
 
-.duplicate-item input[type="radio"] {
-  margin-right: 12px;
-  width: 18px;
-  height: 18px;
-}
-
 .duplicate-item .bookmark-info {
   flex: 1;
   min-width: 0;

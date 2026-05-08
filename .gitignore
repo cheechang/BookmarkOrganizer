@@ -39,3 +39,6 @@ coverage/
 # Windows保留设备名
 nul
 NUL
+
+# AI开发工具
+.lingma/

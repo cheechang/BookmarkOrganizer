@@ -4,6 +4,7 @@ let categories = [];
 let analysisResults = [];
 let duplicates = [];
 let selectedBookmarks = new Set();
+let currentSettings = {};
 
 // 初始化
 document.addEventListener('DOMContentLoaded', async () => {
@@ -30,6 +31,7 @@ async function loadCategories() {
 async function loadSettings() {
   const result = await chrome.storage.local.get('settings');
   const settings = result.settings || {};
+  currentSettings = settings;
   
   const autoBackupToggle = document.getElementById('autoBackupToggle');
   autoBackupToggle.checked = settings.autoBackup !== false;
@@ -311,7 +313,8 @@ function displayDuplicates(filterGroupIndex = null) {
     `;
     
     group.items.forEach((item, idx) => {
-      const pathHtml = item.path ? 
+      const showPath = currentSettings.showPath !== false;
+      const pathHtml = (showPath && item.path) ? 
         `<div class="bookmark-path">📁 ${escapeHtml(item.path)}</div>` : '';
       
       html += `
