@@ -321,6 +321,10 @@ function displayDuplicates(filterGroupIndex = null) {
       const pathHtml = (showPath && item.path) ? 
         `<div class="bookmark-path">📁 ${escapeHtml(item.path)}</div>` : '';
       
+      // 智能默认勾选：优先保留书签栏中的副本
+      const hasBookmarksBarItem = group.items.some(i => i.inBookmarksBar);
+      const shouldCheck = hasBookmarksBarItem ? !item.inBookmarksBar : (idx !== 0);
+      
       html += `
         <div class="duplicate-item">
           <input type="checkbox" name="duplicate-${actualIndex}-${idx}" 
@@ -328,7 +332,7 @@ function displayDuplicates(filterGroupIndex = null) {
                  class="duplicate-checkbox"
                  data-id="${item.id}"
                  data-group="${actualIndex}"
-                 ${idx === 0 && filterGroupIndex === null ? 'checked' : ''}>
+                 ${shouldCheck ? 'checked' : ''}>
           <div class="bookmark-info">
             <div class="bookmark-title">${escapeHtml(item.title)}</div>
             <div class="bookmark-url">${escapeHtml(item.url)}</div>

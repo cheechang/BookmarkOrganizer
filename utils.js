@@ -108,18 +108,25 @@ async function getBookmarksPaths(bookmarkIds) {
     let currentNode = nodeMap[id];
     
     if (!currentNode) {
-      paths[id] = '未知位置';
+      paths[id] = { path: '未知位置', inBookmarksBar: false };
       continue;
     }
     
     let parentId = currentNode.parentId;
+    let inBookmarksBar = false;
     
     while (parentId && parentId !== '0' && nodeMap[parentId]) {
+      if (parentId === '1') {
+        inBookmarksBar = true;
+      }
       path.unshift(nodeMap[parentId].title);
       parentId = nodeMap[parentId].parentId;
     }
     
-    paths[id] = path.length > 0 ? path.join(' > ') : '书签栏';
+    paths[id] = {
+      path: path.length > 0 ? path.join(' > ') : '书签栏',
+      inBookmarksBar
+    };
   }
   
   return paths;
@@ -343,7 +350,9 @@ async function detectDuplicates(similarityThreshold = 0.8) {
     // 将路径信息添加到每个书签
     duplicates.forEach(group => {
       group.items.forEach(item => {
-        item.path = pathsMap[item.id] || '未知位置';
+        const info = pathsMap[item.id] || { path: '未知位置', inBookmarksBar: false };
+        item.path = info.path;
+        item.inBookmarksBar = info.inBookmarksBar;
       });
     });
   }
