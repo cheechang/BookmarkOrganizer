@@ -321,9 +321,9 @@ function displayDuplicates(filterGroupIndex = null) {
       const pathHtml = (showPath && item.path) ? 
         `<div class="bookmark-path">📁 ${escapeHtml(item.path)}</div>` : '';
       
-      // 智能默认勾选：优先保留书签栏中的副本
-      const hasBookmarksBarItem = group.items.some(i => i.inBookmarksBar);
-      const shouldCheck = hasBookmarksBarItem ? !item.inBookmarksBar : (idx !== 0);
+      // 智能默认勾选：优先保留书签栏中的副本；若全组都在书签栏中，则保留第一个
+      const nonBarItems = group.items.filter(i => !i.inBookmarksBar);
+      const shouldCheck = nonBarItems.length > 0 ? !item.inBookmarksBar : (idx !== 0);
       
       html += `
         <div class="duplicate-item">
