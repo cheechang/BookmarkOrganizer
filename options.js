@@ -209,8 +209,7 @@ async function handleFullScan() {
     
     // 检测重复
     progressText.textContent = '正在检测重复...';
-    const settings = (await chrome.storage.local.get('settings')).settings || {};
-    const threshold = (settings.similarityThreshold || 80) / 100;
+    const threshold = (currentSettings.similarityThreshold || 80) / 100;
     duplicates = await detectDuplicates(threshold);
     
     // 显示统计信息

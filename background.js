@@ -23,6 +23,7 @@ async function initializeDefaultSettings() {
     autoBackup: true,
     backupInterval: 24, // 小时
     similarityThreshold: 80,
+    showPath: true,
     lastBackup: null
   };
   

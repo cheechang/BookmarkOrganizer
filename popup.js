@@ -127,7 +127,8 @@ async function handleScan() {
     
     // 检测重复
     progressText.textContent = '正在检测重复...';
-    duplicates = await detectDuplicates();
+    const threshold = (currentSettings.similarityThreshold || 80) / 100;
+    duplicates = await detectDuplicates(threshold);
     
     // 显示统计信息
     displayStats(bookmarks.length, duplicates.length);
@@ -181,6 +182,9 @@ function displayCategories() {
       grouped[catName].push(result);
     }
   }
+  
+  // 清空之前的选择状态
+  selectedBookmarks.clear();
   
   if (Object.keys(grouped).length === 0) {
     container.innerHTML = '<p class="empty-state">未找到可分类的书签</p>';
