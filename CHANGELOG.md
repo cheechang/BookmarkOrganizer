@@ -69,7 +69,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Tab-style filter tags in the duplicate detection page for quick group filtering.
 - Tooltip on filter tags showing full bookmark title and URL on hover.
 - `short_name`, `author`, and `homepage_url` fields in `manifest.json` for Edge store compatibility.
-- Privacy policy (`PRIVACY_POLICY.md`) for Chrome Web Store submission.
+- Privacy policy (`PRIVACY_POLICY.md`) for browser extension store submission.
 - Placeholder directory for screenshots (`docs/screenshots/`).
 
 ### Fixed

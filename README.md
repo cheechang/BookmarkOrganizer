@@ -2,7 +2,7 @@
 
 整理浏览器书签这件事，越拖越痛苦。攒了几百个书签之后，找东西全靠搜索，收藏夹形同虚设。这个扩展就是用来解决这个问题的。
 
-Bookmark Organizer 是一个 Chrome 扩展，能帮你自动把杂乱的 bookmark 归类、找出重复收藏的网站、还能在操作前自动备份，搞砸了也能一键恢复。所有数据处理都在本地完成，不上传任何东西到服务器。
+Bookmark Organizer 是一个浏览器扩展，能帮你自动把杂乱的 bookmark 归类、找出重复收藏的网站、还能在操作前自动备份，搞砸了也能一键恢复。所有数据处理都在本地完成，不上传任何东西到服务器。
 
 ---
 
@@ -23,7 +23,7 @@ Bookmark Organizer 是一个 Chrome 扩展，能帮你自动把杂乱的 bookmar
 鼠标悬停在标签上时，会显示完整的书签标题和 URL，方便确认。
 
 ### 3. 备份与回滚
-扫描前会自动创建一份备份，保存你当前完整的书签树结构。备份存在浏览器的 `chrome.storage.local` 里，保留最近 10 份，旧的自动清理。任何时候觉得分类搞乱了，进"备份管理"页面点"恢复"就能回退。
+扫描前会自动创建一份备份，保存你当前完整的书签树结构。备份存在浏览器的本地存储里，保留最近 10 份，旧的自动清理。任何时候觉得分类搞乱了，进"备份管理"页面点"恢复"就能回退。
 
 也支持手动导出备份成 JSON 文件，存到电脑上，换电脑或者重装浏览器时可以直接导入。
 
@@ -49,15 +49,15 @@ Bookmark Organizer 是一个 Chrome 扩展，能帮你自动把杂乱的 bookmar
 
    如果只有 SVG，可以用任意在线转换工具生成。
 
-3. 打开 Chrome，进入 `chrome://extensions/`，开启右上角"开发者模式"。
+3. 打开浏览器扩展管理页面（Edge 输入 `edge://extensions/`，Chrome 输入 `chrome://extensions/`），开启右上角"开发者模式"。
 
 4. 点击"加载已解压的扩展程序"，选择本项目根目录。
 
 5. 工具栏会出现扩展图标，点击即可使用。
 
-### 方式二：Chrome Web Store
+### 方式二：浏览器扩展商店
 
-已提交至 Chrome Web Store，审核通过后即可搜索 "Bookmark Organizer" 安装。
+已提交至 Microsoft Edge Add-ons 和 Chrome Web Store，审核通过后即可搜索 "Bookmark Organizer" 安装。
 
 ---
 
@@ -97,7 +97,7 @@ Bookmark Organizer 是一个 Chrome 扩展，能帮你自动把杂乱的 bookmar
 }
 ```
 
-修改后需要在 `chrome://extensions/` 页面点击扩展卡片上的刷新按钮重新加载。
+修改后需要在扩展管理页面点击扩展卡片上的刷新按钮重新加载。
 
 ---
 
@@ -113,7 +113,7 @@ Bookmark Organizer 是一个 Chrome 扩展，能帮你自动把杂乱的 bookmar
 | `rules/categories.json` | 默认分类规则 |
 | `icons/` | 扩展图标（16px、48px、128px） |
 | `docs/` | 开发文档和变更记录 |
-| `PRIVACY_POLICY.md` | 隐私政策（上架 Chrome Web Store 所需） |
+| `PRIVACY_POLICY.md` | 隐私政策（上架浏览器扩展商店所需） |
 
 核心逻辑主要在 `utils.js` 里：
 - `analyzeBookmarks()` — 扫描并生成分类建议和重复检测结果
@@ -126,7 +126,7 @@ Bookmark Organizer 是一个 Chrome 扩展，能帮你自动把杂乱的 bookmar
 ## 技术细节
 
 - **Manifest V3**，纯前端实现，没有后端服务
-- 全部数据走 `chrome.storage.local`，不联网
+- 全部数据走浏览器 Storage API，不联网
 - CSP 合规：没有内联 `onclick`，所有事件通过 `addEventListener` 绑定
 - 相似度算法基于 Levenshtein 距离（编辑距离），阈值可在设置页面调整（默认 80%）
 - 删除文件夹时自动用 `removeTree` 处理非空目录，避免 `remove()` 抛异常
