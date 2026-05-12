@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.4.0] - 2026-04-23
+
+### Added
+
+- **Full Internationalization (i18n) Support**
+  - Added support for 5 languages: English (en), Chinese Simplified (zh-CN), Spanish (es), Japanese (ja), and German (de).
+  - Created `_locales/` directory with complete `messages.json` for each language.
+  - Added `i18n.js` runtime translation module supporting async loading, language switching, and fallback to English.
+  - Integrated language selector (`<select id="langSelector">`) in both `popup.html` and `options.html`.
+  - All UI strings in `popup.js` and `options.js` now use `_t()` instead of hardcoded text.
+  - Dynamic content (categories, duplicates, backups) re-renders automatically on language change via `localeChanged` event.
+  - Language preference is persisted in `chrome.storage.local` and restored on next open.
+  - `manifest.json` updated with `__MSG_*__` placeholders and `"default_locale": "en"` for Edge/Web Store compliance.
+
+---
+
 ## [1.3.0] - 2026-04-23
 
 ### Added
