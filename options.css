@@ -30,8 +30,34 @@ body {
 }
 
 .sidebar-header {
-  padding: 30px 20px;
+  padding: 30px 20px 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 语言选择器 */
+.lang-selector-container {
+  margin-top: 10px;
+}
+
+.lang-selector {
+  width: 100%;
+  padding: 5px 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.1);
+  font-size: 12px;
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.lang-selector:hover {
+  border-color: rgba(255,255,255,0.4);
+}
+
+.lang-selector option {
+  background: #2d3748;
+  color: white;
 }
 
 .sidebar-header h1 {

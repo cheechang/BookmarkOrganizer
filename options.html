@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>书签整理工具 - 完整版</title>
+  <title data-i18n="extName">Bookmark Organizer</title>
   <link rel="stylesheet" href="options.css">
 </head>
 <body>
@@ -11,36 +11,39 @@
     <!-- 侧边栏 -->
     <aside class="sidebar">
       <div class="sidebar-header">
-        <h1>📚 书签整理</h1>
-        <p class="subtitle">完整功能版</p>
+        <h1 data-i18n="appTitle">📚 Bookmark Organizer</h1>
+        <p class="subtitle" data-i18n="appSubtitleFull">Full Feature Version</p>
+        <div class="lang-selector-container">
+          <select id="langSelector" class="lang-selector" title="Select Language"></select>
+        </div>
       </div>
       
       <nav class="sidebar-nav">
         <button class="nav-item active" data-page="scan">
           <span class="nav-icon">🔍</span>
-          <span class="nav-text">扫描分析</span>
+          <span class="nav-text" data-i18n="navScan">Scan Analysis</span>
         </button>
         <button class="nav-item" data-page="categories">
           <span class="nav-icon">📂</span>
-          <span class="nav-text">分类建议</span>
+          <span class="nav-text" data-i18n="navCategories">Categories</span>
         </button>
         <button class="nav-item" data-page="duplicates">
           <span class="nav-icon">🔄</span>
-          <span class="nav-text">重复检测</span>
+          <span class="nav-text" data-i18n="navDuplicates">Duplicates</span>
         </button>
         <button class="nav-item" data-page="backups">
           <span class="nav-icon">💾</span>
-          <span class="nav-text">备份管理</span>
+          <span class="nav-text" data-i18n="navBackups">Backups</span>
         </button>
         <button class="nav-item" data-page="settings">
           <span class="nav-icon">⚙️</span>
-          <span class="nav-text">设置</span>
+          <span class="nav-text" data-i18n="navSettings">Settings</span>
         </button>
       </nav>
       
       <div class="sidebar-footer">
-        <button id="openPopupBtn" class="btn btn-outline">
-          返回快速模式
+        <button id="openPopupBtn" class="btn btn-outline" data-i18n="btnReturnQuick">
+          Quick Mode
         </button>
       </div>
     </aside>
@@ -50,25 +53,25 @@
       <!-- 扫描分析页面 -->
       <div id="scanPage" class="page active">
         <header class="page-header">
-          <h2>扫描分析</h2>
-          <p>分析所有书签,提供分类建议和重复检测</p>
+          <h2 data-i18n="navScan">Scan Analysis</h2>
+          <p data-i18n="scanPageDesc">Analyze all bookmarks, provide category suggestions and duplicate detection</p>
         </header>
         
         <div class="content-body">
           <div class="action-cards">
             <div class="action-card primary">
-              <h3>开始扫描</h3>
-              <p>分析书签并自动备份</p>
-              <button id="fullScanBtn" class="btn btn-primary btn-lg">
-                🔍 开始完整扫描
+              <h3 data-i18n="cardScanTitle">Start Scan</h3>
+              <p data-i18n="cardScanDesc">Analyze bookmarks and auto backup</p>
+              <button id="fullScanBtn" class="btn btn-primary btn-lg" data-i18n="btnScanFull">
+                🔍 Start Full Scan
               </button>
             </div>
             
             <div class="action-card">
-              <h3>快速备份</h3>
-              <p>立即创建书签备份</p>
-              <button id="quickBackupBtn" class="btn btn-secondary">
-                💾 立即备份
+              <h3 data-i18n="cardBackupTitle">Quick Backup</h3>
+              <p data-i18n="cardBackupDesc">Create bookmark backup immediately</p>
+              <button id="quickBackupBtn" class="btn btn-secondary" data-i18n="btnBackupNow">
+                💾 Backup Now
               </button>
             </div>
           </div>
@@ -78,33 +81,32 @@
             <div class="progress-bar">
               <div id="progressFill" class="progress-fill"></div>
             </div>
-            <p id="progressText" class="progress-text">正在分析...</p>
+            <p id="progressText" class="progress-text" data-i18n="progressAnalyzing">Analyzing...</p>
           </div>
           
           <!-- 统计信息 -->
           <div id="statsPanel" class="stats-panel hidden">
             <div class="stat-card">
               <div class="stat-value" id="totalBookmarks">0</div>
-              <div class="stat-label">总书签数</div>
+              <div class="stat-label" data-i18n="labelTotalBookmarks">Total Bookmarks</div>
             </div>
             <div class="stat-card">
               <div class="stat-value" id="uncategorizedCount">0</div>
-              <div class="stat-label">未分类</div>
+              <div class="stat-label" data-i18n="labelUncategorized">Uncategorized</div>
             </div>
             <div class="stat-card">
               <div class="stat-value" id="duplicatesCount">0</div>
-              <div class="stat-label">重复项</div>
+              <div class="stat-label" data-i18n="labelDuplicates">Duplicates</div>
             </div>
             <div class="stat-card">
               <div class="stat-value" id="categorizedCount">0</div>
-              <div class="stat-label">已分类</div>
+              <div class="stat-label" data-i18n="labelCategorized">Categorized</div>
             </div>
           </div>
           
           <div class="info-box">
-            <strong>💡 提示:</strong> 
-            扫描完成后,可以在左侧导航切换到"分类建议"或"重复检测"页面查看详细结果。
-            此页面不会因失焦而关闭,可以持续操作。
+            <strong data-i18n="infoTip">💡 Tip:</strong> 
+            <span data-i18n="infoScanTip">After scanning, switch to Categories or Duplicates page via left navigation to view detailed results. This page will not close on blur.</span>
           </div>
         </div>
       </div>
@@ -112,25 +114,25 @@
       <!-- 分类建议页面 -->
       <div id="categoriesPage" class="page">
         <header class="page-header">
-          <h2>分类建议</h2>
-          <p>查看智能分类结果并应用</p>
+          <h2 data-i18n="navCategories">Categories</h2>
+          <p data-i18n="categoriesPageDesc">View smart categorization results and apply</p>
         </header>
 
         <div class="content-body">
           <div id="categoriesList" class="categories-list-full">
             <div class="empty-state-large">
               <div class="empty-icon">📂</div>
-              <h3>暂无分类数据</h3>
-              <p>请先在"扫描分析"页面执行扫描</p>
-              <button data-action="switch-to-page" data-page="scan" class="btn btn-primary">
-                去扫描
+              <h3 data-i18n="emptyNoCategoryData">No Category Data</h3>
+              <p data-i18n="emptyScanFirst">Please perform scan on the Scan Analysis page first</p>
+              <button data-action="switch-to-page" data-page="scan" class="btn btn-primary" data-i18n="btnGoScan">
+                Go Scan
               </button>
             </div>
           </div>
           
           <div class="fixed-bottom-actions">
-            <button id="applyCategoriesBtnFull" class="btn btn-success btn-lg hidden">
-              ✓ 应用选中的分类
+            <button id="applyCategoriesBtnFull" class="btn btn-success btn-lg hidden" data-i18n="btnApplySelectedCategories">
+              ✓ Apply Selected Categories
             </button>
           </div>
         </div>
@@ -139,25 +141,25 @@
       <!-- 重复检测页面 -->
       <div id="duplicatesPage" class="page">
         <header class="page-header">
-          <h2>重复检测</h2>
-          <p>查找并清理重复的书签</p>
+          <h2 data-i18n="navDuplicates">Duplicates</h2>
+          <p data-i18n="duplicatesPageDesc">Find and clean duplicate bookmarks</p>
         </header>
 
         <div class="content-body">
           <div id="duplicatesList" class="duplicates-list-full">
             <div class="empty-state-large">
               <div class="empty-icon">🔄</div>
-              <h3>暂无重复数据</h3>
-              <p>请先在"扫描分析"页面执行扫描</p>
-              <button data-action="switch-to-page" data-page="scan" class="btn btn-primary">
-                去扫描
+              <h3 data-i18n="emptyNoDuplicateData">No Duplicate Data</h3>
+              <p data-i18n="emptyScanFirst">Please perform scan on the Scan Analysis page first</p>
+              <button data-action="switch-to-page" data-page="scan" class="btn btn-primary" data-i18n="btnGoScan">
+                Go Scan
               </button>
             </div>
           </div>
           
           <div class="fixed-bottom-actions">
-            <button id="removeDuplicatesBtnFull" class="btn btn-danger btn-lg hidden">
-              🗑 清理选中的重复项
+            <button id="removeDuplicatesBtnFull" class="btn btn-danger btn-lg hidden" data-i18n="btnRemoveDuplicates">
+              🗑 Clean Selected Duplicates
             </button>
           </div>
         </div>
@@ -166,38 +168,38 @@
       <!-- 备份管理页面 -->
       <div id="backupsPage" class="page">
         <header class="page-header">
-          <h2>备份管理</h2>
-          <p>管理书签备份,支持导出和导入</p>
+          <h2 data-i18n="navBackups">Backups</h2>
+          <p data-i18n="backupsPageDesc">Manage bookmark backups, support export and import</p>
         </header>
         
         <div class="content-body">
           <div class="backup-info-box">
-            <h3>📍 存储说明</h3>
+            <h3 data-i18n="storageInfoTitle">📍 Storage Info</h3>
             <p>
-              <strong>当前存储位置:</strong> Chrome浏览器内部存储 (chrome.storage.local)<br>
-              <strong>访问限制:</strong> 由于Chrome安全策略,无法直接访问文件系统路径<br>
-              <strong>解决方案:</strong> 使用下方的"导出备份"功能将备份保存到您的电脑
+              <strong data-i18n="storageLocation">Current Storage Location:</strong> <span data-i18n="storageLocationValue">Chrome browser internal storage (chrome.storage.local)</span><br>
+              <strong data-i18n="storageLimitation">Access Limitation:</strong> <span data-i18n="storageLimitationValue">Due to Chrome security policy, cannot directly access file system paths</span><br>
+              <strong data-i18n="storageSolution">Solution:</strong> <span data-i18n="storageSolutionValue">Use the Export Backup feature to save backups to your computer</span>
             </p>
           </div>
           
           <div class="backup-actions-bar">
-            <button id="exportBackupBtn" class="btn btn-primary">
-              📤 导出备份到文件
+            <button id="exportBackupBtn" class="btn btn-primary" data-i18n="btnExportBackup">
+              📤 Export Backup to File
             </button>
-            <label class="btn btn-secondary" for="importBackupInput">
-              📥 从文件导入备份
+            <label class="btn btn-secondary" for="importBackupInput" data-i18n="btnImportBackup">
+              📥 Import Backup from File
             </label>
             <input type="file" id="importBackupInput" accept=".json" style="display: none;">
-            <button id="createBackupBtn" class="btn btn-outline">
-              💾 创建新备份
+            <button id="createBackupBtn" class="btn btn-outline" data-i18n="btnCreateBackup">
+              💾 Create New Backup
             </button>
           </div>
           
           <div id="backupsListFull" class="backups-list-full">
             <div class="empty-state-large">
               <div class="empty-icon">💾</div>
-              <h3>暂无备份记录</h3>
-              <p>点击"创建新备份"或"导出备份到文件"</p>
+              <h3 data-i18n="emptyNoBackups">No backup records</h3>
+              <p data-i18n="emptyCreateOrExport">Click "Create New Backup" or "Export Backup to File"</p>
             </div>
           </div>
         </div>
@@ -206,20 +208,20 @@
       <!-- 设置页面 -->
       <div id="settingsPage" class="page">
         <header class="page-header">
-          <h2>设置</h2>
-          <p>自定义插件行为和偏好</p>
+          <h2 data-i18n="navSettings">Settings</h2>
+          <p data-i18n="settingsPageDesc">Customize plugin behavior and preferences</p>
         </header>
         
         <div class="content-body">
           <div class="settings-section">
-            <h3>常规设置</h3>
+            <h3 data-i18n="sectionGeneral">General Settings</h3>
             
             <div class="setting-item">
               <label class="checkbox-setting">
                 <input type="checkbox" id="autoBackupSetting">
                 <div class="setting-info">
-                  <div class="setting-title">启用自动备份</div>
-                  <div class="setting-desc">扫描前自动创建备份</div>
+                  <div class="setting-title" data-i18n="settingAutoBackup">Enable Auto Backup</div>
+                  <div class="setting-desc" data-i18n="settingAutoBackupDesc">Automatically create backup before scanning</div>
                 </div>
               </label>
             </div>
@@ -228,20 +230,20 @@
               <label class="checkbox-setting">
                 <input type="checkbox" id="showPathSetting" checked>
                 <div class="setting-info">
-                  <div class="setting-title">显示书签路径</div>
-                  <div class="setting-desc">在重复检测中显示文件夹路径</div>
+                  <div class="setting-title" data-i18n="settingShowPath">Show Bookmark Path</div>
+                  <div class="setting-desc" data-i18n="settingShowPathDesc">Display folder path in duplicate detection</div>
                 </div>
               </label>
             </div>
           </div>
           
           <div class="settings-section">
-            <h3>相似度设置</h3>
+            <h3 data-i18n="sectionSimilarity">Similarity Settings</h3>
             
             <div class="setting-item">
               <label>
-                <div class="setting-title">重复检测相似度阈值</div>
-                <div class="setting-desc">范围: 50% - 95%, 默认80%</div>
+                <div class="setting-title" data-i18n="settingSimilarityThreshold">Duplicate Detection Similarity Threshold</div>
+                <div class="setting-desc" data-i18n="settingSimilarityDesc">Range: 50% - 95%, Default 80%</div>
                 <input type="range" id="similarityThreshold" min="50" max="95" value="80" class="range-input">
                 <div class="range-value"><span id="thresholdValue">80</span>%</div>
               </label>
@@ -249,22 +251,21 @@
           </div>
           
           <div class="settings-section">
-            <h3>数据管理</h3>
+            <h3 data-i18n="sectionDataMgmt">Data Management</h3>
             
             <div class="setting-item">
-              <button id="clearAllDataBtn" class="btn btn-danger">
-                🗑 清除所有本地数据
+              <button id="clearAllDataBtn" class="btn btn-danger" data-i18n="btnClearData">
+                🗑 Clear All Local Data
               </button>
-              <div class="setting-desc" style="margin-top: 8px;">
-                清除所有备份和设置(不影响实际书签)
+              <div class="setting-desc" style="margin-top: 8px;" data-i18n="clearDataDesc">
+                Clear all backups and settings (does not affect actual bookmarks)
               </div>
             </div>
           </div>
           
           <div class="info-box">
-            <strong>ℹ️ 关于数据存储:</strong><br>
-            Chrome扩展的数据存储在浏览器的沙盒环境中,无法指定自定义路径。<br>
-            如需备份到其他位置,请使用"导出备份"功能下载JSON文件。
+            <strong data-i18n="infoDataStorage">ℹ️ About Data Storage:</strong><br>
+            <span data-i18n="infoDataStorageDesc">Chrome extension data is stored in the browser sandbox and cannot specify custom paths. To backup to other locations, please use the Export Backup feature to download JSON files.</span>
           </div>
         </div>
       </div>
@@ -274,6 +275,7 @@
     <div id="messageBox" class="message-box hidden"></div>
   </div>
 
+  <script src="i18n.js"></script>
   <script src="utils.js"></script>
   <script src="options.js"></script>
 </body>

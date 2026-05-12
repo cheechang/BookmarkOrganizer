@@ -1,0 +1,530 @@
+{
+  "extName": {
+    "message": "Bookmark Organizer",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Organizador inteligente de marcadores - categorización automática, eliminación de duplicados, respaldo y restauración",
+    "description": "Extension description"
+  },
+  "extShortName": {
+    "message": "Organizador",
+    "description": "Short extension name"
+  },
+  "appTitle": {
+    "message": "📚 Organizador de Marcadores",
+    "description": "Main app title"
+  },
+  "appSubtitle": {
+    "message": "Categorización · Eliminación · Respaldo",
+    "description": "App subtitle"
+  },
+  "appSubtitleFull": {
+    "message": "Versión Completa",
+    "description": "Full version subtitle"
+  },
+  "btnScan": {
+    "message": "🔍 Iniciar Escaneo",
+    "description": "Scan button"
+  },
+  "btnScanFull": {
+    "message": "🔍 Iniciar Escaneo Completo",
+    "description": "Full scan button"
+  },
+  "btnBackup": {
+    "message": "💾 Respaldo Ahora",
+    "description": "Backup button"
+  },
+  "btnBackupNow": {
+    "message": "💾 Respaldo Ahora",
+    "description": "Backup button (options)"
+  },
+  "btnCreateBackup": {
+    "message": "💾 Crear Nuevo Respaldo",
+    "description": "Create backup button"
+  },
+  "btnExportBackup": {
+    "message": "📤 Exportar Respaldo",
+    "description": "Export backup button"
+  },
+  "btnImportBackup": {
+    "message": "📥 Importar Respaldo",
+    "description": "Import backup button"
+  },
+  "btnApplyCategories": {
+    "message": "✓ Aplicar Categorías",
+    "description": "Apply categories button"
+  },
+  "btnApplySelectedCategories": {
+    "message": "✓ Aplicar Categorías Seleccionadas",
+    "description": "Apply selected categories button"
+  },
+  "btnRemoveDuplicates": {
+    "message": "🗑 Limpiar Duplicados Seleccionados",
+    "description": "Remove duplicates button"
+  },
+  "btnRestore": {
+    "message": "Restaurar",
+    "description": "Restore button"
+  },
+  "btnDelete": {
+    "message": "Eliminar",
+    "description": "Delete button"
+  },
+  "btnClearData": {
+    "message": "🗑 Borrar Todos los Datos",
+    "description": "Clear data button"
+  },
+  "btnBackToAll": {
+    "message": "← Ver Todos",
+    "description": "Back filter button"
+  },
+  "btnGoScan": {
+    "message": "Ir a Escanear",
+    "description": "Go to scan button"
+  },
+  "btnReturnQuick": {
+    "message": "Modo Rápido",
+    "description": "Return to popup button"
+  },
+  "navScan": {
+    "message": "Análisis",
+    "description": "Navigation: Scan"
+  },
+  "navCategories": {
+    "message": "Categorías",
+    "description": "Navigation: Categories"
+  },
+  "navDuplicates": {
+    "message": "Duplicados",
+    "description": "Navigation: Duplicates"
+  },
+  "navBackups": {
+    "message": "Respaldos",
+    "description": "Navigation: Backups"
+  },
+  "navSettings": {
+    "message": "Configuración",
+    "description": "Navigation: Settings"
+  },
+  "labelTotalBookmarks": {
+    "message": "Total de Marcadores",
+    "description": "Stat label"
+  },
+  "labelUncategorized": {
+    "message": "Sin Categoría",
+    "description": "Stat label"
+  },
+  "labelDuplicates": {
+    "message": "Duplicados",
+    "description": "Stat label"
+  },
+  "labelCategorized": {
+    "message": "Categorizados",
+    "description": "Stat label"
+  },
+  "labelConfidence": {
+    "message": "Confianza: ",
+    "description": "Confidence label"
+  },
+  "labelSimilarity": {
+    "message": "(Similitud: $1%)",
+    "description": "Similarity label"
+  },
+  "labelViewing": {
+    "message": "Viendo: ",
+    "description": "Viewing filter label"
+  },
+  "labelBookmarksCount": {
+    "message": "$1 marcadores",
+    "description": "Bookmarks count label"
+  },
+  "labelBookmarksCountShort": {
+    "message": "$1 elementos",
+    "description": "Short bookmarks count"
+  },
+  "confidenceHigh": {
+    "message": "Alta",
+    "description": "High confidence"
+  },
+  "confidenceMedium": {
+    "message": "Media",
+    "description": "Medium confidence"
+  },
+  "confidenceLow": {
+    "message": "Baja",
+    "description": "Low confidence"
+  },
+  "duplicateExact": {
+    "message": "Duplicado Exacto",
+    "description": "Exact duplicate type"
+  },
+  "duplicateSimilar": {
+    "message": "Duplicado Similar",
+    "description": "Similar duplicate type"
+  },
+  "tabCategories": {
+    "message": "Categorías",
+    "description": "Tab label"
+  },
+  "tabDuplicates": {
+    "message": "Duplicados",
+    "description": "Tab label"
+  },
+  "tabBackups": {
+    "message": "Respaldos",
+    "description": "Tab label"
+  },
+  "progressGettingBookmarks": {
+    "message": "Obteniendo marcadores...",
+    "description": "Progress text"
+  },
+  "progressAutoBackup": {
+    "message": "Creando respaldo automático...",
+    "description": "Progress text"
+  },
+  "progressAnalyzing": {
+    "message": "Analizando marcadores...",
+    "description": "Progress text"
+  },
+  "progressAnalyzingItem": {
+    "message": "Analizando $1/$2",
+    "description": "Progress text with count"
+  },
+  "progressDetectingDuplicates": {
+    "message": "Detectando duplicados...",
+    "description": "Progress text"
+  },
+  "progressComplete": {
+    "message": "¡Análisis completo!",
+    "description": "Progress complete text"
+  },
+  "msgScanComplete": {
+    "message": "¡Análisis completo! Total: $1 marcadores",
+    "description": "Scan complete message"
+  },
+  "msgScanFailed": {
+    "message": "Error de escaneo: ",
+    "description": "Scan failed message"
+  },
+  "msgSettingsSaved": {
+    "message": "Configuración guardada",
+    "description": "Settings saved message"
+  },
+  "msgLoadCategoriesFailed": {
+    "message": "Error al cargar reglas de categoría",
+    "description": "Error message"
+  },
+  "msgBackupSuccess": {
+    "message": "¡Respaldo exitoso!",
+    "description": "Success message"
+  },
+  "msgBackupFailed": {
+    "message": "Error de respaldo: ",
+    "description": "Error message"
+  },
+  "msgRestoreSuccess": {
+    "message": "¡Restauración exitosa!",
+    "description": "Success message"
+  },
+  "msgRestoreFailed": {
+    "message": "Error de restauración: ",
+    "description": "Error message"
+  },
+  "msgExportSuccess": {
+    "message": "Respaldo exportado, elija ubicación de guardado",
+    "description": "Success message"
+  },
+  "msgExportFailed": {
+    "message": "Error de exportación: ",
+    "description": "Error message"
+  },
+  "msgNoBackupToExport": {
+    "message": "No hay respaldos para exportar",
+    "description": "Warning message"
+  },
+  "msgImportSuccess": {
+    "message": "¡Respaldo importado exitosamente!",
+    "description": "Success message"
+  },
+  "msgImportFailed": {
+    "message": "Error de importación: ",
+    "description": "Error message"
+  },
+  "msgInvalidBackupFormat": {
+    "message": "Formato de archivo de respaldo inválido",
+    "description": "Error message"
+  },
+  "msgDeleteSuccess": {
+    "message": "Eliminado",
+    "description": "Success message"
+  },
+  "msgDeleteFailed": {
+    "message": "Error al eliminar: ",
+    "description": "Error message"
+  },
+  "msgBackupDeleted": {
+    "message": "Respaldo eliminado",
+    "description": "Success message"
+  },
+  "msgApplySuccess": {
+    "message": "$1 marcadores movidos exitosamente",
+    "description": "Success message"
+  },
+  "msgApplyFailed": {
+    "message": "Error al aplicar categorías: ",
+    "description": "Error message"
+  },
+  "msgRemoveSuccess": {
+    "message": "$1 marcadores duplicados eliminados",
+    "description": "Success message"
+  },
+  "msgRemoveFailed": {
+    "message": "Error al limpiar: ",
+    "description": "Error message"
+  },
+  "msgDataCleared": {
+    "message": "Todos los datos borrados",
+    "description": "Success message"
+  },
+  "msgClearFailed": {
+    "message": "Error al borrar: ",
+    "description": "Error message"
+  },
+  "msgNoBookmarksSelected": {
+    "message": "Seleccione al menos un marcador",
+    "description": "Warning message"
+  },
+  "msgNoDuplicatesSelected": {
+    "message": "Seleccione al menos un marcador duplicado para eliminar",
+    "description": "Warning message"
+  },
+  "confirmApplyCategories": {
+    "message": "¿Mover $1 marcadores a las carpetas de categoría correspondientes?",
+    "description": "Confirm dialog"
+  },
+  "confirmDeleteBookmark": {
+    "message": "¿Eliminar este marcador?",
+    "description": "Confirm dialog"
+  },
+  "confirmRemoveDuplicates": {
+    "message": "¿Eliminar $1 marcadores duplicados seleccionados? ¡Esta acción no se puede deshacer!",
+    "description": "Confirm dialog"
+  },
+  "confirmRestoreBackup": {
+    "message": "Restaurar el respaldo sobrescribirá todos los marcadores actuales, ¿continuar?",
+    "description": "Confirm dialog"
+  },
+  "confirmImportBackup": {
+    "message": "Importar el respaldo sobrescribirá todos los marcadores actuales, ¿continuar?",
+    "description": "Confirm dialog"
+  },
+  "confirmDeleteBackup": {
+    "message": "¿Eliminar este respaldo?",
+    "description": "Confirm dialog"
+  },
+  "confirmClearData": {
+    "message": "¿Borrar todos los datos locales? (No afecta los marcadores reales)",
+    "description": "Confirm dialog"
+  },
+  "emptyNoCategories": {
+    "message": "No se encontraron marcadores para categorizar",
+    "description": "Empty state"
+  },
+  "emptyNoDuplicates": {
+    "message": "No se encontraron marcadores duplicados ✓",
+    "description": "Empty state"
+  },
+  "emptyNoDuplicatesFull": {
+    "message": "No se encontraron marcadores duplicados",
+    "description": "Empty state title"
+  },
+  "emptyBookmarksClean": {
+    "message": "¡Tus marcadores están limpios!",
+    "description": "Empty state description"
+  },
+  "emptyNoBackups": {
+    "message": "No hay registros de respaldo",
+    "description": "Empty state"
+  },
+  "emptyNoCategoryData": {
+    "message": "Sin datos de categoría",
+    "description": "Empty state title"
+  },
+  "emptyNoDuplicateData": {
+    "message": "Sin datos de duplicados",
+    "description": "Empty state title"
+  },
+  "emptyScanFirst": {
+    "message": "Primero realice el escaneo en la página de Análisis",
+    "description": "Empty state description"
+  },
+  "emptyClickScan": {
+    "message": "Haga clic en \"Iniciar Escaneo\" para ver sugerencias de categoría",
+    "description": "Empty state"
+  },
+  "emptyClickScanDup": {
+    "message": "Haga clic en \"Iniciar Escaneo\" para detectar duplicados",
+    "description": "Empty state"
+  },
+  "emptyCreateOrExport": {
+    "message": "Haga clic en \"Crear Nuevo Respaldo\" o \"Exportar Respaldo\"",
+    "description": "Empty state"
+  },
+  "emptyNeedMoreRules": {
+    "message": "Puede necesitar agregar más reglas de categoría",
+    "description": "Empty state description"
+  },
+  "settingAutoBackup": {
+    "message": "Habilitar Respaldo Automático",
+    "description": "Setting title"
+  },
+  "settingAutoBackupDesc": {
+    "message": "Crear respaldo automáticamente antes de escanear",
+    "description": "Setting description"
+  },
+  "settingShowPath": {
+    "message": "Mostrar Ruta del Marcador",
+    "description": "Setting title"
+  },
+  "settingShowPathDesc": {
+    "message": "Mostrar la ruta de la carpeta en detección de duplicados",
+    "description": "Setting description"
+  },
+  "settingSimilarityThreshold": {
+    "message": "Umbral de Similitud para Duplicados",
+    "description": "Setting title"
+  },
+  "settingSimilarityDesc": {
+    "message": "Rango: 50% - 95%, Predeterminado 80%",
+    "description": "Setting description"
+  },
+  "sectionGeneral": {
+    "message": "Configuración General",
+    "description": "Settings section"
+  },
+  "sectionSimilarity": {
+    "message": "Configuración de Similitud",
+    "description": "Settings section"
+  },
+  "sectionDataMgmt": {
+    "message": "Gestión de Datos",
+    "description": "Settings section"
+  },
+  "infoTip": {
+    "message": "💡 Consejo:",
+    "description": "Info box title"
+  },
+  "infoScanTip": {
+    "message": "Después del escaneo, cambie a la página de Categorías o Duplicados mediante la navegación izquierda para ver resultados detallados. Esta página no se cerrará al perder el foco.",
+    "description": "Info text"
+  },
+  "infoDataStorage": {
+    "message": "ℹ️ Sobre el Almacenamiento de Datos:",
+    "description": "Info box title"
+  },
+  "infoDataStorageDesc": {
+    "message": "Los datos de la extensión se almacenan en el sandbox del navegador y no pueden especificar rutas personalizadas. Para respaldar en otras ubicaciones, use la función Exportar Respaldo para descargar archivos JSON.",
+    "description": "Info text"
+  },
+  "storageInfoTitle": {
+    "message": "📍 Información de Almacenamiento",
+    "description": "Storage info title"
+  },
+  "storageLocation": {
+    "message": "Ubicación de Almacenamiento:",
+    "description": "Storage label"
+  },
+  "storageLocationValue": {
+    "message": "Almacenamiento interno del navegador Chrome (chrome.storage.local)",
+    "description": "Storage value"
+  },
+  "storageLimitation": {
+    "message": "Limitación de Acceso:",
+    "description": "Storage label"
+  },
+  "storageLimitationValue": {
+    "message": "Debido a la política de seguridad de Chrome, no se puede acceder directamente a las rutas del sistema de archivos",
+    "description": "Storage value"
+  },
+  "storageSolution": {
+    "message": "Solución:",
+    "description": "Storage label"
+  },
+  "storageSolutionValue": {
+    "message": "Use la función Exportar Respaldo para guardar respaldos en su computadora",
+    "description": "Storage value"
+  },
+  "clearDataDesc": {
+    "message": "Borrar todos los respaldos y configuraciones (no afecta los marcadores reales)",
+    "description": "Clear data description"
+  },
+  "scanPageDesc": {
+    "message": "Analizar todos los marcadores, proporcionar sugerencias de categoría y detección de duplicados",
+    "description": "Page description"
+  },
+  "categoriesPageDesc": {
+    "message": "Ver resultados de categorización inteligente y aplicar",
+    "description": "Page description"
+  },
+  "duplicatesPageDesc": {
+    "message": "Encontrar y limpiar marcadores duplicados",
+    "description": "Page description"
+  },
+  "backupsPageDesc": {
+    "message": "Gestionar respaldos de marcadores, compatible con exportación e importación",
+    "description": "Page description"
+  },
+  "settingsPageDesc": {
+    "message": "Personalizar el comportamiento y preferencias de la extensión",
+    "description": "Page description"
+  },
+  "cardScanTitle": {
+    "message": "Iniciar Escaneo",
+    "description": "Action card title"
+  },
+  "cardScanDesc": {
+    "message": "Analizar marcadores y respaldo automático",
+    "description": "Action card description"
+  },
+  "cardBackupTitle": {
+    "message": "Respaldo Rápido",
+    "description": "Action card title"
+  },
+  "cardBackupDesc": {
+    "message": "Crear respaldo de marcadores inmediatamente",
+    "description": "Action card description"
+  },
+  "langSelectorLabel": {
+    "message": "🌐",
+    "description": "Language selector label"
+  },
+  "unknownPath": {
+    "message": "Ubicación Desconocida",
+    "description": "Unknown bookmark path"
+  },
+  "bookmarksBar": {
+    "message": "Barra de Marcadores",
+    "description": "Bookmarks bar folder name"
+  },
+  "tooltipDeleteBookmark": {
+    "message": "Eliminar este marcador",
+    "description": "Delete button tooltip"
+  },
+  "backupNotExist": {
+    "message": "El respaldo no existe",
+    "description": "Error message"
+  },
+  "statusApplying": {
+    "message": "Aplicando...",
+    "description": "Button status text"
+  },
+  "statusDeleting": {
+    "message": "Eliminando...",
+    "description": "Button status text"
+  },
+  "statusBackingUp": {
+    "message": "Respaldando...",
+    "description": "Button status text"
+  }
+}

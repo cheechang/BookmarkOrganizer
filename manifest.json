@@ -1,9 +1,10 @@
 {
   "manifest_version": 3,
-  "name": "Bookmark Organizer",
-  "short_name": "书签整理",
+  "name": "__MSG_extName__",
+  "short_name": "__MSG_extShortName__",
   "version": "1.3.0",
-  "description": "智能书签整理工具 - 自动分类、去重、备份和恢复",
+  "description": "__MSG_extDescription__",
+  "default_locale": "en",
   "author": "cheechang",
   "homepage_url": "https://github.com/cheechang/BookmarkOrganizer",
   "icons": {
@@ -17,7 +18,7 @@
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     },
-    "default_title": "书签整理工具"
+    "default_title": "__MSG_extShortName__"
   },
   "options_page": "options.html",
   "background": {

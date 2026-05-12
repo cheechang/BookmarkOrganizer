@@ -1,0 +1,530 @@
+{
+  "extName": {
+    "message": "Bookmark Organizer",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Smart bookmark organizer - auto categorize, deduplicate, backup and restore",
+    "description": "Extension description"
+  },
+  "extShortName": {
+    "message": "Bookmark Organizer",
+    "description": "Short extension name"
+  },
+  "appTitle": {
+    "message": "📚 Bookmark Organizer",
+    "description": "Main app title"
+  },
+  "appSubtitle": {
+    "message": "Smart Categorize · Deduplicate · Backup",
+    "description": "App subtitle"
+  },
+  "appSubtitleFull": {
+    "message": "Full Feature Version",
+    "description": "Full version subtitle"
+  },
+  "btnScan": {
+    "message": "🔍 Start Scan",
+    "description": "Scan button"
+  },
+  "btnScanFull": {
+    "message": "🔍 Start Full Scan",
+    "description": "Full scan button"
+  },
+  "btnBackup": {
+    "message": "💾 Backup Now",
+    "description": "Backup button"
+  },
+  "btnBackupNow": {
+    "message": "💾 Backup Now",
+    "description": "Backup button (options)"
+  },
+  "btnCreateBackup": {
+    "message": "💾 Create New Backup",
+    "description": "Create backup button"
+  },
+  "btnExportBackup": {
+    "message": "📤 Export Backup to File",
+    "description": "Export backup button"
+  },
+  "btnImportBackup": {
+    "message": "📥 Import Backup from File",
+    "description": "Import backup button"
+  },
+  "btnApplyCategories": {
+    "message": "✓ Apply Categories",
+    "description": "Apply categories button"
+  },
+  "btnApplySelectedCategories": {
+    "message": "✓ Apply Selected Categories",
+    "description": "Apply selected categories button"
+  },
+  "btnRemoveDuplicates": {
+    "message": "🗑 Clean Selected Duplicates",
+    "description": "Remove duplicates button"
+  },
+  "btnRestore": {
+    "message": "Restore",
+    "description": "Restore button"
+  },
+  "btnDelete": {
+    "message": "Delete",
+    "description": "Delete button"
+  },
+  "btnClearData": {
+    "message": "🗑 Clear All Local Data",
+    "description": "Clear data button"
+  },
+  "btnBackToAll": {
+    "message": "← Back to All",
+    "description": "Back filter button"
+  },
+  "btnGoScan": {
+    "message": "Go Scan",
+    "description": "Go to scan button"
+  },
+  "btnReturnQuick": {
+    "message": "Return Quick Mode",
+    "description": "Return to popup button"
+  },
+  "navScan": {
+    "message": "Scan Analysis",
+    "description": "Navigation: Scan"
+  },
+  "navCategories": {
+    "message": "Categories",
+    "description": "Navigation: Categories"
+  },
+  "navDuplicates": {
+    "message": "Duplicates",
+    "description": "Navigation: Duplicates"
+  },
+  "navBackups": {
+    "message": "Backups",
+    "description": "Navigation: Backups"
+  },
+  "navSettings": {
+    "message": "Settings",
+    "description": "Navigation: Settings"
+  },
+  "labelTotalBookmarks": {
+    "message": "Total Bookmarks",
+    "description": "Stat label"
+  },
+  "labelUncategorized": {
+    "message": "Uncategorized",
+    "description": "Stat label"
+  },
+  "labelDuplicates": {
+    "message": "Duplicates",
+    "description": "Stat label"
+  },
+  "labelCategorized": {
+    "message": "Categorized",
+    "description": "Stat label"
+  },
+  "labelConfidence": {
+    "message": "Confidence: ",
+    "description": "Confidence label"
+  },
+  "labelSimilarity": {
+    "message": "(Similarity: $1%)",
+    "description": "Similarity label"
+  },
+  "labelViewing": {
+    "message": "Viewing: ",
+    "description": "Viewing filter label"
+  },
+  "labelBookmarksCount": {
+    "message": "$1 bookmarks",
+    "description": "Bookmarks count label"
+  },
+  "labelBookmarksCountShort": {
+    "message": "$1 items",
+    "description": "Short bookmarks count"
+  },
+  "confidenceHigh": {
+    "message": "High",
+    "description": "High confidence"
+  },
+  "confidenceMedium": {
+    "message": "Medium",
+    "description": "Medium confidence"
+  },
+  "confidenceLow": {
+    "message": "Low",
+    "description": "Low confidence"
+  },
+  "duplicateExact": {
+    "message": "Exact Duplicate",
+    "description": "Exact duplicate type"
+  },
+  "duplicateSimilar": {
+    "message": "Similar Duplicate",
+    "description": "Similar duplicate type"
+  },
+  "tabCategories": {
+    "message": "Categories",
+    "description": "Tab label"
+  },
+  "tabDuplicates": {
+    "message": "Duplicates",
+    "description": "Tab label"
+  },
+  "tabBackups": {
+    "message": "Backups",
+    "description": "Tab label"
+  },
+  "progressGettingBookmarks": {
+    "message": "Getting bookmarks...",
+    "description": "Progress text"
+  },
+  "progressAutoBackup": {
+    "message": "Creating auto backup...",
+    "description": "Progress text"
+  },
+  "progressAnalyzing": {
+    "message": "Analyzing bookmarks...",
+    "description": "Progress text"
+  },
+  "progressAnalyzingItem": {
+    "message": "Analyzing $1/$2",
+    "description": "Progress text with count"
+  },
+  "progressDetectingDuplicates": {
+    "message": "Detecting duplicates...",
+    "description": "Progress text"
+  },
+  "progressComplete": {
+    "message": "Analysis complete!",
+    "description": "Progress complete text"
+  },
+  "msgScanComplete": {
+    "message": "Analysis complete! Total $1 bookmarks",
+    "description": "Scan complete message"
+  },
+  "msgScanFailed": {
+    "message": "Scan failed: ",
+    "description": "Scan failed message"
+  },
+  "msgSettingsSaved": {
+    "message": "Settings saved",
+    "description": "Settings saved message"
+  },
+  "msgLoadCategoriesFailed": {
+    "message": "Failed to load category rules",
+    "description": "Error message"
+  },
+  "msgBackupSuccess": {
+    "message": "Backup successful!",
+    "description": "Success message"
+  },
+  "msgBackupFailed": {
+    "message": "Backup failed: ",
+    "description": "Error message"
+  },
+  "msgRestoreSuccess": {
+    "message": "Restore successful!",
+    "description": "Success message"
+  },
+  "msgRestoreFailed": {
+    "message": "Restore failed: ",
+    "description": "Error message"
+  },
+  "msgExportSuccess": {
+    "message": "Backup exported, please choose save location",
+    "description": "Success message"
+  },
+  "msgExportFailed": {
+    "message": "Export failed: ",
+    "description": "Error message"
+  },
+  "msgNoBackupToExport": {
+    "message": "No backups to export",
+    "description": "Warning message"
+  },
+  "msgImportSuccess": {
+    "message": "Backup imported successfully!",
+    "description": "Success message"
+  },
+  "msgImportFailed": {
+    "message": "Import failed: ",
+    "description": "Error message"
+  },
+  "msgInvalidBackupFormat": {
+    "message": "Invalid backup file format",
+    "description": "Error message"
+  },
+  "msgDeleteSuccess": {
+    "message": "Deleted",
+    "description": "Success message"
+  },
+  "msgDeleteFailed": {
+    "message": "Delete failed: ",
+    "description": "Error message"
+  },
+  "msgBackupDeleted": {
+    "message": "Backup deleted",
+    "description": "Success message"
+  },
+  "msgApplySuccess": {
+    "message": "Successfully moved $1 bookmarks",
+    "description": "Success message"
+  },
+  "msgApplyFailed": {
+    "message": "Apply categories failed: ",
+    "description": "Error message"
+  },
+  "msgRemoveSuccess": {
+    "message": "Successfully deleted $1 duplicate bookmarks",
+    "description": "Success message"
+  },
+  "msgRemoveFailed": {
+    "message": "Clean failed: ",
+    "description": "Error message"
+  },
+  "msgDataCleared": {
+    "message": "All data cleared",
+    "description": "Success message"
+  },
+  "msgClearFailed": {
+    "message": "Clear failed: ",
+    "description": "Error message"
+  },
+  "msgNoBookmarksSelected": {
+    "message": "Please select at least one bookmark",
+    "description": "Warning message"
+  },
+  "msgNoDuplicatesSelected": {
+    "message": "Please select at least one duplicate bookmark to delete",
+    "description": "Warning message"
+  },
+  "confirmApplyCategories": {
+    "message": "Move $1 bookmarks to corresponding category folders?",
+    "description": "Confirm dialog"
+  },
+  "confirmDeleteBookmark": {
+    "message": "Delete this bookmark?",
+    "description": "Confirm dialog"
+  },
+  "confirmRemoveDuplicates": {
+    "message": "Delete $1 selected duplicate bookmarks? This cannot be undone!",
+    "description": "Confirm dialog"
+  },
+  "confirmRestoreBackup": {
+    "message": "Restore backup will overwrite all current bookmarks, continue?",
+    "description": "Confirm dialog"
+  },
+  "confirmImportBackup": {
+    "message": "Import backup will overwrite all current bookmarks, continue?",
+    "description": "Confirm dialog"
+  },
+  "confirmDeleteBackup": {
+    "message": "Delete this backup?",
+    "description": "Confirm dialog"
+  },
+  "confirmClearData": {
+    "message": "Clear all local data? (Does not affect actual bookmarks)",
+    "description": "Confirm dialog"
+  },
+  "emptyNoCategories": {
+    "message": "No categorizable bookmarks found",
+    "description": "Empty state"
+  },
+  "emptyNoDuplicates": {
+    "message": "No duplicate bookmarks found ✓",
+    "description": "Empty state"
+  },
+  "emptyNoDuplicatesFull": {
+    "message": "No duplicate bookmarks found",
+    "description": "Empty state title"
+  },
+  "emptyBookmarksClean": {
+    "message": "Your bookmarks are clean!",
+    "description": "Empty state description"
+  },
+  "emptyNoBackups": {
+    "message": "No backup records",
+    "description": "Empty state"
+  },
+  "emptyNoCategoryData": {
+    "message": "No category data",
+    "description": "Empty state title"
+  },
+  "emptyNoDuplicateData": {
+    "message": "No duplicate data",
+    "description": "Empty state title"
+  },
+  "emptyScanFirst": {
+    "message": "Please perform scan on the Scan Analysis page first",
+    "description": "Empty state description"
+  },
+  "emptyClickScan": {
+    "message": "Click \"Start Scan\" to view category suggestions",
+    "description": "Empty state"
+  },
+  "emptyClickScanDup": {
+    "message": "Click \"Start Scan\" to detect duplicate bookmarks",
+    "description": "Empty state"
+  },
+  "emptyCreateOrExport": {
+    "message": "Click \"Create New Backup\" or \"Export Backup to File\"",
+    "description": "Empty state"
+  },
+  "emptyNeedMoreRules": {
+    "message": "May need to add more category rules",
+    "description": "Empty state description"
+  },
+  "settingAutoBackup": {
+    "message": "Enable Auto Backup",
+    "description": "Setting title"
+  },
+  "settingAutoBackupDesc": {
+    "message": "Automatically create backup before scanning",
+    "description": "Setting description"
+  },
+  "settingShowPath": {
+    "message": "Show Bookmark Path",
+    "description": "Setting title"
+  },
+  "settingShowPathDesc": {
+    "message": "Display folder path in duplicate detection",
+    "description": "Setting description"
+  },
+  "settingSimilarityThreshold": {
+    "message": "Duplicate Detection Similarity Threshold",
+    "description": "Setting title"
+  },
+  "settingSimilarityDesc": {
+    "message": "Range: 50% - 95%, Default 80%",
+    "description": "Setting description"
+  },
+  "sectionGeneral": {
+    "message": "General Settings",
+    "description": "Settings section"
+  },
+  "sectionSimilarity": {
+    "message": "Similarity Settings",
+    "description": "Settings section"
+  },
+  "sectionDataMgmt": {
+    "message": "Data Management",
+    "description": "Settings section"
+  },
+  "infoTip": {
+    "message": "💡 Tip:",
+    "description": "Info box title"
+  },
+  "infoScanTip": {
+    "message": "After scanning, switch to Categories or Duplicates page via left navigation to view detailed results. This page will not close on blur.",
+    "description": "Info text"
+  },
+  "infoDataStorage": {
+    "message": "ℹ️ About Data Storage:",
+    "description": "Info box title"
+  },
+  "infoDataStorageDesc": {
+    "message": "Chrome extension data is stored in the browser sandbox and cannot specify custom paths. To backup to other locations, please use the Export Backup feature to download JSON files.",
+    "description": "Info text"
+  },
+  "storageInfoTitle": {
+    "message": "📍 Storage Info",
+    "description": "Storage info title"
+  },
+  "storageLocation": {
+    "message": "Current Storage Location:",
+    "description": "Storage label"
+  },
+  "storageLocationValue": {
+    "message": "Chrome browser internal storage (chrome.storage.local)",
+    "description": "Storage value"
+  },
+  "storageLimitation": {
+    "message": "Access Limitation:",
+    "description": "Storage label"
+  },
+  "storageLimitationValue": {
+    "message": "Due to Chrome security policy, cannot directly access file system paths",
+    "description": "Storage value"
+  },
+  "storageSolution": {
+    "message": "Solution:",
+    "description": "Storage label"
+  },
+  "storageSolutionValue": {
+    "message": "Use the Export Backup feature below to save backups to your computer",
+    "description": "Storage value"
+  },
+  "clearDataDesc": {
+    "message": "Clear all backups and settings (does not affect actual bookmarks)",
+    "description": "Clear data description"
+  },
+  "scanPageDesc": {
+    "message": "Analyze all bookmarks, provide category suggestions and duplicate detection",
+    "description": "Page description"
+  },
+  "categoriesPageDesc": {
+    "message": "View smart categorization results and apply",
+    "description": "Page description"
+  },
+  "duplicatesPageDesc": {
+    "message": "Find and clean duplicate bookmarks",
+    "description": "Page description"
+  },
+  "backupsPageDesc": {
+    "message": "Manage bookmark backups, support export and import",
+    "description": "Page description"
+  },
+  "settingsPageDesc": {
+    "message": "Customize plugin behavior and preferences",
+    "description": "Page description"
+  },
+  "cardScanTitle": {
+    "message": "Start Scan",
+    "description": "Action card title"
+  },
+  "cardScanDesc": {
+    "message": "Analyze bookmarks and auto backup",
+    "description": "Action card description"
+  },
+  "cardBackupTitle": {
+    "message": "Quick Backup",
+    "description": "Action card title"
+  },
+  "cardBackupDesc": {
+    "message": "Create bookmark backup immediately",
+    "description": "Action card description"
+  },
+  "langSelectorLabel": {
+    "message": "🌐",
+    "description": "Language selector label"
+  },
+  "unknownPath": {
+    "message": "Unknown Location",
+    "description": "Unknown bookmark path"
+  },
+  "bookmarksBar": {
+    "message": "Bookmarks Bar",
+    "description": "Bookmarks bar folder name"
+  },
+  "tooltipDeleteBookmark": {
+    "message": "Delete this bookmark",
+    "description": "Delete button tooltip"
+  },
+  "backupNotExist": {
+    "message": "Backup does not exist",
+    "description": "Error message"
+  },
+  "statusApplying": {
+    "message": "Applying...",
+    "description": "Button status text"
+  },
+  "statusDeleting": {
+    "message": "Deleting...",
+    "description": "Button status text"
+  },
+  "statusBackingUp": {
+    "message": "Backing up...",
+    "description": "Button status text"
+  }
+}

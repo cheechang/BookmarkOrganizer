@@ -1,0 +1,530 @@
+{
+  "extName": {
+    "message": "Bookmark Organizer",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Intelligentes Lesezeichen-Organizer-Tool - automatische Kategorisierung, Duplikateliminierung, Sicherung und Wiederherstellung",
+    "description": "Extension description"
+  },
+  "extShortName": {
+    "message": "Lesezeichen Organizer",
+    "description": "Short extension name"
+  },
+  "appTitle": {
+    "message": "📚 Lesezeichen Organizer",
+    "description": "Main app title"
+  },
+  "appSubtitle": {
+    "message": "Intelligente Kategorisierung · Duplikate · Sicherung",
+    "description": "App subtitle"
+  },
+  "appSubtitleFull": {
+    "message": "Vollständige Version",
+    "description": "Full version subtitle"
+  },
+  "btnScan": {
+    "message": "🔍 Scan Starten",
+    "description": "Scan button"
+  },
+  "btnScanFull": {
+    "message": "🔍 Vollständigen Scan Starten",
+    "description": "Full scan button"
+  },
+  "btnBackup": {
+    "message": "💾 Jetzt Sichern",
+    "description": "Backup button"
+  },
+  "btnBackupNow": {
+    "message": "💾 Jetzt Sichern",
+    "description": "Backup button (options)"
+  },
+  "btnCreateBackup": {
+    "message": "💾 Neue Sicherung Erstellen",
+    "description": "Create backup button"
+  },
+  "btnExportBackup": {
+    "message": "📤 Sicherung Exportieren",
+    "description": "Export backup button"
+  },
+  "btnImportBackup": {
+    "message": "📥 Sicherung Importieren",
+    "description": "Import backup button"
+  },
+  "btnApplyCategories": {
+    "message": "✓ Kategorien Anwenden",
+    "description": "Apply categories button"
+  },
+  "btnApplySelectedCategories": {
+    "message": "✓ Ausgewählte Kategorien Anwenden",
+    "description": "Apply selected categories button"
+  },
+  "btnRemoveDuplicates": {
+    "message": "🗑 Ausgewählte Duplikate Entfernen",
+    "description": "Remove duplicates button"
+  },
+  "btnRestore": {
+    "message": "Wiederherstellen",
+    "description": "Restore button"
+  },
+  "btnDelete": {
+    "message": "Löschen",
+    "description": "Delete button"
+  },
+  "btnClearData": {
+    "message": "🗑 Alle Lokalen Daten Löschen",
+    "description": "Clear data button"
+  },
+  "btnBackToAll": {
+    "message": "← Alle Anzeigen",
+    "description": "Back filter button"
+  },
+  "btnGoScan": {
+    "message": "Zum Scan",
+    "description": "Go to scan button"
+  },
+  "btnReturnQuick": {
+    "message": "Schnellmodus",
+    "description": "Return to popup button"
+  },
+  "navScan": {
+    "message": "Scan-Analyse",
+    "description": "Navigation: Scan"
+  },
+  "navCategories": {
+    "message": "Kategorien",
+    "description": "Navigation: Categories"
+  },
+  "navDuplicates": {
+    "message": "Duplikate",
+    "description": "Navigation: Duplicates"
+  },
+  "navBackups": {
+    "message": "Sicherungen",
+    "description": "Navigation: Backups"
+  },
+  "navSettings": {
+    "message": "Einstellungen",
+    "description": "Navigation: Settings"
+  },
+  "labelTotalBookmarks": {
+    "message": "Gesamte Lesezeichen",
+    "description": "Stat label"
+  },
+  "labelUncategorized": {
+    "message": "Unkategorisiert",
+    "description": "Stat label"
+  },
+  "labelDuplicates": {
+    "message": "Duplikate",
+    "description": "Stat label"
+  },
+  "labelCategorized": {
+    "message": "Kategorisiert",
+    "description": "Stat label"
+  },
+  "labelConfidence": {
+    "message": "Konfidenz: ",
+    "description": "Confidence label"
+  },
+  "labelSimilarity": {
+    "message": "(Ähnlichkeit: $1%)",
+    "description": "Similarity label"
+  },
+  "labelViewing": {
+    "message": "Anzeige: ",
+    "description": "Viewing filter label"
+  },
+  "labelBookmarksCount": {
+    "message": "$1 Lesezeichen",
+    "description": "Bookmarks count label"
+  },
+  "labelBookmarksCountShort": {
+    "message": "$1 Elemente",
+    "description": "Short bookmarks count"
+  },
+  "confidenceHigh": {
+    "message": "Hoch",
+    "description": "High confidence"
+  },
+  "confidenceMedium": {
+    "message": "Mittel",
+    "description": "Medium confidence"
+  },
+  "confidenceLow": {
+    "message": "Niedrig",
+    "description": "Low confidence"
+  },
+  "duplicateExact": {
+    "message": "Exaktes Duplikat",
+    "description": "Exact duplicate type"
+  },
+  "duplicateSimilar": {
+    "message": "Ähnliches Duplikat",
+    "description": "Similar duplicate type"
+  },
+  "tabCategories": {
+    "message": "Kategorien",
+    "description": "Tab label"
+  },
+  "tabDuplicates": {
+    "message": "Duplikate",
+    "description": "Tab label"
+  },
+  "tabBackups": {
+    "message": "Sicherungen",
+    "description": "Tab label"
+  },
+  "progressGettingBookmarks": {
+    "message": "Lesezeichen werden abgerufen...",
+    "description": "Progress text"
+  },
+  "progressAutoBackup": {
+    "message": "Automatische Sicherung wird erstellt...",
+    "description": "Progress text"
+  },
+  "progressAnalyzing": {
+    "message": "Lesezeichen werden analysiert...",
+    "description": "Progress text"
+  },
+  "progressAnalyzingItem": {
+    "message": "$1/$2 werden analysiert",
+    "description": "Progress text with count"
+  },
+  "progressDetectingDuplicates": {
+    "message": "Duplikate werden erkannt...",
+    "description": "Progress text"
+  },
+  "progressComplete": {
+    "message": "Analyse abgeschlossen!",
+    "description": "Progress complete text"
+  },
+  "msgScanComplete": {
+    "message": "Analyse abgeschlossen! Insgesamt $1 Lesezeichen",
+    "description": "Scan complete message"
+  },
+  "msgScanFailed": {
+    "message": "Scan fehlgeschlagen: ",
+    "description": "Scan failed message"
+  },
+  "msgSettingsSaved": {
+    "message": "Einstellungen gespeichert",
+    "description": "Settings saved message"
+  },
+  "msgLoadCategoriesFailed": {
+    "message": "Kategorieregeln konnten nicht geladen werden",
+    "description": "Error message"
+  },
+  "msgBackupSuccess": {
+    "message": "Sicherung erfolgreich!",
+    "description": "Success message"
+  },
+  "msgBackupFailed": {
+    "message": "Sicherung fehlgeschlagen: ",
+    "description": "Error message"
+  },
+  "msgRestoreSuccess": {
+    "message": "Wiederherstellung erfolgreich!",
+    "description": "Success message"
+  },
+  "msgRestoreFailed": {
+    "message": "Wiederherstellung fehlgeschlagen: ",
+    "description": "Error message"
+  },
+  "msgExportSuccess": {
+    "message": "Sicherung exportiert, bitte Speicherort wählen",
+    "description": "Success message"
+  },
+  "msgExportFailed": {
+    "message": "Export fehlgeschlagen: ",
+    "description": "Error message"
+  },
+  "msgNoBackupToExport": {
+    "message": "Keine Sicherungen zum Exportieren",
+    "description": "Warning message"
+  },
+  "msgImportSuccess": {
+    "message": "Sicherung erfolgreich importiert!",
+    "description": "Success message"
+  },
+  "msgImportFailed": {
+    "message": "Import fehlgeschlagen: ",
+    "description": "Error message"
+  },
+  "msgInvalidBackupFormat": {
+    "message": "Ungültiges Sicherungsdateiformat",
+    "description": "Error message"
+  },
+  "msgDeleteSuccess": {
+    "message": "Gelöscht",
+    "description": "Success message"
+  },
+  "msgDeleteFailed": {
+    "message": "Löschen fehlgeschlagen: ",
+    "description": "Error message"
+  },
+  "msgBackupDeleted": {
+    "message": "Sicherung gelöscht",
+    "description": "Success message"
+  },
+  "msgApplySuccess": {
+    "message": "$1 Lesezeichen erfolgreich verschoben",
+    "description": "Success message"
+  },
+  "msgApplyFailed": {
+    "message": "Kategorien anwenden fehlgeschlagen: ",
+    "description": "Error message"
+  },
+  "msgRemoveSuccess": {
+    "message": "$1 doppelte Lesezeichen erfolgreich gelöscht",
+    "description": "Success message"
+  },
+  "msgRemoveFailed": {
+    "message": "Bereinigung fehlgeschlagen: ",
+    "description": "Error message"
+  },
+  "msgDataCleared": {
+    "message": "Alle Daten gelöscht",
+    "description": "Success message"
+  },
+  "msgClearFailed": {
+    "message": "Löschen fehlgeschlagen: ",
+    "description": "Error message"
+  },
+  "msgNoBookmarksSelected": {
+    "message": "Bitte wählen Sie mindestens ein Lesezeichen aus",
+    "description": "Warning message"
+  },
+  "msgNoDuplicatesSelected": {
+    "message": "Bitte wählen Sie mindestens ein doppeltes Lesezeichen zum Löschen aus",
+    "description": "Warning message"
+  },
+  "confirmApplyCategories": {
+    "message": "$1 Lesezeichen in entsprechende Kategorieordner verschieben?",
+    "description": "Confirm dialog"
+  },
+  "confirmDeleteBookmark": {
+    "message": "Dieses Lesezeichen löschen?",
+    "description": "Confirm dialog"
+  },
+  "confirmRemoveDuplicates": {
+    "message": "$1 ausgewählte doppelte Lesezeichen löschen? Diese Aktion kann nicht rückgängig gemacht werden!",
+    "description": "Confirm dialog"
+  },
+  "confirmRestoreBackup": {
+    "message": "Die Wiederherstellung überschreibt alle aktuellen Lesezeichen, fortfahren?",
+    "description": "Confirm dialog"
+  },
+  "confirmImportBackup": {
+    "message": "Der Import überschreibt alle aktuellen Lesezeichen, fortfahren?",
+    "description": "Confirm dialog"
+  },
+  "confirmDeleteBackup": {
+    "message": "Diese Sicherung löschen?",
+    "description": "Confirm dialog"
+  },
+  "confirmClearData": {
+    "message": "Alle lokalen Daten löschen? (Betrifft nicht die eigentlichen Lesezeichen)",
+    "description": "Confirm dialog"
+  },
+  "emptyNoCategories": {
+    "message": "Keine kategorisierbaren Lesezeichen gefunden",
+    "description": "Empty state"
+  },
+  "emptyNoDuplicates": {
+    "message": "Keine doppelten Lesezeichen gefunden ✓",
+    "description": "Empty state"
+  },
+  "emptyNoDuplicatesFull": {
+    "message": "Keine doppelten Lesezeichen gefunden",
+    "description": "Empty state title"
+  },
+  "emptyBookmarksClean": {
+    "message": "Ihre Lesezeichen sind aufgeräumt!",
+    "description": "Empty state description"
+  },
+  "emptyNoBackups": {
+    "message": "Keine Sicherungsaufzeichnungen",
+    "description": "Empty state"
+  },
+  "emptyNoCategoryData": {
+    "message": "Keine Kategoriedaten",
+    "description": "Empty state title"
+  },
+  "emptyNoDuplicateData": {
+    "message": "Keine Duplikatdaten",
+    "description": "Empty state title"
+  },
+  "emptyScanFirst": {
+    "message": "Bitte führen Sie zuerst den Scan auf der Scan-Analyse-Seite durch",
+    "description": "Empty state description"
+  },
+  "emptyClickScan": {
+    "message": "Klicken Sie auf \"Scan Starten\" um Kategorievorschläge anzuzeigen",
+    "description": "Empty state"
+  },
+  "emptyClickScanDup": {
+    "message": "Klicken Sie auf \"Scan Starten\" um Duplikate zu erkennen",
+    "description": "Empty state"
+  },
+  "emptyCreateOrExport": {
+    "message": "Klicken Sie auf \"Neue Sicherung Erstellen\" oder \"Sicherung Exportieren\"",
+    "description": "Empty state"
+  },
+  "emptyNeedMoreRules": {
+    "message": "Möglicherweise müssen mehr Kategorieregeln hinzugefügt werden",
+    "description": "Empty state description"
+  },
+  "settingAutoBackup": {
+    "message": "Automatische Sicherung Aktivieren",
+    "description": "Setting title"
+  },
+  "settingAutoBackupDesc": {
+    "message": "Vor dem Scannen automatisch eine Sicherung erstellen",
+    "description": "Setting description"
+  },
+  "settingShowPath": {
+    "message": "Lesezeichenpfad Anzeigen",
+    "description": "Setting title"
+  },
+  "settingShowPathDesc": {
+    "message": "Ordnerpfad in der Duplikaterkennung anzeigen",
+    "description": "Setting description"
+  },
+  "settingSimilarityThreshold": {
+    "message": "Ähnlichkeitsschwelle für Duplikate",
+    "description": "Setting title"
+  },
+  "settingSimilarityDesc": {
+    "message": "Bereich: 50% - 95%, Standard 80%",
+    "description": "Setting description"
+  },
+  "sectionGeneral": {
+    "message": "Allgemeine Einstellungen",
+    "description": "Settings section"
+  },
+  "sectionSimilarity": {
+    "message": "Ähnlichkeitseinstellungen",
+    "description": "Settings section"
+  },
+  "sectionDataMgmt": {
+    "message": "Datenverwaltung",
+    "description": "Settings section"
+  },
+  "infoTip": {
+    "message": "💡 Tipp:",
+    "description": "Info box title"
+  },
+  "infoScanTip": {
+    "message": "Nach dem Scan können Sie über die linke Navigation zur Seite Kategorien oder Duplikate wechseln, um detaillierte Ergebnisse anzuzeigen. Diese Seite wird beim Verlieren des Fokus nicht geschlossen.",
+    "description": "Info text"
+  },
+  "infoDataStorage": {
+    "message": "ℹ️ Über Datenspeicherung:",
+    "description": "Info box title"
+  },
+  "infoDataStorageDesc": {
+    "message": "Erweiterungsdaten werden in der Browser-Sandbox gespeichert, benutzerdefinierte Pfade können nicht angegeben werden. Um an anderen Orten zu sichern, verwenden Sie bitte die Funktion Sicherung Exportieren, um JSON-Dateien herunterzuladen.",
+    "description": "Info text"
+  },
+  "storageInfoTitle": {
+    "message": "📍 Speicherinformation",
+    "description": "Storage info title"
+  },
+  "storageLocation": {
+    "message": "Aktueller Speicherort:",
+    "description": "Storage label"
+  },
+  "storageLocationValue": {
+    "message": "Chrome Browser interner Speicher (chrome.storage.local)",
+    "description": "Storage value"
+  },
+  "storageLimitation": {
+    "message": "Zugriffsbeschränkung:",
+    "description": "Storage label"
+  },
+  "storageLimitationValue": {
+    "message": "Aufgrund der Chrome-Sicherheitsrichtlinie können Dateisystempfade nicht direkt aufgerufen werden",
+    "description": "Storage value"
+  },
+  "storageSolution": {
+    "message": "Lösung:",
+    "description": "Storage label"
+  },
+  "storageSolutionValue": {
+    "message": "Verwenden Sie die Funktion Sicherung Exportieren, um Sicherungen auf Ihrem Computer zu speichern",
+    "description": "Storage value"
+  },
+  "clearDataDesc": {
+    "message": "Alle Sicherungen und Einstellungen löschen (betrifft nicht die eigentlichen Lesezeichen)",
+    "description": "Clear data description"
+  },
+  "scanPageDesc": {
+    "message": "Alle Lesezeichen analysieren, Kategorievorschläge und Duplikaterkennung bereitstellen",
+    "description": "Page description"
+  },
+  "categoriesPageDesc": {
+    "message": "Intelligente Kategorisierungsergebnisse anzeigen und anwenden",
+    "description": "Page description"
+  },
+  "duplicatesPageDesc": {
+    "message": "Doppelte Lesezeichen finden und bereinigen",
+    "description": "Page description"
+  },
+  "backupsPageDesc": {
+    "message": "Lesezeichensicherungen verwalten, Export und Import unterstützt",
+    "description": "Page description"
+  },
+  "settingsPageDesc": {
+    "message": "Erweiterungsverhalten und Einstellungen anpassen",
+    "description": "Page description"
+  },
+  "cardScanTitle": {
+    "message": "Scan Starten",
+    "description": "Action card title"
+  },
+  "cardScanDesc": {
+    "message": "Lesezeichen analysieren und automatisch sichern",
+    "description": "Action card description"
+  },
+  "cardBackupTitle": {
+    "message": "Schnellsicherung",
+    "description": "Action card title"
+  },
+  "cardBackupDesc": {
+    "message": "Lesezeichensicherung sofort erstellen",
+    "description": "Action card description"
+  },
+  "langSelectorLabel": {
+    "message": "🌐",
+    "description": "Language selector label"
+  },
+  "unknownPath": {
+    "message": "Unbekannter Ort",
+    "description": "Unknown bookmark path"
+  },
+  "bookmarksBar": {
+    "message": "Lesezeichenleiste",
+    "description": "Bookmarks bar folder name"
+  },
+  "tooltipDeleteBookmark": {
+    "message": "Dieses Lesezeichen löschen",
+    "description": "Delete button tooltip"
+  },
+  "backupNotExist": {
+    "message": "Sicherung existiert nicht",
+    "description": "Error message"
+  },
+  "statusApplying": {
+    "message": "Wird angewendet...",
+    "description": "Button status text"
+  },
+  "statusDeleting": {
+    "message": "Wird gelöscht...",
+    "description": "Button status text"
+  },
+  "statusBackingUp": {
+    "message": "Wird gesichert...",
+    "description": "Button status text"
+  }
+}

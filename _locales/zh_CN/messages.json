@@ -1,0 +1,530 @@
+{
+  "extName": {
+    "message": "书签整理工具",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "智能书签整理工具 - 自动分类、去重、备份和恢复",
+    "description": "Extension description"
+  },
+  "extShortName": {
+    "message": "书签整理",
+    "description": "Short extension name"
+  },
+  "appTitle": {
+    "message": "📚 书签整理工具",
+    "description": "Main app title"
+  },
+  "appSubtitle": {
+    "message": "智能分类 · 去重 · 备份",
+    "description": "App subtitle"
+  },
+  "appSubtitleFull": {
+    "message": "完整功能版",
+    "description": "Full version subtitle"
+  },
+  "btnScan": {
+    "message": "🔍 开始扫描分析",
+    "description": "Scan button"
+  },
+  "btnScanFull": {
+    "message": "🔍 开始完整扫描",
+    "description": "Full scan button"
+  },
+  "btnBackup": {
+    "message": "💾 立即备份",
+    "description": "Backup button"
+  },
+  "btnBackupNow": {
+    "message": "💾 立即备份",
+    "description": "Backup button (options)"
+  },
+  "btnCreateBackup": {
+    "message": "💾 创建新备份",
+    "description": "Create backup button"
+  },
+  "btnExportBackup": {
+    "message": "📤 导出备份到文件",
+    "description": "Export backup button"
+  },
+  "btnImportBackup": {
+    "message": "📥 从文件导入备份",
+    "description": "Import backup button"
+  },
+  "btnApplyCategories": {
+    "message": "✓ 应用分类",
+    "description": "Apply categories button"
+  },
+  "btnApplySelectedCategories": {
+    "message": "✓ 应用选中的分类",
+    "description": "Apply selected categories button"
+  },
+  "btnRemoveDuplicates": {
+    "message": "🗑 清理选中的重复项",
+    "description": "Remove duplicates button"
+  },
+  "btnRestore": {
+    "message": "恢复",
+    "description": "Restore button"
+  },
+  "btnDelete": {
+    "message": "删除",
+    "description": "Delete button"
+  },
+  "btnClearData": {
+    "message": "🗑 清除所有本地数据",
+    "description": "Clear data button"
+  },
+  "btnBackToAll": {
+    "message": "← 返回全部",
+    "description": "Back filter button"
+  },
+  "btnGoScan": {
+    "message": "去扫描",
+    "description": "Go to scan button"
+  },
+  "btnReturnQuick": {
+    "message": "返回快速模式",
+    "description": "Return to popup button"
+  },
+  "navScan": {
+    "message": "扫描分析",
+    "description": "Navigation: Scan"
+  },
+  "navCategories": {
+    "message": "分类建议",
+    "description": "Navigation: Categories"
+  },
+  "navDuplicates": {
+    "message": "重复检测",
+    "description": "Navigation: Duplicates"
+  },
+  "navBackups": {
+    "message": "备份管理",
+    "description": "Navigation: Backups"
+  },
+  "navSettings": {
+    "message": "设置",
+    "description": "Navigation: Settings"
+  },
+  "labelTotalBookmarks": {
+    "message": "总书签数",
+    "description": "Stat label"
+  },
+  "labelUncategorized": {
+    "message": "未分类",
+    "description": "Stat label"
+  },
+  "labelDuplicates": {
+    "message": "重复项",
+    "description": "Stat label"
+  },
+  "labelCategorized": {
+    "message": "已分类",
+    "description": "Stat label"
+  },
+  "labelConfidence": {
+    "message": "置信度: ",
+    "description": "Confidence label"
+  },
+  "labelSimilarity": {
+    "message": "(相似度: $1%)",
+    "description": "Similarity label"
+  },
+  "labelViewing": {
+    "message": "正在查看: ",
+    "description": "Viewing filter label"
+  },
+  "labelBookmarksCount": {
+    "message": "$1 个书签",
+    "description": "Bookmarks count label"
+  },
+  "labelBookmarksCountShort": {
+    "message": "$1 项",
+    "description": "Short bookmarks count"
+  },
+  "confidenceHigh": {
+    "message": "高",
+    "description": "High confidence"
+  },
+  "confidenceMedium": {
+    "message": "中",
+    "description": "Medium confidence"
+  },
+  "confidenceLow": {
+    "message": "低",
+    "description": "Low confidence"
+  },
+  "duplicateExact": {
+    "message": "完全重复",
+    "description": "Exact duplicate type"
+  },
+  "duplicateSimilar": {
+    "message": "相似重复",
+    "description": "Similar duplicate type"
+  },
+  "tabCategories": {
+    "message": "分类建议",
+    "description": "Tab label"
+  },
+  "tabDuplicates": {
+    "message": "重复检测",
+    "description": "Tab label"
+  },
+  "tabBackups": {
+    "message": "备份管理",
+    "description": "Tab label"
+  },
+  "progressGettingBookmarks": {
+    "message": "正在获取书签...",
+    "description": "Progress text"
+  },
+  "progressAutoBackup": {
+    "message": "正在自动备份...",
+    "description": "Progress text"
+  },
+  "progressAnalyzing": {
+    "message": "正在分析书签...",
+    "description": "Progress text"
+  },
+  "progressAnalyzingItem": {
+    "message": "正在分析 $1/$2",
+    "description": "Progress text with count"
+  },
+  "progressDetectingDuplicates": {
+    "message": "正在检测重复...",
+    "description": "Progress text"
+  },
+  "progressComplete": {
+    "message": "分析完成!",
+    "description": "Progress complete text"
+  },
+  "msgScanComplete": {
+    "message": "分析完成! 共 $1 个书签",
+    "description": "Scan complete message"
+  },
+  "msgScanFailed": {
+    "message": "扫描失败: ",
+    "description": "Scan failed message"
+  },
+  "msgSettingsSaved": {
+    "message": "设置已保存",
+    "description": "Settings saved message"
+  },
+  "msgLoadCategoriesFailed": {
+    "message": "加载分类规则失败",
+    "description": "Error message"
+  },
+  "msgBackupSuccess": {
+    "message": "备份成功!",
+    "description": "Success message"
+  },
+  "msgBackupFailed": {
+    "message": "备份失败: ",
+    "description": "Error message"
+  },
+  "msgRestoreSuccess": {
+    "message": "恢复成功!",
+    "description": "Success message"
+  },
+  "msgRestoreFailed": {
+    "message": "恢复失败: ",
+    "description": "Error message"
+  },
+  "msgExportSuccess": {
+    "message": "备份已导出,请选择保存位置",
+    "description": "Success message"
+  },
+  "msgExportFailed": {
+    "message": "导出失败: ",
+    "description": "Error message"
+  },
+  "msgNoBackupToExport": {
+    "message": "没有可导出的备份",
+    "description": "Warning message"
+  },
+  "msgImportSuccess": {
+    "message": "备份导入成功!",
+    "description": "Success message"
+  },
+  "msgImportFailed": {
+    "message": "导入失败: ",
+    "description": "Error message"
+  },
+  "msgInvalidBackupFormat": {
+    "message": "无效的备份文件格式",
+    "description": "Error message"
+  },
+  "msgDeleteSuccess": {
+    "message": "已删除",
+    "description": "Success message"
+  },
+  "msgDeleteFailed": {
+    "message": "删除失败: ",
+    "description": "Error message"
+  },
+  "msgBackupDeleted": {
+    "message": "备份已删除",
+    "description": "Success message"
+  },
+  "msgApplySuccess": {
+    "message": "成功移动 $1 个书签",
+    "description": "Success message"
+  },
+  "msgApplyFailed": {
+    "message": "应用分类失败: ",
+    "description": "Error message"
+  },
+  "msgRemoveSuccess": {
+    "message": "成功删除 $1 个重复书签",
+    "description": "Success message"
+  },
+  "msgRemoveFailed": {
+    "message": "清理失败: ",
+    "description": "Error message"
+  },
+  "msgDataCleared": {
+    "message": "所有数据已清除",
+    "description": "Success message"
+  },
+  "msgClearFailed": {
+    "message": "清除失败: ",
+    "description": "Error message"
+  },
+  "msgNoBookmarksSelected": {
+    "message": "请至少选择一个书签",
+    "description": "Warning message"
+  },
+  "msgNoDuplicatesSelected": {
+    "message": "请至少选择一个要删除的书签",
+    "description": "Warning message"
+  },
+  "confirmApplyCategories": {
+    "message": "确定要将 $1 个书签移动到对应分类文件夹吗?",
+    "description": "Confirm dialog"
+  },
+  "confirmDeleteBookmark": {
+    "message": "确定要删除这个书签吗？",
+    "description": "Confirm dialog"
+  },
+  "confirmRemoveDuplicates": {
+    "message": "确定要删除选中的 $1 个重复书签吗?此操作不可撤销!",
+    "description": "Confirm dialog"
+  },
+  "confirmRestoreBackup": {
+    "message": "恢复备份将覆盖当前所有书签,确定继续吗?",
+    "description": "Confirm dialog"
+  },
+  "confirmImportBackup": {
+    "message": "导入备份将覆盖当前所有书签,确定继续吗?",
+    "description": "Confirm dialog"
+  },
+  "confirmDeleteBackup": {
+    "message": "确定要删除这个备份吗?",
+    "description": "Confirm dialog"
+  },
+  "confirmClearData": {
+    "message": "确定要清除所有本地数据吗?(不影响实际书签)",
+    "description": "Confirm dialog"
+  },
+  "emptyNoCategories": {
+    "message": "未找到可分类的书签",
+    "description": "Empty state"
+  },
+  "emptyNoDuplicates": {
+    "message": "未发现重复书签 ✓",
+    "description": "Empty state"
+  },
+  "emptyNoDuplicatesFull": {
+    "message": "未发现重复书签",
+    "description": "Empty state title"
+  },
+  "emptyBookmarksClean": {
+    "message": "你的书签很整洁!",
+    "description": "Empty state description"
+  },
+  "emptyNoBackups": {
+    "message": "暂无备份记录",
+    "description": "Empty state"
+  },
+  "emptyNoCategoryData": {
+    "message": "暂无分类数据",
+    "description": "Empty state title"
+  },
+  "emptyNoDuplicateData": {
+    "message": "暂无重复数据",
+    "description": "Empty state title"
+  },
+  "emptyScanFirst": {
+    "message": "请先在\"扫描分析\"页面执行扫描",
+    "description": "Empty state description"
+  },
+  "emptyClickScan": {
+    "message": "点击\"开始扫描分析\"查看分类建议",
+    "description": "Empty state"
+  },
+  "emptyClickScanDup": {
+    "message": "点击\"开始扫描分析\"检测重复书签",
+    "description": "Empty state"
+  },
+  "emptyCreateOrExport": {
+    "message": "点击\"创建新备份\"或\"导出备份到文件\"",
+    "description": "Empty state"
+  },
+  "emptyNeedMoreRules": {
+    "message": "可能需要添加更多分类规则",
+    "description": "Empty state description"
+  },
+  "settingAutoBackup": {
+    "message": "启用自动备份",
+    "description": "Setting title"
+  },
+  "settingAutoBackupDesc": {
+    "message": "扫描前自动创建备份",
+    "description": "Setting description"
+  },
+  "settingShowPath": {
+    "message": "显示书签路径",
+    "description": "Setting title"
+  },
+  "settingShowPathDesc": {
+    "message": "在重复检测中显示文件夹路径",
+    "description": "Setting description"
+  },
+  "settingSimilarityThreshold": {
+    "message": "重复检测相似度阈值",
+    "description": "Setting title"
+  },
+  "settingSimilarityDesc": {
+    "message": "范围: 50% - 95%, 默认80%",
+    "description": "Setting description"
+  },
+  "sectionGeneral": {
+    "message": "常规设置",
+    "description": "Settings section"
+  },
+  "sectionSimilarity": {
+    "message": "相似度设置",
+    "description": "Settings section"
+  },
+  "sectionDataMgmt": {
+    "message": "数据管理",
+    "description": "Settings section"
+  },
+  "infoTip": {
+    "message": "💡 提示:",
+    "description": "Info box title"
+  },
+  "infoScanTip": {
+    "message": "扫描完成后,可以在左侧导航切换到\"分类建议\"或\"重复检测\"页面查看详细结果。此页面不会因失焦而关闭,可以持续操作。",
+    "description": "Info text"
+  },
+  "infoDataStorage": {
+    "message": "ℹ️ 关于数据存储:",
+    "description": "Info box title"
+  },
+  "infoDataStorageDesc": {
+    "message": "Chrome扩展的数据存储在浏览器的沙盒环境中,无法指定自定义路径。如需备份到其他位置,请使用\"导出备份\"功能下载JSON文件。",
+    "description": "Info text"
+  },
+  "storageInfoTitle": {
+    "message": "📍 存储说明",
+    "description": "Storage info title"
+  },
+  "storageLocation": {
+    "message": "当前存储位置:",
+    "description": "Storage label"
+  },
+  "storageLocationValue": {
+    "message": "Chrome浏览器内部存储 (chrome.storage.local)",
+    "description": "Storage value"
+  },
+  "storageLimitation": {
+    "message": "访问限制:",
+    "description": "Storage label"
+  },
+  "storageLimitationValue": {
+    "message": "由于Chrome安全策略,无法直接访问文件系统路径",
+    "description": "Storage value"
+  },
+  "storageSolution": {
+    "message": "解决方案:",
+    "description": "Storage label"
+  },
+  "storageSolutionValue": {
+    "message": "使用下方的\"导出备份\"功能将备份保存到您的电脑",
+    "description": "Storage value"
+  },
+  "clearDataDesc": {
+    "message": "清除所有备份和设置(不影响实际书签)",
+    "description": "Clear data description"
+  },
+  "scanPageDesc": {
+    "message": "分析所有书签,提供分类建议和重复检测",
+    "description": "Page description"
+  },
+  "categoriesPageDesc": {
+    "message": "查看智能分类结果并应用",
+    "description": "Page description"
+  },
+  "duplicatesPageDesc": {
+    "message": "查找并清理重复的书签",
+    "description": "Page description"
+  },
+  "backupsPageDesc": {
+    "message": "管理书签备份,支持导出和导入",
+    "description": "Page description"
+  },
+  "settingsPageDesc": {
+    "message": "自定义插件行为和偏好",
+    "description": "Page description"
+  },
+  "cardScanTitle": {
+    "message": "开始扫描",
+    "description": "Action card title"
+  },
+  "cardScanDesc": {
+    "message": "分析书签并自动备份",
+    "description": "Action card description"
+  },
+  "cardBackupTitle": {
+    "message": "快速备份",
+    "description": "Action card title"
+  },
+  "cardBackupDesc": {
+    "message": "立即创建书签备份",
+    "description": "Action card description"
+  },
+  "langSelectorLabel": {
+    "message": "🌐",
+    "description": "Language selector label"
+  },
+  "unknownPath": {
+    "message": "未知位置",
+    "description": "Unknown bookmark path"
+  },
+  "bookmarksBar": {
+    "message": "书签栏",
+    "description": "Bookmarks bar folder name"
+  },
+  "tooltipDeleteBookmark": {
+    "message": "删除此书签",
+    "description": "Delete button tooltip"
+  },
+  "backupNotExist": {
+    "message": "备份不存在",
+    "description": "Error message"
+  },
+  "statusApplying": {
+    "message": "应用中...",
+    "description": "Button status text"
+  },
+  "statusDeleting": {
+    "message": "删除中...",
+    "description": "Button status text"
+  },
+  "statusBackingUp": {
+    "message": "备份中...",
+    "description": "Button status text"
+  }
+}

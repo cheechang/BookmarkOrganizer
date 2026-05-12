@@ -1,0 +1,530 @@
+{
+  "extName": {
+    "message": "ブックマーク整理ツール",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "スマートなブックマーク整理ツール - 自動分類、重複削除、バックアップと復元",
+    "description": "Extension description"
+  },
+  "extShortName": {
+    "message": "ブックマーク整理",
+    "description": "Short extension name"
+  },
+  "appTitle": {
+    "message": "📚 ブックマーク整理ツール",
+    "description": "Main app title"
+  },
+  "appSubtitle": {
+    "message": "自動分類 · 重複削除 · バックアップ",
+    "description": "App subtitle"
+  },
+  "appSubtitleFull": {
+    "message": "フル機能版",
+    "description": "Full version subtitle"
+  },
+  "btnScan": {
+    "message": "🔍 スキャン開始",
+    "description": "Scan button"
+  },
+  "btnScanFull": {
+    "message": "🔍 フルスキャン開始",
+    "description": "Full scan button"
+  },
+  "btnBackup": {
+    "message": "💾 今すぐバックアップ",
+    "description": "Backup button"
+  },
+  "btnBackupNow": {
+    "message": "💾 今すぐバックアップ",
+    "description": "Backup button (options)"
+  },
+  "btnCreateBackup": {
+    "message": "💾 新規バックアップ作成",
+    "description": "Create backup button"
+  },
+  "btnExportBackup": {
+    "message": "📤 バックアップをエクスポート",
+    "description": "Export backup button"
+  },
+  "btnImportBackup": {
+    "message": "📥 バックアップをインポート",
+    "description": "Import backup button"
+  },
+  "btnApplyCategories": {
+    "message": "✓ 分類を適用",
+    "description": "Apply categories button"
+  },
+  "btnApplySelectedCategories": {
+    "message": "✓ 選択した分類を適用",
+    "description": "Apply selected categories button"
+  },
+  "btnRemoveDuplicates": {
+    "message": "🗑 選択した重複を削除",
+    "description": "Remove duplicates button"
+  },
+  "btnRestore": {
+    "message": "復元",
+    "description": "Restore button"
+  },
+  "btnDelete": {
+    "message": "削除",
+    "description": "Delete button"
+  },
+  "btnClearData": {
+    "message": "🗑 すべてのローカルデータを削除",
+    "description": "Clear data button"
+  },
+  "btnBackToAll": {
+    "message": "← すべて表示",
+    "description": "Back filter button"
+  },
+  "btnGoScan": {
+    "message": "スキャンへ",
+    "description": "Go to scan button"
+  },
+  "btnReturnQuick": {
+    "message": "クイックモードに戻る",
+    "description": "Return to popup button"
+  },
+  "navScan": {
+    "message": "スキャン分析",
+    "description": "Navigation: Scan"
+  },
+  "navCategories": {
+    "message": "分類提案",
+    "description": "Navigation: Categories"
+  },
+  "navDuplicates": {
+    "message": "重複検出",
+    "description": "Navigation: Duplicates"
+  },
+  "navBackups": {
+    "message": "バックアップ管理",
+    "description": "Navigation: Backups"
+  },
+  "navSettings": {
+    "message": "設定",
+    "description": "Navigation: Settings"
+  },
+  "labelTotalBookmarks": {
+    "message": "ブックマーク総数",
+    "description": "Stat label"
+  },
+  "labelUncategorized": {
+    "message": "未分類",
+    "description": "Stat label"
+  },
+  "labelDuplicates": {
+    "message": "重複項目",
+    "description": "Stat label"
+  },
+  "labelCategorized": {
+    "message": "分類済み",
+    "description": "Stat label"
+  },
+  "labelConfidence": {
+    "message": "信頼度: ",
+    "description": "Confidence label"
+  },
+  "labelSimilarity": {
+    "message": "(類似度: $1%)",
+    "description": "Similarity label"
+  },
+  "labelViewing": {
+    "message": "表示中: ",
+    "description": "Viewing filter label"
+  },
+  "labelBookmarksCount": {
+    "message": "$1 件のブックマーク",
+    "description": "Bookmarks count label"
+  },
+  "labelBookmarksCountShort": {
+    "message": "$1 件",
+    "description": "Short bookmarks count"
+  },
+  "confidenceHigh": {
+    "message": "高",
+    "description": "High confidence"
+  },
+  "confidenceMedium": {
+    "message": "中",
+    "description": "Medium confidence"
+  },
+  "confidenceLow": {
+    "message": "低",
+    "description": "Low confidence"
+  },
+  "duplicateExact": {
+    "message": "完全重複",
+    "description": "Exact duplicate type"
+  },
+  "duplicateSimilar": {
+    "message": "類似重複",
+    "description": "Similar duplicate type"
+  },
+  "tabCategories": {
+    "message": "分類提案",
+    "description": "Tab label"
+  },
+  "tabDuplicates": {
+    "message": "重複検出",
+    "description": "Tab label"
+  },
+  "tabBackups": {
+    "message": "バックアップ管理",
+    "description": "Tab label"
+  },
+  "progressGettingBookmarks": {
+    "message": "ブックマークを取得中...",
+    "description": "Progress text"
+  },
+  "progressAutoBackup": {
+    "message": "自動バックアップ作成中...",
+    "description": "Progress text"
+  },
+  "progressAnalyzing": {
+    "message": "ブックマークを分析中...",
+    "description": "Progress text"
+  },
+  "progressAnalyzingItem": {
+    "message": "$1/$2 を分析中",
+    "description": "Progress text with count"
+  },
+  "progressDetectingDuplicates": {
+    "message": "重複を検出中...",
+    "description": "Progress text"
+  },
+  "progressComplete": {
+    "message": "分析完了!",
+    "description": "Progress complete text"
+  },
+  "msgScanComplete": {
+    "message": "分析完了! 合計 $1 件のブックマーク",
+    "description": "Scan complete message"
+  },
+  "msgScanFailed": {
+    "message": "スキャン失敗: ",
+    "description": "Scan failed message"
+  },
+  "msgSettingsSaved": {
+    "message": "設定を保存しました",
+    "description": "Settings saved message"
+  },
+  "msgLoadCategoriesFailed": {
+    "message": "分類ルールの読み込みに失敗しました",
+    "description": "Error message"
+  },
+  "msgBackupSuccess": {
+    "message": "バックアップ成功!",
+    "description": "Success message"
+  },
+  "msgBackupFailed": {
+    "message": "バックアップ失敗: ",
+    "description": "Error message"
+  },
+  "msgRestoreSuccess": {
+    "message": "復元成功!",
+    "description": "Success message"
+  },
+  "msgRestoreFailed": {
+    "message": "復元失敗: ",
+    "description": "Error message"
+  },
+  "msgExportSuccess": {
+    "message": "バックアップをエクスポートしました。保存場所を選択してください",
+    "description": "Success message"
+  },
+  "msgExportFailed": {
+    "message": "エクスポート失敗: ",
+    "description": "Error message"
+  },
+  "msgNoBackupToExport": {
+    "message": "エクスポートするバックアップがありません",
+    "description": "Warning message"
+  },
+  "msgImportSuccess": {
+    "message": "バックアップのインポートに成功しました!",
+    "description": "Success message"
+  },
+  "msgImportFailed": {
+    "message": "インポート失敗: ",
+    "description": "Error message"
+  },
+  "msgInvalidBackupFormat": {
+    "message": "無効なバックアップファイル形式です",
+    "description": "Error message"
+  },
+  "msgDeleteSuccess": {
+    "message": "削除しました",
+    "description": "Success message"
+  },
+  "msgDeleteFailed": {
+    "message": "削除失敗: ",
+    "description": "Error message"
+  },
+  "msgBackupDeleted": {
+    "message": "バックアップを削除しました",
+    "description": "Success message"
+  },
+  "msgApplySuccess": {
+    "message": "$1 件のブックマークを移動しました",
+    "description": "Success message"
+  },
+  "msgApplyFailed": {
+    "message": "分類適用失敗: ",
+    "description": "Error message"
+  },
+  "msgRemoveSuccess": {
+    "message": "$1 件の重複ブックマークを削除しました",
+    "description": "Success message"
+  },
+  "msgRemoveFailed": {
+    "message": "削除失敗: ",
+    "description": "Error message"
+  },
+  "msgDataCleared": {
+    "message": "すべてのデータを削除しました",
+    "description": "Success message"
+  },
+  "msgClearFailed": {
+    "message": "削除失敗: ",
+    "description": "Error message"
+  },
+  "msgNoBookmarksSelected": {
+    "message": "少なくとも1つのブックマークを選択してください",
+    "description": "Warning message"
+  },
+  "msgNoDuplicatesSelected": {
+    "message": "削除する重複ブックマークを少なくとも1つ選択してください",
+    "description": "Warning message"
+  },
+  "confirmApplyCategories": {
+    "message": "$1 件のブックマークを対応する分類フォルダに移動しますか?",
+    "description": "Confirm dialog"
+  },
+  "confirmDeleteBookmark": {
+    "message": "このブックマークを削除しますか?",
+    "description": "Confirm dialog"
+  },
+  "confirmRemoveDuplicates": {
+    "message": "選択した $1 件の重複ブックマークを削除しますか? この操作は元に戻せません!",
+    "description": "Confirm dialog"
+  },
+  "confirmRestoreBackup": {
+    "message": "バックアップを復元すると現在のブックマークがすべて上書きされます。続行しますか?",
+    "description": "Confirm dialog"
+  },
+  "confirmImportBackup": {
+    "message": "バックアップをインポートすると現在のブックマークがすべて上書きされます。続行しますか?",
+    "description": "Confirm dialog"
+  },
+  "confirmDeleteBackup": {
+    "message": "このバックアップを削除しますか?",
+    "description": "Confirm dialog"
+  },
+  "confirmClearData": {
+    "message": "すべてのローカルデータを削除しますか? (実際のブックマークには影響しません)",
+    "description": "Confirm dialog"
+  },
+  "emptyNoCategories": {
+    "message": "分類可能なブックマークが見つかりません",
+    "description": "Empty state"
+  },
+  "emptyNoDuplicates": {
+    "message": "重複ブックマークはありません ✓",
+    "description": "Empty state"
+  },
+  "emptyNoDuplicatesFull": {
+    "message": "重複ブックマークはありません",
+    "description": "Empty state title"
+  },
+  "emptyBookmarksClean": {
+    "message": "ブックマークは整理されています!",
+    "description": "Empty state description"
+  },
+  "emptyNoBackups": {
+    "message": "バックアップ記録がありません",
+    "description": "Empty state"
+  },
+  "emptyNoCategoryData": {
+    "message": "分類データがありません",
+    "description": "Empty state title"
+  },
+  "emptyNoDuplicateData": {
+    "message": "重複データがありません",
+    "description": "Empty state title"
+  },
+  "emptyScanFirst": {
+    "message": "まず「スキャン分析」ページでスキャンを実行してください",
+    "description": "Empty state description"
+  },
+  "emptyClickScan": {
+    "message": "「スキャン開始」をクリックして分類提案を表示",
+    "description": "Empty state"
+  },
+  "emptyClickScanDup": {
+    "message": "「スキャン開始」をクリックして重複を検出",
+    "description": "Empty state"
+  },
+  "emptyCreateOrExport": {
+    "message": "「新規バックアップ作成」または「バックアップをエクスポート」をクリック",
+    "description": "Empty state"
+  },
+  "emptyNeedMoreRules": {
+    "message": "より多くの分類ルールを追加する必要があるかもしれません",
+    "description": "Empty state description"
+  },
+  "settingAutoBackup": {
+    "message": "自動バックアップを有効化",
+    "description": "Setting title"
+  },
+  "settingAutoBackupDesc": {
+    "message": "スキャン前に自動的にバックアップを作成",
+    "description": "Setting description"
+  },
+  "settingShowPath": {
+    "message": "ブックマークパスを表示",
+    "description": "Setting title"
+  },
+  "settingShowPathDesc": {
+    "message": "重複検出でフォルダパスを表示",
+    "description": "Setting description"
+  },
+  "settingSimilarityThreshold": {
+    "message": "重複検出の類似度閾値",
+    "description": "Setting title"
+  },
+  "settingSimilarityDesc": {
+    "message": "範囲: 50% - 95%, デフォルト 80%",
+    "description": "Setting description"
+  },
+  "sectionGeneral": {
+    "message": "一般設定",
+    "description": "Settings section"
+  },
+  "sectionSimilarity": {
+    "message": "類似度設定",
+    "description": "Settings section"
+  },
+  "sectionDataMgmt": {
+    "message": "データ管理",
+    "description": "Settings section"
+  },
+  "infoTip": {
+    "message": "💡 ヒント:",
+    "description": "Info box title"
+  },
+  "infoScanTip": {
+    "message": "スキャン後、左側のナビゲーションから「分類提案」または「重複検出」ページに切り替えて詳細結果を表示できます。このページはフォーカスが外れても閉じません。",
+    "description": "Info text"
+  },
+  "infoDataStorage": {
+    "message": "ℹ️ データ保存について:",
+    "description": "Info box title"
+  },
+  "infoDataStorageDesc": {
+    "message": "拡張機能のデータはブラウザのサンドボックスに保存され、カスタムパスを指定できません。他の場所にバックアップするには、「バックアップをエクスポート」機能を使用してJSONファイルをダウンロードしてください。",
+    "description": "Info text"
+  },
+  "storageInfoTitle": {
+    "message": "📍 保存情報",
+    "description": "Storage info title"
+  },
+  "storageLocation": {
+    "message": "現在の保存場所:",
+    "description": "Storage label"
+  },
+  "storageLocationValue": {
+    "message": "Chromeブラウザの内部ストレージ (chrome.storage.local)",
+    "description": "Storage value"
+  },
+  "storageLimitation": {
+    "message": "アクセス制限:",
+    "description": "Storage label"
+  },
+  "storageLimitationValue": {
+    "message": "Chromeのセキュリティポリシーのため、ファイルシステムパスに直接アクセスできません",
+    "description": "Storage value"
+  },
+  "storageSolution": {
+    "message": "解決策:",
+    "description": "Storage label"
+  },
+  "storageSolutionValue": {
+    "message": "下の「バックアップをエクスポート」機能を使用して、バックアップをコンピュータに保存",
+    "description": "Storage value"
+  },
+  "clearDataDesc": {
+    "message": "すべてのバックアップと設定を削除 (実際のブックマークには影響しません)",
+    "description": "Clear data description"
+  },
+  "scanPageDesc": {
+    "message": "すべてのブックマークを分析し、分類提案と重複検出を提供",
+    "description": "Page description"
+  },
+  "categoriesPageDesc": {
+    "message": "スマート分類結果を表示して適用",
+    "description": "Page description"
+  },
+  "duplicatesPageDesc": {
+    "message": "重複ブックマークを検索して削除",
+    "description": "Page description"
+  },
+  "backupsPageDesc": {
+    "message": "ブックマークバックアップを管理、エクスポートとインポートに対応",
+    "description": "Page description"
+  },
+  "settingsPageDesc": {
+    "message": "拡張機能の動作と設定をカスタマイズ",
+    "description": "Page description"
+  },
+  "cardScanTitle": {
+    "message": "スキャン開始",
+    "description": "Action card title"
+  },
+  "cardScanDesc": {
+    "message": "ブックマークを分析して自動バックアップ",
+    "description": "Action card description"
+  },
+  "cardBackupTitle": {
+    "message": "クイックバックアップ",
+    "description": "Action card title"
+  },
+  "cardBackupDesc": {
+    "message": "ブックマークバックアップを即座に作成",
+    "description": "Action card description"
+  },
+  "langSelectorLabel": {
+    "message": "🌐",
+    "description": "Language selector label"
+  },
+  "unknownPath": {
+    "message": "不明な場所",
+    "description": "Unknown bookmark path"
+  },
+  "bookmarksBar": {
+    "message": "ブックマークバー",
+    "description": "Bookmarks bar folder name"
+  },
+  "tooltipDeleteBookmark": {
+    "message": "このブックマークを削除",
+    "description": "Delete button tooltip"
+  },
+  "backupNotExist": {
+    "message": "バックアップが存在しません",
+    "description": "Error message"
+  },
+  "statusApplying": {
+    "message": "適用中...",
+    "description": "Button status text"
+  },
+  "statusDeleting": {
+    "message": "削除中...",
+    "description": "Button status text"
+  },
+  "statusBackingUp": {
+    "message": "バックアップ中...",
+    "description": "Button status text"
+  }
+}

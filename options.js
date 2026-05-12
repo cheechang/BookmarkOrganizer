@@ -8,11 +8,47 @@ let currentSettings = {};
 
 // 初始化
 document.addEventListener('DOMContentLoaded', async () => {
+  await I18n.init();
+  initLanguageSelector();
+  I18n.applyToPage();
   await loadCategories();
   await loadSettings();
   setupNavigation();
   setupEventListeners();
   await loadBackupsListFull();
+});
+
+// 初始化语言选择器
+function initLanguageSelector() {
+  const selector = document.getElementById('langSelector');
+  if (!selector) return;
+  
+  const locales = I18n.getSupportedLocales();
+  selector.innerHTML = '';
+  locales.forEach(loc => {
+    const option = document.createElement('option');
+    option.value = loc.code;
+    option.textContent = loc.native;
+    if (loc.code === I18n.getLocale()) {
+      option.selected = true;
+    }
+    selector.appendChild(option);
+  });
+  
+  selector.addEventListener('change', (e) => {
+    I18n.setLocale(e.target.value);
+  });
+}
+
+// 语言切换时重新渲染动态内容
+window.addEventListener('localeChanged', () => {
+  if (analysisResults.length > 0) {
+    displayCategoriesFull();
+  }
+  if (duplicates.length > 0) {
+    displayDuplicatesFull(currentFilterGroupFull);
+  }
+  loadBackupsListFull();
 });
 
 // 加载分类规则
@@ -23,8 +59,8 @@ async function loadCategories() {
       categories = response.categories;
     }
   } catch (error) {
-    console.error('加载分类规则失败:', error);
-    showMessage('加载分类规则失败', 'error');
+    console.error('Load categories failed:', error);
+    showMessage(_t('msgLoadCategoriesFailed'), 'error');
   }
 }
 
@@ -41,7 +77,7 @@ async function loadSettings() {
     autoBackupSetting.addEventListener('change', async (e) => {
       settings.autoBackup = e.target.checked;
       await chrome.storage.local.set({ settings });
-      showMessage('设置已保存', 'success');
+      showMessage(_t('msgSettingsSaved'), 'success');
     });
   }
   
@@ -66,7 +102,7 @@ async function loadSettings() {
     showPathSetting.addEventListener('change', async (e) => {
       settings.showPath = e.target.checked;
       await chrome.storage.local.set({ settings });
-      showMessage('设置已保存', 'success');
+      showMessage(_t('msgSettingsSaved'), 'success');
       // 如果当前有重复检测数据，立即刷新显示
       if (duplicates.length > 0) {
         displayDuplicatesFull(currentFilterGroupFull);
@@ -175,19 +211,19 @@ async function handleFullScan() {
   scanBtn.disabled = true;
   progressContainer.classList.remove('hidden');
   progressFill.style.width = '0%';
-  progressText.textContent = '正在获取书签...';
+  progressText.textContent = _t('progressGettingBookmarks');
   
   try {
     // 自动备份
     const settingsResult = await chrome.storage.local.get('settings');
     if (settingsResult.settings?.autoBackup) {
-      progressText.textContent = '正在自动备份...';
+      progressText.textContent = _t('progressAutoBackup');
       await backupBookmarks();
       await loadBackupsListFull();
     }
     
     // 获取所有书签
-    progressText.textContent = '正在分析书签...';
+    progressText.textContent = _t('progressAnalyzing');
     const bookmarks = await getAllBookmarks();
     
     // 分析每个书签
@@ -200,7 +236,7 @@ async function handleFullScan() {
       
       const progress = ((i + 1) / total) * 100;
       progressFill.style.width = `${progress}%`;
-      progressText.textContent = `正在分析 ${i + 1}/${total}`;
+      progressText.textContent = _t('progressAnalyzingItem', [`${i + 1}`, `${total}`]);
       
       if (i % 10 === 0) {
         await new Promise(resolve => setTimeout(resolve, 0));
@@ -208,7 +244,7 @@ async function handleFullScan() {
     }
     
     // 检测重复
-    progressText.textContent = '正在检测重复...';
+    progressText.textContent = _t('progressDetectingDuplicates');
     const threshold = (currentSettings.similarityThreshold || 80) / 100;
     duplicates = await detectDuplicates(threshold);
     
@@ -221,8 +257,8 @@ async function handleFullScan() {
     // 显示重复项
     displayDuplicatesFull();
     
-    progressText.textContent = '分析完成!';
-    showMessage(`分析完成! 共 ${total} 个书签`, 'success');
+    progressText.textContent = _t('progressComplete');
+    showMessage(_t('msgScanComplete', [`${total}`]), 'success');
     
     // 自动切换到分类建议页面
     setTimeout(() => {
@@ -230,8 +266,8 @@ async function handleFullScan() {
     }, 1000);
     
   } catch (error) {
-    console.error('扫描失败:', error);
-    showMessage('扫描失败: ' + error.message, 'error');
+    console.error('Scan failed:', error);
+    showMessage(_t('msgScanFailed') + error.message, 'error');
   } finally {
     scanBtn.disabled = false;
     setTimeout(() => {
@@ -276,8 +312,8 @@ function displayCategoriesFull() {
     container.innerHTML = `
       <div class="empty-state-large">
         <div class="empty-icon">📂</div>
-        <h3>未找到可分类的书签</h3>
-        <p>可能需要添加更多分类规则</p>
+        <h3>${_t('emptyNoCategories')}</h3>
+        <p>${_t('emptyNeedMoreRules')}</p>
       </div>
     `;
     applyBtn?.classList.add('hidden');
@@ -290,7 +326,7 @@ function displayCategoriesFull() {
       <div class="category-group">
         <div class="category-header">
           <span class="category-name">${escapeHtml(catName)}</span>
-          <span class="category-count">${items.length} 个书签</span>
+          <span class="category-count">${_t('labelBookmarksCount', [`${items.length}`])}</span>
         </div>
     `;
     
@@ -298,9 +334,9 @@ function displayCategoriesFull() {
       const bookmark = item.bookmark;
       const confidenceClass = `confidence-${item.confidence}`;
       const confidenceText = {
-        'high': '高',
-        'medium': '中',
-        'low': '低'
+        'high': _t('confidenceHigh'),
+        'medium': _t('confidenceMedium'),
+        'low': _t('confidenceLow')
       }[item.confidence];
       
       html += `
@@ -314,7 +350,7 @@ function displayCategoriesFull() {
             <div class="bookmark-url">${escapeHtml(bookmark.url)}</div>
             <div class="bookmark-meta">
               <span class="confidence-badge ${confidenceClass}">
-                置信度: ${confidenceText}
+                ${_t('labelConfidence')}${confidenceText}
               </span>
             </div>
           </div>
@@ -352,8 +388,8 @@ function displayDuplicatesFull(filterGroupIndex = null) {
     container.innerHTML = `
       <div class="empty-state-large">
         <div class="empty-icon">✓</div>
-        <h3>未发现重复书签</h3>
-        <p>你的书签很整洁!</p>
+        <h3>${_t('emptyNoDuplicatesFull')}</h3>
+        <p>${_t('emptyBookmarksClean')}</p>
       </div>
     `;
     removeBtn?.classList.add('hidden');
@@ -389,8 +425,8 @@ function displayDuplicatesFull(filterGroupIndex = null) {
   } else {
     html += `
       <div class="duplicate-filter-info">
-        <button class="btn-back-filter" data-action="clear-filter">← 返回全部</button>
-        <span class="filter-label">正在查看: ${escapeHtml(duplicates[filterGroupIndex].items[0].title.substring(0, 40))}</span>
+        <button class="btn-back-filter" data-action="clear-filter">${_t('btnBackToAll')}</button>
+        <span class="filter-label">${_t('labelViewing')}${escapeHtml(duplicates[filterGroupIndex].items[0].title.substring(0, 40))}</span>
       </div>
     `;
   }
@@ -402,9 +438,9 @@ function displayDuplicatesFull(filterGroupIndex = null) {
   
   groupsToShow.forEach((group, displayIndex) => {
     const actualIndex = group.originalIndex;
-    const typeText = group.type === 'exact' ? '完全重复' : '相似重复';
+    const typeText = group.type === 'exact' ? _t('duplicateExact') : _t('duplicateSimilar');
     const similarityText = group.similarity ? 
-      `(相似度: ${(group.similarity * 100).toFixed(0)}%)` : '';
+      _t('labelSimilarity', [`${(group.similarity * 100).toFixed(0)}`]) : '';
     
     html += `
       <div class="duplicate-group" data-group-index="${actualIndex}">
@@ -438,7 +474,7 @@ function displayDuplicatesFull(filterGroupIndex = null) {
                   data-bookmark-id="${item.id}"
                   data-group-index="${actualIndex}"
                   data-item-index="${idx}" 
-                  title="删除此书签">
+                  title="${_t('tooltipDeleteBookmark')}">
             🗑️
           </button>
         </div>
@@ -509,13 +545,13 @@ function clearDuplicateFilterFull() {
 
 // 删除单个重复项
 async function deleteSingleDuplicateFull(bookmarkId, groupIndex, itemIndex) {
-  if (!confirm('确定要删除这个书签吗？')) {
+  if (!confirm(_t('confirmDeleteBookmark'))) {
     return;
   }
   
   try {
     await chrome.bookmarks.remove(bookmarkId);
-    showMessage('已删除', 'success');
+    showMessage(_t('msgDeleteSuccess'), 'success');
     
     // 从数据中移除该项
     const group = duplicates[groupIndex];
@@ -548,25 +584,25 @@ async function deleteSingleDuplicateFull(bookmarkId, groupIndex, itemIndex) {
     displayDuplicatesFull(currentFilterGroupFull);
     
   } catch (error) {
-    console.error('删除失败:', error);
-    showMessage('删除失败: ' + error.message, 'error');
+    console.error('Delete failed:', error);
+    showMessage(_t('msgDeleteFailed') + error.message, 'error');
   }
 }
 
 // 应用分类
 async function handleApplyCategories() {
   if (selectedBookmarks.size === 0) {
-    showMessage('请至少选择一个书签', 'warning');
+    showMessage(_t('msgNoBookmarksSelected'), 'warning');
     return;
   }
   
-  if (!confirm(`确定要将 ${selectedBookmarks.size} 个书签移动到对应分类文件夹吗?`)) {
+  if (!confirm(_t('confirmApplyCategories', [`${selectedBookmarks.size}`]))) {
     return;
   }
   
   const applyBtn = document.getElementById('applyCategoriesBtnFull');
   applyBtn.disabled = true;
-  applyBtn.textContent = '应用中...';
+  applyBtn.textContent = _t('statusApplying');
   
   try {
     const moves = [];
@@ -592,7 +628,7 @@ async function handleApplyCategories() {
       successCount += results.filter(r => r.success).length;
     }
     
-    showMessage(`成功移动 ${successCount} 个书签`, 'success');
+    showMessage(_t('msgApplySuccess', [`${successCount}`]), 'success');
     
     setTimeout(() => {
       handleFullScan();
@@ -600,10 +636,10 @@ async function handleApplyCategories() {
     
   } catch (error) {
     console.error('应用分类失败:', error);
-    showMessage('应用分类失败: ' + error.message, 'error');
+    showMessage(_t('msgApplyFailed') + error.message, 'error');
   } finally {
     applyBtn.disabled = false;
-    applyBtn.textContent = '✓ 应用选中的分类';
+    applyBtn.textContent = _t('btnApplySelectedCategories');
   }
 }
 
@@ -613,17 +649,17 @@ async function handleRemoveDuplicates() {
   const selectedCheckboxes = document.querySelectorAll('.duplicate-checkbox:checked');
   
   if (selectedCheckboxes.length === 0) {
-    showMessage('请至少选择一个要删除的书签', 'warning');
+    showMessage(_t('msgNoDuplicatesSelected'), 'warning');
     return;
   }
   
-  if (!confirm(`确定要删除选中的 ${selectedCheckboxes.length} 个重复书签吗?此操作不可撤销!`)) {
+  if (!confirm(_t('confirmRemoveDuplicates', [`${selectedCheckboxes.length}`]))) {
     return;
   }
   
   const removeBtn = document.getElementById('removeDuplicatesBtnFull');
   removeBtn.disabled = true;
-  removeBtn.textContent = '删除中...';
+  removeBtn.textContent = _t('statusDeleting');
   
   try {
     let deleteCount = 0;
@@ -636,11 +672,11 @@ async function handleRemoveDuplicates() {
         deleteCount++;
         deletedIds.add(checkbox.value);
       } catch (error) {
-        console.error('删除失败:', error);
+        console.error('Delete failed:', error);
       }
     }
     
-    showMessage(`成功删除 ${deleteCount} 个重复书签`, 'success');
+    showMessage(_t('msgRemoveSuccess', [`${deleteCount}`]), 'success');
     
     // 立即从本地数据中移除被删除的项目（关键修复）
     const groupsToRemove = [];
@@ -672,10 +708,10 @@ async function handleRemoveDuplicates() {
     
   } catch (error) {
     console.error('清理重复失败:', error);
-    showMessage('清理失败: ' + error.message, 'error');
+    showMessage(_t('msgRemoveFailed') + error.message, 'error');
   } finally {
     removeBtn.disabled = false;
-    removeBtn.textContent = '🗑 清理选中的重复项';
+    removeBtn.textContent = _t('btnRemoveDuplicates');
   }
 }
 
@@ -683,18 +719,18 @@ async function handleRemoveDuplicates() {
 async function handleQuickBackup() {
   const btn = document.getElementById('quickBackupBtn');
   btn.disabled = true;
-  btn.textContent = '备份中...';
+  btn.textContent = _t('statusBackingUp');
   
   try {
     await backupBookmarks();
     await loadBackupsListFull();
-    showMessage('备份成功!', 'success');
+    showMessage(_t('msgBackupSuccess'), 'success');
   } catch (error) {
     console.error('备份失败:', error);
-    showMessage('备份失败: ' + error.message, 'error');
+    showMessage(_t('msgBackupFailed') + error.message, 'error');
   } finally {
     btn.disabled = false;
-    btn.textContent = '💾 立即备份';
+    btn.textContent = _t('btnBackupNow');
   }
 }
 
@@ -710,7 +746,7 @@ async function handleExportBackup() {
     const backups = result.bookmarksBackups || [];
     
     if (backups.length === 0) {
-      showMessage('没有可导出的备份', 'warning');
+      showMessage(_t('msgNoBackupToExport'), 'warning');
       return;
     }
     
@@ -728,11 +764,11 @@ async function handleExportBackup() {
       saveAs: true // 让用户选择保存位置
     });
     
-    showMessage('备份已导出,请选择保存位置', 'success');
+    showMessage(_t('msgExportSuccess'), 'success');
     
   } catch (error) {
     console.error('导出失败:', error);
-    showMessage('导出失败: ' + error.message, 'error');
+    showMessage(_t('msgExportFailed') + error.message, 'error');
   }
 }
 
@@ -746,10 +782,10 @@ async function handleImportBackup(event) {
     const backup = JSON.parse(text);
     
     if (!backup.data || !backup.timestamp) {
-      throw new Error('无效的备份文件格式');
+      throw new Error(_t('msgInvalidBackupFormat'));
     }
     
-    if (!confirm('导入备份将覆盖当前所有书签,确定继续吗?')) {
+    if (!confirm(_t('confirmImportBackup'))) {
       return;
     }
     
@@ -763,11 +799,11 @@ async function handleImportBackup(event) {
     await chrome.storage.local.set({ bookmarksBackups: backups });
     
     await loadBackupsListFull();
-    showMessage('备份导入成功!', 'success');
+    showMessage(_t('msgImportSuccess'), 'success');
     
   } catch (error) {
     console.error('导入失败:', error);
-    showMessage('导入失败: ' + error.message, 'error');
+    showMessage(_t('msgImportFailed') + error.message, 'error');
   } finally {
     event.target.value = ''; // 清空文件输入
   }
@@ -792,19 +828,19 @@ async function loadBackupsListFull() {
   
   let html = '';
   backups.forEach((backup, index) => {
-    const date = new Date(backup.timestamp).toLocaleString('zh-CN');
+    const date = new Date(backup.timestamp).toLocaleString(I18n.getLocale() === 'zh_CN' ? 'zh-CN' : I18n.getLocale());
     html += `
       <div class="backup-item">
         <div class="backup-info">
           <div class="backup-date">${backup.date || date}</div>
-          <div class="backup-details">${backup.count || 0} 个书签</div>
+          <div class="backup-details">${_t('labelBookmarksCountShort', [`${backup.count || 0}`])}</div>
         </div>
         <div class="backup-actions">
           <button class="btn-small btn-restore" data-action="restore-backup" data-index="${index}">
-            恢复
+            ${_t('btnRestore')}
           </button>
           <button class="btn-small btn-delete" data-action="delete-backup" data-index="${index}">
-            删除
+            ${_t('btnDelete')}
           </button>
         </div>
       </div>
@@ -816,7 +852,7 @@ async function loadBackupsListFull() {
 
 // 恢复备份(完整版)
 async function restoreBackupFull(index) {
-  if (!confirm('恢复备份将覆盖当前所有书签,确定继续吗?')) {
+  if (!confirm(_t('confirmRestoreBackup'))) {
     return;
   }
   
@@ -826,22 +862,22 @@ async function restoreBackupFull(index) {
     const backup = backups[index];
     
     if (!backup) {
-      throw new Error('备份不存在');
+      throw new Error(_t('backupNotExist'));
     }
     
     await restoreBookmarks(backup.data);
-    showMessage('恢复成功!', 'success');
+    showMessage(_t('msgRestoreSuccess'), 'success');
     await loadBackupsListFull();
     
   } catch (error) {
     console.error('恢复失败:', error);
-    showMessage('恢复失败: ' + error.message, 'error');
+    showMessage(_t('msgRestoreFailed') + error.message, 'error');
   }
 };
 
 // 删除备份(完整版)
 async function deleteBackupFull(index) {
-  if (!confirm('确定要删除这个备份吗?')) {
+  if (!confirm(_t('confirmDeleteBackup'))) {
     return;
   }
   
@@ -853,27 +889,27 @@ async function deleteBackupFull(index) {
     await chrome.storage.local.set({ bookmarksBackups: backups });
     
     await loadBackupsListFull();
-    showMessage('备份已删除', 'success');
+    showMessage(_t('msgBackupDeleted'), 'success');
     
   } catch (error) {
-    console.error('删除失败:', error);
-    showMessage('删除失败: ' + error.message, 'error');
+    console.error('Delete failed:', error);
+    showMessage(_t('msgDeleteFailed') + error.message, 'error');
   }
 };
 
 // 清除所有数据
 async function handleClearAllData() {
-  if (!confirm('确定要清除所有本地数据吗?(不影响实际书签)')) {
+  if (!confirm(_t('confirmClearData'))) {
     return;
   }
   
   try {
     await chrome.storage.local.clear();
-    showMessage('所有数据已清除', 'success');
+    showMessage(_t('msgDataCleared'), 'success');
     location.reload();
   } catch (error) {
-    console.error('清除失败:', error);
-    showMessage('清除失败: ' + error.message, 'error');
+    console.error('Clear failed:', error);
+    showMessage(_t('msgClearFailed') + error.message, 'error');
   }
 }
 

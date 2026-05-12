@@ -21,7 +21,7 @@ async function getBookmarkPath(bookmarkId) {
     let currentNode = await chrome.bookmarks.get(bookmarkId);
     
     if (!currentNode || !currentNode[0]) {
-      return '未知位置';
+      return typeof _t === 'function' ? _t('unknownPath') : 'Unknown Location';
     }
     
     let parentId = currentNode[0].parentId;
@@ -37,10 +37,10 @@ async function getBookmarkPath(bookmarkId) {
       }
     }
     
-    return path.length > 0 ? path.join(' > ') : '书签栏';
+    return path.length > 0 ? path.join(' > ') : (typeof _t === 'function' ? _t('bookmarksBar') : 'Bookmarks Bar');
   } catch (error) {
     console.error('获取书签路径失败:', error);
-    return '未知位置';
+    return typeof _t === 'function' ? _t('unknownPath') : 'Unknown Location';
   }
 }
 
@@ -108,7 +108,7 @@ async function getBookmarksPaths(bookmarkIds) {
     let currentNode = nodeMap[id];
     
     if (!currentNode) {
-      paths[id] = { path: '未知位置', inBookmarksBar: false };
+      paths[id] = { path: (typeof _t === 'function' ? _t('unknownPath') : 'Unknown Location'), inBookmarksBar: false };
       continue;
     }
     
@@ -124,7 +124,7 @@ async function getBookmarksPaths(bookmarkIds) {
     }
     
     paths[id] = {
-      path: path.length > 0 ? path.join(' > ') : '书签栏',
+      path: path.length > 0 ? path.join(' > ') : (typeof _t === 'function' ? _t('bookmarksBar') : 'Bookmarks Bar'),
       inBookmarksBar
     };
   }
@@ -350,7 +350,7 @@ async function detectDuplicates(similarityThreshold = 0.8) {
     // 将路径信息添加到每个书签
     duplicates.forEach(group => {
       group.items.forEach(item => {
-        const info = pathsMap[item.id] || { path: '未知位置', inBookmarksBar: false };
+        const info = pathsMap[item.id] || { path: (typeof _t === 'function' ? _t('unknownPath') : 'Unknown Location'), inBookmarksBar: false };
         item.path = info.path;
         item.inBookmarksBar = info.inBookmarksBar;
       });

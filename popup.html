@@ -3,23 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>书签整理工具</title>
+  <title data-i18n="extName">Bookmark Organizer</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>📚 书签整理工具</h1>
-      <p class="subtitle">智能分类 · 去重 · 备份</p>
+      <h1 data-i18n="appTitle">📚 Bookmark Organizer</h1>
+      <p class="subtitle" data-i18n="appSubtitle">Smart Categorize · Deduplicate · Backup</p>
+      <div class="lang-selector-container">
+        <select id="langSelector" class="lang-selector" title="Select Language"></select>
+      </div>
     </header>
 
     <!-- 主控制面板 -->
     <section class="control-panel">
-      <button id="scanBtn" class="btn btn-primary">
-        🔍 开始扫描分析
+      <button id="scanBtn" class="btn btn-primary" data-i18n="btnScan">
+        🔍 Start Scan
       </button>
-      <button id="backupBtn" class="btn btn-secondary">
-        💾 立即备份
+      <button id="backupBtn" class="btn btn-secondary" data-i18n="btnBackup">
+        💾 Backup Now
       </button>
     </section>
 
@@ -28,30 +31,30 @@
       <div class="progress-bar">
         <div id="progressFill" class="progress-fill"></div>
       </div>
-      <p id="progressText" class="progress-text">正在分析...</p>
+      <p id="progressText" class="progress-text" data-i18n="progressAnalyzing">Analyzing...</p>
     </div>
 
     <!-- 统计信息 -->
     <div id="statsPanel" class="stats-panel hidden">
       <div class="stat-item">
         <span class="stat-value" id="totalBookmarks">0</span>
-        <span class="stat-label">总书签数</span>
+        <span class="stat-label" data-i18n="labelTotalBookmarks">Total Bookmarks</span>
       </div>
       <div class="stat-item">
         <span class="stat-value" id="uncategorizedCount">0</span>
-        <span class="stat-label">未分类</span>
+        <span class="stat-label" data-i18n="labelUncategorized">Uncategorized</span>
       </div>
       <div class="stat-item">
         <span class="stat-value" id="duplicatesCount">0</span>
-        <span class="stat-label">重复项</span>
+        <span class="stat-label" data-i18n="labelDuplicates">Duplicates</span>
       </div>
     </div>
 
     <!-- 标签页导航 -->
     <nav class="tabs">
-      <button class="tab-btn active" data-tab="categories">分类建议</button>
-      <button class="tab-btn" data-tab="duplicates">重复检测</button>
-      <button class="tab-btn" data-tab="backups">备份管理</button>
+      <button class="tab-btn active" data-tab="categories" data-i18n="tabCategories">Categories</button>
+      <button class="tab-btn" data-tab="duplicates" data-i18n="tabDuplicates">Duplicates</button>
+      <button class="tab-btn" data-tab="backups" data-i18n="tabBackups">Backups</button>
     </nav>
 
     <!-- 可滚动内容区域 -->
@@ -59,14 +62,14 @@
       <!-- 分类建议面板 -->
       <div id="categoriesTab" class="tab-content active">
         <div id="categoriesList" class="categories-list">
-          <p class="empty-state">点击"开始扫描分析"查看分类建议</p>
+          <p class="empty-state" data-i18n="emptyClickScan">Click "Start Scan" to view category suggestions</p>
         </div>
       </div>
 
       <!-- 重复检测面板 -->
       <div id="duplicatesTab" class="tab-content">
         <div id="duplicatesList" class="duplicates-list">
-          <p class="empty-state">点击"开始扫描分析"检测重复书签</p>
+          <p class="empty-state" data-i18n="emptyClickScanDup">Click "Start Scan" to detect duplicate bookmarks</p>
         </div>
       </div>
 
@@ -75,22 +78,22 @@
         <div class="backup-controls">
           <label class="checkbox-label">
             <input type="checkbox" id="autoBackupToggle">
-            <span>启用自动备份</span>
+            <span data-i18n="settingAutoBackup">Enable Auto Backup</span>
           </label>
         </div>
         <div id="backupsList" class="backups-list">
-          <p class="empty-state">暂无备份记录</p>
+          <p class="empty-state" data-i18n="emptyNoBackups">No backup records</p>
         </div>
       </div>
     </div>
 
     <!-- 固定底部操作按钮 -->
     <div class="fixed-actions">
-      <button id="applyCategoriesBtn" class="btn btn-success hidden">
-        ✓ 应用分类
+      <button id="applyCategoriesBtn" class="btn btn-success hidden" data-i18n="btnApplyCategories">
+        ✓ Apply Categories
       </button>
-      <button id="removeDuplicatesBtn" class="btn btn-danger hidden">
-        🗑 清理选中的重复项
+      <button id="removeDuplicatesBtn" class="btn btn-danger hidden" data-i18n="btnRemoveDuplicates">
+        🗑 Clean Selected Duplicates
       </button>
     </div>
 
@@ -98,6 +101,7 @@
     <div id="messageBox" class="message-box hidden"></div>
   </div>
 
+  <script src="i18n.js"></script>
   <script src="utils.js"></script>
   <script src="popup.js"></script>
 </body>
