@@ -31,10 +31,10 @@ jobs:
       - name: Create ZIP
         run: |
           zip -r BookmarkOrganizer-${{ github.ref_name }}.zip \
-            manifest.json background.js utils.js \
+            manifest.json background.js utils.js i18n.js \
             options.html options.js options.css \
             popup.html popup.js popup.css \
-            icons rules
+            _locales icons rules
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
