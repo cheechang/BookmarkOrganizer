@@ -21,11 +21,11 @@ jobs:
 
       - name: Write private key
         run: |
-          echo "${{ secrets.CRX_PRIVATE_KEY }}" > key.pem
+          echo "${{ secrets.CRX_PRIVATE_KEY }}" > /tmp/key.pem
 
       - name: Pack CRX with Chrome
         run: |
-          google-chrome --pack-extension="$PWD" --pack-extension-key="key.pem" --no-sandbox
+          google-chrome --pack-extension="$PWD" --pack-extension-key="/tmp/key.pem" --no-sandbox
           mv "$PWD/../BookmarkOrganizer.crx" BookmarkOrganizer-${{ github.ref_name }}.crx
 
       - name: Create ZIP
