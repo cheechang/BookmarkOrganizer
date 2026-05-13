@@ -36,10 +36,26 @@ jobs:
             popup.html popup.js popup.css \
             _locales icons rules
 
+      - name: Extract changelog for version
+        id: changelog
+        run: |
+          VERSION="${{ github.ref_name }}"
+          # Extract section for this version from CHANGELOG.md
+          # Remove leading 'v' if present for matching
+          VER_TAG="${VERSION#v}"
+          BODY=$(awk "/^## \[$VER_TAG\]/{flag=1;next}/^## \[/{flag=0}flag" CHANGELOG.md | sed -e :a -e '/./,$!d;/^$/{$d;N;};/\n$/{$d;N;};/\n$/ba' | sed 's/$/\\n/' | tr -d '\n')
+          if [ -z "$BODY" ]; then
+            BODY="See CHANGELOG.md for details."
+          fi
+          echo "body<<EOF" >> $GITHUB_OUTPUT
+          echo -e "$BODY" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
             BookmarkOrganizer-${{ github.ref_name }}.crx
             BookmarkOrganizer-${{ github.ref_name }}.zip
-          generate_release_notes: true
+          body: ${{ steps.changelog.outputs.body }}
+          generate_release_notes: false
