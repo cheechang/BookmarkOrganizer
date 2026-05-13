@@ -121,6 +121,9 @@ body {
 .sidebar-footer {
   padding: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 /* 主内容区 */
@@ -254,6 +257,18 @@ body {
 .btn-outline:hover {
   background: white;
   color: #667eea;
+}
+
+.btn-toolbar {
+  background: transparent;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+}
+
+.btn-toolbar:hover {
+  background: #e2e8f0;
+  border-color: #a0aec0;
+  color: #2d3748;
 }
 
 .btn-lg {
@@ -1212,6 +1227,18 @@ body[data-theme="dark"] .search-input {
 
 body[data-theme="dark"] .search-input:focus {
   border-color: #667eea;
+}
+
+body[data-theme="dark"] .btn-toolbar {
+  background: transparent;
+  border-color: #4a5568;
+  color: #a0aec0;
+}
+
+body[data-theme="dark"] .btn-toolbar:hover {
+  background: #2d3748;
+  border-color: #718096;
+  color: #e2e8f0;
 }
 
 body[data-theme="dark"] .info-box {

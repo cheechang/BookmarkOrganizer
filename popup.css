@@ -736,6 +736,15 @@ header h1 {
   margin-bottom: 0;
 }
 
+/* 底部工具栏 */
+.bottom-bar {
+  flex-shrink: 0;
+  padding: 8px 0 0;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 /* 滚动条样式 */
 ::-webkit-scrollbar {
   width: 8px;
@@ -782,6 +791,20 @@ header h1 {
 .theme-toggle:hover {
   background: #f5f7fa;
   transform: scale(1.05);
+}
+
+.btn-toolbar {
+  background: transparent;
+  border: 1px solid #cbd5e0;
+  color: #4a5568;
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.btn-toolbar:hover {
+  background: #e2e8f0;
+  border-color: #a0aec0;
+  color: #2d3748;
 }
 
 /* ==================== 列表工具栏 ==================== */
@@ -1019,6 +1042,22 @@ body[data-theme="dark"] .progress-bar {
 body[data-theme="dark"] .fixed-actions {
   background: #1a1a2e;
   border-top-color: #2a2a5a;
+}
+
+body[data-theme="dark"] .bottom-bar {
+  background: #1a1a2e;
+}
+
+body[data-theme="dark"] .btn-toolbar {
+  background: transparent;
+  border-color: #4a5568;
+  color: #a0aec0;
+}
+
+body[data-theme="dark"] .btn-toolbar:hover {
+  background: #2d3748;
+  border-color: #718096;
+  color: #e2e8f0;
 }
 
 body[data-theme="dark"] ::-webkit-scrollbar-track {
