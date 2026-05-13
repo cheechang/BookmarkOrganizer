@@ -163,6 +163,10 @@
     "message": "類似重複",
     "description": "Similar duplicate type"
   },
+  "duplicateNormalized": {
+    "message": "正規化重複",
+    "description": "Same path but different query parameters"
+  },
   "tabCategories": {
     "message": "分類提案",
     "description": "Tab label"

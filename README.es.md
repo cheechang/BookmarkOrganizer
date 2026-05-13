@@ -18,9 +18,10 @@ Las reglas de categoría se definen en `rules/categories.json`. Puedes agregar n
 Como alternativa, abre la página de **Configuración** y usa la sección **Reglas de Categoría Personalizadas** para agregar, editar o eliminar reglas directamente desde la interfaz. Las reglas creadas aquí se guardan en el almacenamiento del navegador y tienen prioridad sobre las reglas predeterminadas de `categories.json`.
 
 ### 2. Detección de Duplicados
-Encuentra dos tipos de duplicados:
+Encuentra tres tipos de duplicados:
 - **Duplicados exactos** — marcadores con la URL idéntica
-- **Duplicados similares** — marcadores en el mismo dominio con títulos muy similares (p. ej., "React - Documentación Oficial" y "React Docs")
+- **Duplicados normalizados** — marcadores que comparten la misma ruta pero difieren solo en los parámetros de consulta (p. ej., dos enlaces al mismo documento con diferentes valores de `timestamp`)
+- **Duplicados similares** — marcadores en el mismo dominio con títulos y rutas de URL muy similares (p. ej., "React - Documentación Oficial" y "React Docs")
 
 Los resultados se muestran con pestañas de filtro en la parte superior. Cada pestaña representa un grupo de duplicados; haz clic en una pestaña para ver solo ese grupo. Puedes seleccionar elementos en masa para eliminarlos o eliminar marcadores individuales con el botón 🗑 a la derecha. La interfaz se actualiza inmediatamente después de la eliminación sin necesidad de volver a escanear.
 
@@ -146,7 +147,7 @@ La lógica principal reside en `utils.js`:
 - **Manifest V3**, completamente del lado del cliente, sin servicio backend
 - Todos los datos usan la API Storage del navegador; sin solicitudes de red
 - Cumplimiento CSP: sin `onclick` en línea; todos los eventos vinculados mediante `addEventListener`
-- Algoritmo de similitud basado en la distancia de Levenshtein; umbral ajustable en Configuración (predeterminado 80%)
+- Algoritmo de similitud basado en la distancia de Levenshtein, que ahora compara tanto el título como la ruta de la URL con promedio ponderado (título 60%, URL 40%); umbral ajustable en Configuración (predeterminado 80%)
 - Al eliminar carpetas se usa automáticamente `removeTree()` para directorios no vacíos, evitando excepciones de `remove()`
 
 ---

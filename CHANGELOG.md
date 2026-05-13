@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.6.1] - 2026-04-23
+
+### Fixed
+
+- **Duplicate Detection Algorithm Improved**
+  - Fixed an issue where two URLs with the same domain but different query parameters (e.g., different `timestamp` values) were incorrectly detected as 100% similar duplicates.
+  - The algorithm now compares both title similarity **and** URL path similarity (using normalized URLs without query strings), with a weighted average (title 60%, URL 40%).
+  - Added a new **"Normalized Duplicate"** detection stage: URLs that share the same path but differ only in query parameters are now classified separately, making it easier to identify and clean up dynamic-parameter duplicates.
+  - UI now distinguishes three duplicate types: **Exact Duplicate**, **Normalized Duplicate** (same path, different parameters), and **Similar Duplicate** (same domain with similar titles/paths).
+
+---
+
 ## [1.6.0] - 2026-04-23
 
 ### Added

@@ -13,6 +13,18 @@ function extractDomain(url) {
 }
 
 /**
+ * 规范化URL：去掉查询参数和哈希，只保留 origin + pathname
+ */
+function normalizeUrl(url) {
+  try {
+    const urlObj = new URL(url);
+    return urlObj.origin + urlObj.pathname;
+  } catch (e) {
+    return url;
+  }
+}
+
+/**
  * 获取书签的完整路径(文件夹层级)
  */
 async function getBookmarkPath(bookmarkId) {
@@ -281,7 +293,7 @@ async function detectDuplicates(similarityThreshold = 0.8) {
     domainGroups[domain].push(bookmark);
   }
   
-  // 检测完全重复(URL相同)
+  // 阶段1: 检测完全重复(URL字符串完全相同)
   const urlMap = {};
   for (const bookmark of bookmarks) {
     if (!urlMap[bookmark.url]) {
@@ -300,7 +312,34 @@ async function detectDuplicates(similarityThreshold = 0.8) {
     }
   }
   
-  // 检测相似重复(同域名且标题相似)
+  // 阶段2: 检测规范化重复(同路径不同查询参数)
+  const normalizedMap = {};
+  for (const bookmark of bookmarks) {
+    if (processed.has(bookmark.id)) continue;
+    const norm = normalizeUrl(bookmark.url);
+    if (!normalizedMap[norm]) {
+      normalizedMap[norm] = [];
+    }
+    normalizedMap[norm].push(bookmark);
+  }
+  
+  for (const norm in normalizedMap) {
+    const group = normalizedMap[norm];
+    if (group.length > 1) {
+      // 过滤掉已经在完全重复中处理过的
+      const unprocessed = group.filter(b => !processed.has(b.id));
+      if (unprocessed.length > 1) {
+        duplicates.push({
+          type: 'normalized',
+          items: unprocessed,
+          similarity: 1.0
+        });
+        unprocessed.forEach(b => processed.add(b.id));
+      }
+    }
+  }
+  
+  // 阶段3: 检测相似重复(同域名、标题相似且URL路径也相似)
   for (const domain in domainGroups) {
     const group = domainGroups[domain];
     if (group.length < 2) continue;
@@ -313,10 +352,15 @@ async function detectDuplicates(similarityThreshold = 0.8) {
       for (let j = i + 1; j < group.length; j++) {
         if (processed.has(group[j].id)) continue;
         
-        const similarity = calculateSimilarity(
-          group[i].title,
-          group[j].title
+        // 同时计算标题相似度和URL相似度(使用规范化后的URL)
+        const titleSim = calculateSimilarity(group[i].title, group[j].title);
+        const urlSim = calculateSimilarity(
+          normalizeUrl(group[i].url),
+          normalizeUrl(group[j].url)
         );
+        
+        // 加权平均：标题占60%，URL路径占40%
+        const similarity = titleSim * 0.6 + urlSim * 0.4;
         
         if (similarity >= similarityThreshold) {
           similarGroup.push(group[j]);

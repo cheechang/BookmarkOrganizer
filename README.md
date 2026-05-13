@@ -18,9 +18,10 @@ Category rules are defined in `rules/categories.json`. You can add new categorie
 Alternatively, open the **Settings** page and use the **Custom Category Rules** section to add, edit, or delete rules directly through the UI. Rules created here are saved to browser storage and take priority over the default rules in `categories.json`.
 
 ### 2. Duplicate Detection
-Finds two types of duplicates:
+Finds three types of duplicates:
 - **Exact duplicates** — bookmarks with the identical URL
-- **Similar duplicates** — bookmarks on the same domain with highly similar titles (e.g., "React - Official Documentation" and "React Docs")
+- **Normalized duplicates** — bookmarks that share the same path but differ only in query parameters (e.g., two links to the same document with different `timestamp` values)
+- **Similar duplicates** — bookmarks on the same domain with highly similar titles and URL paths (e.g., "React - Official Documentation" and "React Docs")
 
 Results are displayed with filter tabs at the top. Each tab represents a duplicate group; click a tab to view only that group. You can bulk-select items for deletion or remove individual bookmarks with the 🗑 button on the right. The UI updates immediately after deletion without requiring a re-scan.
 
@@ -146,7 +147,7 @@ Core logic lives in `utils.js`:
 - **Manifest V3**, fully client-side, no backend service
 - All data uses the browser Storage API; no network requests
 - CSP compliant: no inline `onclick`; all events bound via `addEventListener`
-- Similarity algorithm based on Levenshtein distance (edit distance); threshold adjustable in Settings (default 80%)
+- Similarity algorithm based on Levenshtein distance (edit distance), now comparing both title and URL path with weighted averaging (title 60%, URL 40%); threshold adjustable in Settings (default 80%)
 - Deleting folders automatically uses `removeTree()` for non-empty directories, avoiding `remove()` exceptions
 
 ---

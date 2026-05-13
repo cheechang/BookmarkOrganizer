@@ -18,9 +18,10 @@ Kategorieregeln sind in `rules/categories.json` definiert. Sie können neue Kate
 Alternativ öffnen Sie die Seite **Einstellungen** und verwenden Sie den Abschnitt **Benutzerdefinierte Kategorieregeln**, um Regeln direkt über die Benutzeroberfläche hinzuzufügen, zu bearbeiten oder zu löschen. Hier erstellte Regeln werden im Browserspeicher gespeichert und haben Vorrang vor den Standardregeln in `categories.json`.
 
 ### 2. Duplikaterkennung
-Findet zwei Arten von Duplikaten:
+Findet drei Arten von Duplikaten:
 - **Exakte Duplikate** — Lesezeichen mit identischer URL
-- **Ähnliche Duplikate** — Lesezeichen auf derselben Domain mit sehr ähnlichen Titeln (z. B. "React - Offizielle Dokumentation" und "React Docs")
+- **Normalisierte Duplikate** — Lesezeichen, die denselben Pfad teilen, sich aber nur in den Abfrageparametern unterscheiden (z. B. zwei Links zumselben Dokument mit unterschiedlichen `timestamp`-Werten)
+- **Ähnliche Duplikate** — Lesezeichen auf derselben Domain mit sehr ähnlichen Titeln und URL-Pfaden (z. B. "React - Offizielle Dokumentation" und "React Docs")
 
 Ergebnisse werden mit Filter-Tabs oben angezeigt. Jeder Tab repräsentiert eine Duplikatgruppe; klicken Sie auf einen Tab, um nur diese Gruppe anzuzeigen. Sie können Elemente zur Massenlöschung auswählen oder einzelne Lesezeichen mit der 🗑-Schaltfläche rechts entfernen. Die Benutzeroberfläche aktualisiert sich nach dem Löschen sofort ohne erneuten Scan.
 
@@ -146,7 +147,7 @@ Die Kernlogik befindet sich in `utils.js`:
 - **Manifest V3**, vollständig clientseitig, kein Backend-Dienst
 - Alle Daten verwenden die Storage API des Browsers; keine Netzwerkanfragen
 - CSP-konform: kein Inline-`onclick`; alle Ereignisse über `addEventListener` gebunden
-- Similaritätsalgorithmus basierend auf Levenshtein-Distanz; Schwellenwert in den Einstellungen anpassbar (Standard 80%)
+- Similaritätsalgorithmus basierend auf Levenshtein-Distanz, vergleicht nun sowohl Titel als auch URL-Pfad mit gewichtetem Mittelwert (Titel 60%, URL 40%); Schwellenwert in den Einstellungen anpassbar (Standard 80%)
 - Beim Löschen von Ordnern wird automatisch `removeTree()` für nicht-leere Verzeichnisse verwendet, um `remove()`-Ausnahmen zu vermeiden
 
 ---

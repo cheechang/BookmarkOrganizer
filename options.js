@@ -587,7 +587,12 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
 
   groupsToShow.forEach((group, displayIndex) => {
     const actualIndex = group.originalIndex;
-    const typeText = group.type === 'exact' ? _t('duplicateExact') : _t('duplicateSimilar');
+    let typeText = _t('duplicateSimilar');
+    if (group.type === 'exact') {
+      typeText = _t('duplicateExact');
+    } else if (group.type === 'normalized') {
+      typeText = _t('duplicateNormalized');
+    }
     const similarityText = group.similarity ?
       _t('labelSimilarity', [`${(group.similarity * 100).toFixed(0)}`]) : '';
 

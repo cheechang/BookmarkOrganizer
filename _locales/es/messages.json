@@ -163,6 +163,10 @@
     "message": "Duplicado Similar",
     "description": "Similar duplicate type"
   },
+  "duplicateNormalized": {
+    "message": "Duplicado Normalizado",
+    "description": "Same path but different query parameters"
+  },
   "tabCategories": {
     "message": "Categorías",
     "description": "Tab label"
