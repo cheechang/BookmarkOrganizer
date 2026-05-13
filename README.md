@@ -15,6 +15,8 @@ Scans all your bookmarks and automatically suggests categories based on title, U
 
 Category rules are defined in `rules/categories.json`. You can add new categories or modify keywords without touching any code.
 
+Alternatively, open the **Settings** page and use the **Custom Category Rules** section to add, edit, or delete rules directly through the UI. Rules created here are saved to browser storage and take priority over the default rules in `categories.json`.
+
 ### 2. Duplicate Detection
 Finds two types of duplicates:
 - **Exact duplicates** — bookmarks with the identical URL
@@ -85,7 +87,19 @@ The "Backup Management" page lists all historical backups, showing creation time
 
 ## Customizing Category Rules
 
-Edit `rules/categories.json` and add entries in the following format:
+### Method 1: Via Settings UI (Recommended)
+
+Open the extension's **Settings** page, find the **Custom Category Rules** section, and click **Add Rule**. Each rule requires:
+
+- **Category Name** — the folder name that will be created (e.g., "Work Related")
+- **Match Keywords** — comma-separated words to match against bookmark titles (e.g., `work, office, meeting`)
+- **Match Domains** — comma-separated domains to match against bookmark URLs (e.g., `slack.com, notion.so`)
+
+Rules are saved automatically to browser storage and take effect immediately on the next scan. You can edit or delete rules at any time.
+
+### Method 2: Edit `rules/categories.json` Directly
+
+Edit the JSON file and add entries in the following format:
 
 ```json
 {
@@ -139,7 +153,7 @@ Core logic lives in `utils.js`:
 
 - If you have thousands of bookmarks, scanning may take a few seconds and the UI will show a progress bar
 - Backup data is stored locally in the browser and will be lost if the extension is uninstalled; please export important backups to files
-- Category rules can currently only be edited manually in JSON; UI-based rule management is not yet supported
+- If a custom rule has the same name as an existing folder, bookmarks may be merged into that folder
 
 ---
 

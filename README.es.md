@@ -15,6 +15,8 @@ Escanea todos tus marcadores y sugiere automáticamente categorías basadas en e
 
 Las reglas de categoría se definen en `rules/categories.json`. Puedes agregar nuevas categorías o modificar palabras clave sin tocar ningún código.
 
+Como alternativa, abre la página de **Configuración** y usa la sección **Reglas de Categoría Personalizadas** para agregar, editar o eliminar reglas directamente desde la interfaz. Las reglas creadas aquí se guardan en el almacenamiento del navegador y tienen prioridad sobre las reglas predeterminadas de `categories.json`.
+
 ### 2. Detección de Duplicados
 Encuentra dos tipos de duplicados:
 - **Duplicados exactos** — marcadores con la URL idéntica
@@ -85,7 +87,19 @@ La página "Gestión de Copias de Seguridad" lista todas las copias de seguridad
 
 ## Personalización de Reglas de Categoría
 
-Edita `rules/categories.json` y agrega entradas en el siguiente formato:
+### Método 1: Mediante la UI de Configuración (Recomendado)
+
+Abre la página de **Configuración** de la extensión, encuentra la sección **Reglas de Categoría Personalizadas** y haz clic en **Añadir Regla**. Cada regla requiere:
+
+- **Nombre de Categoría** — el nombre de la carpeta que se creará (p. ej., "Trabajo")
+- **Palabras Clave** — separadas por comas, para coincidir con los títulos de los marcadores (p. ej., `trabajo, oficina, reunión`)
+- **Dominios** — separados por comas, para coincidir con las URLs de los marcadores (p. ej., `slack.com, notion.so`)
+
+Las reglas se guardan automáticamente en el almacenamiento del navegador y surten efecto inmediatamente en el siguiente escaneo. Puedes editarlas o eliminarlas en cualquier momento.
+
+### Método 2: Editar `rules/categories.json` Directamente
+
+Edita el archivo JSON y agrega entradas en el siguiente formato:
 
 ```json
 {
@@ -139,7 +153,7 @@ La lógica principal reside en `utils.js`:
 
 - Si tienes miles de marcadores, el escaneo puede tardar unos segundos y la interfaz mostrará una barra de progreso
 - Los datos de copias de seguridad se almacenan localmente en el navegador y se perderán si se desinstala la extensión; por favor exporta copias de seguridad importantes a archivos
-- Las reglas de categoría actualmente solo se pueden editar manualmente en JSON; la gestión de reglas mediante la interfaz aún no es compatible
+- Si una regla personalizada tiene el mismo nombre que una carpeta existente, los marcadores pueden fusionarse en esa carpeta
 
 ---
 

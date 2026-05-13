@@ -15,6 +15,8 @@ Scannt alle Ihre Lesezeichen und schlägt automatisch Kategorien basierend auf T
 
 Kategorieregeln sind in `rules/categories.json` definiert. Sie können neue Kategorien hinzufügen oder Schlüsselwörter ändern, ohne Code zu berühren.
 
+Alternativ öffnen Sie die Seite **Einstellungen** und verwenden Sie den Abschnitt **Benutzerdefinierte Kategorieregeln**, um Regeln direkt über die Benutzeroberfläche hinzuzufügen, zu bearbeiten oder zu löschen. Hier erstellte Regeln werden im Browserspeicher gespeichert und haben Vorrang vor den Standardregeln in `categories.json`.
+
 ### 2. Duplikaterkennung
 Findet zwei Arten von Duplikaten:
 - **Exakte Duplikate** — Lesezeichen mit identischer URL
@@ -85,7 +87,19 @@ Die Seite "Backup-Verwaltung" listet alle historischen Backups mit Erstellungsze
 
 ## Anpassen von Kategorieregeln
 
-Bearbeiten Sie `rules/categories.json` und fügen Sie Einträge im folgenden Format hinzu:
+### Methode 1: Über die Einstellungen-UI (Empfohlen)
+
+Öffnen Sie die Seite **Einstellungen** der Erweiterung, finden Sie den Abschnitt **Benutzerdefinierte Kategorieregeln** und klicken Sie auf **Regel hinzufügen**. Jede Regel erfordert:
+
+- **Kategoriename** — der Name des Ordners, der erstellt wird (z. B. "Arbeit")
+- **Passende Schlüsselwörter** — durch Kommas getrennt, zur Übereinstimmung mit Lesezeichentiteln (z. B. `work, office, meeting`)
+- **Passende Domains** — durch Kommas getrennt, zur Übereinstimmung mit Lesezeichen-URLs (z. B. `slack.com, notion.so`)
+
+Regeln werden automatisch im Browserspeicher gespeichert und wirken sich sofort beim nächsten Scan aus. Sie können sie jederzeit bearbeiten oder löschen.
+
+### Methode 2: `rules/categories.json` Direkt Bearbeiten
+
+Bearbeiten Sie die JSON-Datei und fügen Sie Einträge im folgenden Format hinzu:
 
 ```json
 {
@@ -139,7 +153,7 @@ Die Kernlogik befindet sich in `utils.js`:
 
 - Wenn Sie Tausende von Lesezeichen haben, kann der Scan einige Sekunden dauern und die Benutzeroberfläche zeigt einen Fortschrittsbalken
 - Backup-Daten werden lokal im Browser gespeichert und gehen verloren, wenn die Erweiterung deinstalliert wird; bitte exportieren Sie wichtige Backups in Dateien
-- Kategorieregeln können derzeit nur manuell in JSON bearbeitet werden; regelbasierte Verwaltung über die Benutzeroberfläche wird noch nicht unterstützt
+- Wenn eine benutzerdefinierte Regel denselben Namen wie ein vorhandener Ordner hat, können Lesezeichen in diesen Ordner zusammengeführt werden
 
 ---
 
