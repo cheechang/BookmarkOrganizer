@@ -606,5 +606,29 @@
   "confirmDeleteRule": {
     "message": "このルールを削除しますか？",
     "description": "Confirm dialog"
+  },
+  "placeholderSearchBookmarks": {
+    "message": "ブックマークを検索...",
+    "description": "Search input placeholder"
+  },
+  "btnExpandAll": {
+    "message": "すべて展開",
+    "description": "Expand all groups button"
+  },
+  "btnCollapseAll": {
+    "message": "すべて折りたたむ",
+    "description": "Collapse all groups button"
+  },
+  "tooltipDarkMode": {
+    "message": "ダークモード",
+    "description": "Dark mode toggle tooltip"
+  },
+  "tooltipLightMode": {
+    "message": "ライトモード",
+    "description": "Light mode toggle tooltip"
+  },
+  "emptyNoResults": {
+    "message": "該当する結果がありません",
+    "description": "Empty state when search returns no results"
   }
 }

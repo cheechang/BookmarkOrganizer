@@ -6,6 +6,37 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.5.0] - 2026-04-23
+
+### Added
+
+- **Collapsible Category Groups**
+  - Each category group in the Categories page now has a fold/unfold toggle button.
+  - Users can expand or collapse individual groups to focus on specific categories.
+  - Added "Expand All" and "Collapse All" buttons for quick bulk control.
+  - Smooth CSS transition animation when expanding or collapsing.
+
+- **Fuzzy Full-Text Search**
+  - Added a search bar above both the Categories and Duplicates lists.
+  - Search matches against bookmark titles and URLs in real-time as you type.
+  - Results are filtered instantly without re-scanning bookmarks.
+  - Search state is preserved across language switches and re-renders.
+
+- **Dark Mode**
+  - Added a dark mode toggle button (🌙/☀️) in the header of both popup and options pages.
+  - Theme preference is persisted in browser storage and survives restarts.
+  - Comprehensive dark theme styling across all UI components: sidebar, cards, lists, forms, filter tags, and progress bars.
+  - All 5 supported languages include translated tooltips for the theme toggle.
+
+### Changed
+
+- **options.html / popup.html**: Added search inputs, expand/collapse buttons, and theme toggle buttons.
+- **options.js / popup.js**: Updated `displayCategories` and `displayDuplicates` to accept a `searchTerm` parameter and filter results. Added `initTheme`, `applyTheme`, and `toggleTheme` functions.
+- **options.css / popup.css**: Added styles for toolbar, search inputs, category toggles, collapse animations, and extensive dark mode color overrides.
+- **i18n**: Added new translation keys: `placeholderSearchBookmarks`, `btnExpandAll`, `btnCollapseAll`, `tooltipDarkMode`, `tooltipLightMode`, `emptyNoResults` across all 5 locales.
+
+---
+
 ## [1.4.2] - 2026-04-23
 
 ### Added

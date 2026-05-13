@@ -606,5 +606,29 @@
   "confirmDeleteRule": {
     "message": "¿Eliminar esta regla?",
     "description": "Confirm dialog"
+  },
+  "placeholderSearchBookmarks": {
+    "message": "Buscar marcadores...",
+    "description": "Search input placeholder"
+  },
+  "btnExpandAll": {
+    "message": "Expandir Todo",
+    "description": "Expand all groups button"
+  },
+  "btnCollapseAll": {
+    "message": "Contraer Todo",
+    "description": "Collapse all groups button"
+  },
+  "tooltipDarkMode": {
+    "message": "Modo Oscuro",
+    "description": "Dark mode toggle tooltip"
+  },
+  "tooltipLightMode": {
+    "message": "Modo Claro",
+    "description": "Light mode toggle tooltip"
+  },
+  "emptyNoResults": {
+    "message": "No hay resultados coincidentes",
+    "description": "Empty state when search returns no results"
   }
 }

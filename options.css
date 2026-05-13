@@ -1009,3 +1009,278 @@ body {
 .btn-delete:hover {
   background: #c53030;
 }
+
+/* ==================== 头部控制栏 ==================== */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.theme-toggle {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.1);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.05);
+}
+
+/* ==================== 列表工具栏 ==================== */
+.list-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+  color: #2d3748;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn-small {
+  padding: 8px 16px;
+  font-size: 13px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* ==================== 分类折叠 ==================== */
+.category-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.category-toggle {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: #e9ecef;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #495057;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-toggle:hover {
+  background: #dee2e6;
+}
+
+.category-items {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 20000px;
+  opacity: 1;
+  overflow: hidden;
+}
+
+.category-group.collapsed .category-items {
+  max-height: 0;
+  opacity: 0;
+}
+
+.category-group.collapsed .category-toggle {
+  transform: rotate(-90deg);
+}
+
+/* ==================== 深色模式 ==================== */
+body[data-theme="dark"] {
+  background: #1a1a2e;
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .sidebar {
+  background: linear-gradient(180deg, #4a5568 0%, #2d3748 100%);
+}
+
+body[data-theme="dark"] .main-content {
+  background: #1a1a2e;
+}
+
+body[data-theme="dark"] .page-header {
+  background: #16213e;
+  border-bottom-color: #2a2a4a;
+}
+
+body[data-theme="dark"] .page-header h2 {
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .page-header p {
+  color: #a0a0b0;
+}
+
+body[data-theme="dark"] .action-card,
+body[data-theme="dark"] .categories-list-full,
+body[data-theme="dark"] .duplicates-list-full,
+body[data-theme="dark"] .backups-list-full,
+body[data-theme="dark"] .settings-section,
+body[data-theme="dark"] .stat-card {
+  background: #16213e;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+body[data-theme="dark"] .action-card h3,
+body[data-theme="dark"] .settings-section h3,
+body[data-theme="dark"] .empty-state-large h3,
+body[data-theme="dark"] .category-name,
+body[data-theme="dark"] .bookmark-title,
+body[data-theme="dark"] .backup-date,
+body[data-theme="dark"] .setting-title,
+body[data-theme="dark"] .rule-name {
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .action-card p,
+body[data-theme="dark"] .setting-desc,
+body[data-theme="dark"] .empty-state-large p,
+body[data-theme="dark"] .bookmark-url,
+body[data-theme="dark"] .category-count,
+body[data-theme="dark"] .backup-details,
+body[data-theme="dark"] .stat-label {
+  color: #a0a0b0;
+}
+
+body[data-theme="dark"] .bookmark-item {
+  background: #1a1a3e;
+}
+
+body[data-theme="dark"] .bookmark-item:hover {
+  background: #202050;
+}
+
+body[data-theme="dark"] .bookmark-path {
+  background: #252560;
+  color: #a0b0ff;
+}
+
+body[data-theme="dark"] .category-header,
+body[data-theme="dark"] .custom-rule-item,
+body[data-theme="dark"] .custom-rule-form,
+body[data-theme="dark"] .backup-item {
+  background: #1e1e45;
+  border-color: #2a2a5a;
+}
+
+body[data-theme="dark"] .custom-rule-item:hover {
+  background: #252555;
+}
+
+body[data-theme="dark"] .search-input {
+  background: #16213e;
+  border-color: #2a2a5a;
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .search-input:focus {
+  border-color: #667eea;
+}
+
+body[data-theme="dark"] .info-box {
+  background: #1a3a5c;
+  border-left-color: #4a9eff;
+}
+
+body[data-theme="dark"] .backup-info-box {
+  background: #3a3000;
+  border-left-color: #d4a017;
+}
+
+body[data-theme="dark"] .backup-info-box h3,
+body[data-theme="dark"] .backup-info-box p {
+  color: #e0c060;
+}
+
+body[data-theme="dark"] .fixed-bottom-actions {
+  background: #16213e;
+  border-top-color: #2a2a4a;
+}
+
+body[data-theme="dark"] .form-input {
+  background: #16213e;
+  border-color: #2a2a5a;
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .duplicate-group {
+  background: #2d1f2f;
+  border-left-color: #c53030;
+}
+
+body[data-theme="dark"] .duplicate-item {
+  background: #16213e;
+}
+
+body[data-theme="dark"] .duplicate-filter-tags {
+  background: linear-gradient(135deg, #1e1e45 0%, #16213e 100%);
+  border-color: #2a2a5a;
+}
+
+body[data-theme="dark"] .filter-tag {
+  background: linear-gradient(135deg, #16213e 0%, #1e1e45 100%);
+  border-color: #2a2a5a;
+  color: #c0c0d0;
+}
+
+body[data-theme="dark"] .duplicate-filter-info {
+  background: linear-gradient(135deg, #1a3a5c 0%, #16213e 100%);
+  border-color: #2a5a8a;
+}
+
+body[data-theme="dark"] .filter-label {
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .progress-bar {
+  background: #2a2a5a;
+}
+
+body[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #1a1a3e;
+}
+
+body[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #4a4a7a;
+}
+
+body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #5a5a9a;
+}

@@ -13,8 +13,11 @@
       <div class="sidebar-header">
         <h1 data-i18n="appTitle">📚 Bookmark Organizer</h1>
         <p class="subtitle" data-i18n="appSubtitleFull">Full Feature Version</p>
-        <div class="lang-selector-container">
-          <select id="langSelector" class="lang-selector" title="Select Language"></select>
+        <div class="header-controls">
+          <div class="lang-selector-container">
+            <select id="langSelector" class="lang-selector" title="Select Language"></select>
+          </div>
+          <button id="themeToggle" class="theme-toggle" title="Toggle Dark Mode">🌙</button>
         </div>
       </div>
       
@@ -116,6 +119,13 @@
         </header>
 
         <div class="content-body">
+          <div id="categoriesToolbar" class="list-toolbar hidden">
+            <input type="text" id="categoriesSearch" class="search-input" data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
+            <div class="toolbar-actions">
+              <button id="expandAllCategories" class="btn btn-small btn-outline" data-i18n="btnExpandAll">Expand All</button>
+              <button id="collapseAllCategories" class="btn btn-small btn-outline" data-i18n="btnCollapseAll">Collapse All</button>
+            </div>
+          </div>
           <div id="categoriesList" class="categories-list-full">
             <div class="empty-state-large">
               <div class="empty-icon">📂</div>
@@ -143,6 +153,9 @@
         </header>
 
         <div class="content-body">
+          <div id="duplicatesToolbar" class="list-toolbar hidden">
+            <input type="text" id="duplicatesSearch" class="search-input" data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
+          </div>
           <div id="duplicatesList" class="duplicates-list-full">
             <div class="empty-state-large">
               <div class="empty-icon">🔄</div>

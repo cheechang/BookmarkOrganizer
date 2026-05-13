@@ -5,6 +5,32 @@ let analysisResults = [];
 let duplicates = [];
 let selectedBookmarks = new Set();
 let currentSettings = {};
+let currentCategorySearch = '';
+let currentDuplicateSearch = '';
+
+// ==================== 深色模式 ====================
+
+async function initTheme() {
+  const result = await chrome.storage.local.get('theme');
+  const theme = result.theme || 'light';
+  applyTheme(theme);
+}
+
+function applyTheme(theme) {
+  document.body.setAttribute('data-theme', theme);
+  const toggle = document.getElementById('themeToggle');
+  if (toggle) {
+    toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+    toggle.title = theme === 'dark' ? _t('tooltipLightMode') : _t('tooltipDarkMode');
+  }
+}
+
+async function toggleTheme() {
+  const current = document.body.getAttribute('data-theme') || 'light';
+  const next = current === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  await chrome.storage.local.set({ theme: next });
+}
 
 // 初始化
 document.addEventListener('DOMContentLoaded', async () => {
@@ -15,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadSettings();
   setupEventListeners();
   await loadBackupsList();
+  await initTheme();
 });
 
 // 初始化语言选择器
@@ -42,10 +69,10 @@ function initLanguageSelector() {
 // 语言切换时重新渲染动态内容
 window.addEventListener('localeChanged', () => {
   if (analysisResults.length > 0) {
-    displayCategories();
+    displayCategories(currentCategorySearch);
   }
   if (duplicates.length > 0) {
-    displayDuplicates(currentFilterGroup);
+    displayDuplicates(currentFilterGroup, currentDuplicateSearch);
   }
   loadBackupsList();
 });
@@ -92,6 +119,36 @@ function setupEventListeners() {
 
   // 清理重复按钮
   document.getElementById('removeDuplicatesBtn').addEventListener('click', handleRemoveDuplicates);
+
+  // 深色模式切换
+  document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
+
+  // 搜索框
+  document.getElementById('categoriesSearch')?.addEventListener('input', (e) => {
+    currentCategorySearch = e.target.value.trim().toLowerCase();
+    displayCategories(currentCategorySearch);
+  });
+  document.getElementById('duplicatesSearch')?.addEventListener('input', (e) => {
+    currentDuplicateSearch = e.target.value.trim().toLowerCase();
+    displayDuplicates(currentFilterGroup, currentDuplicateSearch);
+  });
+
+  // 展开/折叠全部
+  document.getElementById('expandAllCategories')?.addEventListener('click', () => {
+    document.querySelectorAll('.category-group').forEach(g => g.classList.remove('collapsed'));
+  });
+  document.getElementById('collapseAllCategories')?.addEventListener('click', () => {
+    document.querySelectorAll('.category-group').forEach(g => g.classList.add('collapsed'));
+  });
+
+  // 分类组折叠切换（事件委托）
+  document.getElementById('categoriesList')?.addEventListener('click', (e) => {
+    const toggle = e.target.closest('.category-toggle');
+    if (toggle) {
+      const group = toggle.closest('.category-group');
+      group.classList.toggle('collapsed');
+    }
+  });
 
   // 标签页切换
   document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -170,10 +227,10 @@ async function handleScan() {
     displayStats(bookmarks.length, duplicates.length);
     
     // 显示分类建议
-    displayCategories();
-    
+    displayCategories(currentCategorySearch);
+
     // 显示重复项
-    displayDuplicates();
+    displayDuplicates(currentFilterGroup, currentDuplicateSearch);
     
     progressText.textContent = _t('progressComplete');
     showMessage(_t('msgScanComplete', [`${total}`]), 'success');
@@ -203,10 +260,11 @@ function displayStats(total, duplicateCount) {
 }
 
 // 显示分类建议
-function displayCategories() {
+function displayCategories(searchTerm = '') {
   const container = document.getElementById('categoriesList');
   const applyBtn = document.getElementById('applyCategoriesBtn');
-  
+  const toolbar = document.getElementById('categoriesToolbar');
+
   // 按分类分组
   const grouped = {};
   for (const result of analysisResults) {
@@ -218,26 +276,50 @@ function displayCategories() {
       grouped[catName].push(result);
     }
   }
-  
+
+  // 根据搜索词过滤
+  const term = searchTerm.toLowerCase();
+  for (const catName of Object.keys(grouped)) {
+    if (term) {
+      grouped[catName] = grouped[catName].filter(item => {
+        const title = (item.bookmark.title || '').toLowerCase();
+        const url = (item.bookmark.url || '').toLowerCase();
+        return title.includes(term) || url.includes(term);
+      });
+    }
+  }
+  for (const catName of Object.keys(grouped)) {
+    if (grouped[catName].length === 0) {
+      delete grouped[catName];
+    }
+  }
+
   // 清空之前的选择状态
   selectedBookmarks.clear();
-  
+
   if (Object.keys(grouped).length === 0) {
-    container.innerHTML = `<p class="empty-state">${_t('emptyNoCategories')}</p>`;
+    container.innerHTML = `<p class="empty-state">${term ? _t('emptyNoResults') : _t('emptyNoCategories')}</p>`;
     applyBtn.classList.add('hidden');
+    toolbar?.classList.add('hidden');
     return;
   }
-  
+
+  toolbar?.classList.remove('hidden');
+
   let html = '';
   for (const [catName, items] of Object.entries(grouped)) {
     html += `
       <div class="category-group">
         <div class="category-header">
-          <span class="category-name">${escapeHtml(catName)}</span>
+          <div class="category-header-left">
+            <button class="category-toggle" aria-label="Toggle">▼</button>
+            <span class="category-name">${escapeHtml(catName)}</span>
+          </div>
           <span class="category-count">${_t('labelBookmarksCount', [`${items.length}`])}</span>
         </div>
+        <div class="category-items">
     `;
-    
+
     for (const item of items) {
       const bookmark = item.bookmark;
       const confidenceClass = `confidence-${item.confidence}`;
@@ -246,11 +328,11 @@ function displayCategories() {
         'medium': _t('confidenceMedium'),
         'low': _t('confidenceLow')
       }[item.confidence];
-      
+
       html += `
         <div class="bookmark-item">
-          <input type="checkbox" class="bookmark-checkbox" 
-                 data-id="${bookmark.id}" 
+          <input type="checkbox" class="bookmark-checkbox"
+                 data-id="${bookmark.id}"
                  data-folder="${catName}"
                  checked>
           <div class="bookmark-info">
@@ -265,13 +347,13 @@ function displayCategories() {
         </div>
       `;
     }
-    
-    html += '</div>';
+
+    html += '</div></div>';
   }
-  
+
   container.innerHTML = html;
   applyBtn.classList.remove('hidden');
-  
+
   // 监听复选框变化
   container.querySelectorAll('.bookmark-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', (e) => {
@@ -281,7 +363,7 @@ function displayCategories() {
         selectedBookmarks.delete(e.target.dataset.id);
       }
     });
-    
+
     // 初始化选中状态
     selectedBookmarks.add(checkbox.dataset.id);
   });
@@ -290,36 +372,62 @@ function displayCategories() {
 // 显示重复项（带标签筛选）
 let currentFilterGroup = null; // 当前筛选的组索引，null表示显示全部
 
-function displayDuplicates(filterGroupIndex = null) {
+function displayDuplicates(filterGroupIndex = null, searchTerm = '') {
   const container = document.getElementById('duplicatesList');
   const removeBtn = document.getElementById('removeDuplicatesBtn');
-  
+  const toolbar = document.getElementById('duplicatesToolbar');
+
   if (duplicates.length === 0) {
     container.innerHTML = `<p class="empty-state">${_t('emptyNoDuplicates')}</p>`;
     removeBtn.classList.add('hidden');
+    toolbar?.classList.add('hidden');
     currentFilterGroup = null; // 清除筛选状态
     return;
   }
-  
+
   // 安全检查：如果筛选索引超出范围，自动清除筛选
   if (filterGroupIndex !== null && (filterGroupIndex < 0 || filterGroupIndex >= duplicates.length)) {
     filterGroupIndex = null;
     currentFilterGroup = null;
   }
-  
+
+  // 根据搜索词过滤
+  const term = searchTerm.toLowerCase();
+  let filteredDuplicates = duplicates;
+  if (term) {
+    filteredDuplicates = duplicates.map(group => ({
+      ...group,
+      items: group.items.filter(item => {
+        const title = (item.title || '').toLowerCase();
+        const url = (item.url || '').toLowerCase();
+        return title.includes(term) || url.includes(term);
+      })
+    })).filter(group => group.items.length > 0);
+  }
+
+  if (filteredDuplicates.length === 0) {
+    container.innerHTML = `<p class="empty-state">${_t('emptyNoResults')}</p>`;
+    removeBtn.classList.add('hidden');
+    toolbar?.classList.remove('hidden');
+    return;
+  }
+
+  toolbar?.classList.remove('hidden');
+
   let html = '';
-  
+
   // 添加标签筛选区域（仅在未筛选时显示）
   if (filterGroupIndex === null) {
     html += '<div class="duplicate-filter-tags">';
-    duplicates.forEach((group, index) => {
+    filteredDuplicates.forEach((group, index) => {
       const firstItem = group.items[0];
       const fullTitle = firstItem.title;
       const title = escapeHtml(fullTitle.substring(0, 20));
       const count = group.items.length;
       const tooltip = `标题：${fullTitle}\n网址：${firstItem.url}`;
+      const originalIndex = term ? duplicates.findIndex(g => g.items[0].id === firstItem.id) : index;
       html += `
-        <button class="filter-tag" data-group-index="${index}" title="${tooltip.replace(/"/g, '&quot;')}">
+        <button class="filter-tag" data-group-index="${originalIndex >= 0 ? originalIndex : index}" title="${tooltip.replace(/"/g, '&quot;')}">
           <span class="filter-tag-title">${title}</span>
           <span class="filter-tag-count">(${count})</span>
         </button>
@@ -331,41 +439,44 @@ function displayDuplicates(filterGroupIndex = null) {
     html += `
       <div class="duplicate-filter-info">
         <button class="btn-back-filter" data-action="clear-filter">${_t('btnBackToAll')}</button>
-        <span class="filter-label">${_t('labelViewing')}${escapeHtml(duplicates[filterGroupIndex].items[0].title.substring(0, 30))}</span>
+        <span class="filter-label">${_t('labelViewing')}${escapeHtml(filteredDuplicates[filterGroupIndex].items[0].title.substring(0, 30))}</span>
       </div>
     `;
   }
-  
+
   // 确定要显示的组列表
-  const groupsToShow = filterGroupIndex !== null ? 
-    [{...duplicates[filterGroupIndex], originalIndex: filterGroupIndex}] :
-    duplicates.map((group, index) => ({...group, originalIndex: index}));
-  
+  const groupsToShow = filterGroupIndex !== null ?
+    [{...filteredDuplicates[filterGroupIndex], originalIndex: filterGroupIndex}] :
+    filteredDuplicates.map((group, index) => {
+      const originalIndex = term ? duplicates.findIndex(g => g.items[0].id === group.items[0].id) : index;
+      return {...group, originalIndex: originalIndex >= 0 ? originalIndex : index};
+    });
+
   groupsToShow.forEach((group, displayIndex) => {
     const actualIndex = group.originalIndex;
     const typeText = group.type === 'exact' ? _t('duplicateExact') : _t('duplicateSimilar');
-    const similarityText = group.similarity ? 
+    const similarityText = group.similarity ?
       _t('labelSimilarity', [`${(group.similarity * 100).toFixed(0)}`]) : '';
-    
+
     html += `
       <div class="duplicate-group" data-group-index="${actualIndex}">
         <div class="duplicate-type">${typeText} ${similarityText}</div>
     `;
-    
+
     group.items.forEach((item, idx) => {
       const showPath = currentSettings.showPath !== false;
-      const pathHtml = (showPath && item.path) ? 
+      const pathHtml = (showPath && item.path) ?
         `<div class="bookmark-path">📁 ${escapeHtml(item.path)}</div>` : '';
       // Note: path is translated in utils.js via _t('bookmarksBar') / _t('unknownPath')
-      
+
       // 智能默认勾选：优先保留书签栏中的副本；若全组都在书签栏中，则保留第一个
       const nonBarItems = group.items.filter(i => !i.inBookmarksBar);
       const shouldCheck = nonBarItems.length > 0 ? !item.inBookmarksBar : (idx !== 0);
-      
+
       html += `
         <div class="duplicate-item">
-          <input type="checkbox" name="duplicate-${actualIndex}-${idx}" 
-                 value="${item.id}" 
+          <input type="checkbox" name="duplicate-${actualIndex}-${idx}"
+                 value="${item.id}"
                  class="duplicate-checkbox"
                  data-id="${item.id}"
                  data-group="${actualIndex}"
@@ -375,27 +486,27 @@ function displayDuplicates(filterGroupIndex = null) {
             <div class="bookmark-url">${escapeHtml(item.url)}</div>
             ${pathHtml}
           </div>
-          <button class="btn-delete-single" 
+          <button class="btn-delete-single"
                   data-action="delete-single"
                   data-bookmark-id="${item.id}"
                   data-group-index="${actualIndex}"
-                  data-item-index="${idx}" 
+                  data-item-index="${idx}"
                   title="${_t('tooltipDeleteBookmark')}">
             🗑️
           </button>
         </div>
       `;
     });
-    
+
     html += '</div>';
   });
-  
+
   container.innerHTML = html;
   removeBtn.classList.remove('hidden');
-  
+
   // 更新当前筛选状态
   currentFilterGroup = filterGroupIndex;
-  
+
   // 绑定事件监听器（替代内联onclick）
   bindDuplicateEvents();
 }
@@ -506,7 +617,7 @@ function filterDuplicates(groupIndex) {
 // 清除筛选，显示全部
 function clearDuplicateFilter() {
   currentFilterGroup = null;
-  displayDuplicates(null);
+  displayDuplicates(null, currentDuplicateSearch);
 }
 
 // 删除单个重复项

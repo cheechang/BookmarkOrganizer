@@ -11,8 +11,11 @@
     <header>
       <h1 data-i18n="appTitle">📚 Bookmark Organizer</h1>
       <p class="subtitle" data-i18n="appSubtitle">Smart Categorize · Deduplicate · Backup</p>
-      <div class="lang-selector-container">
-        <select id="langSelector" class="lang-selector" title="Select Language"></select>
+      <div class="header-controls">
+        <div class="lang-selector-container">
+          <select id="langSelector" class="lang-selector" title="Select Language"></select>
+        </div>
+        <button id="themeToggle" class="theme-toggle" title="Toggle Dark Mode">🌙</button>
       </div>
     </header>
 
@@ -61,6 +64,13 @@
     <div class="scrollable-content">
       <!-- 分类建议面板 -->
       <div id="categoriesTab" class="tab-content active">
+        <div id="categoriesToolbar" class="list-toolbar hidden">
+          <input type="text" id="categoriesSearch" class="search-input" data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
+          <div class="toolbar-actions">
+            <button id="expandAllCategories" class="btn btn-small btn-outline" data-i18n="btnExpandAll">Expand All</button>
+            <button id="collapseAllCategories" class="btn btn-small btn-outline" data-i18n="btnCollapseAll">Collapse All</button>
+          </div>
+        </div>
         <div id="categoriesList" class="categories-list">
           <p class="empty-state" data-i18n="emptyClickScan">Click "Start Scan" to view category suggestions</p>
         </div>
@@ -68,6 +78,9 @@
 
       <!-- 重复检测面板 -->
       <div id="duplicatesTab" class="tab-content">
+        <div id="duplicatesToolbar" class="list-toolbar hidden">
+          <input type="text" id="duplicatesSearch" class="search-input" data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
+        </div>
         <div id="duplicatesList" class="duplicates-list">
           <p class="empty-state" data-i18n="emptyClickScanDup">Click "Start Scan" to detect duplicate bookmarks</p>
         </div>

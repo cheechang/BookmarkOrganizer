@@ -606,5 +606,29 @@
   "confirmDeleteRule": {
     "message": "确定要删除这条规则吗？",
     "description": "Confirm dialog"
+  },
+  "placeholderSearchBookmarks": {
+    "message": "搜索书签...",
+    "description": "Search input placeholder"
+  },
+  "btnExpandAll": {
+    "message": "展开全部",
+    "description": "Expand all groups button"
+  },
+  "btnCollapseAll": {
+    "message": "折叠全部",
+    "description": "Collapse all groups button"
+  },
+  "tooltipDarkMode": {
+    "message": "深色模式",
+    "description": "Dark mode toggle tooltip"
+  },
+  "tooltipLightMode": {
+    "message": "浅色模式",
+    "description": "Light mode toggle tooltip"
+  },
+  "emptyNoResults": {
+    "message": "没有匹配的结果",
+    "description": "Empty state when search returns no results"
   }
 }
