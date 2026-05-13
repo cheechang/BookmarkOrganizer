@@ -1408,6 +1408,25 @@ body[data-theme="dark"] .broken-links-row:hover {
   background: #1a1a3e;
 }
 
+.bl-sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s;
+}
+
+.bl-sortable:hover {
+  opacity: 0.85;
+}
+
+.search-box {
+  margin: 12px 0;
+}
+
+.search-box .search-input {
+  width: 100%;
+  max-width: 400px;
+}
+
 body[data-theme="dark"] .bl-col-title {
   color: #e0e0e0;
 }

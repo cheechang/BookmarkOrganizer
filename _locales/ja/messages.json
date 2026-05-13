@@ -712,7 +712,51 @@
     "description": "Broken links count label"
   },
   "checkingItem": {
-    "message": "{0} / {1} を確認中...",
+    "message": "$1 / $2 を確認中...",
     "description": "Checking item progress"
+  },
+  "labelTitle": {
+    "message": "タイトル",
+    "description": "Title column header"
+  },
+  "labelUrl": {
+    "message": "URL",
+    "description": "URL column header"
+  },
+  "labelCode": {
+    "message": "コード",
+    "description": "Status code column header"
+  },
+  "errorHttp404": {
+    "message": "ページが見つかりません",
+    "description": "User-friendly error for HTTP 404"
+  },
+  "errorHttp410": {
+    "message": "ページは永久に削除されました",
+    "description": "User-friendly error for HTTP 410"
+  },
+  "errorServerError": {
+    "message": "サーバーエラー",
+    "description": "User-friendly error for server errors"
+  },
+  "errorTimeout": {
+    "message": "接続タイムアウト",
+    "description": "User-friendly error for timeout"
+  },
+  "errorNetwork": {
+    "message": "ネットワークエラー / DNS失敗 / 接続拒否",
+    "description": "User-friendly error for network issues"
+  },
+  "errorUnknown": {
+    "message": "不明なエラー",
+    "description": "User-friendly error for unknown issues"
+  },
+  "placeholderSearchBroken": {
+    "message": "無効リンクを検索...",
+    "description": "Search input placeholder for broken links"
+  },
+  "labelSort": {
+    "message": "並び替え",
+    "description": "Sort dropdown label"
   }
 }

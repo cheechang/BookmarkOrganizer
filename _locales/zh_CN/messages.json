@@ -712,7 +712,51 @@
     "description": "Broken links count label"
   },
   "checkingItem": {
-    "message": "正在检测 {0} / {1}...",
+    "message": "正在检测 $1 / $2...",
     "description": "Checking item progress"
+  },
+  "labelTitle": {
+    "message": "标题",
+    "description": "Title column header"
+  },
+  "labelUrl": {
+    "message": "URL",
+    "description": "URL column header"
+  },
+  "labelCode": {
+    "message": "状态码",
+    "description": "Status code column header"
+  },
+  "errorHttp404": {
+    "message": "页面不存在",
+    "description": "User-friendly error for HTTP 404"
+  },
+  "errorHttp410": {
+    "message": "页面已永久删除",
+    "description": "User-friendly error for HTTP 410"
+  },
+  "errorServerError": {
+    "message": "服务器错误",
+    "description": "User-friendly error for server errors"
+  },
+  "errorTimeout": {
+    "message": "连接超时",
+    "description": "User-friendly error for timeout"
+  },
+  "errorNetwork": {
+    "message": "网络错误 / DNS解析失败 / 连接被拒绝",
+    "description": "User-friendly error for network issues"
+  },
+  "errorUnknown": {
+    "message": "未知错误",
+    "description": "User-friendly error for unknown issues"
+  },
+  "placeholderSearchBroken": {
+    "message": "搜索失效链接...",
+    "description": "Search input placeholder for broken links"
+  },
+  "labelSort": {
+    "message": "排序",
+    "description": "Sort dropdown label"
   }
 }

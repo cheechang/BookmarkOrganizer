@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.6.2] - 2026-04-23
+
+### Fixed
+
+- **Fixed broken links progress display bug**
+  - Corrected `checkingItem` placeholder format in all 5 language files (`{0}/{1}` → `$1/$2`), ensuring progress text now correctly shows "Checking 1 / 100..." instead of "Checking {0} / {1}...".
+
+### Added
+
+- **Broken Links Page Enhancements**
+  - **Full-text fuzzy search**: Added a search input box at the top of the broken links results page (both full-page and popup views). Supports real-time fuzzy matching against bookmark titles and URLs.
+  - **Sortable column headers** (full-page view): Users can now click any table header (Title, URL, Status, Code, Error, Checked At) to sort results in ascending or descending order. Sort direction toggles on each click, with visual indicators (▲/▼) showing the current sort state.
+  - **Popup sort dropdown**: Added a sort selector in the popup toolbar for compact-view sorting.
+  - **User-friendly error translations**: Technical error reasons (e.g., "HTTP 404", "Connection timeout", "Network error") are now translated into plain-language descriptions in all 5 supported languages (en, zh-CN, es, ja, de). Error descriptions automatically switch when the user changes language.
+  - **Header text internationalization**: All table header labels in the broken links view are now fully internationalized, replacing previously hard-coded "URL" and "Code" text.
+
+---
+
 ## [1.6.1] - 2026-04-23
 
 ### Fixed

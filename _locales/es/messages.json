@@ -712,7 +712,51 @@
     "description": "Broken links count label"
   },
   "checkingItem": {
-    "message": "Verificando {0} / {1}...",
+    "message": "Verificando $1 / $2...",
     "description": "Checking item progress"
+  },
+  "labelTitle": {
+    "message": "Título",
+    "description": "Title column header"
+  },
+  "labelUrl": {
+    "message": "URL",
+    "description": "URL column header"
+  },
+  "labelCode": {
+    "message": "Código",
+    "description": "Status code column header"
+  },
+  "errorHttp404": {
+    "message": "Página no encontrada",
+    "description": "User-friendly error for HTTP 404"
+  },
+  "errorHttp410": {
+    "message": "Página eliminada permanentemente",
+    "description": "User-friendly error for HTTP 410"
+  },
+  "errorServerError": {
+    "message": "Error del servidor",
+    "description": "User-friendly error for server errors"
+  },
+  "errorTimeout": {
+    "message": "Tiempo de conexión agotado",
+    "description": "User-friendly error for timeout"
+  },
+  "errorNetwork": {
+    "message": "Error de red / DNS falló / Conexión rechazada",
+    "description": "User-friendly error for network issues"
+  },
+  "errorUnknown": {
+    "message": "Error desconocido",
+    "description": "User-friendly error for unknown issues"
+  },
+  "placeholderSearchBroken": {
+    "message": "Buscar enlaces rotos...",
+    "description": "Search input placeholder for broken links"
+  },
+  "labelSort": {
+    "message": "Ordenar",
+    "description": "Sort dropdown label"
   }
 }

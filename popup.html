@@ -116,10 +116,21 @@
             <span class="stat-label" data-i18n="brokenLinksCount">Broken Links</span>
           </div>
         </div>
+        <div id="brokenLinksSearchBoxPopup" class="search-box hidden">
+          <input type="text" id="brokenLinksSearchInputPopup" class="search-input" data-i18n-placeholder="placeholderSearchBroken" placeholder="Search broken links...">
+        </div>
         <div id="brokenLinksToolbarPopup" class="list-toolbar hidden">
           <div class="toolbar-actions">
             <button id="selectAllBrokenBtnPopup" class="btn btn-small btn-toolbar" data-i18n="btnSelectAllBroken">Select All</button>
             <button id="deselectAllBrokenBtnPopup" class="btn btn-small btn-toolbar" data-i18n="btnDeselectAllBroken">Deselect All</button>
+            <select id="brokenLinksSortPopup" class="sort-select">
+              <option value="" data-i18n="labelSort">Sort</option>
+              <option value="title" data-i18n="labelTitle">Title</option>
+              <option value="url" data-i18n="labelUrl">URL</option>
+              <option value="status" data-i18n="labelStatus">Status</option>
+              <option value="error" data-i18n="labelError">Error</option>
+              <option value="time" data-i18n="labelCheckedAt">Time</option>
+            </select>
           </div>
         </div>
         <div id="brokenLinksListPopup" class="broken-links-list">

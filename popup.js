@@ -185,6 +185,29 @@ function setupEventListeners() {
     document.querySelectorAll('.broken-link-checkbox').forEach(cb => cb.checked = false);
   });
   document.getElementById('deleteBrokenLinksBtnPopup')?.addEventListener('click', handleDeleteBrokenLinksPopup);
+
+  // 失效链接搜索和排序
+  const brokenLinksSearchInputPopup = document.getElementById('brokenLinksSearchInputPopup');
+  if (brokenLinksSearchInputPopup) {
+    brokenLinksSearchInputPopup.addEventListener('input', (e) => {
+      brokenLinksSearchTermPopup = e.target.value.trim().toLowerCase();
+      displayBrokenLinksPopup();
+    });
+  }
+  const brokenLinksSortSelect = document.getElementById('brokenLinksSortPopup');
+  if (brokenLinksSortSelect) {
+    brokenLinksSortSelect.addEventListener('change', (e) => {
+      const field = e.target.value;
+      if (!field) {
+        brokenLinksSortPopup = { field: null, direction: 'asc' };
+      } else if (brokenLinksSortPopup.field === field) {
+        brokenLinksSortPopup.direction = brokenLinksSortPopup.direction === 'asc' ? 'desc' : 'asc';
+      } else {
+        brokenLinksSortPopup = { field, direction: 'asc' };
+      }
+      displayBrokenLinksPopup();
+    });
+  }
 }
 
 // 处理扫描
@@ -888,6 +911,20 @@ function showMessage(text, type = 'info') {
 // ==================== 失效链接检测（Popup） ====================
 
 let brokenLinksResults = [];
+let brokenLinksSearchTermPopup = '';
+let brokenLinksSortPopup = { field: null, direction: 'asc' };
+
+function getFriendlyError(item) {
+  if (item.statusCode === 404) return _t('errorHttp404');
+  if (item.statusCode === 410) return _t('errorHttp410');
+  if (item.statusCode && item.statusCode >= 500) return _t('errorServerError');
+  if (item.status === 'timeout') return _t('errorTimeout');
+  const err = (item.error || '').toLowerCase();
+  if (err.includes('network') || err.includes('dns') || err.includes('connection refused') || err.includes('failed to fetch')) {
+    return _t('errorNetwork');
+  }
+  return _t('errorUnknown');
+}
 
 async function handleCheckBrokenLinksPopup() {
   const btn = document.getElementById('checkBrokenLinksBtnPopup');
@@ -912,6 +949,9 @@ async function handleCheckBrokenLinksPopup() {
 
     statsPanel.classList.remove('hidden');
     document.getElementById('brokenLinksCountPopup').textContent = brokenLinksResults.length;
+    brokenLinksSearchTermPopup = '';
+    const searchInput = document.getElementById('brokenLinksSearchInputPopup');
+    if (searchInput) searchInput.value = '';
     displayBrokenLinksPopup();
 
     if (brokenLinksResults.length > 0) {
@@ -934,25 +974,70 @@ function displayBrokenLinksPopup() {
   const container = document.getElementById('brokenLinksListPopup');
   const toolbar = document.getElementById('brokenLinksToolbarPopup');
   const deleteBtn = document.getElementById('deleteBrokenLinksBtnPopup');
+  const searchBox = document.getElementById('brokenLinksSearchBoxPopup');
+
+  // 过滤
+  let filtered = brokenLinksResults;
+  if (brokenLinksSearchTermPopup) {
+    filtered = brokenLinksResults.filter(item => {
+      const title = (item.bookmark.title || '').toLowerCase();
+      const url = (item.bookmark.url || '').toLowerCase();
+      return title.includes(brokenLinksSearchTermPopup) || url.includes(brokenLinksSearchTermPopup);
+    });
+  }
+
+  // 排序
+  if (brokenLinksSortPopup.field) {
+    filtered = [...filtered].sort((a, b) => {
+      let valA, valB;
+      switch (brokenLinksSortPopup.field) {
+        case 'title': valA = a.bookmark.title || ''; valB = b.bookmark.title || ''; break;
+        case 'url': valA = a.bookmark.url || ''; valB = b.bookmark.url || ''; break;
+        case 'status': valA = a.status || ''; valB = b.status || ''; break;
+        case 'error': valA = getFriendlyError(a); valB = getFriendlyError(b); break;
+        case 'time': valA = a.checkedAt || ''; valB = b.checkedAt || ''; break;
+        default: return 0;
+      }
+      if (typeof valA === 'number') {
+        return brokenLinksSortPopup.direction === 'asc' ? valA - valB : valB - valA;
+      }
+      valA = String(valA).toLowerCase();
+      valB = String(valB).toLowerCase();
+      if (valA < valB) return brokenLinksSortPopup.direction === 'asc' ? -1 : 1;
+      if (valA > valB) return brokenLinksSortPopup.direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
 
   if (brokenLinksResults.length === 0) {
     container.innerHTML = `<p class="empty-state">${_t('emptyClickCheck')}</p>`;
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
+    searchBox?.classList.add('hidden');
+    return;
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<p class="empty-state">${_t('emptyNoResults')}</p>`;
+    toolbar?.classList.add('hidden');
+    deleteBtn?.classList.add('hidden');
+    searchBox?.classList.remove('hidden');
     return;
   }
 
   toolbar?.classList.remove('hidden');
   deleteBtn?.classList.remove('hidden');
+  searchBox?.classList.remove('hidden');
 
   let html = '';
-  for (const item of brokenLinksResults) {
+  for (const item of filtered) {
     const statusClass = `status-${item.status}`;
     const statusText = {
       'broken': _t('statusBroken'),
       'timeout': _t('statusTimeout'),
       'error': _t('statusError')
     }[item.status] || item.status;
+    const friendlyError = getFriendlyError(item);
 
     html += `
       <div class="broken-link-item">
@@ -963,7 +1048,7 @@ function displayBrokenLinksPopup() {
           <div class="broken-link-meta">
             <span class="status-badge ${statusClass}">${statusText}</span>
             <span class="status-code">${item.statusCode || '-'}</span>
-            <span class="status-error" title="${escapeHtml(item.error)}">${escapeHtml(item.error)}</span>
+            <span class="status-error" title="${escapeHtml(friendlyError)}">${escapeHtml(friendlyError)}</span>
             <span class="status-time">${item.checkedAt}</span>
           </div>
         </div>

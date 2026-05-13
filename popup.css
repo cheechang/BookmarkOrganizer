@@ -989,6 +989,30 @@ body[data-theme="dark"] .search-input {
   color: #e0e0e0;
 }
 
+.search-box {
+  margin: 8px 0;
+}
+
+.search-box .search-input {
+  width: 100%;
+}
+
+.sort-select {
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 12px;
+  background: white;
+  color: #2d3748;
+  cursor: pointer;
+}
+
+body[data-theme="dark"] .sort-select {
+  background: #16213e;
+  border-color: #2a2a5a;
+  color: #e0e0e0;
+}
+
 body[data-theme="dark"] .duplicate-group {
   background: #2d1f2f;
   border-left-color: #c53030;

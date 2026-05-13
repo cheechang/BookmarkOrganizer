@@ -712,7 +712,51 @@
     "description": "Broken links count label"
   },
   "checkingItem": {
-    "message": "Checking {0} / {1}...",
+    "message": "Checking $1 / $2...",
     "description": "Checking item progress"
+  },
+  "labelTitle": {
+    "message": "Title",
+    "description": "Title column header"
+  },
+  "labelUrl": {
+    "message": "URL",
+    "description": "URL column header"
+  },
+  "labelCode": {
+    "message": "Code",
+    "description": "Status code column header"
+  },
+  "errorHttp404": {
+    "message": "Page not found",
+    "description": "User-friendly error for HTTP 404"
+  },
+  "errorHttp410": {
+    "message": "Page permanently removed",
+    "description": "User-friendly error for HTTP 410"
+  },
+  "errorServerError": {
+    "message": "Server error",
+    "description": "User-friendly error for server errors"
+  },
+  "errorTimeout": {
+    "message": "Connection timed out",
+    "description": "User-friendly error for timeout"
+  },
+  "errorNetwork": {
+    "message": "Network error / DNS failed / Connection refused",
+    "description": "User-friendly error for network issues"
+  },
+  "errorUnknown": {
+    "message": "Unknown error",
+    "description": "User-friendly error for unknown issues"
+  },
+  "placeholderSearchBroken": {
+    "message": "Search broken links...",
+    "description": "Search input placeholder for broken links"
+  },
+  "labelSort": {
+    "message": "Sort by",
+    "description": "Sort dropdown label"
   }
 }

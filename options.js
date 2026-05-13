@@ -286,6 +286,15 @@ function setupEventListeners() {
     document.querySelectorAll('.broken-link-checkbox').forEach(cb => cb.checked = false);
   });
   document.getElementById('deleteBrokenLinksBtn')?.addEventListener('click', handleDeleteBrokenLinks);
+
+  // 失效链接搜索
+  const brokenLinksSearchInput = document.getElementById('brokenLinksSearchInput');
+  if (brokenLinksSearchInput) {
+    brokenLinksSearchInput.addEventListener('input', (e) => {
+      brokenLinksSearchTerm = e.target.value.trim().toLowerCase();
+      displayBrokenLinks();
+    });
+  }
 }
 
 // 处理完整扫描
@@ -1231,6 +1240,20 @@ function showMessage(text, type = 'info') {
 // ==================== 失效链接检测 ====================
 
 let brokenLinksResults = [];
+let brokenLinksSort = { field: null, direction: 'asc' };
+let brokenLinksSearchTerm = '';
+
+function getFriendlyError(item) {
+  if (item.statusCode === 404) return _t('errorHttp404');
+  if (item.statusCode === 410) return _t('errorHttp410');
+  if (item.statusCode && item.statusCode >= 500) return _t('errorServerError');
+  if (item.status === 'timeout') return _t('errorTimeout');
+  const err = (item.error || '').toLowerCase();
+  if (err.includes('network') || err.includes('dns') || err.includes('connection refused') || err.includes('failed to fetch')) {
+    return _t('errorNetwork');
+  }
+  return _t('errorUnknown');
+}
 
 async function handleCheckBrokenLinks() {
   const btn = document.getElementById('checkBrokenLinksBtn');
@@ -1270,6 +1293,9 @@ async function handleCheckBrokenLinks() {
     document.getElementById('brokenLinksCount').textContent = brokenLinksResults.length;
 
     // 显示结果
+    brokenLinksSearchTerm = '';
+    const searchInput = document.getElementById('brokenLinksSearchInput');
+    if (searchInput) searchInput.value = '';
     displayBrokenLinks();
 
     if (brokenLinksResults.length > 0) {
@@ -1292,6 +1318,41 @@ function displayBrokenLinks() {
   const container = document.getElementById('brokenLinksList');
   const toolbar = document.getElementById('brokenLinksToolbar');
   const deleteBtn = document.getElementById('deleteBrokenLinksBtn');
+  const searchBox = document.getElementById('brokenLinksSearchBox');
+
+  // 过滤
+  let filtered = brokenLinksResults;
+  if (brokenLinksSearchTerm) {
+    filtered = brokenLinksResults.filter(item => {
+      const title = (item.bookmark.title || '').toLowerCase();
+      const url = (item.bookmark.url || '').toLowerCase();
+      return title.includes(brokenLinksSearchTerm) || url.includes(brokenLinksSearchTerm);
+    });
+  }
+
+  // 排序
+  if (brokenLinksSort.field) {
+    filtered = [...filtered].sort((a, b) => {
+      let valA, valB;
+      switch (brokenLinksSort.field) {
+        case 'title': valA = a.bookmark.title || ''; valB = b.bookmark.title || ''; break;
+        case 'url': valA = a.bookmark.url || ''; valB = b.bookmark.url || ''; break;
+        case 'status': valA = a.status || ''; valB = b.status || ''; break;
+        case 'code': valA = a.statusCode || 0; valB = b.statusCode || 0; break;
+        case 'error': valA = getFriendlyError(a); valB = getFriendlyError(b); break;
+        case 'time': valA = a.checkedAt || ''; valB = b.checkedAt || ''; break;
+        default: return 0;
+      }
+      if (typeof valA === 'number') {
+        return brokenLinksSort.direction === 'asc' ? valA - valB : valB - valA;
+      }
+      valA = String(valA).toLowerCase();
+      valB = String(valB).toLowerCase();
+      if (valA < valB) return brokenLinksSort.direction === 'asc' ? -1 : 1;
+      if (valA > valB) return brokenLinksSort.direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+  }
 
   if (brokenLinksResults.length === 0) {
     container.innerHTML = `
@@ -1303,32 +1364,53 @@ function displayBrokenLinks() {
     `;
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
+    searchBox?.classList.add('hidden');
+    return;
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state-large">
+        <div class="empty-icon">🔍</div>
+        <h3>${_t('emptyNoResults')}</h3>
+      </div>
+    `;
+    toolbar?.classList.add('hidden');
+    deleteBtn?.classList.add('hidden');
+    searchBox?.classList.remove('hidden');
     return;
   }
 
   toolbar?.classList.remove('hidden');
   deleteBtn?.classList.remove('hidden');
+  searchBox?.classList.remove('hidden');
+
+  function sortIndicator(field) {
+    if (brokenLinksSort.field !== field) return '';
+    return brokenLinksSort.direction === 'asc' ? ' ▲' : ' ▼';
+  }
 
   let html = '<div class="broken-links-table">';
   html += `
     <div class="broken-links-header">
       <div class="bl-col-check"></div>
-      <div class="bl-col-title">${_t('labelTitle')}</div>
-      <div class="bl-col-url">URL</div>
-      <div class="bl-col-status">${_t('labelStatus')}</div>
-      <div class="bl-col-code">Code</div>
-      <div class="bl-col-error">${_t('labelError')}</div>
-      <div class="bl-col-time">${_t('labelCheckedAt')}</div>
+      <div class="bl-col-title bl-sortable" data-sort="title">${_t('labelTitle')}${sortIndicator('title')}</div>
+      <div class="bl-col-url bl-sortable" data-sort="url">${_t('labelUrl')}${sortIndicator('url')}</div>
+      <div class="bl-col-status bl-sortable" data-sort="status">${_t('labelStatus')}${sortIndicator('status')}</div>
+      <div class="bl-col-code bl-sortable" data-sort="code">${_t('labelCode')}${sortIndicator('code')}</div>
+      <div class="bl-col-error bl-sortable" data-sort="error">${_t('labelError')}${sortIndicator('error')}</div>
+      <div class="bl-col-time bl-sortable" data-sort="time">${_t('labelCheckedAt')}${sortIndicator('time')}</div>
     </div>
   `;
 
-  for (const item of brokenLinksResults) {
+  for (const item of filtered) {
     const statusClass = `status-${item.status}`;
     const statusText = {
       'broken': _t('statusBroken'),
       'timeout': _t('statusTimeout'),
       'error': _t('statusError')
     }[item.status] || item.status;
+    const friendlyError = getFriendlyError(item);
 
     html += `
       <div class="broken-links-row">
@@ -1339,7 +1421,7 @@ function displayBrokenLinks() {
         <div class="bl-col-url" title="${escapeHtml(item.bookmark.url)}">${escapeHtml(item.bookmark.url)}</div>
         <div class="bl-col-status"><span class="status-badge ${statusClass}">${statusText}</span></div>
         <div class="bl-col-code">${item.statusCode || '-'}</div>
-        <div class="bl-col-error" title="${escapeHtml(item.error)}">${escapeHtml(item.error)}</div>
+        <div class="bl-col-error" title="${escapeHtml(friendlyError)}">${escapeHtml(friendlyError)}</div>
         <div class="bl-col-time">${item.checkedAt}</div>
       </div>
     `;
@@ -1347,6 +1429,20 @@ function displayBrokenLinks() {
 
   html += '</div>';
   container.innerHTML = html;
+
+  // 绑定排序点击事件
+  container.querySelectorAll('.bl-sortable').forEach(el => {
+    el.addEventListener('click', () => {
+      const field = el.dataset.sort;
+      if (brokenLinksSort.field === field) {
+        brokenLinksSort.direction = brokenLinksSort.direction === 'asc' ? 'desc' : 'asc';
+      } else {
+        brokenLinksSort.field = field;
+        brokenLinksSort.direction = 'asc';
+      }
+      displayBrokenLinks();
+    });
+  });
 }
 
 async function handleDeleteBrokenLinks() {

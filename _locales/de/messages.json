@@ -712,7 +712,51 @@
     "description": "Broken links count label"
   },
   "checkingItem": {
-    "message": "Prüfe {0} / {1}...",
+    "message": "Prüfe $1 / $2...",
     "description": "Checking item progress"
+  },
+  "labelTitle": {
+    "message": "Titel",
+    "description": "Title column header"
+  },
+  "labelUrl": {
+    "message": "URL",
+    "description": "URL column header"
+  },
+  "labelCode": {
+    "message": "Code",
+    "description": "Status code column header"
+  },
+  "errorHttp404": {
+    "message": "Seite nicht gefunden",
+    "description": "User-friendly error for HTTP 404"
+  },
+  "errorHttp410": {
+    "message": "Seite dauerhaft entfernt",
+    "description": "User-friendly error for HTTP 410"
+  },
+  "errorServerError": {
+    "message": "Serverfehler",
+    "description": "User-friendly error for server errors"
+  },
+  "errorTimeout": {
+    "message": "Verbindungszeit überschritten",
+    "description": "User-friendly error for timeout"
+  },
+  "errorNetwork": {
+    "message": "Netzwerkfehler / DNS-Fehler / Verbindung abgelehnt",
+    "description": "User-friendly error for network issues"
+  },
+  "errorUnknown": {
+    "message": "Unbekannter Fehler",
+    "description": "User-friendly error for unknown issues"
+  },
+  "placeholderSearchBroken": {
+    "message": "Defekte Links suchen...",
+    "description": "Search input placeholder for broken links"
+  },
+  "labelSort": {
+    "message": "Sortieren",
+    "description": "Sort dropdown label"
   }
 }
