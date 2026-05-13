@@ -526,5 +526,85 @@
   "statusBackingUp": {
     "message": "バックアップ中...",
     "description": "Button status text"
+  },
+  "sectionCustomRules": {
+    "message": "カスタム分類ルール",
+    "description": "Settings section"
+  },
+  "customRulesDesc": {
+    "message": "ブックマークを分類する独自のルールを作成します。カスタムルールはデフォルトルールより優先されます。",
+    "description": "Custom rules description"
+  },
+  "labelRuleName": {
+    "message": "分類名",
+    "description": "Rule name label"
+  },
+  "labelRuleKeywords": {
+    "message": "マッチングキーワード",
+    "description": "Rule keywords label"
+  },
+  "labelRuleDomains": {
+    "message": "マッチングドメイン",
+    "description": "Rule domains label"
+  },
+  "placeholderRuleName": {
+    "message": "例：仕事関連",
+    "description": "Rule name placeholder"
+  },
+  "placeholderRuleKeywords": {
+    "message": "例：work, office, meeting（カンマ区切り）",
+    "description": "Rule keywords placeholder"
+  },
+  "placeholderRuleDomains": {
+    "message": "例：slack.com, notion.so（カンマ区切り）",
+    "description": "Rule domains placeholder"
+  },
+  "btnAddRule": {
+    "message": "＋ ルールを追加",
+    "description": "Add rule button"
+  },
+  "btnSaveRule": {
+    "message": "ルールを保存",
+    "description": "Save rule button"
+  },
+  "btnEdit": {
+    "message": "編集",
+    "description": "Edit button"
+  },
+  "btnCancel": {
+    "message": "キャンセル",
+    "description": "Cancel button"
+  },
+  "msgRuleSaved": {
+    "message": "ルールを保存しました",
+    "description": "Success message"
+  },
+  "msgRuleDeleted": {
+    "message": "ルールを削除しました",
+    "description": "Success message"
+  },
+  "msgRuleNameRequired": {
+    "message": "分類名を入力してください",
+    "description": "Validation error"
+  },
+  "msgRuleKeywordsOrDomainsRequired": {
+    "message": "キーワードまたはドメインを少なくとも1つ入力してください",
+    "description": "Validation error"
+  },
+  "emptyNoCustomRules": {
+    "message": "カスタムルールはまだありません。「ルールを追加」から作成してください。",
+    "description": "Empty state"
+  },
+  "labelKeywordsShort": {
+    "message": "キーワード",
+    "description": "Short label"
+  },
+  "labelDomainsShort": {
+    "message": "ドメイン",
+    "description": "Short label"
+  },
+  "confirmDeleteRule": {
+    "message": "このルールを削除しますか？",
+    "description": "Confirm dialog"
   }
 }

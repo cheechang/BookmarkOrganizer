@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.4.2] - 2026-04-23
+
+### Added
+
+- **Custom Category Rules**
+  - Added a new "Custom Category Rules" section in the Settings page.
+  - Users can add, edit, and delete personalized categorization rules.
+  - Each rule includes: category name, matching keywords, and matching domains.
+  - Keywords and domains support comma-separated input with automatic trimming.
+  - Custom rules take priority over default rules during bookmark scanning.
+  - Rules are persisted in `chrome.storage.local` and survive browser restarts.
+  - Full i18n support: all UI text is translated in 5 languages (en, zh-CN, es, ja, de).
+  - Input validation ensures a name and at least one keyword or domain is provided.
+
+### Changed
+
+- **background.js** now merges custom rules with default `rules/categories.json` when responding to `getCategories` requests. Custom rules are placed first so they take priority.
+
+---
+
 ## [1.4.1] - 2026-04-23
 
 ### Changed

@@ -472,6 +472,137 @@ body {
   color: #667eea;
 }
 
+/* 自定义规则 */
+.custom-rules-list {
+  margin-bottom: 20px;
+}
+
+.custom-rule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  transition: all 0.2s;
+}
+
+.custom-rule-item:hover {
+  background: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.rule-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.rule-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: #2c3e50;
+  margin-bottom: 6px;
+}
+
+.rule-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.rule-tag {
+  font-size: 12px;
+  padding: 3px 10px;
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.rule-tag.domain {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.rule-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.rule-actions .btn-small {
+  padding: 6px 14px;
+  font-size: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.rule-actions .btn-edit {
+  background: #667eea;
+  color: white;
+}
+
+.rule-actions .btn-edit:hover {
+  background: #5568d3;
+}
+
+.rule-actions .btn-delete-rule {
+  background: #e53e3e;
+  color: white;
+}
+
+.rule-actions .btn-delete-rule:hover {
+  background: #c53030;
+}
+
+.custom-rule-form {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #e9ecef;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: #4a5568;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #2d3748;
+  background: white;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
 /* 消息提示 */
 .message-box {
   position: fixed;

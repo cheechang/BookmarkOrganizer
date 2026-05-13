@@ -526,5 +526,85 @@
   "statusBackingUp": {
     "message": "Backing up...",
     "description": "Button status text"
+  },
+  "sectionCustomRules": {
+    "message": "Custom Category Rules",
+    "description": "Settings section"
+  },
+  "customRulesDesc": {
+    "message": "Create your own rules to categorize bookmarks. Custom rules take priority over default rules.",
+    "description": "Custom rules description"
+  },
+  "labelRuleName": {
+    "message": "Category Name",
+    "description": "Rule name label"
+  },
+  "labelRuleKeywords": {
+    "message": "Match Keywords",
+    "description": "Rule keywords label"
+  },
+  "labelRuleDomains": {
+    "message": "Match Domains",
+    "description": "Rule domains label"
+  },
+  "placeholderRuleName": {
+    "message": "e.g. Work Related",
+    "description": "Rule name placeholder"
+  },
+  "placeholderRuleKeywords": {
+    "message": "e.g. work, office, meeting (comma separated)",
+    "description": "Rule keywords placeholder"
+  },
+  "placeholderRuleDomains": {
+    "message": "e.g. slack.com, notion.so (comma separated)",
+    "description": "Rule domains placeholder"
+  },
+  "btnAddRule": {
+    "message": "＋ Add Rule",
+    "description": "Add rule button"
+  },
+  "btnSaveRule": {
+    "message": "Save Rule",
+    "description": "Save rule button"
+  },
+  "btnEdit": {
+    "message": "Edit",
+    "description": "Edit button"
+  },
+  "btnCancel": {
+    "message": "Cancel",
+    "description": "Cancel button"
+  },
+  "msgRuleSaved": {
+    "message": "Rule saved",
+    "description": "Success message"
+  },
+  "msgRuleDeleted": {
+    "message": "Rule deleted",
+    "description": "Success message"
+  },
+  "msgRuleNameRequired": {
+    "message": "Please enter a category name",
+    "description": "Validation error"
+  },
+  "msgRuleKeywordsOrDomainsRequired": {
+    "message": "Please enter at least one keyword or domain",
+    "description": "Validation error"
+  },
+  "emptyNoCustomRules": {
+    "message": "No custom rules yet. Click \"Add Rule\" to create one.",
+    "description": "Empty state"
+  },
+  "labelKeywordsShort": {
+    "message": "Keywords",
+    "description": "Short label"
+  },
+  "labelDomainsShort": {
+    "message": "Domains",
+    "description": "Short label"
+  },
+  "confirmDeleteRule": {
+    "message": "Delete this rule?",
+    "description": "Confirm dialog"
   }
 }

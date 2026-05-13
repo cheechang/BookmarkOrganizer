@@ -5,6 +5,7 @@ let analysisResults = [];
 let duplicates = [];
 let selectedBookmarks = new Set();
 let currentSettings = {};
+let customRules = [];
 
 // 初始化
 document.addEventListener('DOMContentLoaded', async () => {
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupNavigation();
   setupEventListeners();
   await loadBackupsListFull();
+  await loadCustomRules();
 });
 
 // 初始化语言选择器
@@ -49,6 +51,7 @@ window.addEventListener('localeChanged', () => {
     displayDuplicatesFull(currentFilterGroupFull);
   }
   loadBackupsListFull();
+  displayCustomRules();
 });
 
 // 加载分类规则
@@ -164,6 +167,25 @@ function setupEventListeners() {
 
   // 清除所有数据按钮
   document.getElementById('clearAllDataBtn')?.addEventListener('click', handleClearAllData);
+
+  // 自定义规则按钮
+  document.getElementById('addRuleBtn')?.addEventListener('click', showAddRuleForm);
+  document.getElementById('saveRuleBtn')?.addEventListener('click', saveCustomRule);
+  document.getElementById('cancelRuleBtn')?.addEventListener('click', hideRuleForm);
+
+  // 自定义规则列表事件委托（编辑/删除）
+  document.getElementById('customRulesList')?.addEventListener('click', (e) => {
+    const editBtn = e.target.closest('[data-action="edit-rule"]');
+    if (editBtn) {
+      showEditRuleForm(parseInt(editBtn.dataset.index));
+      return;
+    }
+    const deleteBtn = e.target.closest('[data-action="delete-rule"]');
+    if (deleteBtn) {
+      deleteCustomRule(parseInt(deleteBtn.dataset.index));
+      return;
+    }
+  });
 
   // 备份列表事件委托（替代内联onclick）
   document.getElementById('backupsListFull')?.addEventListener('click', (e) => {
@@ -908,13 +930,162 @@ async function handleClearAllData() {
   }
 }
 
+// ==================== 自定义分类规则 ====================
+
+async function loadCustomRules() {
+  try {
+    const result = await chrome.storage.local.get('customCategories');
+    customRules = result.customCategories || [];
+    displayCustomRules();
+  } catch (error) {
+    console.error('Load custom rules failed:', error);
+  }
+}
+
+function displayCustomRules() {
+  const container = document.getElementById('customRulesList');
+  if (!container) return;
+
+  if (customRules.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state-large" style="padding: 30px 10px;">
+        <div class="empty-icon" style="font-size: 36px;">📝</div>
+        <p>${_t('emptyNoCustomRules')}</p>
+      </div>
+    `;
+    return;
+  }
+
+  let html = '';
+  customRules.forEach((rule, index) => {
+    const keywordsTags = (rule.keywords || []).map(k =>
+      `<span class="rule-tag">${escapeHtml(k)}</span>`
+    ).join('');
+    const domainsTags = (rule.domains || []).map(d =>
+      `<span class="rule-tag domain">${escapeHtml(d)}</span>`
+    ).join('');
+
+    html += `
+      <div class="custom-rule-item">
+        <div class="rule-info">
+          <div class="rule-name">${escapeHtml(rule.name)}</div>
+          <div class="rule-tags">
+            ${keywordsTags}
+            ${domainsTags}
+          </div>
+        </div>
+        <div class="rule-actions">
+          <button class="btn-small btn-edit" data-action="edit-rule" data-index="${index}">
+            ${_t('btnEdit')}
+          </button>
+          <button class="btn-small btn-delete-rule" data-action="delete-rule" data-index="${index}">
+            ${_t('btnDelete')}
+          </button>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+function showAddRuleForm() {
+  document.getElementById('editingRuleIndex').value = '';
+  document.getElementById('ruleNameInput').value = '';
+  document.getElementById('ruleKeywordsInput').value = '';
+  document.getElementById('ruleDomainsInput').value = '';
+  document.getElementById('customRuleForm').classList.remove('hidden');
+  document.getElementById('addRuleBtn').classList.add('hidden');
+  document.getElementById('ruleNameInput').focus();
+}
+
+function showEditRuleForm(index) {
+  const rule = customRules[index];
+  if (!rule) return;
+
+  document.getElementById('editingRuleIndex').value = index;
+  document.getElementById('ruleNameInput').value = rule.name || '';
+  document.getElementById('ruleKeywordsInput').value = (rule.keywords || []).join(', ');
+  document.getElementById('ruleDomainsInput').value = (rule.domains || []).join(', ');
+  document.getElementById('customRuleForm').classList.remove('hidden');
+  document.getElementById('addRuleBtn').classList.add('hidden');
+  document.getElementById('ruleNameInput').focus();
+}
+
+function hideRuleForm() {
+  document.getElementById('customRuleForm').classList.add('hidden');
+  document.getElementById('addRuleBtn').classList.remove('hidden');
+}
+
+async function saveCustomRule() {
+  const name = document.getElementById('ruleNameInput').value.trim();
+  const keywordsStr = document.getElementById('ruleKeywordsInput').value.trim();
+  const domainsStr = document.getElementById('ruleDomainsInput').value.trim();
+  const editingIndex = document.getElementById('editingRuleIndex').value;
+
+  // 验证
+  if (!name) {
+    showMessage(_t('msgRuleNameRequired'), 'error');
+    return;
+  }
+  if (!keywordsStr && !domainsStr) {
+    showMessage(_t('msgRuleKeywordsOrDomainsRequired'), 'error');
+    return;
+  }
+
+  const keywords = keywordsStr
+    .split(/[,，]/)
+    .map(s => s.trim())
+    .filter(s => s.length > 0);
+  const domains = domainsStr
+    .split(/[,，]/)
+    .map(s => s.trim().replace(/^https?:\/\//, '').replace(/^www\./, ''))
+    .filter(s => s.length > 0);
+
+  const rule = {
+    name,
+    keywords,
+    domains
+  };
+
+  if (editingIndex !== '') {
+    customRules[parseInt(editingIndex)] = rule;
+  } else {
+    customRules.push(rule);
+  }
+
+  await chrome.storage.local.set({ customCategories: customRules });
+
+  // 刷新分类规则（因为自定义规则已合并到分类引擎中）
+  await loadCategories();
+
+  displayCustomRules();
+  hideRuleForm();
+  showMessage(_t('msgRuleSaved'), 'success');
+}
+
+async function deleteCustomRule(index) {
+  if (!confirm(_t('confirmDeleteRule'))) {
+    return;
+  }
+
+  customRules.splice(index, 1);
+  await chrome.storage.local.set({ customCategories: customRules });
+
+  // 刷新分类规则
+  await loadCategories();
+
+  displayCustomRules();
+  showMessage(_t('msgRuleDeleted'), 'success');
+}
+
 // 显示消息
 function showMessage(text, type = 'info') {
   const messageBox = document.getElementById('messageBox');
   messageBox.textContent = text;
   messageBox.className = `message-box ${type}`;
   messageBox.classList.remove('hidden');
-  
+
   setTimeout(() => {
     messageBox.classList.add('hidden');
   }, 3000);

@@ -248,8 +248,39 @@
           </div>
           
           <div class="settings-section">
+            <h3 data-i18n="sectionCustomRules">Custom Category Rules</h3>
+            <p class="setting-desc" style="margin-bottom: 16px;" data-i18n="customRulesDesc">
+              Create your own rules to categorize bookmarks. Custom rules take priority over default rules.
+            </p>
+
+            <div id="customRulesList" class="custom-rules-list"></div>
+
+            <div id="customRuleForm" class="custom-rule-form hidden">
+              <input type="hidden" id="editingRuleIndex" value="">
+              <div class="form-group">
+                <label data-i18n="labelRuleName">Category Name</label>
+                <input type="text" id="ruleNameInput" class="form-input" data-i18n-placeholder="placeholderRuleName">
+              </div>
+              <div class="form-group">
+                <label data-i18n="labelRuleKeywords">Match Keywords</label>
+                <input type="text" id="ruleKeywordsInput" class="form-input" data-i18n-placeholder="placeholderRuleKeywords">
+              </div>
+              <div class="form-group">
+                <label data-i18n="labelRuleDomains">Match Domains</label>
+                <input type="text" id="ruleDomainsInput" class="form-input" data-i18n-placeholder="placeholderRuleDomains">
+              </div>
+              <div class="form-actions">
+                <button id="saveRuleBtn" class="btn btn-primary" data-i18n="btnSaveRule">Save Rule</button>
+                <button id="cancelRuleBtn" class="btn btn-outline" data-i18n="btnCancel" style="color: #667eea; border-color: #667eea;">Cancel</button>
+              </div>
+            </div>
+
+            <button id="addRuleBtn" class="btn btn-primary" data-i18n="btnAddRule">＋ Add Rule</button>
+          </div>
+
+          <div class="settings-section">
             <h3 data-i18n="sectionDataMgmt">Data Management</h3>
-            
+
             <div class="setting-item">
               <button id="clearAllDataBtn" class="btn btn-danger" data-i18n="btnClearData">
                 🗑 Clear All Local Data

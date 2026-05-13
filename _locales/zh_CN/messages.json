@@ -526,5 +526,85 @@
   "statusBackingUp": {
     "message": "备份中...",
     "description": "Button status text"
+  },
+  "sectionCustomRules": {
+    "message": "自定义分类规则",
+    "description": "Settings section"
+  },
+  "customRulesDesc": {
+    "message": "创建你自己的书签分类规则。自定义规则优先于默认规则生效。",
+    "description": "Custom rules description"
+  },
+  "labelRuleName": {
+    "message": "分类名称",
+    "description": "Rule name label"
+  },
+  "labelRuleKeywords": {
+    "message": "匹配关键词",
+    "description": "Rule keywords label"
+  },
+  "labelRuleDomains": {
+    "message": "匹配域名",
+    "description": "Rule domains label"
+  },
+  "placeholderRuleName": {
+    "message": "例如：工作相关",
+    "description": "Rule name placeholder"
+  },
+  "placeholderRuleKeywords": {
+    "message": "例如：work, office, meeting（用逗号分隔）",
+    "description": "Rule keywords placeholder"
+  },
+  "placeholderRuleDomains": {
+    "message": "例如：slack.com, notion.so（用逗号分隔）",
+    "description": "Rule domains placeholder"
+  },
+  "btnAddRule": {
+    "message": "＋ 添加规则",
+    "description": "Add rule button"
+  },
+  "btnSaveRule": {
+    "message": "保存规则",
+    "description": "Save rule button"
+  },
+  "btnEdit": {
+    "message": "编辑",
+    "description": "Edit button"
+  },
+  "btnCancel": {
+    "message": "取消",
+    "description": "Cancel button"
+  },
+  "msgRuleSaved": {
+    "message": "规则已保存",
+    "description": "Success message"
+  },
+  "msgRuleDeleted": {
+    "message": "规则已删除",
+    "description": "Success message"
+  },
+  "msgRuleNameRequired": {
+    "message": "请输入分类名称",
+    "description": "Validation error"
+  },
+  "msgRuleKeywordsOrDomainsRequired": {
+    "message": "请至少输入一个关键词或域名",
+    "description": "Validation error"
+  },
+  "emptyNoCustomRules": {
+    "message": "暂无自定义规则。点击\"添加规则\"创建一个。",
+    "description": "Empty state"
+  },
+  "labelKeywordsShort": {
+    "message": "关键词",
+    "description": "Short label"
+  },
+  "labelDomainsShort": {
+    "message": "域名",
+    "description": "Short label"
+  },
+  "confirmDeleteRule": {
+    "message": "确定要删除这条规则吗？",
+    "description": "Confirm dialog"
   }
 }
