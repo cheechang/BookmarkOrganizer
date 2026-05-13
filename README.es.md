@@ -97,6 +97,8 @@ Abre la página de **Configuración** de la extensión, encuentra la sección **
 
 Las reglas se guardan automáticamente en el almacenamiento del navegador y surten efecto inmediatamente en el siguiente escaneo. Puedes editarlas o eliminarlas en cualquier momento.
 
+> **Nota:** Este método requiere modificar los archivos fuente de la extensión y está destinado a **desarrolladores** que desean compilar la extensión desde el código fuente. Los usuarios normales deberían usar el **Método 1**.
+
 ### Método 2: Editar `rules/categories.json` Directamente
 
 Edita el archivo JSON y agrega entradas en el siguiente formato:

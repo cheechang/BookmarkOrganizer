@@ -97,6 +97,8 @@ Open the extension's **Settings** page, find the **Custom Category Rules** secti
 
 Rules are saved automatically to browser storage and take effect immediately on the next scan. You can edit or delete rules at any time.
 
+> **Note:** This method requires modifying the extension source files and is intended for **developers** who want to build the extension from source. Regular users should use **Method 1** above.
+
 ### Method 2: Edit `rules/categories.json` Directly
 
 Edit the JSON file and add entries in the following format:

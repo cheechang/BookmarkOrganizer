@@ -97,6 +97,8 @@ Die Seite "Backup-Verwaltung" listet alle historischen Backups mit Erstellungsze
 
 Regeln werden automatisch im Browserspeicher gespeichert und wirken sich sofort beim nächsten Scan aus. Sie können sie jederzeit bearbeiten oder löschen.
 
+> **Hinweis:** Diese Methode erfordert die Bearbeitung der Quelldateien der Erweiterung und ist für **Entwickler** gedacht, die die Erweiterung aus dem Quellcode erstellen möchten. Normale Benutzer sollten stattdessen **Methode 1** verwenden.
+
 ### Methode 2: `rules/categories.json` Direkt Bearbeiten
 
 Bearbeiten Sie die JSON-Datei und fügen Sie Einträge im folgenden Format hinzu:
