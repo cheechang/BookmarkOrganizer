@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.4.1] - 2026-04-23
+
+### Changed
+
+- **UI Simplification**
+  - Removed the "Quick Mode" button (`openPopupBtn`) from the bottom of the options page sidebar.
+  - Clicking the extension icon now always opens the full-featured options page directly.
+
+### Added
+
+- **DPI Auto-Adaptation**
+  - Added CSS media queries to `options.css` and `popup.css` for automatic DPI scaling.
+  - Supports common display scaling levels: 100%, 125%, 150%, and 200%+.
+  - Prevents element overlap, text truncation, and layout breakage on high-DPI displays (e.g., Retina).
+
+---
+
 ## [1.4.0] - 2026-04-23
 
 ### Added

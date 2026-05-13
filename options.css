@@ -1,5 +1,19 @@
 /* 完整功能页面样式 */
 
+/* DPI 自适应 */
+@media (min-resolution: 120dpi) {
+  html { zoom: 0.96; }
+}
+@media (min-resolution: 144dpi) {
+  html { zoom: 0.92; }
+}
+@media (min-resolution: 192dpi) {
+  html { zoom: 0.85; }
+}
+@media (min-resolution: 216dpi) {
+  html { zoom: 0.8; }
+}
+
 * {
   margin: 0;
   padding: 0;

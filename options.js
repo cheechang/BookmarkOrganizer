@@ -119,11 +119,6 @@ function setupNavigation() {
       switchToPage(page);
     });
   });
-  
-  // 返回popup按钮
-  document.getElementById('openPopupBtn')?.addEventListener('click', () => {
-    window.close();
-  });
 }
 
 // 切换页面
