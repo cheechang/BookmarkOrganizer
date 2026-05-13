@@ -1296,6 +1296,141 @@ body[data-theme="dark"] .filter-label {
   color: #e0e0e0;
 }
 
+/* ==================== 失效链接 ==================== */
+.broken-links-list-full {
+  margin-top: 16px;
+}
+
+.broken-links-table {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.broken-links-header {
+  display: grid;
+  grid-template-columns: 40px 1.5fr 2fr 100px 80px 1.5fr 120px;
+  gap: 8px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.broken-links-row {
+  display: grid;
+  grid-template-columns: 40px 1.5fr 2fr 100px 80px 1.5fr 120px;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #edf2f7;
+  align-items: center;
+  font-size: 13px;
+}
+
+.broken-links-row:last-child {
+  border-bottom: none;
+}
+
+.broken-links-row:hover {
+  background: #f7fafc;
+}
+
+.bl-col-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bl-col-title {
+  font-weight: 500;
+  color: #2d3748;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bl-col-url {
+  color: #4a5568;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+.bl-col-status,
+.bl-col-code,
+.bl-col-error,
+.bl-col-time {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.status-broken {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.status-timeout {
+  background: #feebc8;
+  color: #c05621;
+}
+
+.status-error {
+  background: #e9d8fd;
+  color: #6b46c1;
+}
+
+body[data-theme="dark"] .broken-links-table {
+  border-color: #2a2a5a;
+}
+
+body[data-theme="dark"] .broken-links-header {
+  background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+}
+
+body[data-theme="dark"] .broken-links-row {
+  border-bottom-color: #2a2a5a;
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .broken-links-row:hover {
+  background: #1a1a3e;
+}
+
+body[data-theme="dark"] .bl-col-title {
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .bl-col-url {
+  color: #a0aec0;
+}
+
+body[data-theme="dark"] .status-broken {
+  background: #742a2a;
+  color: #feb2b2;
+}
+
+body[data-theme="dark"] .status-timeout {
+  background: #7c2d12;
+  color: #fbd38d;
+}
+
+body[data-theme="dark"] .status-error {
+  background: #44337a;
+  color: #d6bcfa;
+}
+
 body[data-theme="dark"] .progress-bar {
   background: #2a2a5a;
 }

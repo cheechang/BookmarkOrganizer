@@ -630,5 +630,85 @@
   "emptyNoResults": {
     "message": "没有匹配的结果",
     "description": "Empty state when search returns no results"
+  },
+  "navBrokenLinks": {
+    "message": "失效链接",
+    "description": "Broken links navigation"
+  },
+  "brokenLinksPageDesc": {
+    "message": "检测并清理无法访问的书签",
+    "description": "Broken links page description"
+  },
+  "btnCheckBrokenLinks": {
+    "message": "🔍 检测失效链接",
+    "description": "Check broken links button"
+  },
+  "btnDeleteSelectedBroken": {
+    "message": "🗑 删除选中项",
+    "description": "Delete selected broken links"
+  },
+  "btnSelectAllBroken": {
+    "message": "全选",
+    "description": "Select all broken links"
+  },
+  "btnDeselectAllBroken": {
+    "message": "取消全选",
+    "description": "Deselect all broken links"
+  },
+  "labelStatus": {
+    "message": "状态",
+    "description": "Status label"
+  },
+  "labelCheckedAt": {
+    "message": "检查时间",
+    "description": "Checked at label"
+  },
+  "labelError": {
+    "message": "错误原因",
+    "description": "Error label"
+  },
+  "statusBroken": {
+    "message": "失效",
+    "description": "Broken status"
+  },
+  "statusTimeout": {
+    "message": "超时",
+    "description": "Timeout status"
+  },
+  "statusError": {
+    "message": "错误",
+    "description": "Error status"
+  },
+  "progressCheckingLinks": {
+    "message": "正在检测链接...",
+    "description": "Checking links progress"
+  },
+  "msgCheckComplete": {
+    "message": "检测完成！发现 {0} 个失效链接。",
+    "description": "Check complete message"
+  },
+  "msgCheckFailed": {
+    "message": "检测失败：",
+    "description": "Check failed message"
+  },
+  "emptyNoBrokenLinks": {
+    "message": "未发现失效链接",
+    "description": "Empty state when no broken links"
+  },
+  "emptyClickCheck": {
+    "message": "点击「检测失效链接」开始检测",
+    "description": "Empty state prompt"
+  },
+  "confirmDeleteBroken": {
+    "message": "确定删除 {0} 个选中的失效书签？此操作不可撤销（建议先备份）。",
+    "description": "Confirm delete broken links"
+  },
+  "brokenLinksCount": {
+    "message": "失效链接",
+    "description": "Broken links count label"
+  },
+  "checkingItem": {
+    "message": "正在检测 {0} / {1}...",
+    "description": "Checking item progress"
   }
 }

@@ -630,5 +630,85 @@
   "emptyNoResults": {
     "message": "No matching results",
     "description": "Empty state when search returns no results"
+  },
+  "navBrokenLinks": {
+    "message": "Broken Links",
+    "description": "Broken links navigation"
+  },
+  "brokenLinksPageDesc": {
+    "message": "Detect and clean unreachable bookmarks",
+    "description": "Broken links page description"
+  },
+  "btnCheckBrokenLinks": {
+    "message": "🔍 Check Broken Links",
+    "description": "Check broken links button"
+  },
+  "btnDeleteSelectedBroken": {
+    "message": "🗑 Delete Selected",
+    "description": "Delete selected broken links"
+  },
+  "btnSelectAllBroken": {
+    "message": "Select All",
+    "description": "Select all broken links"
+  },
+  "btnDeselectAllBroken": {
+    "message": "Deselect All",
+    "description": "Deselect all broken links"
+  },
+  "labelStatus": {
+    "message": "Status",
+    "description": "Status label"
+  },
+  "labelCheckedAt": {
+    "message": "Checked At",
+    "description": "Checked at label"
+  },
+  "labelError": {
+    "message": "Error",
+    "description": "Error label"
+  },
+  "statusBroken": {
+    "message": "Broken",
+    "description": "Broken status"
+  },
+  "statusTimeout": {
+    "message": "Timeout",
+    "description": "Timeout status"
+  },
+  "statusError": {
+    "message": "Error",
+    "description": "Error status"
+  },
+  "progressCheckingLinks": {
+    "message": "Checking links...",
+    "description": "Checking links progress"
+  },
+  "msgCheckComplete": {
+    "message": "Check complete! Found {0} broken links.",
+    "description": "Check complete message"
+  },
+  "msgCheckFailed": {
+    "message": "Check failed: ",
+    "description": "Check failed message"
+  },
+  "emptyNoBrokenLinks": {
+    "message": "No broken links found",
+    "description": "Empty state when no broken links"
+  },
+  "emptyClickCheck": {
+    "message": "Click \"Check Broken Links\" to start detection",
+    "description": "Empty state prompt"
+  },
+  "confirmDeleteBroken": {
+    "message": "Delete {0} selected broken bookmarks? This action cannot be undone (backup recommended).",
+    "description": "Confirm delete broken links"
+  },
+  "brokenLinksCount": {
+    "message": "Broken Links",
+    "description": "Broken links count label"
+  },
+  "checkingItem": {
+    "message": "Checking {0} / {1}...",
+    "description": "Checking item progress"
   }
 }

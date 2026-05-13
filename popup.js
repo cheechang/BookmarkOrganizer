@@ -75,6 +75,9 @@ window.addEventListener('localeChanged', () => {
     displayDuplicates(currentFilterGroup, currentDuplicateSearch);
   }
   loadBackupsList();
+  if (brokenLinksResults.length > 0) {
+    displayBrokenLinksPopup();
+  }
 });
 
 // 加载分类规则
@@ -172,6 +175,16 @@ function setupEventListeners() {
       return;
     }
   });
+
+  // 失效链接检测按钮
+  document.getElementById('checkBrokenLinksBtnPopup')?.addEventListener('click', handleCheckBrokenLinksPopup);
+  document.getElementById('selectAllBrokenBtnPopup')?.addEventListener('click', () => {
+    document.querySelectorAll('.broken-link-checkbox').forEach(cb => cb.checked = true);
+  });
+  document.getElementById('deselectAllBrokenBtnPopup')?.addEventListener('click', () => {
+    document.querySelectorAll('.broken-link-checkbox').forEach(cb => cb.checked = false);
+  });
+  document.getElementById('deleteBrokenLinksBtnPopup')?.addEventListener('click', handleDeleteBrokenLinksPopup);
 }
 
 // 处理扫描
@@ -865,6 +878,129 @@ function showMessage(text, type = 'info') {
   setTimeout(() => {
     messageBox.classList.add('hidden');
   }, 3000);
+}
+
+// ==================== 失效链接检测（Popup） ====================
+
+let brokenLinksResults = [];
+
+async function handleCheckBrokenLinksPopup() {
+  const btn = document.getElementById('checkBrokenLinksBtnPopup');
+  const progressContainer = document.getElementById('brokenLinksProgressContainerPopup');
+  const progressFill = document.getElementById('brokenLinksProgressFillPopup');
+  const progressText = document.getElementById('brokenLinksProgressTextPopup');
+  const statsPanel = document.getElementById('brokenLinksStatsPopup');
+
+  btn.disabled = true;
+  progressContainer.classList.remove('hidden');
+  statsPanel.classList.add('hidden');
+  progressFill.style.width = '0%';
+  progressText.textContent = _t('progressCheckingLinks');
+
+  try {
+    const bookmarks = await getAllBookmarks();
+    brokenLinksResults = await checkBrokenLinks(bookmarks, (current, total) => {
+      const progress = (current / total) * 100;
+      progressFill.style.width = `${progress}%`;
+      progressText.textContent = _t('checkingItem', [`${current}`, `${total}`]);
+    }, 3);
+
+    statsPanel.classList.remove('hidden');
+    document.getElementById('brokenLinksCountPopup').textContent = brokenLinksResults.length;
+    displayBrokenLinksPopup();
+
+    if (brokenLinksResults.length > 0) {
+      showMessage(_t('msgCheckComplete', [`${brokenLinksResults.length}`]), 'warning');
+    } else {
+      showMessage(_t('msgCheckComplete', ['0']), 'success');
+    }
+  } catch (error) {
+    console.error('Broken links check failed:', error);
+    showMessage(_t('msgCheckFailed') + error.message, 'error');
+  } finally {
+    btn.disabled = false;
+    setTimeout(() => {
+      progressContainer.classList.add('hidden');
+    }, 1500);
+  }
+}
+
+function displayBrokenLinksPopup() {
+  const container = document.getElementById('brokenLinksListPopup');
+  const toolbar = document.getElementById('brokenLinksToolbarPopup');
+  const deleteBtn = document.getElementById('deleteBrokenLinksBtnPopup');
+
+  if (brokenLinksResults.length === 0) {
+    container.innerHTML = `<p class="empty-state">${_t('emptyClickCheck')}</p>`;
+    toolbar?.classList.add('hidden');
+    deleteBtn?.classList.add('hidden');
+    return;
+  }
+
+  toolbar?.classList.remove('hidden');
+  deleteBtn?.classList.remove('hidden');
+
+  let html = '';
+  for (const item of brokenLinksResults) {
+    const statusClass = `status-${item.status}`;
+    const statusText = {
+      'broken': _t('statusBroken'),
+      'timeout': _t('statusTimeout'),
+      'error': _t('statusError')
+    }[item.status] || item.status;
+
+    html += `
+      <div class="broken-link-item">
+        <input type="checkbox" class="broken-link-checkbox" data-id="${item.bookmark.id}" checked>
+        <div class="broken-link-info">
+          <div class="broken-link-title" title="${escapeHtml(item.bookmark.title)}">${escapeHtml(item.bookmark.title)}</div>
+          <div class="broken-link-url" title="${escapeHtml(item.bookmark.url)}">${escapeHtml(item.bookmark.url)}</div>
+          <div class="broken-link-meta">
+            <span class="status-badge ${statusClass}">${statusText}</span>
+            <span class="status-code">${item.statusCode || '-'}</span>
+            <span class="status-error" title="${escapeHtml(item.error)}">${escapeHtml(item.error)}</span>
+            <span class="status-time">${item.checkedAt}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  container.innerHTML = html;
+}
+
+async function handleDeleteBrokenLinksPopup() {
+  const checkboxes = document.querySelectorAll('.broken-link-checkbox:checked');
+  if (checkboxes.length === 0) {
+    showMessage(_t('msgNoSelection'), 'warning');
+    return;
+  }
+
+  if (!confirm(_t('confirmDeleteBroken', [`${checkboxes.length}`]))) {
+    return;
+  }
+
+  try {
+    const ids = Array.from(checkboxes).map(cb => cb.dataset.id);
+    let deleted = 0;
+    for (const id of ids) {
+      try {
+        await chrome.bookmarks.remove(id);
+        deleted++;
+      } catch (e) {
+        console.error('Failed to delete bookmark:', id, e);
+      }
+    }
+
+    brokenLinksResults = brokenLinksResults.filter(r => !ids.includes(r.bookmark.id));
+    displayBrokenLinksPopup();
+    document.getElementById('brokenLinksCountPopup').textContent = brokenLinksResults.length;
+
+    showMessage(_t('msgDeletedCount', [`${deleted}`]), 'success');
+  } catch (error) {
+    console.error('Delete broken links failed:', error);
+    showMessage(_t('msgDeleteFailed') + error.message, 'error');
+  }
 }
 
 

@@ -57,6 +57,7 @@
       <button class="tab-btn active" data-tab="categories" data-i18n="tabCategories">Categories</button>
       <button class="tab-btn" data-tab="duplicates" data-i18n="tabDuplicates">Duplicates</button>
       <button class="tab-btn" data-tab="backups" data-i18n="tabBackups">Backups</button>
+      <button class="tab-btn" data-tab="brokenLinks" data-i18n="navBrokenLinks">Broken Links</button>
     </nav>
 
     <!-- 可滚动内容区域 -->
@@ -96,6 +97,37 @@
         <div id="backupsList" class="backups-list">
           <p class="empty-state" data-i18n="emptyNoBackups">No backup records</p>
         </div>
+      </div>
+
+      <!-- 失效链接面板 -->
+      <div id="brokenLinksTab" class="tab-content">
+        <button id="checkBrokenLinksBtnPopup" class="btn btn-primary" data-i18n="btnCheckBrokenLinks">
+          🔍 Check Broken Links
+        </button>
+        <div id="brokenLinksProgressContainerPopup" class="progress-container hidden">
+          <div class="progress-bar">
+            <div id="brokenLinksProgressFillPopup" class="progress-fill"></div>
+          </div>
+          <p id="brokenLinksProgressTextPopup" class="progress-text" data-i18n="progressCheckingLinks">Checking links...</p>
+        </div>
+        <div id="brokenLinksStatsPopup" class="stats-panel hidden">
+          <div class="stat-item">
+            <span class="stat-value" id="brokenLinksCountPopup">0</span>
+            <span class="stat-label" data-i18n="brokenLinksCount">Broken Links</span>
+          </div>
+        </div>
+        <div id="brokenLinksToolbarPopup" class="list-toolbar hidden">
+          <div class="toolbar-actions">
+            <button id="selectAllBrokenBtnPopup" class="btn btn-small btn-toolbar" data-i18n="btnSelectAllBroken">Select All</button>
+            <button id="deselectAllBrokenBtnPopup" class="btn btn-small btn-toolbar" data-i18n="btnDeselectAllBroken">Deselect All</button>
+          </div>
+        </div>
+        <div id="brokenLinksListPopup" class="broken-links-list">
+          <p class="empty-state" data-i18n="emptyClickCheck">Click "Check Broken Links" to start detection</p>
+        </div>
+        <button id="deleteBrokenLinksBtnPopup" class="btn btn-danger hidden" data-i18n="btnDeleteSelectedBroken">
+          🗑 Delete Selected
+        </button>
       </div>
     </div>
 

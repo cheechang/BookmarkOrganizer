@@ -79,6 +79,9 @@ window.addEventListener('localeChanged', () => {
   }
   loadBackupsListFull();
   displayCustomRules();
+  if (brokenLinksResults.length > 0) {
+    displayBrokenLinks();
+  }
 });
 
 // 加载分类规则
@@ -273,6 +276,16 @@ function setupEventListeners() {
       switchToPage(switchBtn.dataset.page);
     }
   });
+
+  // 失效链接检测按钮
+  document.getElementById('checkBrokenLinksBtn')?.addEventListener('click', handleCheckBrokenLinks);
+  document.getElementById('selectAllBrokenBtn')?.addEventListener('click', () => {
+    document.querySelectorAll('.broken-link-checkbox').forEach(cb => cb.checked = true);
+  });
+  document.getElementById('deselectAllBrokenBtn')?.addEventListener('click', () => {
+    document.querySelectorAll('.broken-link-checkbox').forEach(cb => cb.checked = false);
+  });
+  document.getElementById('deleteBrokenLinksBtn')?.addEventListener('click', handleDeleteBrokenLinks);
 }
 
 // 处理完整扫描
@@ -1208,6 +1221,170 @@ function showMessage(text, type = 'info') {
   setTimeout(() => {
     messageBox.classList.add('hidden');
   }, 3000);
+}
+
+// ==================== 失效链接检测 ====================
+
+let brokenLinksResults = [];
+
+async function handleCheckBrokenLinks() {
+  const btn = document.getElementById('checkBrokenLinksBtn');
+  const progressContainer = document.getElementById('brokenLinksProgressContainer');
+  const progressFill = document.getElementById('brokenLinksProgressFill');
+  const progressText = document.getElementById('brokenLinksProgressText');
+  const statsPanel = document.getElementById('brokenLinksStatsPanel');
+
+  btn.disabled = true;
+  progressContainer.classList.remove('hidden');
+  statsPanel.classList.add('hidden');
+  progressFill.style.width = '0%';
+  progressText.textContent = _t('progressCheckingLinks');
+
+  try {
+    // 自动备份
+    const settingsResult = await chrome.storage.local.get('settings');
+    if (settingsResult.settings?.autoBackup) {
+      progressText.textContent = _t('progressAutoBackup');
+      await backupBookmarks();
+      await loadBackupsListFull();
+    }
+
+    // 获取所有书签
+    const bookmarks = await getAllBookmarks();
+    progressText.textContent = _t('progressCheckingLinks');
+
+    // 检测失效链接
+    brokenLinksResults = await checkBrokenLinks(bookmarks, (current, total) => {
+      const progress = (current / total) * 100;
+      progressFill.style.width = `${progress}%`;
+      progressText.textContent = _t('checkingItem', [`${current}`, `${total}`]);
+    }, 3);
+
+    // 显示统计
+    statsPanel.classList.remove('hidden');
+    document.getElementById('brokenLinksCount').textContent = brokenLinksResults.length;
+
+    // 显示结果
+    displayBrokenLinks();
+
+    if (brokenLinksResults.length > 0) {
+      showMessage(_t('msgCheckComplete', [`${brokenLinksResults.length}`]), 'warning');
+    } else {
+      showMessage(_t('msgCheckComplete', ['0']), 'success');
+    }
+  } catch (error) {
+    console.error('Broken links check failed:', error);
+    showMessage(_t('msgCheckFailed') + error.message, 'error');
+  } finally {
+    btn.disabled = false;
+    setTimeout(() => {
+      progressContainer.classList.add('hidden');
+    }, 1500);
+  }
+}
+
+function displayBrokenLinks() {
+  const container = document.getElementById('brokenLinksList');
+  const toolbar = document.getElementById('brokenLinksToolbar');
+  const deleteBtn = document.getElementById('deleteBrokenLinksBtn');
+
+  if (brokenLinksResults.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state-large">
+        <div class="empty-icon">✓</div>
+        <h3>${_t('emptyNoBrokenLinks')}</h3>
+        <p>${_t('emptyClickCheck')}</p>
+      </div>
+    `;
+    toolbar?.classList.add('hidden');
+    deleteBtn?.classList.add('hidden');
+    return;
+  }
+
+  toolbar?.classList.remove('hidden');
+  deleteBtn?.classList.remove('hidden');
+
+  let html = '<div class="broken-links-table">';
+  html += `
+    <div class="broken-links-header">
+      <div class="bl-col-check"></div>
+      <div class="bl-col-title">${_t('labelTitle')}</div>
+      <div class="bl-col-url">URL</div>
+      <div class="bl-col-status">${_t('labelStatus')}</div>
+      <div class="bl-col-code">Code</div>
+      <div class="bl-col-error">${_t('labelError')}</div>
+      <div class="bl-col-time">${_t('labelCheckedAt')}</div>
+    </div>
+  `;
+
+  for (const item of brokenLinksResults) {
+    const statusClass = `status-${item.status}`;
+    const statusText = {
+      'broken': _t('statusBroken'),
+      'timeout': _t('statusTimeout'),
+      'error': _t('statusError')
+    }[item.status] || item.status;
+
+    html += `
+      <div class="broken-links-row">
+        <div class="bl-col-check">
+          <input type="checkbox" class="broken-link-checkbox" data-id="${item.bookmark.id}" checked>
+        </div>
+        <div class="bl-col-title" title="${escapeHtml(item.bookmark.title)}">${escapeHtml(item.bookmark.title)}</div>
+        <div class="bl-col-url" title="${escapeHtml(item.bookmark.url)}">${escapeHtml(item.bookmark.url)}</div>
+        <div class="bl-col-status"><span class="status-badge ${statusClass}">${statusText}</span></div>
+        <div class="bl-col-code">${item.statusCode || '-'}</div>
+        <div class="bl-col-error" title="${escapeHtml(item.error)}">${escapeHtml(item.error)}</div>
+        <div class="bl-col-time">${item.checkedAt}</div>
+      </div>
+    `;
+  }
+
+  html += '</div>';
+  container.innerHTML = html;
+}
+
+async function handleDeleteBrokenLinks() {
+  const checkboxes = document.querySelectorAll('.broken-link-checkbox:checked');
+  if (checkboxes.length === 0) {
+    showMessage(_t('msgNoSelection'), 'warning');
+    return;
+  }
+
+  if (!confirm(_t('confirmDeleteBroken', [`${checkboxes.length}`]))) {
+    return;
+  }
+
+  try {
+    // 先备份
+    const settingsResult = await chrome.storage.local.get('settings');
+    if (settingsResult.settings?.autoBackup) {
+      await backupBookmarks();
+    }
+
+    const ids = Array.from(checkboxes).map(cb => cb.dataset.id);
+    let deleted = 0;
+    for (const id of ids) {
+      try {
+        await chrome.bookmarks.remove(id);
+        deleted++;
+      } catch (e) {
+        console.error('Failed to delete bookmark:', id, e);
+      }
+    }
+
+    // 从结果中移除已删除的
+    brokenLinksResults = brokenLinksResults.filter(r => !ids.includes(r.bookmark.id));
+    displayBrokenLinks();
+
+    // 更新统计
+    document.getElementById('brokenLinksCount').textContent = brokenLinksResults.length;
+
+    showMessage(_t('msgDeletedCount', [`${deleted}`]), 'success');
+  } catch (error) {
+    console.error('Delete broken links failed:', error);
+    showMessage(_t('msgDeleteFailed') + error.message, 'error');
+  }
 }
 
 

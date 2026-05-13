@@ -572,3 +572,121 @@ function escapeHtml(text) {
   div.textContent = text;
   return div.innerHTML;
 }
+
+/**
+ * 检测单个链接是否失效
+ */
+async function checkSingleLink(bookmark, timeoutMs = 10000) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+
+  async function tryFetch(method) {
+    return fetch(bookmark.url, {
+      method,
+      signal: controller.signal,
+      redirect: 'follow',
+      // 不发送 cookie，避免不必要的身份验证问题
+      credentials: 'omit'
+    });
+  }
+
+  try {
+    let response;
+    try {
+      response = await tryFetch('HEAD');
+    } catch (headErr) {
+      // HEAD 失败，尝试 GET
+      response = await tryFetch('GET');
+    }
+
+    clearTimeout(timeoutId);
+
+    if (response.status === 404 || response.status === 410) {
+      return {
+        bookmark,
+        status: 'broken',
+        statusCode: response.status,
+        error: `HTTP ${response.status}`,
+        checkedAt: new Date().toLocaleString()
+      };
+    }
+    if (response.status >= 500) {
+      return {
+        bookmark,
+        status: 'error',
+        statusCode: response.status,
+        error: `Server Error ${response.status}`,
+        checkedAt: new Date().toLocaleString()
+      };
+    }
+    // 2xx, 3xx, 401, 403 等都认为是正常的
+    return null;
+  } catch (error) {
+    clearTimeout(timeoutId);
+
+    let status = 'error';
+    let errorMsg = error.message || String(error);
+
+    if (error.name === 'AbortError') {
+      status = 'timeout';
+      errorMsg = 'Connection timeout';
+    } else if (errorMsg.includes('Failed to fetch') || errorMsg.includes('NetworkError')) {
+      status = 'broken';
+      errorMsg = 'Network error / DNS failed / Connection refused';
+    }
+
+    return {
+      bookmark,
+      status,
+      statusCode: null,
+      error: errorMsg,
+      checkedAt: new Date().toLocaleString()
+    };
+  }
+}
+
+/**
+ * 批量检测失效链接（带并发控制）
+ * @param {Array} bookmarks - 书签列表
+ * @param {Function} onProgress - 进度回调 (current, total)
+ * @param {number} concurrency - 并发数
+ */
+async function checkBrokenLinks(bookmarks, onProgress, concurrency = 3) {
+  // 过滤掉非 http/https 的 URL
+  const validBookmarks = bookmarks.filter(b => {
+    try {
+      const url = new URL(b.url);
+      return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch {
+      return false;
+    }
+  });
+
+  const results = [];
+  const total = validBookmarks.length;
+  let index = 0;
+
+  async function worker() {
+    while (index < total) {
+      const currentIndex = index++;
+      const bookmark = validBookmarks[currentIndex];
+      const result = await checkSingleLink(bookmark);
+      if (result) {
+        results.push(result);
+      }
+      if (onProgress) {
+        onProgress(currentIndex + 1, total);
+      }
+      // 小延迟，避免对同一域名发送过多请求
+      await new Promise(r => setTimeout(r, 150));
+    }
+  }
+
+  const workers = [];
+  for (let i = 0; i < Math.min(concurrency, total); i++) {
+    workers.push(worker());
+  }
+  await Promise.all(workers);
+
+  return results;
+}

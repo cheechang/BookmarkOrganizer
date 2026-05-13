@@ -630,5 +630,85 @@
   "emptyNoResults": {
     "message": "No hay resultados coincidentes",
     "description": "Empty state when search returns no results"
+  },
+  "navBrokenLinks": {
+    "message": "Enlaces Rotos",
+    "description": "Broken links navigation"
+  },
+  "brokenLinksPageDesc": {
+    "message": "Detectar y limpiar marcadores inaccesibles",
+    "description": "Broken links page description"
+  },
+  "btnCheckBrokenLinks": {
+    "message": "🔍 Verificar Enlaces Rotos",
+    "description": "Check broken links button"
+  },
+  "btnDeleteSelectedBroken": {
+    "message": "🗑 Eliminar Seleccionados",
+    "description": "Delete selected broken links"
+  },
+  "btnSelectAllBroken": {
+    "message": "Seleccionar Todo",
+    "description": "Select all broken links"
+  },
+  "btnDeselectAllBroken": {
+    "message": "Deseleccionar Todo",
+    "description": "Deselect all broken links"
+  },
+  "labelStatus": {
+    "message": "Estado",
+    "description": "Status label"
+  },
+  "labelCheckedAt": {
+    "message": "Verificado En",
+    "description": "Checked at label"
+  },
+  "labelError": {
+    "message": "Error",
+    "description": "Error label"
+  },
+  "statusBroken": {
+    "message": "Roto",
+    "description": "Broken status"
+  },
+  "statusTimeout": {
+    "message": "Tiempo Agotado",
+    "description": "Timeout status"
+  },
+  "statusError": {
+    "message": "Error",
+    "description": "Error status"
+  },
+  "progressCheckingLinks": {
+    "message": "Verificando enlaces...",
+    "description": "Checking links progress"
+  },
+  "msgCheckComplete": {
+    "message": "Verificación completa! Se encontraron {0} enlaces rotos.",
+    "description": "Check complete message"
+  },
+  "msgCheckFailed": {
+    "message": "Verificación fallida: ",
+    "description": "Check failed message"
+  },
+  "emptyNoBrokenLinks": {
+    "message": "No se encontraron enlaces rotos",
+    "description": "Empty state when no broken links"
+  },
+  "emptyClickCheck": {
+    "message": "Haz clic en \"Verificar Enlaces Rotos\" para comenzar",
+    "description": "Empty state prompt"
+  },
+  "confirmDeleteBroken": {
+    "message": "¿Eliminar {0} marcadores rotos seleccionados? Esta acción no se puede deshacer (se recomienda hacer una copia de seguridad).",
+    "description": "Confirm delete broken links"
+  },
+  "brokenLinksCount": {
+    "message": "Enlaces Rotos",
+    "description": "Broken links count label"
+  },
+  "checkingItem": {
+    "message": "Verificando {0} / {1}...",
+    "description": "Checking item progress"
   }
 }

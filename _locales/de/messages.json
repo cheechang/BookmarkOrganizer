@@ -630,5 +630,85 @@
   "emptyNoResults": {
     "message": "Keine passenden Ergebnisse",
     "description": "Empty state when search returns no results"
+  },
+  "navBrokenLinks": {
+    "message": "Defekte Links",
+    "description": "Broken links navigation"
+  },
+  "brokenLinksPageDesc": {
+    "message": "Unerreichbare Lesezeichen erkennen und bereinigen",
+    "description": "Broken links page description"
+  },
+  "btnCheckBrokenLinks": {
+    "message": "🔍 Defekte Links prüfen",
+    "description": "Check broken links button"
+  },
+  "btnDeleteSelectedBroken": {
+    "message": "🗑 Ausgewählte löschen",
+    "description": "Delete selected broken links"
+  },
+  "btnSelectAllBroken": {
+    "message": "Alle auswählen",
+    "description": "Select all broken links"
+  },
+  "btnDeselectAllBroken": {
+    "message": "Auswahl aufheben",
+    "description": "Deselect all broken links"
+  },
+  "labelStatus": {
+    "message": "Status",
+    "description": "Status label"
+  },
+  "labelCheckedAt": {
+    "message": "Geprüft am",
+    "description": "Checked at label"
+  },
+  "labelError": {
+    "message": "Fehlerursache",
+    "description": "Error label"
+  },
+  "statusBroken": {
+    "message": "Defekt",
+    "description": "Broken status"
+  },
+  "statusTimeout": {
+    "message": "Zeitüberschreitung",
+    "description": "Timeout status"
+  },
+  "statusError": {
+    "message": "Fehler",
+    "description": "Error status"
+  },
+  "progressCheckingLinks": {
+    "message": "Links werden geprüft...",
+    "description": "Checking links progress"
+  },
+  "msgCheckComplete": {
+    "message": "Prüfung abgeschlossen! {0} defekte Links gefunden.",
+    "description": "Check complete message"
+  },
+  "msgCheckFailed": {
+    "message": "Prüfung fehlgeschlagen: ",
+    "description": "Check failed message"
+  },
+  "emptyNoBrokenLinks": {
+    "message": "Keine defekten Links gefunden",
+    "description": "Empty state when no broken links"
+  },
+  "emptyClickCheck": {
+    "message": "Klicke auf \"Defekte Links prüfen\" um zu starten",
+    "description": "Empty state prompt"
+  },
+  "confirmDeleteBroken": {
+    "message": "{0} ausgewählte defekte Lesezeichen löschen? Diese Aktion kann nicht rückgängig gemacht werden (Backup empfohlen).",
+    "description": "Confirm delete broken links"
+  },
+  "brokenLinksCount": {
+    "message": "Defekte Links",
+    "description": "Broken links count label"
+  },
+  "checkingItem": {
+    "message": "Prüfe {0} / {1}...",
+    "description": "Checking item progress"
   }
 }

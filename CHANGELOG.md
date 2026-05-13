@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.6.0] - 2026-04-23
+
+### Added
+
+- **Broken Link Detection**
+  - New dedicated "Broken Links" page accessible from the sidebar navigation (options) and tab bar (popup).
+  - Detects unreachable bookmarks by sending HTTP requests (HEAD then GET fallback) with 10-second timeout.
+  - Identifies HTTP 404/410 errors, server errors (5xx), timeouts, and network failures (DNS/connection refused).
+  - Results display bookmark title, URL, status type, HTTP status code, error reason, and last checked time.
+  - Batch selection with "Select All" / "Deselect All" buttons and individual checkboxes.
+  - Bulk delete selected broken bookmarks with automatic backup integration (if auto-backup is enabled).
+  - Concurrent request limiting (3 workers) with small delays between requests to avoid browser卡顿 and rate limiting.
+  - Only `http://` and `https://` URLs are checked; special protocols (chrome://, file://, javascript:) are safely skipped.
+
+### Changed
+
+- **manifest.json**: Added `host_permissions` for `http://*/*` and `https://*/*` to enable cross-origin link checking.
+- **options.html / popup.html**: Added Broken Links navigation item, detection button, progress bar, stats panel, results list, and toolbar.
+- **options.js / popup.js**: Added `handleCheckBrokenLinks`, `displayBrokenLinks`, and `handleDeleteBrokenLinks` functions.
+- **utils.js**: Added `checkSingleLink` and `checkBrokenLinks` utility functions with AbortController timeout and HEAD/GET fallback.
+- **options.css / popup.css**: Added styles for broken links table, rows, status badges (broken/timeout/error), and dark mode overrides.
+- **i18n**: Added 20 new translation keys across all 5 locales for Broken Links feature UI text.
+
+---
+
 ## [1.5.0] - 2026-04-23
 
 ### Added

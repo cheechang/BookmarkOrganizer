@@ -37,6 +37,10 @@
           <span class="nav-icon">💾</span>
           <span class="nav-text" data-i18n="navBackups">Backups</span>
         </button>
+        <button class="nav-item" data-page="brokenLinks">
+          <span class="nav-icon">🔗</span>
+          <span class="nav-text" data-i18n="navBrokenLinks">Broken Links</span>
+        </button>
         <button class="nav-item" data-page="settings">
           <span class="nav-icon">⚙️</span>
           <span class="nav-text" data-i18n="navSettings">Settings</span>
@@ -211,6 +215,63 @@
               <h3 data-i18n="emptyNoBackups">No backup records</h3>
               <p data-i18n="emptyCreateOrExport">Click "Create New Backup" or "Export Backup to File"</p>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 失效链接页面 -->
+      <div id="brokenLinksPage" class="page">
+        <header class="page-header">
+          <h2 data-i18n="navBrokenLinks">Broken Links</h2>
+          <p data-i18n="brokenLinksPageDesc">Detect and clean unreachable bookmarks</p>
+        </header>
+
+        <div class="content-body">
+          <div class="action-cards">
+            <div class="action-card primary">
+              <h3 data-i18n="navBrokenLinks">Broken Links</h3>
+              <p data-i18n="brokenLinksPageDesc">Detect and clean unreachable bookmarks</p>
+              <button id="checkBrokenLinksBtn" class="btn btn-primary btn-lg" data-i18n="btnCheckBrokenLinks">
+                🔍 Check Broken Links
+              </button>
+            </div>
+          </div>
+
+          <!-- 进度条 -->
+          <div id="brokenLinksProgressContainer" class="progress-container hidden">
+            <div class="progress-bar">
+              <div id="brokenLinksProgressFill" class="progress-fill"></div>
+            </div>
+            <p id="brokenLinksProgressText" class="progress-text" data-i18n="progressCheckingLinks">Checking links...</p>
+          </div>
+
+          <!-- 统计信息 -->
+          <div id="brokenLinksStatsPanel" class="stats-panel hidden">
+            <div class="stat-card">
+              <div class="stat-value" id="brokenLinksCount">0</div>
+              <div class="stat-label" data-i18n="brokenLinksCount">Broken Links</div>
+            </div>
+          </div>
+
+          <div id="brokenLinksToolbar" class="list-toolbar hidden">
+            <div class="toolbar-actions">
+              <button id="selectAllBrokenBtn" class="btn btn-small btn-toolbar" data-i18n="btnSelectAllBroken">Select All</button>
+              <button id="deselectAllBrokenBtn" class="btn btn-small btn-toolbar" data-i18n="btnDeselectAllBroken">Deselect All</button>
+            </div>
+          </div>
+
+          <div id="brokenLinksList" class="broken-links-list-full">
+            <div class="empty-state-large">
+              <div class="empty-icon">🔗</div>
+              <h3 data-i18n="emptyNoBrokenLinks">No Broken Links</h3>
+              <p data-i18n="emptyClickCheck">Click "Check Broken Links" to start detection</p>
+            </div>
+          </div>
+
+          <div class="fixed-bottom-actions">
+            <button id="deleteBrokenLinksBtn" class="btn btn-danger btn-lg hidden" data-i18n="btnDeleteSelectedBroken">
+              🗑 Delete Selected
+            </button>
           </div>
         </div>
       </div>

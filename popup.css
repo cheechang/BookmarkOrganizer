@@ -1072,3 +1072,95 @@ body[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
   background: #5a5a9a;
 }
 
+/* ==================== 失效链接 ==================== */
+.broken-links-list {
+  margin-top: 10px;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.broken-link-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  background: white;
+}
+
+.broken-link-item:last-child {
+  margin-bottom: 0;
+}
+
+.broken-link-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.broken-link-title {
+  font-weight: 500;
+  font-size: 13px;
+  color: #2d3748;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+
+.broken-link-url {
+  font-size: 11px;
+  color: #4a5568;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.broken-link-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  font-size: 11px;
+}
+
+.broken-link-meta .status-code {
+  color: #718096;
+}
+
+.broken-link-meta .status-error {
+  color: #c53030;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px;
+}
+
+.broken-link-meta .status-time {
+  color: #a0aec0;
+  font-size: 10px;
+}
+
+body[data-theme="dark"] .broken-link-item {
+  background: #16213e;
+  border-color: #2a2a5a;
+}
+
+body[data-theme="dark"] .broken-link-title {
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .broken-link-url {
+  color: #a0aec0;
+}
+
+body[data-theme="dark"] .broken-link-meta .status-error {
+  color: #feb2b2;
+}
+
+body[data-theme="dark"] .broken-link-meta .status-time {
+  color: #718096;
+}
+

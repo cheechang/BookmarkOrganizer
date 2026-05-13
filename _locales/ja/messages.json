@@ -630,5 +630,85 @@
   "emptyNoResults": {
     "message": "該当する結果がありません",
     "description": "Empty state when search returns no results"
+  },
+  "navBrokenLinks": {
+    "message": "無効リンク",
+    "description": "Broken links navigation"
+  },
+  "brokenLinksPageDesc": {
+    "message": "アクセスできないブックマークを検出して削除",
+    "description": "Broken links page description"
+  },
+  "btnCheckBrokenLinks": {
+    "message": "🔍 無効リンクを検出",
+    "description": "Check broken links button"
+  },
+  "btnDeleteSelectedBroken": {
+    "message": "🗑 選択項目を削除",
+    "description": "Delete selected broken links"
+  },
+  "btnSelectAllBroken": {
+    "message": "すべて選択",
+    "description": "Select all broken links"
+  },
+  "btnDeselectAllBroken": {
+    "message": "選択解除",
+    "description": "Deselect all broken links"
+  },
+  "labelStatus": {
+    "message": "状態",
+    "description": "Status label"
+  },
+  "labelCheckedAt": {
+    "message": "確認日時",
+    "description": "Checked at label"
+  },
+  "labelError": {
+    "message": "エラー理由",
+    "description": "Error label"
+  },
+  "statusBroken": {
+    "message": "無効",
+    "description": "Broken status"
+  },
+  "statusTimeout": {
+    "message": "タイムアウト",
+    "description": "Timeout status"
+  },
+  "statusError": {
+    "message": "エラー",
+    "description": "Error status"
+  },
+  "progressCheckingLinks": {
+    "message": "リンクを確認中...",
+    "description": "Checking links progress"
+  },
+  "msgCheckComplete": {
+    "message": "検出完了！{0}個の無効リンクが見つかりました。",
+    "description": "Check complete message"
+  },
+  "msgCheckFailed": {
+    "message": "検出に失敗しました：",
+    "description": "Check failed message"
+  },
+  "emptyNoBrokenLinks": {
+    "message": "無効リンクは見つかりませんでした",
+    "description": "Empty state when no broken links"
+  },
+  "emptyClickCheck": {
+    "message": "「無効リンクを検出」をクリックして開始",
+    "description": "Empty state prompt"
+  },
+  "confirmDeleteBroken": {
+    "message": "選択した{0}個の無効ブックマークを削除しますか？この操作は元に戻せません（バックアップ推奨）。",
+    "description": "Confirm delete broken links"
+  },
+  "brokenLinksCount": {
+    "message": "無効リンク",
+    "description": "Broken links count label"
+  },
+  "checkingItem": {
+    "message": "{0} / {1} を確認中...",
+    "description": "Checking item progress"
   }
 }
