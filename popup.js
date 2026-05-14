@@ -156,7 +156,7 @@ function setupEventListeners() {
   // 标签页切换
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const tabName = e.target.dataset.tab;
+      const tabName = e.currentTarget.dataset.tab;
       switchTab(tabName);
     });
   });
