@@ -974,7 +974,6 @@ function displayBrokenLinksPopup() {
   const container = document.getElementById('brokenLinksListPopup');
   const toolbar = document.getElementById('brokenLinksToolbarPopup');
   const deleteBtn = document.getElementById('deleteBrokenLinksBtnPopup');
-  const searchBox = document.getElementById('brokenLinksSearchBoxPopup');
 
   // 过滤
   let filtered = brokenLinksResults;
@@ -1013,7 +1012,6 @@ function displayBrokenLinksPopup() {
     container.innerHTML = `<p class="empty-state">${_t('emptyClickCheck')}</p>`;
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
-    searchBox?.classList.add('hidden');
     return;
   }
 
@@ -1021,13 +1019,11 @@ function displayBrokenLinksPopup() {
     container.innerHTML = `<p class="empty-state">${_t('emptyNoResults')}</p>`;
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
-    searchBox?.classList.remove('hidden');
     return;
   }
 
   toolbar?.classList.remove('hidden');
   deleteBtn?.classList.remove('hidden');
-  searchBox?.classList.remove('hidden');
 
   let html = '';
   for (const item of filtered) {

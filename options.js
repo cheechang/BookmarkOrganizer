@@ -1318,7 +1318,6 @@ function displayBrokenLinks() {
   const container = document.getElementById('brokenLinksList');
   const toolbar = document.getElementById('brokenLinksToolbar');
   const deleteBtn = document.getElementById('deleteBrokenLinksBtn');
-  const searchBox = document.getElementById('brokenLinksSearchBox');
 
   // 过滤
   let filtered = brokenLinksResults;
@@ -1364,7 +1363,6 @@ function displayBrokenLinks() {
     `;
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
-    searchBox?.classList.add('hidden');
     return;
   }
 
@@ -1377,13 +1375,11 @@ function displayBrokenLinks() {
     `;
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
-    searchBox?.classList.remove('hidden');
     return;
   }
 
   toolbar?.classList.remove('hidden');
   deleteBtn?.classList.remove('hidden');
-  searchBox?.classList.remove('hidden');
 
   function sortIndicator(field) {
     if (brokenLinksSort.field !== field) return '';

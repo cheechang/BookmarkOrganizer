@@ -720,7 +720,7 @@
     "description": "Title column header"
   },
   "labelUrl": {
-    "message": "URL",
+    "message": "网址",
     "description": "URL column header"
   },
   "labelCode": {
