@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.6.4] - 2026-04-23
+
+### Fixed
+
+- **Broken Links Page UI Improvements**
+  - **i18n header translation for URL column**: The `labelUrl` key in Chinese (`zh_CN`) locale now correctly translates to "网址" instead of the English "URL", ensuring the table header displays properly in all supported languages.
+  - **Unified text color styling**: Aligned the text colors of the Title and URL columns with Status, Status Code, Error, and Checked At fields in both the full-page table (`options.css`) and popup card layout (`popup.css`). All columns now use consistent `#2d3748` (light) / `#e0e0e0` (dark) colors.
+  - **Toolbar layout and button styling**: Merged the search input into the same horizontal row as the Select All / Deselect All buttons in both options and popup views. Added proper background colors to `.btn-toolbar` buttons (`#edf2f7` in light mode, `#2d3748` in dark mode) with hover effects, ensuring visual prominence and full theme adaptability.
+
+---
+
 ## [1.6.3] - 2026-04-23
 
 ### Added
