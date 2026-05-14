@@ -1,6 +1,15 @@
-<!-- 这是一个SVG占位文件,请替换为实际的48x48 PNG图标 -->
-<!-- 建议使用书签相关的图标设计 -->
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-  <rect width="48" height="48" fill="#667eea"/>
-  <text x="24" y="32" font-size="24" text-anchor="middle" fill="white">📚</text>
+  <defs>
+    <linearGradient id="g48" x1="0" y1="0" x2="48" y2="48">
+      <stop offset="0%" stop-color="#667eea"/>
+      <stop offset="100%" stop-color="#764ba2"/>
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="10" fill="url(#g48)"/>
+  <path d="M13 7h22v34L24 33 13 41z" fill="white"/>
+  <rect x="16" y="11" width="16" height="2.5" rx="1.25" fill="#667eea" opacity="0.45"/>
+  <rect x="16" y="16" width="12" height="2.5" rx="1.25" fill="#667eea" opacity="0.45"/>
+  <rect x="16" y="21" width="14" height="2.5" rx="1.25" fill="#667eea" opacity="0.45"/>
+  <circle cx="38.5" cy="38.5" r="5.5" fill="white"/>
+  <path d="M36 38.5l2 2 3.5-3.5" stroke="#764ba2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </svg>
