@@ -6,6 +6,30 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.6.3] - 2026-04-23
+
+### Added
+
+- **Professional Extension Icons**
+  - Re-designed the full set of extension icons (16×16, 48×48, 128×128) with a unified "Organized Bookmark" visual concept.
+  - Icons feature a gradient background (`#667eea` → `#764ba2`), a white bookmark flag shape, list lines, and a check-mark badge—consistent with the extension theme.
+  - Added `icons/generate-icons.html` for browser-based PNG export (no dependencies required).
+  - Added `icons/svg-to-png.js` for Node.js / sharp batch conversion.
+
+- **Unified Navigation Icons**
+  - Replaced emoji icons in the options page sidebar with custom SVG line-style icons:
+    - Scan (magnifier), Categories (folder), Duplicates (overlapping rectangles)
+    - Backups (download arrow), Broken Links (broken chain), Settings (gear)
+  - Added matching SVG icons to popup tab buttons for visual consistency.
+  - All navigation icons use stroke-based design with `currentColor` for automatic light/dark theme adaptation.
+
+### Fixed
+
+- **Popup tab click handling**
+  - Fixed an issue where clicking on the new SVG icons inside tab buttons would not switch tabs. Changed `e.target` to `e.currentTarget` in the event handler so the `data-tab` attribute is always read from the button element.
+
+---
+
 ## [1.6.2] - 2026-04-23
 
 ### Fixed
