@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.6.9] - 2026-04-23
+
+### Fixed
+
+- **Broken Links i18n Placeholder Fix**
+  - Fixed `msgCheckComplete` and `confirmDeleteBroken` messages displaying raw `{0}` instead of the actual count value.
+  - Root cause: placeholder format mismatch between messages.json (`{0}`) and the i18n engine (`$1`).
+  - Updated all 5 language files (en, zh_CN, ja, es, de) to use the correct `$1` placeholder format.
+
+---
+
 ## [1.6.8] - 2026-04-23
 
 ### Fixed
