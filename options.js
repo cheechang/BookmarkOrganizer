@@ -71,6 +71,8 @@ function initLanguageSelector() {
 
 // 语言切换时重新渲染动态内容
 window.addEventListener('localeChanged', () => {
+  const currentTheme = document.body.getAttribute('data-theme') || 'light';
+  applyTheme(currentTheme);
   if (analysisResults.length > 0) {
     displayCategoriesFull(currentCategorySearch);
   }
