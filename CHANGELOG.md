@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.6.8] - 2026-04-23
+
+### Fixed
+
+- **Options Page Navigation Order**
+  - Reordered sidebar navigation: moved "Broken Links" below "Duplicates" and above "Backups" for a more logical user flow (Scan → Categories → Duplicates → Broken Links → Backups → Settings).
+  - Updated HTML page structure to match the new navigation order.
+
+- **Extension Icon Click Not Opening Options Page**
+  - Fixed `chrome.action.onClicked` handler in `background.js` to use a callback with `chrome.runtime.openOptionsPage()`, ensuring the service worker stays alive until the page opens.
+  - Added fallback logic: if `openOptionsPage()` fails, automatically creates a new tab with `chrome.runtime.getURL('options.html')`.
+
+---
+
 ## [1.6.7] - 2026-04-23
 
 ### Fixed

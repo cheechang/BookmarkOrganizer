@@ -33,13 +33,13 @@
           <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="9" height="9" rx="1.5"/><rect x="7.5" y="7.5" width="9" height="9" rx="1.5"/></svg>
           <span class="nav-text" data-i18n="navDuplicates">Duplicates</span>
         </button>
-        <button class="nav-item" data-page="backups">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v8"/><path d="M7 9l3 3 3-3"/><path d="M3 14.5h14"/></svg>
-          <span class="nav-text" data-i18n="navBackups">Backups</span>
-        </button>
         <button class="nav-item" data-page="brokenLinks">
           <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8q-2.5 2.5 0 5"/><path d="M15 8q2.5 2.5 0 5"/><path d="M7 13l6-6"/></svg>
           <span class="nav-text" data-i18n="navBrokenLinks">Broken Links</span>
+        </button>
+        <button class="nav-item" data-page="backups">
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v8"/><path d="M7 9l3 3 3-3"/><path d="M3 14.5h14"/></svg>
+          <span class="nav-text" data-i18n="navBackups">Backups</span>
         </button>
         <button class="nav-item" data-page="settings">
           <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="3"/><path d="M10 3.5v2.5M10 14v2.5M3.5 10h2.5M14 10h2.5"/></svg>
@@ -183,46 +183,6 @@
         </div>
       </div>
 
-      <!-- 备份管理页面 -->
-      <div id="backupsPage" class="page">
-        <header class="page-header">
-          <h2 data-i18n="navBackups">Backups</h2>
-          <p data-i18n="backupsPageDesc">Manage bookmark backups, support export and import</p>
-        </header>
-        
-        <div class="content-body">
-          <div class="backup-info-box">
-            <h3 data-i18n="storageInfoTitle">📍 Storage Info</h3>
-            <p>
-              <strong data-i18n="storageLocation">Current Storage Location:</strong> <span data-i18n="storageLocationValue">Chrome browser internal storage (chrome.storage.local)</span><br>
-              <strong data-i18n="storageLimitation">Access Limitation:</strong> <span data-i18n="storageLimitationValue">Due to Chrome security policy, cannot directly access file system paths</span><br>
-              <strong data-i18n="storageSolution">Solution:</strong> <span data-i18n="storageSolutionValue">Use the Export Backup feature to save backups to your computer</span>
-            </p>
-          </div>
-          
-          <div class="backup-actions-bar">
-            <button id="exportBackupBtn" class="btn btn-primary" data-i18n="btnExportBackup">
-              📤 Export Backup to File
-            </button>
-            <label class="btn btn-secondary" for="importBackupInput" data-i18n="btnImportBackup">
-              📥 Import Backup from File
-            </label>
-            <input type="file" id="importBackupInput" accept=".json" style="display: none;">
-            <button id="createBackupBtn" class="btn btn-secondary" data-i18n="btnCreateBackup">
-              💾 Create New Backup
-            </button>
-          </div>
-          
-          <div id="backupsListFull" class="backups-list-full">
-            <div class="empty-state-large">
-              <div class="empty-icon">💾</div>
-              <h3 data-i18n="emptyNoBackups">No backup records</h3>
-              <p data-i18n="emptyCreateOrExport">Click "Create New Backup" or "Export Backup to File"</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- 失效链接页面 -->
       <div id="brokenLinksPage" class="page">
         <header class="page-header">
@@ -277,6 +237,46 @@
             <button id="deleteBrokenLinksBtn" class="btn btn-danger btn-lg hidden" data-i18n="btnDeleteSelectedBroken">
               🗑 Delete Selected
             </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 备份管理页面 -->
+      <div id="backupsPage" class="page">
+        <header class="page-header">
+          <h2 data-i18n="navBackups">Backups</h2>
+          <p data-i18n="backupsPageDesc">Manage bookmark backups, support export and import</p>
+        </header>
+        
+        <div class="content-body">
+          <div class="backup-info-box">
+            <h3 data-i18n="storageInfoTitle">📍 Storage Info</h3>
+            <p>
+              <strong data-i18n="storageLocation">Current Storage Location:</strong> <span data-i18n="storageLocationValue">Chrome browser internal storage (chrome.storage.local)</span><br>
+              <strong data-i18n="storageLimitation">Access Limitation:</strong> <span data-i18n="storageLimitationValue">Due to Chrome security policy, cannot directly access file system paths</span><br>
+              <strong data-i18n="storageSolution">Solution:</strong> <span data-i18n="storageSolutionValue">Use the Export Backup feature to save backups to your computer</span>
+            </p>
+          </div>
+          
+          <div class="backup-actions-bar">
+            <button id="exportBackupBtn" class="btn btn-primary" data-i18n="btnExportBackup">
+              📤 Export Backup to File
+            </button>
+            <label class="btn btn-secondary" for="importBackupInput" data-i18n="btnImportBackup">
+              📥 Import Backup from File
+            </label>
+            <input type="file" id="importBackupInput" accept=".json" style="display: none;">
+            <button id="createBackupBtn" class="btn btn-secondary" data-i18n="btnCreateBackup">
+              💾 Create New Backup
+            </button>
+          </div>
+          
+          <div id="backupsListFull" class="backups-list-full">
+            <div class="empty-state-large">
+              <div class="empty-icon">💾</div>
+              <h3 data-i18n="emptyNoBackups">No backup records</h3>
+              <p data-i18n="emptyCreateOrExport">Click "Create New Backup" or "Export Backup to File"</p>
+            </div>
           </div>
         </div>
       </div>
