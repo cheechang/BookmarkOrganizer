@@ -201,6 +201,9 @@ function setupEventListeners() {
   // 深色模式切换
   document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
 
+  // 检查更新
+  document.getElementById('checkUpdateBtn')?.addEventListener('click', checkForUpdates);
+
   // 搜索框
   document.getElementById('categoriesSearch')?.addEventListener('input', (e) => {
     currentCategorySearch = e.target.value.trim().toLowerCase();
@@ -1236,6 +1239,160 @@ function showMessage(text, type = 'info') {
     messageBox.classList.add('hidden');
   }, 3000);
 }
+
+// ==================== 更新检测 ====================
+
+function compareVersions(v1, v2) {
+  const parts1 = v1.split('.').map(Number);
+  const parts2 = v2.split('.').map(Number);
+  for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
+    const a = parts1[i] || 0;
+    const b = parts2[i] || 0;
+    if (a > b) return 1;
+    if (a < b) return -1;
+  }
+  return 0;
+}
+
+function decodeBase64Content(content) {
+  const cleaned = content.replace(/\n/g, '');
+  try {
+    return atob(cleaned);
+  } catch (e) {
+    throw new Error('Failed to decode content');
+  }
+}
+
+function extractChangelogForVersion(changelogText, version) {
+  const lines = changelogText.split('\n');
+  let capturing = false;
+  const result = [];
+
+  for (const line of lines) {
+    if (line.startsWith(`## [${version}]`)) {
+      capturing = true;
+      continue;
+    }
+    if (capturing && line.startsWith('## [')) {
+      break;
+    }
+    if (capturing) {
+      result.push(line);
+    }
+  }
+
+  while (result.length > 0 && result[0].trim() === '') {
+    result.shift();
+  }
+  while (result.length > 0 && result[result.length - 1].trim() === '') {
+    result.pop();
+  }
+
+  return result.join('\n');
+}
+
+function markdownToHtml(text) {
+  if (!text) return '';
+  let html = text
+    .replace(/^### (.*$)/gim, '<h5>$1</h5>')
+    .replace(/^## (.*$)/gim, '<h4>$1</h4>')
+    .replace(/^# (.*$)/gim, '<h3>$1</h3>');
+  html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
+  html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\n/g, '<br>');
+  html = html.replace(/<br><br>/g, '<br>');
+  return html;
+}
+
+async function checkForUpdates() {
+  const btn = document.getElementById('checkUpdateBtn');
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = _t('msgCheckingUpdate');
+
+  try {
+    const manifestUrl = 'https://api.github.com/repos/cheechang/BookmarkOrganizer/contents/manifest.json';
+    const manifestResp = await fetch(manifestUrl);
+    if (!manifestResp.ok) {
+      throw new Error(`HTTP ${manifestResp.status}`);
+    }
+    const manifestData = await manifestResp.json();
+    const manifestContent = decodeBase64Content(manifestData.content);
+    const remoteManifest = JSON.parse(manifestContent);
+    const latestVersion = remoteManifest.version;
+
+    const currentVersion = chrome.runtime.getManifest().version;
+    const comparison = compareVersions(latestVersion, currentVersion);
+
+    if (comparison > 0) {
+      let changelogHtml = '';
+      try {
+        const changelogUrl = 'https://api.github.com/repos/cheechang/BookmarkOrganizer/contents/CHANGELOG.md';
+        const changelogResp = await fetch(changelogUrl);
+        if (changelogResp.ok) {
+          const changelogData = await changelogResp.json();
+          const changelogContent = decodeBase64Content(changelogData.content);
+          const changelogText = extractChangelogForVersion(changelogContent, latestVersion);
+          changelogHtml = markdownToHtml(changelogText);
+        }
+      } catch (changelogErr) {
+        console.error('Failed to load changelog:', changelogErr);
+      }
+
+      showUpdateModal(currentVersion, latestVersion, changelogHtml);
+    } else {
+      showMessage(_t('msgUpToDate'), 'success');
+    }
+  } catch (error) {
+    console.error('Update check failed:', error);
+    showMessage(_t('msgCheckUpdateFailed', [error.message]), 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalText;
+  }
+}
+
+function showUpdateModal(currentVersion, latestVersion, changelogHtml) {
+  const backdrop = document.getElementById('updateModalBackdrop');
+  const currentVerEl = document.getElementById('updateCurrentVersion');
+  const latestVerEl = document.getElementById('updateLatestVersion');
+  const changelogEl = document.getElementById('updateChangelogContent');
+
+  currentVerEl.textContent = _t('updateCurrentVersion', [currentVersion]);
+  latestVerEl.textContent = _t('updateLatestVersion', [latestVersion]);
+  changelogEl.innerHTML = changelogHtml || '<p style="color:#a0aec0;font-style:italic;">No changelog available.</p>';
+
+  backdrop.classList.remove('hidden');
+  backdrop.dataset.latestVersion = latestVersion;
+}
+
+function closeUpdateModal() {
+  document.getElementById('updateModalBackdrop').classList.add('hidden');
+}
+
+// Modal event listeners
+document.getElementById('closeUpdateModal')?.addEventListener('click', closeUpdateModal);
+document.getElementById('cancelUpdateBtn')?.addEventListener('click', closeUpdateModal);
+document.getElementById('goDownloadBtn')?.addEventListener('click', () => {
+  const version = document.getElementById('updateModalBackdrop').dataset.latestVersion;
+  if (version) {
+    chrome.tabs.create({
+      url: `https://github.com/cheechang/BookmarkOrganizer/releases/tag/v${version}`
+    });
+  }
+  closeUpdateModal();
+});
+document.getElementById('updateModalBackdrop')?.addEventListener('click', (e) => {
+  if (e.target === e.currentTarget) {
+    closeUpdateModal();
+  }
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !document.getElementById('updateModalBackdrop').classList.contains('hidden')) {
+    closeUpdateModal();
+  }
+});
 
 // ==================== 失效链接检测 ====================
 

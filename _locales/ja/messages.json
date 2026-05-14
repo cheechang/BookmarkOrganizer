@@ -758,5 +758,45 @@
   "labelSort": {
     "message": "並び替え",
     "description": "Sort dropdown label"
+  },
+  "btnCheckUpdate": {
+    "message": "更新を確認",
+    "description": "Check for updates button"
+  },
+  "updateAvailableTitle": {
+    "message": "新しいバージョンがあります",
+    "description": "Update modal title"
+  },
+  "updateCurrentVersion": {
+    "message": "現在のバージョン: $1",
+    "description": "Current version label"
+  },
+  "updateLatestVersion": {
+    "message": "最新バージョン: $1",
+    "description": "Latest version label"
+  },
+  "updateChangelog": {
+    "message": "更新内容",
+    "description": "Changelog section title"
+  },
+  "btnCancelUpdate": {
+    "message": "キャンセル",
+    "description": "Cancel update button"
+  },
+  "btnGoDownload": {
+    "message": "ダウンロードへ",
+    "description": "Go to download page button"
+  },
+  "msgUpToDate": {
+    "message": "最新バージョンを使用中です。",
+    "description": "Message when already up to date"
+  },
+  "msgCheckUpdateFailed": {
+    "message": "更新確認に失敗: $1",
+    "description": "Update check error message"
+  },
+  "msgCheckingUpdate": {
+    "message": "更新を確認中...",
+    "description": "Checking update status message"
   }
 }

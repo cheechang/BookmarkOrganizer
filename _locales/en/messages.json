@@ -758,5 +758,45 @@
   "labelSort": {
     "message": "Sort by",
     "description": "Sort dropdown label"
+  },
+  "btnCheckUpdate": {
+    "message": "Check for Updates",
+    "description": "Check for updates button"
+  },
+  "updateAvailableTitle": {
+    "message": "Update Available",
+    "description": "Update modal title"
+  },
+  "updateCurrentVersion": {
+    "message": "Current: $1",
+    "description": "Current version label"
+  },
+  "updateLatestVersion": {
+    "message": "Latest: $1",
+    "description": "Latest version label"
+  },
+  "updateChangelog": {
+    "message": "What's New",
+    "description": "Changelog section title"
+  },
+  "btnCancelUpdate": {
+    "message": "Cancel",
+    "description": "Cancel update button"
+  },
+  "btnGoDownload": {
+    "message": "Go to Download",
+    "description": "Go to download page button"
+  },
+  "msgUpToDate": {
+    "message": "You are using the latest version.",
+    "description": "Message when already up to date"
+  },
+  "msgCheckUpdateFailed": {
+    "message": "Check failed: $1",
+    "description": "Update check error message"
+  },
+  "msgCheckingUpdate": {
+    "message": "Checking for updates...",
+    "description": "Checking update status message"
   }
 }

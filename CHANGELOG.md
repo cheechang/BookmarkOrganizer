@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.6.5] - 2026-04-23
+
+### Added
+
+- **Auto-Update Check**
+  - Added a "Check for Updates" button in both the popup and options page bottom toolbars.
+  - One-click check compares the installed extension version against the latest release on GitHub.
+  - When an update is available, a modal dialog shows the current version, latest version, and localized changelog.
+  - Includes a direct "Go to Download" button to open the GitHub Release page for manual installation.
+  - Full i18n support: all UI text and changelog headings are translated across 5 languages (en, zh-CN, es, ja, de).
+  - Fetches remote `manifest.json` and `CHANGELOG.md` directly from the GitHub repository via the public API.
+
+---
+
 ## [1.6.4] - 2026-04-23
 
 ### Fixed

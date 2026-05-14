@@ -758,5 +758,45 @@
   "labelSort": {
     "message": "排序",
     "description": "Sort dropdown label"
+  },
+  "btnCheckUpdate": {
+    "message": "检查更新",
+    "description": "Check for updates button"
+  },
+  "updateAvailableTitle": {
+    "message": "发现新版本",
+    "description": "Update modal title"
+  },
+  "updateCurrentVersion": {
+    "message": "当前版本: $1",
+    "description": "Current version label"
+  },
+  "updateLatestVersion": {
+    "message": "最新版本: $1",
+    "description": "Latest version label"
+  },
+  "updateChangelog": {
+    "message": "更新内容",
+    "description": "Changelog section title"
+  },
+  "btnCancelUpdate": {
+    "message": "取消更新",
+    "description": "Cancel update button"
+  },
+  "btnGoDownload": {
+    "message": "前往下载",
+    "description": "Go to download page button"
+  },
+  "msgUpToDate": {
+    "message": "当前已是最新版本",
+    "description": "Message when already up to date"
+  },
+  "msgCheckUpdateFailed": {
+    "message": "检查更新失败: $1",
+    "description": "Update check error message"
+  },
+  "msgCheckingUpdate": {
+    "message": "正在检查更新...",
+    "description": "Checking update status message"
   }
 }

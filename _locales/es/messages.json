@@ -758,5 +758,45 @@
   "labelSort": {
     "message": "Ordenar",
     "description": "Sort dropdown label"
+  },
+  "btnCheckUpdate": {
+    "message": "Buscar Actualizaciones",
+    "description": "Check for updates button"
+  },
+  "updateAvailableTitle": {
+    "message": "Actualización Disponible",
+    "description": "Update modal title"
+  },
+  "updateCurrentVersion": {
+    "message": "Actual: $1",
+    "description": "Current version label"
+  },
+  "updateLatestVersion": {
+    "message": "Última: $1",
+    "description": "Latest version label"
+  },
+  "updateChangelog": {
+    "message": "Novedades",
+    "description": "Changelog section title"
+  },
+  "btnCancelUpdate": {
+    "message": "Cancelar",
+    "description": "Cancel update button"
+  },
+  "btnGoDownload": {
+    "message": "Ir a Descargar",
+    "description": "Go to download page button"
+  },
+  "msgUpToDate": {
+    "message": "Estás usando la última versión.",
+    "description": "Message when already up to date"
+  },
+  "msgCheckUpdateFailed": {
+    "message": "Error al buscar: $1",
+    "description": "Update check error message"
+  },
+  "msgCheckingUpdate": {
+    "message": "Buscando actualizaciones...",
+    "description": "Checking update status message"
   }
 }

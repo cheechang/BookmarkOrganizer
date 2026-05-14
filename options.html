@@ -48,6 +48,7 @@
       </nav>
       
       <div class="sidebar-footer">
+        <button id="checkUpdateBtn" class="btn btn-small btn-toolbar" data-i18n="btnCheckUpdate">Check for Updates</button>
         <button id="themeToggle" class="theme-toggle" title="Toggle Dark Mode">🌙</button>
       </div>
     </aside>
@@ -376,6 +377,31 @@
     
     <!-- 消息提示 -->
     <div id="messageBox" class="message-box hidden"></div>
+  </div>
+
+  <!-- 更新提示模态框 -->
+  <div id="updateModalBackdrop" class="update-modal-backdrop hidden">
+    <div class="update-modal">
+      <div class="update-modal-header">
+        <h3 data-i18n="updateAvailableTitle">Update Available</h3>
+        <button id="closeUpdateModal" class="update-modal-close" title="Close">&times;</button>
+      </div>
+      <div class="update-modal-body">
+        <div class="update-version-info">
+          <span id="updateCurrentVersion" data-i18n="updateCurrentVersion">Current: 1.0.0</span>
+          <span class="update-version-arrow">→</span>
+          <span id="updateLatestVersion" data-i18n="updateLatestVersion">Latest: 1.0.0</span>
+        </div>
+        <div class="update-changelog-section">
+          <h4 data-i18n="updateChangelog">What's New</h4>
+          <div id="updateChangelogContent" class="update-changelog"></div>
+        </div>
+      </div>
+      <div class="update-modal-footer">
+        <button id="cancelUpdateBtn" class="btn btn-outline" data-i18n="btnCancelUpdate">Cancel</button>
+        <button id="goDownloadBtn" class="btn btn-primary" data-i18n="btnGoDownload">Go to Download</button>
+      </div>
+    </div>
   </div>
 
   <script src="i18n.js"></script>
