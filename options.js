@@ -84,9 +84,7 @@ window.addEventListener('localeChanged', () => {
   }
   loadBackupsListFull();
   displayCustomRules();
-  if (brokenLinksResults.length > 0) {
-    displayBrokenLinks();
-  }
+  displayBrokenLinks();
 });
 
 // 加载分类规则
@@ -400,6 +398,7 @@ function displayStats(total, duplicateCount) {
 function displayCategoriesFull(searchTerm = '') {
   const container = document.getElementById('categoriesList');
   const applyBtn = document.getElementById('applyCategoriesBtnFull');
+  const applyBtnWrapper = applyBtn?.parentElement;
   const toolbar = document.getElementById('categoriesToolbar');
 
   const grouped = {};
@@ -440,6 +439,7 @@ function displayCategoriesFull(searchTerm = '') {
       </div>
     `;
     applyBtn?.classList.add('hidden');
+    applyBtnWrapper?.classList.add('hidden');
     toolbar?.classList.add('hidden');
     return;
   }
@@ -493,6 +493,7 @@ function displayCategoriesFull(searchTerm = '') {
 
   container.innerHTML = html;
   applyBtn?.classList.remove('hidden');
+  applyBtnWrapper?.classList.remove('hidden');
 
   // 监听复选框
   container.querySelectorAll('.bookmark-checkbox').forEach(checkbox => {
@@ -513,6 +514,7 @@ let currentFilterGroupFull = null;
 function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
   const container = document.getElementById('duplicatesList');
   const removeBtn = document.getElementById('removeDuplicatesBtnFull');
+  const removeBtnWrapper = removeBtn?.parentElement;
   const toolbar = document.getElementById('duplicatesToolbar');
 
   if (duplicates.length === 0) {
@@ -524,6 +526,7 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
       </div>
     `;
     removeBtn?.classList.add('hidden');
+    removeBtnWrapper?.classList.add('hidden');
     toolbar?.classList.add('hidden');
     currentFilterGroupFull = null; // 清除筛选状态
     return;
@@ -558,6 +561,7 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
       </div>
     `;
     removeBtn?.classList.add('hidden');
+    removeBtnWrapper?.classList.add('hidden');
     toolbar?.classList.remove('hidden');
     return;
   }
@@ -657,6 +661,7 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
 
   container.innerHTML = html;
   removeBtn?.classList.remove('hidden');
+  removeBtnWrapper?.classList.remove('hidden');
 
   // 更新当前筛选状态
   currentFilterGroupFull = filterGroupIndex;
@@ -1480,6 +1485,7 @@ function displayBrokenLinks() {
   const container = document.getElementById('brokenLinksList');
   const toolbar = document.getElementById('brokenLinksToolbar');
   const deleteBtn = document.getElementById('deleteBrokenLinksBtn');
+  const deleteBtnWrapper = deleteBtn?.parentElement;
 
   // 过滤
   let filtered = brokenLinksResults;
@@ -1525,6 +1531,7 @@ function displayBrokenLinks() {
     `;
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
+    deleteBtnWrapper?.classList.add('hidden');
     return;
   }
 
@@ -1537,11 +1544,13 @@ function displayBrokenLinks() {
     `;
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
+    deleteBtnWrapper?.classList.add('hidden');
     return;
   }
 
   toolbar?.classList.remove('hidden');
   deleteBtn?.classList.remove('hidden');
+  deleteBtnWrapper?.classList.remove('hidden');
 
   function sortIndicator(field) {
     if (brokenLinksSort.field !== field) return '';

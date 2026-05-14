@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.6.7] - 2026-04-23
+
+### Fixed
+
+- **Fixed Bottom Actions Bar Visibility**
+  - Fixed `.fixed-bottom-actions` container (holding batch action buttons) being visible on initial page load when no scan results exist.
+  - Added initial `hidden` class to all three `.fixed-bottom-actions` containers in `options.html` (Categories, Duplicates, Broken Links pages).
+  - Changed initialization logic to unconditionally call `displayBrokenLinks()` so the container visibility is always correctly synchronized with result state.
+
+---
+
 ## [1.6.6] - 2026-04-23
 
 ### Fixed
