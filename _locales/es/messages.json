@@ -688,7 +688,7 @@
     "description": "Checking links progress"
   },
   "msgCheckComplete": {
-    "message": "Verificación completa! Se encontraron {0} enlaces rotos.",
+    "message": "Verificación completa! Se encontraron $1 enlaces rotos.",
     "description": "Check complete message"
   },
   "msgCheckFailed": {
@@ -704,7 +704,7 @@
     "description": "Empty state prompt"
   },
   "confirmDeleteBroken": {
-    "message": "¿Eliminar {0} marcadores rotos seleccionados? Esta acción no se puede deshacer (se recomienda hacer una copia de seguridad).",
+    "message": "¿Eliminar $1 marcadores rotos seleccionados? Esta acción no se puede deshacer (se recomienda hacer una copia de seguridad).",
     "description": "Confirm delete broken links"
   },
   "brokenLinksCount": {

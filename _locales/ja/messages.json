@@ -688,7 +688,7 @@
     "description": "Checking links progress"
   },
   "msgCheckComplete": {
-    "message": "検出完了！{0}個の無効リンクが見つかりました。",
+    "message": "検出完了！$1個の無効リンクが見つかりました。",
     "description": "Check complete message"
   },
   "msgCheckFailed": {
@@ -704,7 +704,7 @@
     "description": "Empty state prompt"
   },
   "confirmDeleteBroken": {
-    "message": "選択した{0}個の無効ブックマークを削除しますか？この操作は元に戻せません（バックアップ推奨）。",
+    "message": "選択した$1個の無効ブックマークを削除しますか？この操作は元に戻せません（バックアップ推奨）。",
     "description": "Confirm delete broken links"
   },
   "brokenLinksCount": {

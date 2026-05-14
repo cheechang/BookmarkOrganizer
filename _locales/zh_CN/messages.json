@@ -688,7 +688,7 @@
     "description": "Checking links progress"
   },
   "msgCheckComplete": {
-    "message": "检测完成！发现 {0} 个失效链接。",
+    "message": "检测完成！发现 $1 个失效链接。",
     "description": "Check complete message"
   },
   "msgCheckFailed": {
@@ -704,7 +704,7 @@
     "description": "Empty state prompt"
   },
   "confirmDeleteBroken": {
-    "message": "确定删除 {0} 个选中的失效书签？此操作不可撤销（建议先备份）。",
+    "message": "确定删除 $1 个选中的失效书签？此操作不可撤销（建议先备份）。",
     "description": "Confirm delete broken links"
   },
   "brokenLinksCount": {

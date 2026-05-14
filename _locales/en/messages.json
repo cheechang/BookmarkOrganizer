@@ -688,7 +688,7 @@
     "description": "Checking links progress"
   },
   "msgCheckComplete": {
-    "message": "Check complete! Found {0} broken links.",
+    "message": "Check complete! Found $1 broken links.",
     "description": "Check complete message"
   },
   "msgCheckFailed": {
@@ -704,7 +704,7 @@
     "description": "Empty state prompt"
   },
   "confirmDeleteBroken": {
-    "message": "Delete {0} selected broken bookmarks? This action cannot be undone (backup recommended).",
+    "message": "Delete $1 selected broken bookmarks? This action cannot be undone (backup recommended).",
     "description": "Confirm delete broken links"
   },
   "brokenLinksCount": {
