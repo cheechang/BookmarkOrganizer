@@ -20,7 +20,10 @@ function applyTheme(theme) {
   document.body.setAttribute('data-theme', theme);
   const toggle = document.getElementById('themeToggle');
   if (toggle) {
-    toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
+    const moon = toggle.querySelector('.icon-moon');
+    const sun = toggle.querySelector('.icon-sun');
+    if (moon) moon.style.display = theme === 'dark' ? 'none' : 'block';
+    if (sun) sun.style.display = theme === 'dark' ? 'block' : 'none';
     toggle.title = theme === 'dark' ? _t('tooltipLightMode') : _t('tooltipDarkMode');
   }
 }

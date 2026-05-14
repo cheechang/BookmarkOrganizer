@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.6.6] - 2026-04-23
+
+### Fixed
+
+- **Theme Toggle Tooltip i18n**
+  - Fixed the dark mode toggle button tooltip not updating when switching languages. The `applyTheme()` function is now re-invoked on `localeChanged` events to sync the tooltip text to the current language.
+
+- **Theme Toggle Icon Consistency**
+  - Replaced emoji icons (🌙/☀️) with custom SVG line-style icons for the theme toggle button, ensuring identical visual appearance across all languages and operating systems.
+  - SVG icons use the same stroke-based design as the sidebar navigation icons (`currentColor`, `stroke-width="1.5"`), with automatic light/dark theme adaptation.
+
+---
+
 ## [1.6.5] - 2026-04-23
 
 ### Added

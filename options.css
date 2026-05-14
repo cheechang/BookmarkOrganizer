@@ -1056,6 +1056,11 @@ body {
   transform: scale(1.05);
 }
 
+.theme-icon {
+  width: 16px;
+  height: 16px;
+}
+
 /* ==================== 列表工具栏 ==================== */
 .list-toolbar {
   display: flex;

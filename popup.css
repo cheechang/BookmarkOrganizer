@@ -805,6 +805,11 @@ header h1 {
   transform: scale(1.05);
 }
 
+.theme-icon {
+  width: 14px;
+  height: 14px;
+}
+
 .btn-toolbar {
   background: transparent;
   border: 1px solid #cbd5e0;
