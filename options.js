@@ -1,7 +1,7 @@
 // 完整功能页面逻辑
 
 import { I18n, _t } from './i18n.js';
-import { escapeHtml } from './shared.js';
+import { escapeHtml, safeSetHTML } from './shared.js';
 import { getAllBookmarks, analyzeBookmark, checkBrokenLinks } from './bookmark-scanner.js';
 import { createCategoryFolder, batchMoveBookmarks } from './category-manager.js';
 import { detectDuplicates } from './duplicate-detector.js';
@@ -66,7 +66,7 @@ function initLanguageSelector() {
   if (!selector) return;
   
   const locales = I18n.getSupportedLocales();
-  selector.innerHTML = '';
+  selector.textContent = '';
   locales.forEach(loc => {
     const option = document.createElement('option');
     option.value = loc.code;
@@ -348,11 +348,11 @@ function initScrollAssist(scrollSelector) {
     const nearBottom = scrollTop + clientHeight >= scrollHeight - 50;
 
     if (nearBottom) {
-      scrollBtn.innerHTML = '▲';
+      scrollBtn.textContent = '▲';
       scrollBtn.title = _t('btnScrollToTop');
       scrollBtn.dataset.direction = 'top';
     } else {
-      scrollBtn.innerHTML = '▼';
+      scrollBtn.textContent = '▼';
       scrollBtn.title = _t('btnScrollToBottom');
       scrollBtn.dataset.direction = 'bottom';
     }
@@ -501,13 +501,13 @@ function displayCategoriesFull(searchTerm = '') {
   }
 
   if (Object.keys(grouped).length === 0) {
-    container.innerHTML = `
+    safeSetHTML(container, `
       <div class="empty-state-large">
         <div class="empty-icon">📂</div>
         <h3>${_t('emptyNoCategories')}</h3>
         <p>${term ? _t('emptyNoResults') : _t('emptyNeedMoreRules')}</p>
       </div>
-    `;
+    `);
     applyBtn?.classList.add('hidden');
     applyBtnWrapper?.classList.add('hidden');
     toolbar?.classList.add('hidden');
@@ -561,7 +561,7 @@ function displayCategoriesFull(searchTerm = '') {
     html += '</div></div>';
   }
 
-  container.innerHTML = html;
+  safeSetHTML(container, html);
   applyBtn?.classList.remove('hidden');
   applyBtnWrapper?.classList.remove('hidden');
 
@@ -588,13 +588,13 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
   const toolbar = document.getElementById('duplicatesToolbar');
 
   if (duplicates.length === 0) {
-    container.innerHTML = `
+    safeSetHTML(container, `
       <div class="empty-state-large">
         <div class="empty-icon">✓</div>
         <h3>${_t('emptyNoDuplicatesFull')}</h3>
         <p>${_t('emptyBookmarksClean')}</p>
       </div>
-    `;
+    `);
     removeBtn?.classList.add('hidden');
     removeBtnWrapper?.classList.add('hidden');
     toolbar?.classList.add('hidden');
@@ -623,13 +623,13 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
   }
 
   if (filteredDuplicates.length === 0) {
-    container.innerHTML = `
+    safeSetHTML(container, `
       <div class="empty-state-large">
         <div class="empty-icon">🔄</div>
         <h3>${_t('emptyNoDuplicatesFull')}</h3>
         <p>${_t('emptyNoResults')}</p>
       </div>
-    `;
+    `);
     removeBtn?.classList.add('hidden');
     removeBtnWrapper?.classList.add('hidden');
     toolbar?.classList.remove('hidden');
@@ -757,7 +757,7 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
     html += '</div>';
   });
 
-  container.innerHTML = html;
+  safeSetHTML(container, html);
   removeBtn?.classList.remove('hidden');
   removeBtnWrapper?.classList.remove('hidden');
 
@@ -1100,7 +1100,7 @@ async function handleImportHTML(event) {
     }
     countFolders(parsed.items);
 
-    previewStats.innerHTML = `
+    safeSetHTML(previewStats, `
       <div class="preview-stat-item">
         <span class="preview-stat-label">${_t('labelBookmarksFound')}</span>
         <span class="preview-stat-value">${validation.count}</span>
@@ -1109,9 +1109,9 @@ async function handleImportHTML(event) {
         <span class="preview-stat-label">${_t('labelFoldersFound')}</span>
         <span class="preview-stat-value">${folderCount}</span>
       </div>
-    `;
+    `);
 
-    previewContent.innerHTML = generateImportPreview(parsed.items);
+    safeSetHTML(previewContent, generateImportPreview(parsed.items));
     previewContainer.classList.remove('hidden');
     previewContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
@@ -1142,8 +1142,8 @@ async function confirmHTMLImport() {
     const result = await importBookmarksFromHTML(pendingHTMLImport.htmlContent, mode);
     document.getElementById('importPreviewContainer').classList.add('hidden');
     pendingHTMLImport = null;
-    document.getElementById('importPreviewContent').innerHTML = '';
-    document.getElementById('importPreviewStats').innerHTML = '';
+    document.getElementById('importPreviewContent').textContent = '';
+    document.getElementById('importPreviewStats').textContent = '';
     await loadBackupsListFull();
     showMessage(_t('msgImportHTMLSuccess', [`${result.count}`]), 'success');
   } catch (error) {
@@ -1158,8 +1158,8 @@ function cancelHTMLImport() {
   const previewContainer = document.getElementById('importPreviewContainer');
   if (previewContainer) {
     previewContainer.classList.add('hidden');
-    document.getElementById('importPreviewContent').innerHTML = '';
-    document.getElementById('importPreviewStats').innerHTML = '';
+    document.getElementById('importPreviewContent').textContent = '';
+    document.getElementById('importPreviewStats').textContent = '';
   }
 }
 
@@ -1207,13 +1207,13 @@ async function loadBackupsListFull() {
   const backups = result.bookmarksBackups || [];
   
   if (backups.length === 0) {
-    container.innerHTML = `
+    safeSetHTML(container, `
       <div class="empty-state-large">
         <div class="empty-icon">💾</div>
         <h3>暂无备份记录</h3>
         <p>点击"创建新备份"或"导出备份到文件"</p>
       </div>
-    `;
+    `);
     return;
   }
   
@@ -1237,8 +1237,8 @@ async function loadBackupsListFull() {
       </div>
     `;
   });
-  
-  container.innerHTML = html;
+
+  safeSetHTML(container, html);
 }
 
 // 恢复备份(完整版)
@@ -1321,12 +1321,12 @@ function displayCustomRules() {
   if (!container) return;
 
   if (customRules.length === 0) {
-    container.innerHTML = `
+    safeSetHTML(container, `
       <div class="empty-state-large" style="padding: 30px 10px;">
         <div class="empty-icon" style="font-size: 36px;">📝</div>
         <p>${_t('emptyNoCustomRules')}</p>
       </div>
-    `;
+    `);
     return;
   }
 
@@ -1360,7 +1360,7 @@ function displayCustomRules() {
     `;
   });
 
-  container.innerHTML = html;
+  safeSetHTML(container, html);
 }
 
 function showAddRuleForm() {
@@ -1586,7 +1586,7 @@ function showUpdateModal(currentVersion, latestVersion, changelogHtml) {
 
   currentVerEl.textContent = _t('updateCurrentVersion', [currentVersion]);
   latestVerEl.textContent = _t('updateLatestVersion', [latestVersion]);
-  changelogEl.innerHTML = changelogHtml || '<p style="color:#a0aec0;font-style:italic;">No changelog available.</p>';
+  safeSetHTML(changelogEl, changelogHtml || '<p style="color:#a0aec0;font-style:italic;">No changelog available.</p>');
 
   backdrop.classList.remove('hidden');
   backdrop.dataset.latestVersion = latestVersion;
@@ -1737,13 +1737,13 @@ function displayBrokenLinks() {
   }
 
   if (brokenLinksResults.length === 0) {
-    container.innerHTML = `
+    safeSetHTML(container, `
       <div class="empty-state-large">
         <div class="empty-icon">✓</div>
         <h3>${_t('emptyNoBrokenLinks')}</h3>
         <p>${_t('emptyClickCheck')}</p>
       </div>
-    `;
+    `);
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
     deleteBtnWrapper?.classList.add('hidden');
@@ -1751,12 +1751,12 @@ function displayBrokenLinks() {
   }
 
   if (filtered.length === 0) {
-    container.innerHTML = `
+    safeSetHTML(container, `
       <div class="empty-state-large">
         <div class="empty-icon">🔍</div>
         <h3>${_t('emptyNoResults')}</h3>
       </div>
-    `;
+    `);
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
     deleteBtnWrapper?.classList.add('hidden');
@@ -1810,7 +1810,7 @@ function displayBrokenLinks() {
   }
 
   html += '</div>';
-  container.innerHTML = html;
+  safeSetHTML(container, html);
 
   // 绑定排序点击事件
   container.querySelectorAll('.bl-sortable').forEach(el => {

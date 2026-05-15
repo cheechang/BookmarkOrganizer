@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookmark Organizer 图标生成器</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      background: #f5f7fa;
+      color: #333;
+    }
+    h1 { text-align: center; color: #667eea; margin-bottom: 8px; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 40px; }
+    .section {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .section h2 { margin-top: 0; color: #444; font-size: 18px; }
+    .preview-grid {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 24px 0;
+    }
+    .preview-item {
+      text-align: center;
+    }
+    .preview-item img {
+      display: block;
+      margin: 0 auto 12px;
+      image-rendering: pixelated;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(102,126,234,0.2);
+    }
+    .preview-item .size-label {
+      font-weight: 600;
+      color: #667eea;
+      font-size: 14px;
+    }
+    .preview-item .px-label {
+      color: #999;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(102,126,234,0.35);
+    }
+    .btn:active { transform: translateY(0); }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .custom-convert {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+    .file-input-wrapper {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    input[type="file"] {
+      padding: 8px 12px;
+      border: 2px dashed #d0d4e0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    input[type="file"]:hover { border-color: #667eea; }
+    select {
+      padding: 8px 14px;
+      border: 1px solid #d0d4e0;
+      border-radius: 8px;
+      font-size: 14px;
+      background: white;
+      cursor: pointer;
+    }
+    .note {
+      background: #f0f4ff;
+      border-left: 4px solid #667eea;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+    }
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding: 0;
+    }
+    .steps li {
+      position: relative;
+      padding-left: 40px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bookmark Organizer 图标生成器</h1>
+  <p class="subtitle">预览当前 SVG 设计，并一键导出 PNG 图标文件</p>
+
+  <!-- 预览区域 -->
+  <div class="section">
+    <h2>图标预览</h2>
+    <div class="preview-grid" id="previewGrid"></div>
+    <div class="btn-group">
+      <button class="btn" id="downloadAllBtn">批量下载全部 PNG</button>
+    </div>
+  </div>
+
+  <!-- 自定义转换 -->
+  <div class="section">
+    <h2>自定义 SVG 转 PNG</h2>
+    <p style="color:#666;font-size:14px;margin-top:0">如果你修改了 SVG 文件，可以在此选择文件转换为任意尺寸的 PNG。</p>
+    <div class="file-input-wrapper">
+      <input type="file" id="svgInput" accept=".svg">
+      <select id="sizeSelect">
+        <option value="16">16 x 16 px</option>
+        <option value="32">32 x 32 px</option>
+        <option value="48" selected>48 x 48 px</option>
+        <option value="64">64 x 64 px</option>
+        <option value="96">96 x 96 px</option>
+        <option value="128">128 x 128 px</option>
+        <option value="256">256 x 256 px</option>
+      </select>
+      <button class="btn" id="convertCustomBtn">转换并下载</button>
+    </div>
+    <canvas id="customCanvas" style="display:none"></canvas>
+  </div>
+
+  <!-- 使用说明 -->
+  <div class="section">
+    <h2>使用方法</h2>
+    <ul class="steps">
+      <li>直接点击「批量下载全部 PNG」，即可获取 <code>icon16.png</code>、<code>icon48.png</code>、<code>icon128.png</code> 三个文件。</li>
+      <li>将下载的 PNG 文件放入扩展项目的 <code>icons/</code> 目录，替换旧文件。</li>
+      <li>如需修改图标设计，编辑对应的 <code>icon16.svg</code>、<code>icon48.svg</code>、<code>icon128.svg</code> 文件，然后使用上方的「自定义 SVG 转 PNG」功能重新生成。</li>
+    </ul>
+    <div class="note" style="margin-top:16px">
+      <strong>提示：</strong>Chrome 扩展需要 PNG 格式图标，但 SVG 是矢量源文件，方便后续修改。建议保留 SVG 文件作为设计源稿。
+    </div>
+  </div>
+
+  <!-- ImageMagick 备用方案 -->
+  <div class="section">
+    <h2>命令行转换（ImageMagick）</h2>
+    <p style="color:#666;font-size:14px;margin-top:0">如果你已安装 ImageMagick，也可以使用以下命令批量转换：</p>
+    <pre style="background:#1e1e2e;color:#cdd6f4;padding:16px;border-radius:10px;overflow-x:auto;font-size:13px;line-height:1.8"><code>cd icons
+
+# 转换三种尺寸的图标
+magick -background none icon16.svg  -resize 16x16  icon16.png
+magick -background none icon48.svg  -resize 48x48  icon48.png
+magick -background none icon128.svg -resize 128x128 icon128.png</code></pre>
+  </div>
+
+  <script src="generate-icons.js"></script>
+</body>
+</html>

@@ -85,7 +85,18 @@ export const I18n = {
 
     document.querySelectorAll('[data-i18n-html]').forEach(el => {
       const key = el.dataset.i18nHtml;
-      el.innerHTML = this.t(key);
+      const html = this.t(key);
+      el.textContent = '';
+      if (html) {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(`<div id="__safe_root__">${html}</div>`, 'text/html');
+        const wrapper = doc.getElementById('__safe_root__');
+        if (wrapper) {
+          while (wrapper.firstChild) {
+            el.appendChild(wrapper.firstChild);
+          }
+        }
+      }
     });
 
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {

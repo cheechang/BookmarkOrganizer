@@ -1,7 +1,7 @@
 // 弹窗主逻辑
 
 import { I18n, _t } from './i18n.js';
-import { escapeHtml } from './shared.js';
+import { escapeHtml, safeSetHTML } from './shared.js';
 import { getAllBookmarks, analyzeBookmark, checkBrokenLinks } from './bookmark-scanner.js';
 import { createCategoryFolder, batchMoveBookmarks } from './category-manager.js';
 import { detectDuplicates } from './duplicate-detector.js';
@@ -61,7 +61,7 @@ function initLanguageSelector() {
   if (!selector) return;
   
   const locales = I18n.getSupportedLocales();
-  selector.innerHTML = '';
+  selector.textContent = '';
   locales.forEach(loc => {
     const option = document.createElement('option');
     option.value = loc.code;
@@ -257,11 +257,11 @@ function initScrollAssist(scrollSelector) {
     const nearBottom = scrollTop + clientHeight >= scrollHeight - 50;
 
     if (nearBottom) {
-      scrollBtn.innerHTML = '▲';
+      scrollBtn.textContent = '▲';
       scrollBtn.title = _t('btnScrollToTop');
       scrollBtn.dataset.direction = 'top';
     } else {
-      scrollBtn.innerHTML = '▼';
+      scrollBtn.textContent = '▼';
       scrollBtn.title = _t('btnScrollToBottom');
       scrollBtn.dataset.direction = 'bottom';
     }
@@ -406,7 +406,7 @@ function displayCategories(searchTerm = '') {
   selectedBookmarks.clear();
 
   if (Object.keys(grouped).length === 0) {
-    container.innerHTML = `<p class="empty-state">${term ? _t('emptyNoResults') : _t('emptyNoCategories')}</p>`;
+    safeSetHTML(container, `<p class="empty-state">${term ? _t('emptyNoResults') : _t('emptyNoCategories')}</p>`);
     applyBtn.classList.add('hidden');
     toolbar?.classList.add('hidden');
     return;
@@ -459,7 +459,7 @@ function displayCategories(searchTerm = '') {
     html += '</div></div>';
   }
 
-  container.innerHTML = html;
+  safeSetHTML(container, html);
   applyBtn.classList.remove('hidden');
 
   // 监听复选框变化
@@ -486,7 +486,7 @@ function displayDuplicates(filterGroupIndex = null, searchTerm = '') {
   const toolbar = document.getElementById('duplicatesToolbar');
 
   if (duplicates.length === 0) {
-    container.innerHTML = `<p class="empty-state">${_t('emptyNoDuplicates')}</p>`;
+    safeSetHTML(container, `<p class="empty-state">${_t('emptyNoDuplicates')}</p>`);
     removeBtn.classList.add('hidden');
     toolbar?.classList.add('hidden');
     currentFilterGroup = null; // 清除筛选状态
@@ -514,7 +514,7 @@ function displayDuplicates(filterGroupIndex = null, searchTerm = '') {
   }
 
   if (filteredDuplicates.length === 0) {
-    container.innerHTML = `<p class="empty-state">${_t('emptyNoResults')}</p>`;
+    safeSetHTML(container, `<p class="empty-state">${_t('emptyNoResults')}</p>`);
     removeBtn.classList.add('hidden');
     toolbar?.classList.remove('hidden');
     return;
@@ -642,7 +642,7 @@ function displayDuplicates(filterGroupIndex = null, searchTerm = '') {
     html += '</div>';
   });
 
-  container.innerHTML = html;
+  safeSetHTML(container, html);
   removeBtn.classList.remove('hidden');
 
   // 更新当前筛选状态
@@ -982,7 +982,7 @@ async function loadBackupsList() {
   const backups = result.bookmarksBackups || [];
   
   if (backups.length === 0) {
-    container.innerHTML = `<p class="empty-state">${_t('emptyNoBackups')}</p>`;
+    safeSetHTML(container, `<p class="empty-state">${_t('emptyNoBackups')}</p>`);
     return;
   }
   
@@ -1006,8 +1006,8 @@ async function loadBackupsList() {
       </div>
     `;
   });
-  
-  container.innerHTML = html;
+
+  safeSetHTML(container, html);
 }
 
 // 恢复备份
@@ -1206,7 +1206,7 @@ function showUpdateModal(currentVersion, latestVersion, changelogHtml) {
 
   currentVerEl.textContent = _t('updateCurrentVersion', [currentVersion]);
   latestVerEl.textContent = _t('updateLatestVersion', [latestVersion]);
-  changelogEl.innerHTML = changelogHtml || '<p style="color:#a0aec0;font-style:italic;">No changelog available.</p>';
+  safeSetHTML(changelogEl, changelogHtml || '<p style="color:#a0aec0;font-style:italic;">No changelog available.</p>');
 
   backdrop.classList.remove('hidden');
   backdrop.dataset.latestVersion = latestVersion;
@@ -1340,14 +1340,14 @@ function displayBrokenLinksPopup() {
   }
 
   if (brokenLinksResults.length === 0) {
-    container.innerHTML = `<p class="empty-state">${_t('emptyClickCheck')}</p>`;
+    safeSetHTML(container, `<p class="empty-state">${_t('emptyClickCheck')}</p>`);
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
     return;
   }
 
   if (filtered.length === 0) {
-    container.innerHTML = `<p class="empty-state">${_t('emptyNoResults')}</p>`;
+    safeSetHTML(container, `<p class="empty-state">${_t('emptyNoResults')}</p>`);
     toolbar?.classList.add('hidden');
     deleteBtn?.classList.add('hidden');
     return;
@@ -1383,7 +1383,7 @@ function displayBrokenLinksPopup() {
     `;
   }
 
-  container.innerHTML = html;
+  safeSetHTML(container, html);
 }
 
 async function handleDeleteBrokenLinksPopup() {

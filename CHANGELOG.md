@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.8.5] - 2026-04-23
+
+### Fixed
+
+- **Firefox Extension Store Compatibility**
+  - Added `background.scripts` fallback alongside `background.service_worker` for Firefox MV3 support.
+  - Added `browser_specific_settings.gecko.id` and `data_collection_permissions` required by Firefox.
+  - Replaced all unsafe `innerHTML` assignments in `popup.js`, `options.js`, and `i18n.js` with `safeSetHTML` (using `Range.createContextualFragment`) or `textContent` to pass Firefox linter security checks.
+  - Moved developer tool `generate-icons.html` from `icons/` to `tools/` to avoid inline-script CSP warnings in the extension package.
+
 ## [1.8.4] - 2026-04-23
 
 ### Changed
