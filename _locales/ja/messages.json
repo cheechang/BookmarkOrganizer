@@ -28,7 +28,7 @@
     "description": "Scan button"
   },
   "btnScanFull": {
-    "message": "🔍 フルスキャン開始",
+    "message": "🔍 スキャン開始",
     "description": "Full scan button"
   },
   "btnBackup": {
@@ -884,11 +884,11 @@
     "description": "ブックマークをJSONファイルとしてエクスポート"
   },
   "labelExportFormat": {
-    "message": "エクスポート形式",
+    "message": "ブックマークをエクスポート",
     "description": "エクスポート形式ラベル"
   },
   "labelImportMode": {
-    "message": "インポートモード",
+    "message": "ブックマークをインポート",
     "description": "インポートモードラベル"
   },
   "labelModeMerge": {

@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.8.4] - 2026-04-23
+
+### Changed
+
+- **Scan Analysis Page Button Alignment**
+  - Unified "Backup Now" button size with "Start Scan" button by applying `btn-lg` class for consistent appearance.
+  - Renamed "Start Full Scan" button text to "Start Scan" across all 5 supported languages for brevity.
+
+- **Backup Management Page Label Clarity**
+  - Renamed "Export Format" label to "Export Bookmarks" for clearer intent.
+  - Renamed "Import Mode" label to "Import Bookmarks" for clearer intent.
+  - Updated translations in English, Chinese, Spanish, Japanese, and German.
+
 ## [1.8.3] - 2026-04-23
 
 ### Fixed

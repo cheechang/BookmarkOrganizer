@@ -28,7 +28,7 @@
     "description": "Scan button"
   },
   "btnScanFull": {
-    "message": "🔍 开始完整扫描",
+    "message": "🔍 开始扫描",
     "description": "Full scan button"
   },
   "btnBackup": {
@@ -884,11 +884,11 @@
     "description": "导出书签为JSON文件按钮"
   },
   "labelExportFormat": {
-    "message": "导出格式",
+    "message": "导出书签",
     "description": "导出格式标签"
   },
   "labelImportMode": {
-    "message": "导入模式",
+    "message": "导入书签",
     "description": "导入模式标签"
   },
   "labelModeMerge": {

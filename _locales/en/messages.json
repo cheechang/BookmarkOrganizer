@@ -28,7 +28,7 @@
     "description": "Scan button"
   },
   "btnScanFull": {
-    "message": "🔍 Start Full Scan",
+    "message": "🔍 Start Scan",
     "description": "Full scan button"
   },
   "btnBackup": {
@@ -884,11 +884,11 @@
     "description": "Export bookmarks as JSON file button"
   },
   "labelExportFormat": {
-    "message": "Export Format",
+    "message": "Export Bookmarks",
     "description": "Export format label"
   },
   "labelImportMode": {
-    "message": "Import Mode",
+    "message": "Import Bookmarks",
     "description": "Import mode label"
   },
   "labelModeMerge": {

@@ -28,7 +28,7 @@
     "description": "Scan button"
   },
   "btnScanFull": {
-    "message": "🔍 Iniciar Escaneo Completo",
+    "message": "🔍 Iniciar Escaneo",
     "description": "Full scan button"
   },
   "btnBackup": {
@@ -884,11 +884,11 @@
     "description": "Exportar marcadores como archivo JSON"
   },
   "labelExportFormat": {
-    "message": "Formato de exportación",
+    "message": "Exportar Marcadores",
     "description": "Etiqueta de formato de exportación"
   },
   "labelImportMode": {
-    "message": "Modo de importación",
+    "message": "Importar Marcadores",
     "description": "Etiqueta de modo de importación"
   },
   "labelModeMerge": {
