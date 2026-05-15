@@ -259,16 +259,52 @@
           </div>
           
           <div class="backup-actions-bar">
-            <button id="exportBackupBtn" class="btn btn-primary" data-i18n="btnExportBackup">
-              📤 Export Backup to File
-            </button>
-            <label class="btn btn-secondary" for="importBackupInput" data-i18n="btnImportBackup">
-              📥 Import Backup from File
-            </label>
-            <input type="file" id="importBackupInput" accept=".json" style="display: none;">
+            <!-- 导出区域 -->
+            <div class="backup-action-group">
+              <label class="backup-action-label" data-i18n="labelExportFormat">Export Format</label>
+              <select id="exportFormatSelect" class="backup-select">
+                <option value="json" selected>JSON (Extension Backup)</option>
+                <option value="html">HTML (Browser Compatible)</option>
+              </select>
+              <button id="exportBackupBtn" class="btn btn-primary" data-i18n="btnExportBackup">
+                📤 Export Backup to File
+              </button>
+            </div>
+
+            <!-- 导入区域 -->
+            <div class="backup-action-group">
+              <label class="backup-action-label" data-i18n="labelImportMode">Import Mode</label>
+              <select id="importModeSelect" class="backup-select">
+                <option value="merge" selected data-i18n="labelModeMerge">Merge with existing</option>
+                <option value="replace" data-i18n="labelModeReplace">Replace all</option>
+              </select>
+              <label class="btn btn-secondary" for="importBackupInput" data-i18n="btnImportBackup">
+                📥 Import Backup from File
+              </label>
+              <input type="file" id="importBackupInput" accept=".json" style="display: none;">
+              <label class="btn btn-secondary" for="importHTMLInput" data-i18n="btnImportHTML">
+                📥 Import HTML Bookmarks
+              </label>
+              <input type="file" id="importHTMLInput" accept=".html,.htm" style="display: none;">
+            </div>
+
             <button id="createBackupBtn" class="btn btn-secondary" data-i18n="btnCreateBackup">
               💾 Create New Backup
             </button>
+          </div>
+
+          <!-- 导入预览区域 -->
+          <div id="importPreviewContainer" class="import-preview-container hidden">
+            <div class="import-preview-header">
+              <h3 data-i18n="importPreviewTitle">Import Preview</h3>
+              <p data-i18n="importPreviewDesc">Review the bookmarks to be imported below</p>
+            </div>
+            <div id="importPreviewStats" class="import-preview-stats"></div>
+            <div id="importPreviewContent" class="import-preview-content"></div>
+            <div class="import-preview-actions">
+              <button id="cancelImportBtn" class="btn btn-outline" data-i18n="btnCancel">Cancel</button>
+              <button id="confirmImportBtn" class="btn btn-primary" data-i18n="btnConfirm">Confirm Import</button>
+            </div>
           </div>
           
           <div id="backupsListFull" class="backups-list-full">

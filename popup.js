@@ -122,6 +122,12 @@ function setupEventListeners() {
   // 备份按钮
   document.getElementById('backupBtn').addEventListener('click', handleBackup);
 
+  // 导出备份按钮（popup版）
+  document.getElementById('exportBackupBtnPopup')?.addEventListener('click', handleExportBackupPopup);
+
+  // 导入HTML书签（popup版）
+  document.getElementById('importHTMLInputPopup')?.addEventListener('change', handleImportHTMLPopup);
+
   // 应用分类按钮
   document.getElementById('applyCategoriesBtn').addEventListener('click', handleApplyCategories);
 
@@ -803,6 +809,56 @@ async function handleBackup() {
   } finally {
     backupBtn.disabled = false;
     backupBtn.textContent = _t('btnBackup');
+  }
+}
+
+// 导出备份（popup版）
+async function handleExportBackupPopup() {
+  try {
+    const format = document.getElementById('exportFormatSelectPopup')?.value || 'json';
+    let blob, filename;
+
+    if (format === 'html') {
+      const htmlContent = await exportBookmarksToHTML();
+      blob = new Blob([htmlContent], { type: 'text/html' });
+      filename = `bookmarks-${new Date().toISOString().slice(0, 10)}.html`;
+    } else {
+      const result = await chrome.storage.local.get(['bookmarksBackups']);
+      const backups = result.bookmarksBackups || [];
+      if (backups.length === 0) {
+        showMessage(_t('msgNoBackupToExport'), 'warning');
+        return;
+      }
+      const dataStr = JSON.stringify(backups[0], null, 2);
+      blob = new Blob([dataStr], { type: 'application/json' });
+      filename = `bookmark-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    }
+
+    const url = URL.createObjectURL(blob);
+    await chrome.downloads.download({ url, filename, saveAs: true });
+    showMessage(format === 'html' ? _t('msgExportHTMLSuccess') : _t('msgExportSuccess'), 'success');
+  } catch (error) {
+    console.error('Export failed:', error);
+    const format = document.getElementById('exportFormatSelectPopup')?.value || 'json';
+    showMessage((format === 'html' ? _t('msgExportHTMLFailed') : _t('msgExportFailed')) + error.message, 'error');
+  }
+}
+
+// 导入HTML书签（popup版，直接导入无预览）
+async function handleImportHTMLPopup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  try {
+    showMessage(_t('msgParsingBookmarkFile'), 'info');
+    const htmlContent = await file.text();
+    const result = await importBookmarksFromHTML(htmlContent, 'merge');
+    showMessage(_t('msgImportHTMLSuccess', [`${result.count}`]), 'success');
+  } catch (error) {
+    console.error('HTML import failed:', error);
+    showMessage(_t('msgImportHTMLFailed') + error.message, 'error');
+  } finally {
+    event.target.value = '';
   }
 }
 

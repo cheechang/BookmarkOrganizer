@@ -106,6 +106,15 @@
             <span data-i18n="settingAutoBackup">Enable Auto Backup</span>
           </label>
         </div>
+        <div class="backup-actions-popup">
+          <select id="exportFormatSelectPopup" class="backup-select">
+            <option value="json" selected>JSON</option>
+            <option value="html">HTML</option>
+          </select>
+          <button id="exportBackupBtnPopup" class="btn btn-small" data-i18n="btnExportBackup">Export</button>
+          <label class="btn btn-small" for="importHTMLInputPopup" data-i18n="btnImportHTML">Import HTML</label>
+          <input type="file" id="importHTMLInputPopup" accept=".html,.htm" style="display: none;">
+        </div>
         <div id="backupsList" class="backups-list">
           <p class="empty-state" data-i18n="emptyNoBackups">No backup records</p>
         </div>

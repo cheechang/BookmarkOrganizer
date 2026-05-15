@@ -798,5 +798,77 @@
   "msgCheckingUpdate": {
     "message": "更新を確認中...",
     "description": "Checking update status message"
+  },
+  "btnExportHTML": {
+    "message": "HTMLとしてエクスポート",
+    "description": "ブックマークをHTMLファイルとしてエクスポート"
+  },
+  "btnExportJSON": {
+    "message": "JSONとしてエクスポート",
+    "description": "ブックマークをJSONファイルとしてエクスポート"
+  },
+  "btnImportHTML": {
+    "message": "HTMLブックマークをインポート",
+    "description": "HTMLファイルからブックマークをインポート"
+  },
+  "labelExportFormat": {
+    "message": "エクスポート形式",
+    "description": "エクスポート形式ラベル"
+  },
+  "labelImportMode": {
+    "message": "インポートモード",
+    "description": "インポートモードラベル"
+  },
+  "labelModeMerge": {
+    "message": "既存と統合",
+    "description": "統合インポートオプション"
+  },
+  "labelModeReplace": {
+    "message": "すべて置き換え",
+    "description": "置き換えインポートオプション"
+  },
+  "importPreviewTitle": {
+    "message": "インポートプレビュー",
+    "description": "インポートプレビュータイトル"
+  },
+  "importPreviewDesc": {
+    "message": "以下にインポートされるブックマークを確認してください",
+    "description": "インポートプレビュー説明"
+  },
+  "msgImportHTMLSuccess": {
+    "message": "HTMLファイルから  個のブックマークを正常にインポートしました",
+    "description": "HTMLインポート成功メッセージ"
+  },
+  "msgImportHTMLFailed": {
+    "message": "インポートに失敗しました：",
+    "description": "HTMLインポート失敗メッセージ"
+  },
+  "msgExportHTMLSuccess": {
+    "message": "ブックマークをHTMLとして正常にエクスポートしました",
+    "description": "HTMLエクスポート成功メッセージ"
+  },
+  "msgExportHTMLFailed": {
+    "message": "エクスポートに失敗しました：",
+    "description": "HTMLエクスポート失敗メッセージ"
+  },
+  "msgInvalidBookmarkFile": {
+    "message": "無効なブックマークファイル形式です。有効なブラウザからエクスポートされたHTMLファイルを選択してください。",
+    "description": "無効なブックマークファイルエラー"
+  },
+  "msgParsingBookmarkFile": {
+    "message": "ブックマークファイルを解析中...",
+    "description": "ブックマークファイル解析ステータス"
+  },
+  "confirmImportHTML": {
+    "message": " 個のブックマークをインポートしますか？これは現在のブックマークを。",
+    "description": "HTMLインポート確認ダイアログ"
+  },
+  "labelBookmarksFound": {
+    "message": " 個のブックマークが見つかりました",
+    "description": "プレビューのブックマーク数"
+  },
+  "labelFoldersFound": {
+    "message": " 個のフォルダが見つかりました",
+    "description": "プレビューのフォルダ数"
   }
 }

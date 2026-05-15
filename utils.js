@@ -727,10 +727,302 @@ async function checkBrokenLinks(bookmarks, onProgress, concurrency = 3) {
   }
 
   const workers = [];
-  for (let i = 0; i < Math.min(concurrency, total); i++) {
-    workers.push(worker());
-  }
-  await Promise.all(workers);
+/**
+ * 解析 Netscape Bookmark Format HTML
+ * 支持 Chrome/Firefox/Edge 等浏览器导出的标准书签格式
+ */
+function parseNetscapeBookmarkFormat(htmlContent) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlContent, 'text/html');
 
-  return results;
+  // 验证基本结构
+  const doctype = doc.doctype;
+  const titleEl = doc.querySelector('title');
+  const hasNetscapeDoctype = doctype && doctype.name.toLowerCase().includes('netscape');
+  const hasBookmarks = doc.querySelector('dl') !== null;
+
+  if (!hasNetscapeDoctype && !hasBookmarks) {
+    throw new Error('Invalid bookmark file format');
+  }
+
+  function parseDL(dlElement, parentPath) {
+    const items = [];
+    const children = Array.from(dlElement.children);
+
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i];
+      if (child.tagName !== 'DT') continue;
+
+      const h3 = child.querySelector(':scope > H3');
+      const a = child.querySelector(':scope > A');
+      const nestedDL = child.querySelector(':scope > DL');
+
+      if (h3) {
+        // 文件夹
+        const folder = {
+          type: 'folder',
+          title: h3.textContent.trim(),
+          addDate: h3.getAttribute('ADD_DATE') || h3.getAttribute('add_date') || '',
+          lastModified: h3.getAttribute('LAST_MODIFIED') || h3.getAttribute('last_modified') || '',
+          children: []
+        };
+        if (nestedDL) {
+          folder.children = parseDL(nestedDL, [...parentPath, folder.title]);
+        }
+        items.push(folder);
+      } else if (a) {
+        // 书签
+        const bookmark = {
+          type: 'bookmark',
+          title: a.textContent.trim(),
+          url: a.getAttribute('HREF') || a.getAttribute('href') || '',
+          addDate: a.getAttribute('ADD_DATE') || a.getAttribute('add_date') || '',
+          icon: a.getAttribute('ICON') || a.getAttribute('icon') || ''
+        };
+        items.push(bookmark);
+      }
+    }
+    return items;
+  }
+
+  const rootDL = doc.querySelector('DL');
+  if (!rootDL) {
+    throw new Error('No bookmark data found in file');
+  }
+
+  return {
+    title: titleEl ? titleEl.textContent.trim() : 'Bookmarks',
+    items: parseDL(rootDL, [])
+  };
+}
+
+/**
+ * 验证书签数据结构完整性
+ */
+function validateBookmarkStructure(data) {
+  if (!data || typeof data !== 'object') {
+    return { valid: false, error: 'Invalid data format' };
+  }
+
+  // 检查是否为数组（直接的书签列表）
+  if (Array.isArray(data)) {
+    for (let i = 0; i < data.length; i++) {
+      const item = data[i];
+      if (item.type === 'bookmark') {
+        if (!item.url || typeof item.url !== 'string') {
+          return { valid: false, error: `Item ${i}: missing or invalid URL` };
+        }
+        try {
+          new URL(item.url);
+        } catch {
+          return { valid: false, error: `Item ${i}: invalid URL format: ${item.url}` };
+        }
+      }
+    }
+    return { valid: true, count: countBookmarkItems(data) };
+  }
+
+  // 检查标准格式 { title, items }
+  if (!Array.isArray(data.items)) {
+    return { valid: false, error: 'Missing items array' };
+  }
+
+  function validateItems(items, depth) {
+    if (depth > 20) {
+      return { valid: false, error: 'Nesting too deep (max 20 levels)' };
+    }
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      if (!item.type || !['bookmark', 'folder'].includes(item.type)) {
+        return { valid: false, error: `Item ${i}: unknown type "${item.type}"` };
+      }
+      if (item.type === 'bookmark') {
+        if (!item.url || typeof item.url !== 'string') {
+          return { valid: false, error: `Item ${i}: missing or invalid URL` };
+        }
+        try {
+          new URL(item.url);
+        } catch {
+          return { valid: false, error: `Item ${i}: invalid URL format` };
+        }
+      }
+      if (item.type === 'folder') {
+        if (!Array.isArray(item.children)) {
+          return { valid: false, error: `Folder "${item.title}": missing children array` };
+        }
+        const result = validateItems(item.children, depth + 1);
+        if (!result.valid) return result;
+      }
+    }
+    return { valid: true };
+  }
+
+  const result = validateItems(data.items, 0);
+  if (!result.valid) return result;
+
+  return { valid: true, count: countBookmarkItems(data.items) };
+}
+
+/**
+ * 统计书签项目数量
+ */
+function countBookmarkItems(items) {
+  let count = 0;
+  for (const item of items) {
+    if (item.type === 'bookmark') count++;
+    if (item.type === 'folder' && item.children) {
+      count += countBookmarkItems(item.children);
+    }
+  }
+  return count;
+}
+
+/**
+ * 从 HTML 格式导入书签
+ * @param {string} htmlContent - HTML 文件内容
+ * @param {string} mode - 'merge' 合并到现有书签, 'replace' 覆盖现有书签
+ */
+async function importBookmarksFromHTML(htmlContent, mode = 'merge') {
+  const parsed = parseNetscapeBookmarkFormat(htmlContent);
+  const validation = validateBookmarkStructure(parsed);
+  if (!validation.valid) {
+    throw new Error(validation.error);
+  }
+
+  if (mode === 'replace') {
+    await clearAllBookmarks();
+  }
+
+  // 获取根节点，导入到书签栏或其他合适位置
+  const tree = await chrome.bookmarks.getTree();
+  // 默认导入到"其他书签" (parentId '2')
+  const targetParentId = '2';
+
+  async function createItems(items, parentId) {
+    for (const item of items) {
+      if (item.type === 'bookmark') {
+        try {
+          await chrome.bookmarks.create({
+            parentId: parentId,
+            title: item.title || item.url,
+            url: item.url
+          });
+        } catch (e) {
+          console.warn('Failed to create bookmark:', item.title, e.message);
+        }
+      } else if (item.type === 'folder') {
+        try {
+          const folder = await chrome.bookmarks.create({
+            parentId: parentId,
+            title: item.title || 'Untitled Folder'
+          });
+          if (item.children && item.children.length > 0) {
+            await createItems(item.children, folder.id);
+          }
+        } catch (e) {
+          console.warn('Failed to create folder:', item.title, e.message);
+        }
+      }
+    }
+  }
+
+  await createItems(parsed.items, targetParentId);
+  return { success: true, count: validation.count, title: parsed.title };
+}
+
+/**
+ * 导出书签为 Netscape Bookmark Format HTML
+ */
+async function exportBookmarksToHTML() {
+  const tree = await chrome.bookmarks.getTree();
+
+  function buildHTML(nodes, depth) {
+    const indent = '    '.repeat(depth);
+    let html = '';
+    for (const node of nodes) {
+      if (node.url) {
+        // 书签
+        const addDate = node.dateAdded ? Math.floor(node.dateAdded / 1000) : '';
+        html += `${indent}<DT><A HREF="${escapeHtml(node.url)}" ADD_DATE="${addDate}">${escapeHtml(node.title || 'Untitled')}</A>\n`;
+      } else if (node.children) {
+        // 文件夹（跳过根节点）
+        if (node.id === '0') {
+          html += buildHTML(node.children, depth);
+        } else {
+          const addDate = node.dateAdded ? Math.floor(node.dateAdded / 1000) : '';
+          const modDate = node.dateGroupModified ? Math.floor(node.dateGroupModified / 1000) : '';
+          html += `${indent}<DT><H3 ADD_DATE="${addDate}" LAST_MODIFIED="${modDate}">${escapeHtml(node.title || 'Untitled')}</H3>\n`;
+          html += `${indent}<DL><p>\n`;
+          html += buildHTML(node.children, depth + 1);
+          html += `${indent}</DL><p>\n`;
+        }
+      }
+    }
+    return html;
+  }
+
+  const bookmarksHtml = buildHTML(tree, 1);
+
+  return `<!DOCTYPE NETSCAPE-Bookmark-file-1>
+<!-- This is an automatically generated file.
+     It will be read and overwritten.
+     DO NOT EDIT! -->
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<TITLE>Bookmarks</TITLE>
+<H1>Bookmarks</H1>
+<DL><p>
+${bookmarksHtml}</DL><p>
+`;
+}
+
+/**
+ * 导出书签为 JSON 格式
+ */
+async function exportBookmarksToJSON() {
+  const tree = await chrome.bookmarks.getTree();
+  return JSON.stringify(tree, null, 2);
+}
+
+/**
+ * 生成书签导入预览结构
+ */
+function generateImportPreview(items, maxDepth = 3, currentDepth = 0) {
+  if (currentDepth >= maxDepth) {
+    const remaining = countBookmarkItems(items);
+    return remaining > 0 ? `<div class="preview-more">... ${remaining} more items</div>` : '';
+  }
+
+  let html = '<ul class="preview-list">';
+  let shown = 0;
+  const maxItems = currentDepth === 0 ? 50 : 20;
+
+  for (const item of items) {
+    if (shown >= maxItems) {
+      const remaining = countBookmarkItems(items.slice(shown));
+      html += `<li class="preview-more">... ${remaining} more items</li>`;
+      break;
+    }
+
+    if (item.type === 'folder') {
+      const childCount = countBookmarkItems(item.children || []);
+      html += `<li class="preview-folder">
+        <span class="preview-folder-icon">📁</span>
+        <span class="preview-folder-name">${escapeHtml(item.title || 'Untitled')}</span>
+        <span class="preview-folder-count">(${childCount})</span>
+      </li>`;
+      if (item.children && item.children.length > 0 && currentDepth < maxDepth - 1) {
+        html += generateImportPreview(item.children, maxDepth, currentDepth + 1);
+      }
+    } else {
+      html += `<li class="preview-bookmark">
+        <span class="preview-bookmark-icon">🔖</span>
+        <span class="preview-bookmark-title">${escapeHtml(item.title || 'Untitled')}</span>
+      </li>`;
+    }
+    shown++;
+  }
+
+  html += '</ul>';
+  return html;
+}
 }

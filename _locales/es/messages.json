@@ -798,5 +798,77 @@
   "msgCheckingUpdate": {
     "message": "Buscando actualizaciones...",
     "description": "Checking update status message"
+  },
+  "btnExportHTML": {
+    "message": "Exportar como HTML",
+    "description": "Exportar marcadores como archivo HTML"
+  },
+  "btnExportJSON": {
+    "message": "Exportar como JSON",
+    "description": "Exportar marcadores como archivo JSON"
+  },
+  "btnImportHTML": {
+    "message": "Importar marcadores HTML",
+    "description": "Importar marcadores desde archivo HTML"
+  },
+  "labelExportFormat": {
+    "message": "Formato de exportación",
+    "description": "Etiqueta de formato de exportación"
+  },
+  "labelImportMode": {
+    "message": "Modo de importación",
+    "description": "Etiqueta de modo de importación"
+  },
+  "labelModeMerge": {
+    "message": "Combinar con existentes",
+    "description": "Opción de importación combinada"
+  },
+  "labelModeReplace": {
+    "message": "Reemplazar todo",
+    "description": "Opción de importación de reemplazo"
+  },
+  "importPreviewTitle": {
+    "message": "Vista previa de importación",
+    "description": "Título de vista previa de importación"
+  },
+  "importPreviewDesc": {
+    "message": "Revise los marcadores que se importarán a continuación",
+    "description": "Descripción de vista previa de importación"
+  },
+  "msgImportHTMLSuccess": {
+    "message": " marcadores importados exitosamente desde archivo HTML",
+    "description": "Mensaje de éxito de importación HTML"
+  },
+  "msgImportHTMLFailed": {
+    "message": "Importación fallida: ",
+    "description": "Mensaje de fallo de importación HTML"
+  },
+  "msgExportHTMLSuccess": {
+    "message": "Marcadores exportados como HTML exitosamente",
+    "description": "Mensaje de éxito de exportación HTML"
+  },
+  "msgExportHTMLFailed": {
+    "message": "Exportación fallida: ",
+    "description": "Mensaje de fallo de exportación HTML"
+  },
+  "msgInvalidBookmarkFile": {
+    "message": "Formato de archivo de marcadores inválido. Seleccione un archivo HTML exportado por el navegador.",
+    "description": "Error de archivo de marcadores inválido"
+  },
+  "msgParsingBookmarkFile": {
+    "message": "Analizando archivo de marcadores...",
+    "description": "Estado de análisis de archivo de marcadores"
+  },
+  "confirmImportHTML": {
+    "message": "¿Importar  marcadores? Esto  sus marcadores actuales.",
+    "description": "Diálogo de confirmación de importación HTML"
+  },
+  "labelBookmarksFound": {
+    "message": " marcadores encontrados",
+    "description": "Cantidad de marcadores en vista previa"
+  },
+  "labelFoldersFound": {
+    "message": " carpetas encontradas",
+    "description": "Cantidad de carpetas en vista previa"
   }
 }

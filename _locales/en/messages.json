@@ -798,5 +798,77 @@
   "msgCheckingUpdate": {
     "message": "Checking for updates...",
     "description": "Checking update status message"
+  },
+  "btnExportHTML": {
+    "message": "Export as HTML",
+    "description": "Export bookmarks as HTML file button"
+  },
+  "btnExportJSON": {
+    "message": "Export as JSON",
+    "description": "Export bookmarks as JSON file button"
+  },
+  "btnImportHTML": {
+    "message": "Import HTML Bookmarks",
+    "description": "Import bookmarks from HTML file button"
+  },
+  "labelExportFormat": {
+    "message": "Export Format",
+    "description": "Export format label"
+  },
+  "labelImportMode": {
+    "message": "Import Mode",
+    "description": "Import mode label"
+  },
+  "labelModeMerge": {
+    "message": "Merge with existing",
+    "description": "Merge import mode option"
+  },
+  "labelModeReplace": {
+    "message": "Replace all",
+    "description": "Replace import mode option"
+  },
+  "importPreviewTitle": {
+    "message": "Import Preview",
+    "description": "Import preview section title"
+  },
+  "importPreviewDesc": {
+    "message": "Review the bookmarks to be imported below",
+    "description": "Import preview description"
+  },
+  "msgImportHTMLSuccess": {
+    "message": "Successfully imported  bookmarks from HTML file",
+    "description": "HTML import success message"
+  },
+  "msgImportHTMLFailed": {
+    "message": "Import failed: ",
+    "description": "HTML import failure message"
+  },
+  "msgExportHTMLSuccess": {
+    "message": "Bookmarks exported as HTML successfully",
+    "description": "HTML export success message"
+  },
+  "msgExportHTMLFailed": {
+    "message": "Export failed: ",
+    "description": "HTML export failure message"
+  },
+  "msgInvalidBookmarkFile": {
+    "message": "Invalid bookmark file format. Please select a valid browser-exported HTML file.",
+    "description": "Invalid bookmark file error"
+  },
+  "msgParsingBookmarkFile": {
+    "message": "Parsing bookmark file...",
+    "description": "Parsing bookmark file status"
+  },
+  "confirmImportHTML": {
+    "message": "Import  bookmarks? This will  your current bookmarks.",
+    "description": "Confirm HTML import dialog"
+  },
+  "labelBookmarksFound": {
+    "message": " bookmarks found",
+    "description": "Bookmarks count in preview"
+  },
+  "labelFoldersFound": {
+    "message": " folders found",
+    "description": "Folders count in preview"
   }
 }

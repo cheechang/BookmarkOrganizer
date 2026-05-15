@@ -798,5 +798,77 @@
   "msgCheckingUpdate": {
     "message": "Prüfe auf Updates...",
     "description": "Checking update status message"
+  },
+  "btnExportHTML": {
+    "message": "Als HTML exportieren",
+    "description": "Lesezeichen als HTML-Datei exportieren"
+  },
+  "btnExportJSON": {
+    "message": "Als JSON exportieren",
+    "description": "Lesezeichen als JSON-Datei exportieren"
+  },
+  "btnImportHTML": {
+    "message": "HTML-Lesezeichen importieren",
+    "description": "Lesezeichen aus HTML-Datei importieren"
+  },
+  "labelExportFormat": {
+    "message": "Exportformat",
+    "description": "Exportformat-Label"
+  },
+  "labelImportMode": {
+    "message": "Importmodus",
+    "description": "Importmodus-Label"
+  },
+  "labelModeMerge": {
+    "message": "Mit bestehenden zusammenführen",
+    "description": "Zusammenführungs-Importoption"
+  },
+  "labelModeReplace": {
+    "message": "Alles ersetzen",
+    "description": "Ersetzungs-Importoption"
+  },
+  "importPreviewTitle": {
+    "message": "Importvorschau",
+    "description": "Importvorschau-Titel"
+  },
+  "importPreviewDesc": {
+    "message": "Überprüfen Sie unten die zu importierenden Lesezeichen",
+    "description": "Importvorschau-Beschreibung"
+  },
+  "msgImportHTMLSuccess": {
+    "message": " Lesezeichen erfolgreich aus HTML-Datei importiert",
+    "description": "HTML-Import-Erfolgsmeldung"
+  },
+  "msgImportHTMLFailed": {
+    "message": "Import fehlgeschlagen: ",
+    "description": "HTML-Import-Fehlermeldung"
+  },
+  "msgExportHTMLSuccess": {
+    "message": "Lesezeichen erfolgreich als HTML exportiert",
+    "description": "HTML-Export-Erfolgsmeldung"
+  },
+  "msgExportHTMLFailed": {
+    "message": "Export fehlgeschlagen: ",
+    "description": "HTML-Export-Fehlermeldung"
+  },
+  "msgInvalidBookmarkFile": {
+    "message": "Ungültiges Lesezeichen-Dateiformat. Bitte wählen Sie eine gültige, vom Browser exportierte HTML-Datei.",
+    "description": "Fehler bei ungültiger Lesezeichen-Datei"
+  },
+  "msgParsingBookmarkFile": {
+    "message": "Lesezeichen-Datei wird analysiert...",
+    "description": "Status der Lesezeichen-Dateianalyse"
+  },
+  "confirmImportHTML": {
+    "message": " Lesezeichen importieren? Dies wird Ihre aktuellen Lesezeichen .",
+    "description": "HTML-Import-Bestätigungsdialog"
+  },
+  "labelBookmarksFound": {
+    "message": " Lesezeichen gefunden",
+    "description": "Anzahl der Lesezeichen in der Vorschau"
+  },
+  "labelFoldersFound": {
+    "message": " Ordner gefunden",
+    "description": "Anzahl der Ordner in der Vorschau"
   }
 }

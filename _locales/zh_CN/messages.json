@@ -798,5 +798,77 @@
   "msgCheckingUpdate": {
     "message": "正在检查更新...",
     "description": "Checking update status message"
+  },
+  "btnExportHTML": {
+    "message": "导出为HTML",
+    "description": "导出书签为HTML文件按钮"
+  },
+  "btnExportJSON": {
+    "message": "导出为JSON",
+    "description": "导出书签为JSON文件按钮"
+  },
+  "btnImportHTML": {
+    "message": "导入HTML书签",
+    "description": "从HTML文件导入书签按钮"
+  },
+  "labelExportFormat": {
+    "message": "导出格式",
+    "description": "导出格式标签"
+  },
+  "labelImportMode": {
+    "message": "导入模式",
+    "description": "导入模式标签"
+  },
+  "labelModeMerge": {
+    "message": "与现有书签合并",
+    "description": "合并导入选项"
+  },
+  "labelModeReplace": {
+    "message": "覆盖所有书签",
+    "description": "覆盖导入选项"
+  },
+  "importPreviewTitle": {
+    "message": "导入预览",
+    "description": "导入预览标题"
+  },
+  "importPreviewDesc": {
+    "message": "请查看下方将要导入的书签内容",
+    "description": "导入预览描述"
+  },
+  "msgImportHTMLSuccess": {
+    "message": "成功从HTML文件导入  个书签",
+    "description": "HTML导入成功消息"
+  },
+  "msgImportHTMLFailed": {
+    "message": "导入失败：",
+    "description": "HTML导入失败消息"
+  },
+  "msgExportHTMLSuccess": {
+    "message": "书签已成功导出为HTML",
+    "description": "HTML导出成功消息"
+  },
+  "msgExportHTMLFailed": {
+    "message": "导出失败：",
+    "description": "HTML导出失败消息"
+  },
+  "msgInvalidBookmarkFile": {
+    "message": "无效的书签文件格式。请选择有效的浏览器导出的HTML文件。",
+    "description": "无效书签文件错误"
+  },
+  "msgParsingBookmarkFile": {
+    "message": "正在解析书签文件...",
+    "description": "解析书签文件状态"
+  },
+  "confirmImportHTML": {
+    "message": "确定导入  个书签？这将。",
+    "description": "确认导入HTML对话框"
+  },
+  "labelBookmarksFound": {
+    "message": "找到  个书签",
+    "description": "预览中的书签数量"
+  },
+  "labelFoldersFound": {
+    "message": "找到  个文件夹",
+    "description": "预览中的文件夹数量"
   }
 }

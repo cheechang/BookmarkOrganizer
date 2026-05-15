@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.7.0] - 2026-04-23
+
+### Added
+
+- **Cross-Browser Bookmark Import/Export**
+  - Added full support for importing bookmarks from standard Netscape Bookmark Format HTML files (exported from Chrome, Firefox, Edge, Safari, etc.).
+  - Added multi-format export: export bookmarks as standard HTML (`bookmarks-YYYY-MM-DD.html`) or JSON backup (`bookmark-backup-YYYY-MM-DD.json`) with a format selector in both the popup and options pages.
+  - Added import preview feature in the options page: before importing, users can review the folder structure, bookmark count, and folder count. Includes confirm/cancel actions.
+  - Added import mode selector: choose between **Merge** (import into existing bookmarks) or **Replace** (clear existing bookmarks before import).
+  - Implemented core utilities in `utils.js`: `parseNetscapeBookmarkFormat()`, `validateBookmarkStructure()`, `importBookmarksFromHTML()`, `exportBookmarksToHTML()`, `exportBookmarksToJSON()`, and `generateImportPreview()`.
+  - Added comprehensive i18n support for all new UI text across 5 languages (en, zh_CN, ja, es, de).
+  - Added security validations: URL format checking, nesting depth limits (max 20 levels), and HTML structure validation to prevent malformed or malicious imports.
+
+---
+
 ## [1.6.9] - 2026-04-23
 
 ### Fixed

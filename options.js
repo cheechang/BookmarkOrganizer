@@ -8,6 +8,7 @@ let currentSettings = {};
 let customRules = [];
 let currentCategorySearch = '';
 let currentDuplicateSearch = '';
+let pendingHTMLImport = null;
 
 // ==================== 深色模式 ====================
 
@@ -194,6 +195,13 @@ function setupEventListeners() {
 
   // 导入备份输入
   document.getElementById('importBackupInput')?.addEventListener('change', handleImportBackup);
+
+  // 导入HTML书签
+  document.getElementById('importHTMLInput')?.addEventListener('change', handleImportHTML);
+
+  // 导入预览确认/取消
+  document.getElementById('confirmImportBtn')?.addEventListener('click', confirmHTMLImport);
+  document.getElementById('cancelImportBtn')?.addEventListener('click', cancelHTMLImport);
 
   // 创建备份按钮
   document.getElementById('createBackupBtn')?.addEventListener('click', handleCreateBackup);
@@ -918,33 +926,133 @@ async function handleCreateBackup() {
 // 导出备份到文件
 async function handleExportBackup() {
   try {
-    const result = await chrome.storage.local.get(['bookmarksBackups']);
-    const backups = result.bookmarksBackups || [];
-    
-    if (backups.length === 0) {
-      showMessage(_t('msgNoBackupToExport'), 'warning');
-      return;
+    const format = document.getElementById('exportFormatSelect')?.value || 'json';
+    let blob, filename, url;
+
+    if (format === 'html') {
+      const htmlContent = await exportBookmarksToHTML();
+      blob = new Blob([htmlContent], { type: 'text/html' });
+      filename = `bookmarks-${new Date().toISOString().slice(0, 10)}.html`;
+    } else {
+      const result = await chrome.storage.local.get(['bookmarksBackups']);
+      const backups = result.bookmarksBackups || [];
+      if (backups.length === 0) {
+        showMessage(_t('msgNoBackupToExport'), 'warning');
+        return;
+      }
+      const dataStr = JSON.stringify(backups[0], null, 2);
+      blob = new Blob([dataStr], { type: 'application/json' });
+      filename = `bookmark-backup-${new Date().toISOString().slice(0, 10)}.json`;
     }
-    
-    // 导出最新的备份
-    const latestBackup = backups[0];
-    const dataStr = JSON.stringify(latestBackup, null, 2);
-    const blob = new Blob([dataStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    
-    const filename = `bookmark-backup-${new Date().toISOString().slice(0, 10)}.json`;
-    
-    await chrome.downloads.download({
-      url: url,
-      filename: filename,
-      saveAs: true // 让用户选择保存位置
-    });
-    
-    showMessage(_t('msgExportSuccess'), 'success');
-    
+
+    url = URL.createObjectURL(blob);
+    await chrome.downloads.download({ url, filename, saveAs: true });
+
+    if (format === 'html') {
+      showMessage(_t('msgExportHTMLSuccess'), 'success');
+    } else {
+      showMessage(_t('msgExportSuccess'), 'success');
+    }
   } catch (error) {
-    console.error('导出失败:', error);
-    showMessage(_t('msgExportFailed') + error.message, 'error');
+    console.error('Export failed:', error);
+    const format = document.getElementById('exportFormatSelect')?.value || 'json';
+    showMessage((format === 'html' ? _t('msgExportHTMLFailed') : _t('msgExportFailed')) + error.message, 'error');
+  }
+}
+
+// 导入HTML书签文件
+async function handleImportHTML(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const previewContainer = document.getElementById('importPreviewContainer');
+  const previewStats = document.getElementById('importPreviewStats');
+  const previewContent = document.getElementById('importPreviewContent');
+
+  try {
+    showMessage(_t('msgParsingBookmarkFile'), 'info');
+    const htmlContent = await file.text();
+    const parsed = parseNetscapeBookmarkFormat(htmlContent);
+    const validation = validateBookmarkStructure(parsed);
+
+    if (!validation.valid) {
+      throw new Error(validation.error);
+    }
+
+    pendingHTMLImport = { htmlContent, fileName: file.name };
+
+    // 统计文件夹数量
+    let folderCount = 0;
+    function countFolders(items) {
+      for (const item of items) {
+        if (item.type === 'folder') {
+          folderCount++;
+          countFolders(item.children || []);
+        }
+      }
+    }
+    countFolders(parsed.items);
+
+    previewStats.innerHTML = `
+      <div class="preview-stat-item">
+        <span class="preview-stat-label">${_t('labelBookmarksFound')}</span>
+        <span class="preview-stat-value">${validation.count}</span>
+      </div>
+      <div class="preview-stat-item">
+        <span class="preview-stat-label">${_t('labelFoldersFound')}</span>
+        <span class="preview-stat-value">${folderCount}</span>
+      </div>
+    `;
+
+    previewContent.innerHTML = generateImportPreview(parsed.items);
+    previewContainer.classList.remove('hidden');
+    previewContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  } catch (error) {
+    console.error('Import preview failed:', error);
+    showMessage(_t('msgInvalidBookmarkFile') + error.message, 'error');
+    pendingHTMLImport = null;
+    previewContainer.classList.add('hidden');
+  } finally {
+    event.target.value = '';
+  }
+}
+
+// 确认导入HTML书签
+async function confirmHTMLImport() {
+  if (!pendingHTMLImport) {
+    showMessage(_t('msgNoBookmarksSelected'), 'warning');
+    return;
+  }
+
+  const mode = document.getElementById('importModeSelect')?.value || 'merge';
+
+  if (!confirm(_t('confirmImportHTML', [pendingHTMLImport.fileName]))) {
+    return;
+  }
+
+  try {
+    const result = await importBookmarksFromHTML(pendingHTMLImport.htmlContent, mode);
+    document.getElementById('importPreviewContainer').classList.add('hidden');
+    pendingHTMLImport = null;
+    document.getElementById('importPreviewContent').innerHTML = '';
+    document.getElementById('importPreviewStats').innerHTML = '';
+    await loadBackupsListFull();
+    showMessage(_t('msgImportHTMLSuccess', [`${result.count}`]), 'success');
+  } catch (error) {
+    console.error('HTML import failed:', error);
+    showMessage(_t('msgImportHTMLFailed') + error.message, 'error');
+  }
+}
+
+// 取消导入HTML书签
+function cancelHTMLImport() {
+  pendingHTMLImport = null;
+  const previewContainer = document.getElementById('importPreviewContainer');
+  if (previewContainer) {
+    previewContainer.classList.add('hidden');
+    document.getElementById('importPreviewContent').innerHTML = '';
+    document.getElementById('importPreviewStats').innerHTML = '';
   }
 }
 
