@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.8.2] - 2026-04-23
+
+### Added
+
+- **Duplicate Detection Color Coding**
+  - Duplicate result groups now use color-coded borders and backgrounds matching the legend:
+    - **Exact Duplicate** — Red border/background (🔴).
+    - **Similar Duplicate** — Orange border/background (🟠).
+    - **Normalized Duplicate** — Blue border/background (🔵).
+  - Colors are consistently applied in both popup and full-page (options) interfaces.
+  - Dark mode variants included for all three color themes.
+
+---
+
 ## [1.8.1] - 2026-04-23
 
 ### Added
