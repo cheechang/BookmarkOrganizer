@@ -167,6 +167,26 @@
     "message": "Normalized Duplicate",
     "description": "Same path but different query parameters"
   },
+  "duplicateExactDesc": {
+    "message": "Bookmarks with identical titles and URLs",
+    "description": "Description of exact duplicate type"
+  },
+  "duplicateSimilarDesc": {
+    "message": "Bookmarks with highly similar titles but URLs may differ slightly",
+    "description": "Description of similar duplicate type"
+  },
+  "duplicateNormalizedDesc": {
+    "message": "Bookmarks with the same base path but different query parameters (e.g. ?id=1 and ?id=2)",
+    "description": "Description of normalized duplicate type"
+  },
+  "btnScrollToTop": {
+    "message": "Back to Top",
+    "description": "Scroll to top button"
+  },
+  "btnScrollToBottom": {
+    "message": "Scroll to Bottom",
+    "description": "Scroll to bottom button"
+  },
   "tabCategories": {
     "message": "Categories",
     "description": "Tab label"

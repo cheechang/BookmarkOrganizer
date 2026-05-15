@@ -321,6 +321,56 @@ function setupEventListeners() {
   document.getElementById('logLevelSetting')?.addEventListener('change', saveLogSettings);
   document.getElementById('clearLogsBtn')?.addEventListener('click', handleClearLogs);
   document.getElementById('exportLogsBtn')?.addEventListener('click', handleExportLogs);
+
+  // 滚动辅助按钮
+  initScrollAssist('.main-content');
+}
+
+// 滚动辅助按钮初始化
+function initScrollAssist(scrollSelector) {
+  const scrollBtn = document.getElementById('scrollAssistBtn');
+  if (!scrollBtn) return;
+
+  const scrollContainer = document.querySelector(scrollSelector) || window;
+  const scrollEl = scrollContainer === window ? document.documentElement : scrollContainer;
+
+  function updateScrollBtn() {
+    const scrollTop = scrollEl.scrollTop || window.scrollY || 0;
+    const scrollHeight = scrollEl.scrollHeight || document.documentElement.scrollHeight;
+    const clientHeight = scrollEl.clientHeight || window.innerHeight;
+
+    if (scrollHeight <= clientHeight + 10) {
+      scrollBtn.classList.add('hidden');
+      return;
+    }
+
+    scrollBtn.classList.remove('hidden');
+    const nearBottom = scrollTop + clientHeight >= scrollHeight - 50;
+
+    if (nearBottom) {
+      scrollBtn.innerHTML = '▲';
+      scrollBtn.title = _t('btnScrollToTop');
+      scrollBtn.dataset.direction = 'top';
+    } else {
+      scrollBtn.innerHTML = '▼';
+      scrollBtn.title = _t('btnScrollToBottom');
+      scrollBtn.dataset.direction = 'bottom';
+    }
+  }
+
+  scrollBtn.addEventListener('click', () => {
+    if (scrollBtn.dataset.direction === 'top') {
+      scrollEl.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      scrollEl.scrollTo({ top: scrollEl.scrollHeight, behavior: 'smooth' });
+    }
+  });
+
+  scrollContainer.addEventListener('scroll', updateScrollBtn, { passive: true });
+  window.addEventListener('resize', updateScrollBtn, { passive: true });
+
+  // 延迟初始化，等待内容渲染
+  setTimeout(updateScrollBtn, 300);
 }
 
 // 处理完整扫描
@@ -589,6 +639,33 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
   toolbar?.classList.remove('hidden');
 
   let html = '';
+
+  // 添加重复类型说明
+  html += `
+    <div class="duplicates-legend">
+      <div class="legend-item legend-exact">
+        <span class="legend-dot"></span>
+        <div class="legend-text">
+          <span class="legend-label">${_t('duplicateExact')}</span>
+          <span class="legend-desc">${_t('duplicateExactDesc')}</span>
+        </div>
+      </div>
+      <div class="legend-item legend-similar">
+        <span class="legend-dot"></span>
+        <div class="legend-text">
+          <span class="legend-label">${_t('duplicateSimilar')}</span>
+          <span class="legend-desc">${_t('duplicateSimilarDesc')}</span>
+        </div>
+      </div>
+      <div class="legend-item legend-normalized">
+        <span class="legend-dot"></span>
+        <div class="legend-text">
+          <span class="legend-label">${_t('duplicateNormalized')}</span>
+          <span class="legend-desc">${_t('duplicateNormalizedDesc')}</span>
+        </div>
+      </div>
+    </div>
+  `;
 
   // 添加标签筛选区域
   if (filterGroupIndex === null) {

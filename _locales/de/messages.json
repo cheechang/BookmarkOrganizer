@@ -167,6 +167,26 @@
     "message": "Normalisiertes Duplikat",
     "description": "Same path but different query parameters"
   },
+  "duplicateExactDesc": {
+    "message": "Lesezeichen mit identischen Titeln und URLs",
+    "description": "Description of exact duplicate type"
+  },
+  "duplicateSimilarDesc": {
+    "message": "Lesezeichen mit sehr ähnlichen Titeln, aber URLs können leicht abweichen",
+    "description": "Description of similar duplicate type"
+  },
+  "duplicateNormalizedDesc": {
+    "message": "Lesezeichen mit demselben Basispfad, aber unterschiedlichen Abfrageparametern (z.B. ?id=1 und ?id=2)",
+    "description": "Description of normalized duplicate type"
+  },
+  "btnScrollToTop": {
+    "message": "Nach oben",
+    "description": "Scroll to top button"
+  },
+  "btnScrollToBottom": {
+    "message": "Nach unten",
+    "description": "Scroll to bottom button"
+  },
   "tabCategories": {
     "message": "Kategorien",
     "description": "Tab label"

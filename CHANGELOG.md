@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.8.1] - 2026-04-23
+
+### Added
+
+- **Duplicate Detection UI Improvements**
+  - Added a visual legend at the top of duplicate results explaining the three detection types:
+    - **Exact Duplicate** — Bookmarks with identical titles and URLs.
+    - **Similar Duplicate** — Bookmarks with highly similar titles but URLs may differ slightly.
+    - **Normalized Duplicate** — Bookmarks with the same base path but different query parameters (e.g. `?id=1` vs `?id=2`).
+  - Added a floating scroll-assist button in the bottom-right corner:
+    - Displays "Scroll to Bottom" (▼) when near the top of long result lists.
+    - Switches to "Back to Top" (▲) when scrolled near the bottom.
+    - Smooth animated scrolling and auto-hides when content fits the viewport.
+  - Fully localized legend labels and scroll button tooltips in all 5 supported languages.
+
+---
+
 ## [1.8.0] - 2026-04-23
 
 ### Added

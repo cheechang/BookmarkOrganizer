@@ -1929,3 +1929,134 @@ body[data-theme="dark"] .preview-bookmark {
 body[data-theme="dark"] .preview-more {
   color: #6c6c80;
 }
+
+/* ==================== 重复类型说明 ==================== */
+.duplicates-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-width: 180px;
+  padding: 10px 14px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.legend-exact .legend-dot {
+  background: #e53e3e;
+  box-shadow: 0 0 0 4px rgba(229, 62, 62, 0.15);
+}
+
+.legend-similar .legend-dot {
+  background: #dd6b20;
+  box-shadow: 0 0 0 4px rgba(221, 107, 32, 0.15);
+}
+
+.legend-normalized .legend-dot {
+  background: #3182ce;
+  box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.15);
+}
+
+.legend-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.legend-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2d3748;
+  text-transform: uppercase;
+}
+
+.legend-desc {
+  font-size: 12px;
+  color: #718096;
+  line-height: 1.4;
+}
+
+/* 滚动辅助按钮 */
+.scroll-assist-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.scroll-assist-btn.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+  pointer-events: none;
+}
+
+.scroll-assist-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(102, 126, 234, 0.55);
+}
+
+.scroll-assist-btn:active {
+  transform: scale(0.95);
+}
+
+/* 深色模式适配 */
+body[data-theme="dark"] .duplicates-legend {
+  background: linear-gradient(135deg, #1e1e45 0%, #16213e 100%);
+  border-color: #2a2a5a;
+}
+
+body[data-theme="dark"] .legend-item {
+  background: #16213e;
+  border-color: #2a2a5a;
+}
+
+body[data-theme="dark"] .legend-label {
+  color: #e0e0e0;
+}
+
+body[data-theme="dark"] .legend-desc {
+  color: #a0a0b0;
+}
+
+body[data-theme="dark"] .scroll-assist-btn {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}

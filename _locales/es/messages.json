@@ -167,6 +167,26 @@
     "message": "Duplicado Normalizado",
     "description": "Same path but different query parameters"
   },
+  "duplicateExactDesc": {
+    "message": "Marcadores con títulos y URLs idénticos",
+    "description": "Description of exact duplicate type"
+  },
+  "duplicateSimilarDesc": {
+    "message": "Marcadores con títulos muy similares pero URLs pueden diferir ligeramente",
+    "description": "Description of similar duplicate type"
+  },
+  "duplicateNormalizedDesc": {
+    "message": "Marcadores con la misma ruta base pero diferentes parámetros de consulta (ej. ?id=1 y ?id=2)",
+    "description": "Description of normalized duplicate type"
+  },
+  "btnScrollToTop": {
+    "message": "Volver arriba",
+    "description": "Scroll to top button"
+  },
+  "btnScrollToBottom": {
+    "message": "Ir al final",
+    "description": "Scroll to bottom button"
+  },
   "tabCategories": {
     "message": "Categorías",
     "description": "Tab label"
