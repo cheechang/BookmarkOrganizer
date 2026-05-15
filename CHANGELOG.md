@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.8.3] - 2026-04-23
+
+### Fixed
+
+- **Duplicate Result Checkbox Spacing & Style**
+  - Aligned duplicate result checkboxes with category suggestion checkboxes for consistent appearance across both pages.
+  - `.duplicate-checkbox` now matches `.bookmark-checkbox` margins and sizing in both popup and full-page interfaces.
+  - `.duplicate-item` padding and alignment unified with `.bookmark-item` for a cohesive layout.
+
 ## [1.8.2] - 2026-04-23
 
 ### Added
