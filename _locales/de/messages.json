@@ -47,9 +47,9 @@
     "message": "📤 Sicherung Exportieren",
     "description": "Export backup button"
   },
-  "btnImportBackup": {
-    "message": "📥 Sicherung Importieren",
-    "description": "Import backup button"
+  "btnImportFile": {
+    "message": "📥 Aus Datei Importieren",
+    "description": "Datei-Import-Button (unterstützt JSON und HTML-Lesezeichen)"
   },
   "btnApplyCategories": {
     "message": "✓ Kategorien Anwenden",
@@ -254,6 +254,10 @@
   "msgImportFailed": {
     "message": "Import fehlgeschlagen: ",
     "description": "Error message"
+  },
+  "msgUnsupportedFileType": {
+    "message": "Nicht unterstützter Dateityp: ",
+    "description": "Fehlermeldung für nicht unterstützte Import-Dateierweiterung"
   },
   "msgInvalidBackupFormat": {
     "message": "Ungültiges Sicherungsdateiformat",
@@ -806,10 +810,6 @@
   "btnExportJSON": {
     "message": "Als JSON exportieren",
     "description": "Lesezeichen als JSON-Datei exportieren"
-  },
-  "btnImportHTML": {
-    "message": "HTML-Lesezeichen importieren",
-    "description": "Lesezeichen aus HTML-Datei importieren"
   },
   "labelExportFormat": {
     "message": "Exportformat",

@@ -47,9 +47,9 @@
     "message": "📤 バックアップをエクスポート",
     "description": "Export backup button"
   },
-  "btnImportBackup": {
-    "message": "📥 バックアップをインポート",
-    "description": "Import backup button"
+  "btnImportFile": {
+    "message": "📥 ファイルからインポート",
+    "description": "ファイルインポートボタン（JSONとHTMLブックマーク対応）"
   },
   "btnApplyCategories": {
     "message": "✓ 分類を適用",
@@ -254,6 +254,10 @@
   "msgImportFailed": {
     "message": "インポート失敗: ",
     "description": "Error message"
+  },
+  "msgUnsupportedFileType": {
+    "message": "サポートされていないファイル形式: ",
+    "description": "サポートされていないインポートファイル拡張子のエラーメッセージ"
   },
   "msgInvalidBackupFormat": {
     "message": "無効なバックアップファイル形式です",
@@ -806,10 +810,6 @@
   "btnExportJSON": {
     "message": "JSONとしてエクスポート",
     "description": "ブックマークをJSONファイルとしてエクスポート"
-  },
-  "btnImportHTML": {
-    "message": "HTMLブックマークをインポート",
-    "description": "HTMLファイルからブックマークをインポート"
   },
   "labelExportFormat": {
     "message": "エクスポート形式",

@@ -47,9 +47,9 @@
     "message": "📤 Exportar Respaldo",
     "description": "Export backup button"
   },
-  "btnImportBackup": {
-    "message": "📥 Importar Respaldo",
-    "description": "Import backup button"
+  "btnImportFile": {
+    "message": "📥 Importar desde Archivo",
+    "description": "Botón de importar archivo (soporta JSON y marcadores HTML)"
   },
   "btnApplyCategories": {
     "message": "✓ Aplicar Categorías",
@@ -254,6 +254,10 @@
   "msgImportFailed": {
     "message": "Error de importación: ",
     "description": "Error message"
+  },
+  "msgUnsupportedFileType": {
+    "message": "Tipo de archivo no soportado: ",
+    "description": "Mensaje de error para extensión de archivo de importación no soportada"
   },
   "msgInvalidBackupFormat": {
     "message": "Formato de archivo de respaldo inválido",
@@ -806,10 +810,6 @@
   "btnExportJSON": {
     "message": "Exportar como JSON",
     "description": "Exportar marcadores como archivo JSON"
-  },
-  "btnImportHTML": {
-    "message": "Importar marcadores HTML",
-    "description": "Importar marcadores desde archivo HTML"
   },
   "labelExportFormat": {
     "message": "Formato de exportación",

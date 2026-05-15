@@ -126,7 +126,7 @@ function setupEventListeners() {
   document.getElementById('exportBackupBtnPopup')?.addEventListener('click', handleExportBackupPopup);
 
   // 导入HTML书签（popup版）
-  document.getElementById('importHTMLInputPopup')?.addEventListener('change', handleImportHTMLPopup);
+  document.getElementById('importFileInputPopup')?.addEventListener('change', handleImportFilePopup);
 
   // 应用分类按钮
   document.getElementById('applyCategoriesBtn').addEventListener('click', handleApplyCategories);
@@ -844,19 +844,46 @@ async function handleExportBackupPopup() {
   }
 }
 
-// 导入HTML书签（popup版，直接导入无预览）
-async function handleImportHTMLPopup(event) {
+// 导入文件（popup版，自动识别 .json / .html / .htm）
+async function handleImportFilePopup(event) {
   const file = event.target.files[0];
   if (!file) return;
 
+  const ext = file.name.split('.').pop().toLowerCase();
+
   try {
-    showMessage(_t('msgParsingBookmarkFile'), 'info');
-    const htmlContent = await file.text();
-    const result = await importBookmarksFromHTML(htmlContent, 'merge');
-    showMessage(_t('msgImportHTMLSuccess', [`${result.count}`]), 'success');
+    if (ext === 'json') {
+      showMessage(_t('msgParsingBookmarkFile'), 'info');
+      const text = await file.text();
+      const backup = JSON.parse(text);
+
+      if (!backup.data || !backup.timestamp) {
+        throw new Error(_t('msgInvalidBackupFormat'));
+      }
+
+      const result = await chrome.storage.local.get(['bookmarksBackups']);
+      const backups = result.bookmarksBackups || [];
+      backups.unshift(backup);
+      if (backups.length > 10) backups.pop();
+      await chrome.storage.local.set({ bookmarksBackups: backups });
+
+      await loadBackupsList();
+      showMessage(_t('msgImportSuccess'), 'success');
+    } else if (ext === 'html' || ext === 'htm') {
+      showMessage(_t('msgParsingBookmarkFile'), 'info');
+      const htmlContent = await file.text();
+      const result = await importBookmarksFromHTML(htmlContent, 'merge');
+      showMessage(_t('msgImportHTMLSuccess', [`${result.count}`]), 'success');
+    } else {
+      showMessage(_t('msgUnsupportedFileType') + ` (.${ext})`, 'error');
+    }
   } catch (error) {
-    console.error('HTML import failed:', error);
-    showMessage(_t('msgImportHTMLFailed') + error.message, 'error');
+    console.error('Import failed:', error);
+    if (ext === 'json') {
+      showMessage(_t('msgImportFailed') + error.message, 'error');
+    } else {
+      showMessage(_t('msgImportHTMLFailed') + error.message, 'error');
+    }
   } finally {
     event.target.value = '';
   }

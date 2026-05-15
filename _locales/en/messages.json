@@ -47,9 +47,9 @@
     "message": "📤 Export Backup to File",
     "description": "Export backup button"
   },
-  "btnImportBackup": {
-    "message": "📥 Import Backup from File",
-    "description": "Import backup button"
+  "btnImportFile": {
+    "message": "📥 Import from File",
+    "description": "Import file button (supports JSON and HTML bookmarks)"
   },
   "btnApplyCategories": {
     "message": "✓ Apply Categories",
@@ -254,6 +254,10 @@
   "msgImportFailed": {
     "message": "Import failed: ",
     "description": "Error message"
+  },
+  "msgUnsupportedFileType": {
+    "message": "Unsupported file type: ",
+    "description": "Error message for unsupported import file extension"
   },
   "msgInvalidBackupFormat": {
     "message": "Invalid backup file format",
@@ -806,10 +810,6 @@
   "btnExportJSON": {
     "message": "Export as JSON",
     "description": "Export bookmarks as JSON file button"
-  },
-  "btnImportHTML": {
-    "message": "Import HTML Bookmarks",
-    "description": "Import bookmarks from HTML file button"
   },
   "labelExportFormat": {
     "message": "Export Format",

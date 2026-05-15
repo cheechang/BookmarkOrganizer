@@ -193,11 +193,8 @@ function setupEventListeners() {
   // 导出备份按钮
   document.getElementById('exportBackupBtn')?.addEventListener('click', handleExportBackup);
 
-  // 导入备份输入
-  document.getElementById('importBackupInput')?.addEventListener('change', handleImportBackup);
-
-  // 导入HTML书签
-  document.getElementById('importHTMLInput')?.addEventListener('change', handleImportHTML);
+  // 导入文件（自动识别 .json / .html / .htm）
+  document.getElementById('importFileInput')?.addEventListener('change', handleImportFile);
 
   // 导入预览确认/取消
   document.getElementById('confirmImportBtn')?.addEventListener('click', confirmHTMLImport);
@@ -957,6 +954,23 @@ async function handleExportBackup() {
     console.error('Export failed:', error);
     const format = document.getElementById('exportFormatSelect')?.value || 'json';
     showMessage((format === 'html' ? _t('msgExportHTMLFailed') : _t('msgExportFailed')) + error.message, 'error');
+  }
+}
+
+// 统一导入入口：根据文件扩展名自动分发到对应处理逻辑
+async function handleImportFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const ext = file.name.split('.').pop().toLowerCase();
+
+  if (ext === 'json') {
+    await handleImportBackup(event);
+  } else if (ext === 'html' || ext === 'htm') {
+    await handleImportHTML(event);
+  } else {
+    showMessage(_t('msgUnsupportedFileType') + ` (.${ext})`, 'error');
+    event.target.value = '';
   }
 }
 

@@ -278,14 +278,10 @@
                 <option value="merge" selected data-i18n="labelModeMerge">Merge with existing</option>
                 <option value="replace" data-i18n="labelModeReplace">Replace all</option>
               </select>
-              <label class="btn btn-secondary" for="importBackupInput" data-i18n="btnImportBackup">
-                📥 Import Backup from File
+              <label class="btn btn-secondary" for="importFileInput" data-i18n="btnImportFile">
+                📥 Import from File
               </label>
-              <input type="file" id="importBackupInput" accept=".json" style="display: none;">
-              <label class="btn btn-secondary" for="importHTMLInput" data-i18n="btnImportHTML">
-                📥 Import HTML Bookmarks
-              </label>
-              <input type="file" id="importHTMLInput" accept=".html,.htm" style="display: none;">
+              <input type="file" id="importFileInput" accept=".json,.html,.htm" style="display: none;">
             </div>
 
             <button id="createBackupBtn" class="btn btn-secondary" data-i18n="btnCreateBackup">
