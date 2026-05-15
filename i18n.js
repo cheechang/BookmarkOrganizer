@@ -1,7 +1,7 @@
 // i18n.js - Internationalization support for Bookmark Organizer
 // Supports runtime language switching across popup and options pages
 
-const I18n = {
+export const I18n = {
   currentLocale: 'en',
   messages: {},
   fallbackLocale: 'en',
@@ -124,4 +124,4 @@ const I18n = {
 };
 
 // Shortcut for convenience
-const _t = (key, subs) => I18n.t(key, subs);
+export const _t = (key, subs) => I18n.t(key, subs);

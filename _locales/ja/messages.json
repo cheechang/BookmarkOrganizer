@@ -467,6 +467,58 @@
     "message": "すべてのバックアップと設定を削除 (実際のブックマークには影響しません)",
     "description": "Clear data description"
   },
+  "sectionLogSettings": {
+    "message": "ログ設定",
+    "description": "Log settings section title"
+  },
+  "labelLogEnabled": {
+    "message": "ログ記録を有効にする",
+    "description": "Enable logging label"
+  },
+  "labelLogLevel": {
+    "message": "ログレベル",
+    "description": "Log level label"
+  },
+  "logLevelError": {
+    "message": "エラー",
+    "description": "Log level: Error"
+  },
+  "logLevelWarn": {
+    "message": "警告",
+    "description": "Log level: Warning"
+  },
+  "logLevelInfo": {
+    "message": "情報",
+    "description": "Log level: Info"
+  },
+  "logLevelDebug": {
+    "message": "デバッグ",
+    "description": "Log level: Debug"
+  },
+  "btnClearLogs": {
+    "message": "ログをクリア",
+    "description": "Clear logs button"
+  },
+  "btnExportLogs": {
+    "message": "ログをエクスポート",
+    "description": "Export logs button"
+  },
+  "logCleared": {
+    "message": "ログをクリアしました",
+    "description": "Logs cleared message"
+  },
+  "logExported": {
+    "message": "ログをエクスポートしました",
+    "description": "Logs exported message"
+  },
+  "logClearConfirm": {
+    "message": "すべてのログをクリアしてもよろしいですか？",
+    "description": "Confirm clear logs"
+  },
+  "noLogsToExport": {
+    "message": "エクスポートするログがありません",
+    "description": "No logs to export message"
+  },
   "scanPageDesc": {
     "message": "すべてのブックマークを分析し、分類提案と重複検出を提供",
     "description": "Page description"

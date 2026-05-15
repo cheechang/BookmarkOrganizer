@@ -401,6 +401,39 @@
               </div>
             </div>
           </div>
+
+          <div class="settings-section">
+            <h3 data-i18n="sectionLogSettings">Log Settings</h3>
+
+            <div class="setting-item">
+              <label class="toggle-label" for="logEnabledSetting">
+                <span data-i18n="labelLogEnabled">Enable Logging</span>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="logEnabledSetting">
+                  <span class="toggle-slider"></span>
+                </label>
+              </label>
+            </div>
+
+            <div class="setting-item">
+              <label for="logLevelSetting" data-i18n="labelLogLevel">Log Level</label>
+              <select id="logLevelSetting" class="form-select">
+                <option value="0" data-i18n="logLevelError">Error</option>
+                <option value="1" data-i18n="logLevelWarn">Warning</option>
+                <option value="2" data-i18n="logLevelInfo">Info</option>
+                <option value="3" data-i18n="logLevelDebug">Debug</option>
+              </select>
+            </div>
+
+            <div class="setting-item">
+              <span id="logCountDisplay" class="setting-desc"></span>
+            </div>
+
+            <div class="setting-item setting-item-inline">
+              <button id="clearLogsBtn" class="btn btn-outline" data-i18n="btnClearLogs">Clear Logs</button>
+              <button id="exportLogsBtn" class="btn btn-secondary" data-i18n="btnExportLogs">Export Logs</button>
+            </div>
+          </div>
           
           <div class="info-box">
             <strong data-i18n="infoDataStorage">ℹ️ About Data Storage:</strong><br>
@@ -439,8 +472,6 @@
     </div>
   </div>
 
-  <script src="i18n.js"></script>
-  <script src="utils.js"></script>
-  <script src="options.js"></script>
+  <script type="module" src="options.js"></script>
 </body>
 </html>

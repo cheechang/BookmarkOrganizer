@@ -467,6 +467,58 @@
     "message": "清除所有备份和设置(不影响实际书签)",
     "description": "Clear data description"
   },
+  "sectionLogSettings": {
+    "message": "日志设置",
+    "description": "Log settings section title"
+  },
+  "labelLogEnabled": {
+    "message": "启用日志记录",
+    "description": "Enable logging label"
+  },
+  "labelLogLevel": {
+    "message": "日志级别",
+    "description": "Log level label"
+  },
+  "logLevelError": {
+    "message": "错误",
+    "description": "Log level: Error"
+  },
+  "logLevelWarn": {
+    "message": "警告",
+    "description": "Log level: Warning"
+  },
+  "logLevelInfo": {
+    "message": "信息",
+    "description": "Log level: Info"
+  },
+  "logLevelDebug": {
+    "message": "调试",
+    "description": "Log level: Debug"
+  },
+  "btnClearLogs": {
+    "message": "清除日志",
+    "description": "Clear logs button"
+  },
+  "btnExportLogs": {
+    "message": "导出日志",
+    "description": "Export logs button"
+  },
+  "logCleared": {
+    "message": "日志已清除",
+    "description": "Logs cleared message"
+  },
+  "logExported": {
+    "message": "日志已导出",
+    "description": "Logs exported message"
+  },
+  "logClearConfirm": {
+    "message": "确定要清除所有日志吗？",
+    "description": "Confirm clear logs"
+  },
+  "noLogsToExport": {
+    "message": "没有日志可导出",
+    "description": "No logs to export message"
+  },
   "scanPageDesc": {
     "message": "分析所有书签,提供分类建议和重复检测",
     "description": "Page description"

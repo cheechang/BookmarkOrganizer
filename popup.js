@@ -1,5 +1,13 @@
 // 弹窗主逻辑
 
+import { I18n, _t } from './i18n.js';
+import { escapeHtml } from './shared.js';
+import { getAllBookmarks, analyzeBookmark, checkBrokenLinks } from './bookmark-scanner.js';
+import { createCategoryFolder, batchMoveBookmarks } from './category-manager.js';
+import { detectDuplicates } from './duplicate-detector.js';
+import { backupBookmarks, restoreBookmarks, exportBookmarksToHTML, exportBookmarksToJSON, importBookmarksFromHTML } from './backup-manager.js';
+import { logger } from './logger.js';
+
 let categories = [];
 let analysisResults = [];
 let duplicates = [];

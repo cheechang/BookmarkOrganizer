@@ -6,6 +6,39 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.8.0] - 2026-04-23
+
+### Added
+
+- **Modular Architecture Refactor**
+  - Extracted core logic from `utils.js` into 6 focused ES modules for better maintainability and testability:
+    - `shared.js` — Pure utility functions (`escapeHtml`, etc.) with no Chrome API dependencies.
+    - `bookmark-scanner.js` — Bookmark scanning, analysis, and broken-link detection.
+    - `category-manager.js` — Smart categorization and batch move operations.
+    - `duplicate-detector.js` — Duplicate detection with similarity and normalization logic.
+    - `backup-manager.js` — Backup/restore, HTML/JSON import & export.
+    - `logger.js` — New debugging log system (see below).
+  - Converted the entire extension to ES Modules: updated `manifest.json` background service worker to `"type": "module"`, and switched all `<script>` tags to `<script type="module">`.
+  - Updated `i18n.js` to use named exports (`export const I18n`, `export const _t`) for clean ES module imports.
+  - Updated `options.js` and `popup.js` entry files to import required modules via standard `import` statements.
+
+- **Debug Logging System**
+  - Added a complete client-side logging framework stored in `chrome.storage.local`:
+    - Toggle logging on/off from the Settings page.
+    - Configurable log levels: Error, Warning, Info, Debug.
+    - Auto log rotation: maximum 500 entries to prevent storage bloat.
+    - One-click **Clear Logs** and **Export Logs** (downloads as JSON) for troubleshooting.
+  - New "Log Settings" UI section in the Settings page with toggle switch, level selector, and action buttons.
+  - Added full i18n support for all log-related UI text across 5 languages (en, zh_CN, ja, es, de).
+
+### Fixed
+
+- **Broken Link Checker Concurrency Bug**
+  - Fixed `checkBrokenLinks` in `bookmark-scanner.js` where worker promises were created but never started with `Promise.all()`, causing the function to hang indefinitely.
+  - Workers now launch concurrently as intended, significantly improving broken-link scan speed.
+
+---
+
 ## [1.7.0] - 2026-04-23
 
 ### Added

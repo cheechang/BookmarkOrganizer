@@ -1,5 +1,13 @@
 // 完整功能页面逻辑
 
+import { I18n, _t } from './i18n.js';
+import { escapeHtml } from './shared.js';
+import { getAllBookmarks, analyzeBookmark, checkBrokenLinks } from './bookmark-scanner.js';
+import { createCategoryFolder, batchMoveBookmarks } from './category-manager.js';
+import { detectDuplicates } from './duplicate-detector.js';
+import { backupBookmarks, restoreBookmarks, exportBookmarksToHTML, exportBookmarksToJSON, importBookmarksFromHTML, parseNetscapeBookmarkFormat, validateBookmarkStructure, generateImportPreview } from './backup-manager.js';
+import { logger, LogLevel } from './logger.js';
+
 let categories = [];
 let analysisResults = [];
 let duplicates = [];
@@ -49,6 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadBackupsListFull();
   await loadCustomRules();
   await initTheme();
+  await loadLogSettings();
 });
 
 // 初始化语言选择器
@@ -306,6 +315,12 @@ function setupEventListeners() {
       displayBrokenLinks();
     });
   }
+
+  // 日志设置
+  document.getElementById('logEnabledSetting')?.addEventListener('change', saveLogSettings);
+  document.getElementById('logLevelSetting')?.addEventListener('change', saveLogSettings);
+  document.getElementById('clearLogsBtn')?.addEventListener('click', handleClearLogs);
+  document.getElementById('exportLogsBtn')?.addEventListener('click', handleExportLogs);
 }
 
 // 处理完整扫描
@@ -1777,4 +1792,49 @@ async function handleDeleteBrokenLinks() {
   }
 }
 
+// ==================== 日志设置 ====================
 
+async function loadLogSettings() {
+  const settings = await logger.getSettings();
+  const enabledEl = document.getElementById('logEnabledSetting');
+  const levelEl = document.getElementById('logLevelSetting');
+  const countEl = document.getElementById('logCountDisplay');
+
+  if (enabledEl) enabledEl.checked = settings.enabled;
+  if (levelEl) levelEl.value = String(settings.level);
+  if (countEl) {
+    const count = await logger.getLogCount();
+    countEl.textContent = count > 0 ? `${count} entries` : '';
+  }
+}
+
+async function saveLogSettings() {
+  const enabled = document.getElementById('logEnabledSetting')?.checked || false;
+  const level = parseInt(document.getElementById('logLevelSetting')?.value || '2', 10);
+  await logger.updateSettings({ enabled, level });
+  showMessage(_t('msgSettingsSaved'), 'success');
+
+  const countEl = document.getElementById('logCountDisplay');
+  if (countEl) {
+    const count = await logger.getLogCount();
+    countEl.textContent = count > 0 ? `${count} entries` : '';
+  }
+}
+
+async function handleClearLogs() {
+  if (!confirm(_t('logClearConfirm'))) return;
+  await logger.clearLogs();
+  showMessage(_t('logCleared'), 'success');
+  const countEl = document.getElementById('logCountDisplay');
+  if (countEl) countEl.textContent = '';
+}
+
+async function handleExportLogs() {
+  const result = await logger.exportLogs();
+  if (!result) {
+    showMessage(_t('noLogsToExport'), 'warning');
+    return;
+  }
+  await chrome.downloads.download({ url: result.url, filename: result.filename, saveAs: true });
+  showMessage(_t('logExported'), 'success');
+}

@@ -467,6 +467,58 @@
     "message": "Borrar todos los respaldos y configuraciones (no afecta los marcadores reales)",
     "description": "Clear data description"
   },
+  "sectionLogSettings": {
+    "message": "Registro de Logs",
+    "description": "Log settings section title"
+  },
+  "labelLogEnabled": {
+    "message": "Habilitar registro",
+    "description": "Enable logging label"
+  },
+  "labelLogLevel": {
+    "message": "Nivel de log",
+    "description": "Log level label"
+  },
+  "logLevelError": {
+    "message": "Error",
+    "description": "Log level: Error"
+  },
+  "logLevelWarn": {
+    "message": "Advertencia",
+    "description": "Log level: Warning"
+  },
+  "logLevelInfo": {
+    "message": "Información",
+    "description": "Log level: Info"
+  },
+  "logLevelDebug": {
+    "message": "Depuración",
+    "description": "Log level: Debug"
+  },
+  "btnClearLogs": {
+    "message": "Borrar logs",
+    "description": "Clear logs button"
+  },
+  "btnExportLogs": {
+    "message": "Exportar logs",
+    "description": "Export logs button"
+  },
+  "logCleared": {
+    "message": "Logs borrados",
+    "description": "Logs cleared message"
+  },
+  "logExported": {
+    "message": "Logs exportados",
+    "description": "Logs exported message"
+  },
+  "logClearConfirm": {
+    "message": "¿Estás seguro de que quieres borrar todos los logs?",
+    "description": "Confirm clear logs"
+  },
+  "noLogsToExport": {
+    "message": "No hay logs para exportar",
+    "description": "No logs to export message"
+  },
   "scanPageDesc": {
     "message": "Analizar todos los marcadores, proporcionar sugerencias de categoría y detección de duplicados",
     "description": "Page description"

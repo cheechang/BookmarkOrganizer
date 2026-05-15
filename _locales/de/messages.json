@@ -467,6 +467,58 @@
     "message": "Alle Sicherungen und Einstellungen löschen (betrifft nicht die eigentlichen Lesezeichen)",
     "description": "Clear data description"
   },
+  "sectionLogSettings": {
+    "message": "Protokolleinstellungen",
+    "description": "Log settings section title"
+  },
+  "labelLogEnabled": {
+    "message": "Protokollierung aktivieren",
+    "description": "Enable logging label"
+  },
+  "labelLogLevel": {
+    "message": "Protokollstufe",
+    "description": "Log level label"
+  },
+  "logLevelError": {
+    "message": "Fehler",
+    "description": "Log level: Error"
+  },
+  "logLevelWarn": {
+    "message": "Warnung",
+    "description": "Log level: Warning"
+  },
+  "logLevelInfo": {
+    "message": "Info",
+    "description": "Log level: Info"
+  },
+  "logLevelDebug": {
+    "message": "Debug",
+    "description": "Log level: Debug"
+  },
+  "btnClearLogs": {
+    "message": "Protokolle löschen",
+    "description": "Clear logs button"
+  },
+  "btnExportLogs": {
+    "message": "Protokolle exportieren",
+    "description": "Export logs button"
+  },
+  "logCleared": {
+    "message": "Protokolle gelöscht",
+    "description": "Logs cleared message"
+  },
+  "logExported": {
+    "message": "Protokolle exportiert",
+    "description": "Logs exported message"
+  },
+  "logClearConfirm": {
+    "message": "Möchten Sie wirklich alle Protokolle löschen?",
+    "description": "Confirm clear logs"
+  },
+  "noLogsToExport": {
+    "message": "Keine Protokolle zum Exportieren",
+    "description": "No logs to export message"
+  },
   "scanPageDesc": {
     "message": "Alle Lesezeichen analysieren, Kategorievorschläge und Duplikaterkennung bereitstellen",
     "description": "Page description"
