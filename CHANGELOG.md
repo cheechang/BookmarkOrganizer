@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.8.8] - 2026-04-23
+
+### Added
+
+- **Duplicate Type Filtering**
+  - Converted the duplicate type legend (exact / similar / normalized) into clickable multi-select filter tags.
+  - Users can now click one or more type labels to show only duplicates of the selected type(s).
+  - Clicking an already-active filter deselects it; with no types selected, all duplicates are shown.
+  - Type filter changes automatically clear the group-level filter to prevent index mismatches.
+  - Added distinct visual active states per type: red tint for exact, orange tint for similar, blue tint for normalized.
+  - Fully compatible with existing search and group-level filter functionality.
+  - Applied to both the full options page (`options.js`/`options.css`) and the popup (`popup.js`/`popup.css`).
+
+### Fixed
+
+- **Missing i18n Translation Key**
+  - Added missing `btnConfirm` translation key to all 5 language files (`en`, `zh_CN`, `es`, `ja`, `de`).
+  - Resolves console warning: `Missing i18n key: btnConfirm` on the Backup Management import confirmation dialog.
+
 ## [1.8.7] - 2026-04-23
 
 ### Changed
