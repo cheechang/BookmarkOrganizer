@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    strategy:
+      matrix:
+        target: [chromium, firefox]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,29 +22,61 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Replace manifest for target platform
+        run: |
+          if [ "${{ matrix.target }}" = "firefox" ]; then
+            cp manifest-firefox.json manifest.json
+          fi
+          # chromium 直接使用仓库中的 manifest.json（已移除 Firefox 字段）
+
       - name: Write private key
+        if: matrix.target == 'chromium'
         run: |
           echo "${{ secrets.CRX_PRIVATE_KEY }}" > /tmp/key.pem
 
       - name: Pack CRX with Chrome
+        if: matrix.target == 'chromium'
         run: |
           google-chrome --pack-extension="$PWD" --pack-extension-key="/tmp/key.pem" --no-sandbox
           mv "$PWD/../BookmarkOrganizer.crx" BookmarkOrganizer-${{ github.ref_name }}.crx
 
       - name: Create ZIP
         run: |
-          zip -r BookmarkOrganizer-${{ github.ref_name }}.zip \
+          if [ "${{ matrix.target }}" = "firefox" ]; then
+            ZIP_NAME="BookmarkOrganizer-${{ github.ref_name }}-firefox.zip"
+          else
+            ZIP_NAME="BookmarkOrganizer-${{ github.ref_name }}.zip"
+          fi
+          zip -r "$ZIP_NAME" \
             manifest.json background.js utils.js i18n.js \
             options.html options.js options.css \
             popup.html popup.js popup.css \
             _locales icons rules
 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target }}-artifacts
+          path: |
+            BookmarkOrganizer-*.zip
+            BookmarkOrganizer-*.crx
+
+  release:
+    needs: build-and-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: '*-artifacts'
+
       - name: Extract changelog for version
         id: changelog
         run: |
           VERSION="${{ github.ref_name }}"
-          # Extract section for this version from CHANGELOG.md
-          # Remove leading 'v' if present for matching
           VER_TAG="${VERSION#v}"
           BODY=$(awk "/^## \[$VER_TAG\]/{flag=1;next}/^## \[/{flag=0}flag" CHANGELOG.md | sed -e :a -e '/./,$!d;/^$/{$d;N;};/\n$/{$d;N;};/\n$/ba' | sed 's/$/\\n/' | tr -d '\n')
           if [ -z "$BODY" ]; then
@@ -54,8 +89,5 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: |
-            BookmarkOrganizer-${{ github.ref_name }}.crx
-            BookmarkOrganizer-${{ github.ref_name }}.zip
-          body: ${{ steps.changelog.outputs.body }}
+          files: artifacts/**/*
           generate_release_notes: false
