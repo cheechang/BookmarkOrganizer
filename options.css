@@ -1988,6 +1988,32 @@ body[data-theme="dark"] .preview-more {
   background: white;
   border-radius: 10px;
   border: 1px solid #e2e8f0;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.legend-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.legend-item.legend-exact.filter-active {
+  background: #fff5f5;
+  border-color: #fc8181;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.15);
+}
+
+.legend-item.legend-similar.filter-active {
+  background: #fffaf0;
+  border-color: #f6ad55;
+  box-shadow: 0 0 0 3px rgba(221, 107, 32, 0.15);
+}
+
+.legend-item.legend-normalized.filter-active {
+  background: #ebf8ff;
+  border-color: #63b3ed;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
 }
 
 .legend-dot {
@@ -2083,6 +2109,28 @@ body[data-theme="dark"] .duplicates-legend {
 body[data-theme="dark"] .legend-item {
   background: #16213e;
   border-color: #2a2a5a;
+}
+
+body[data-theme="dark"] .legend-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+body[data-theme="dark"] .legend-item.legend-exact.filter-active {
+  background: #3d1f1f;
+  border-color: #c53030;
+  box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.25);
+}
+
+body[data-theme="dark"] .legend-item.legend-similar.filter-active {
+  background: #3d2618;
+  border-color: #c05621;
+  box-shadow: 0 0 0 3px rgba(192, 86, 33, 0.25);
+}
+
+body[data-theme="dark"] .legend-item.legend-normalized.filter-active {
+  background: #1a2d3d;
+  border-color: #2b6cb0;
+  box-shadow: 0 0 0 3px rgba(43, 108, 176, 0.25);
 }
 
 body[data-theme="dark"] .legend-label {

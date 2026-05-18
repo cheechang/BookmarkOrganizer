@@ -16,6 +16,7 @@ let currentSettings = {};
 let customRules = [];
 let currentCategorySearch = '';
 let currentDuplicateSearch = '';
+let currentTypeFilters = new Set();
 let pendingHTMLImport = null;
 
 // ==================== 深色模式 ====================
@@ -622,6 +623,11 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
     })).filter(group => group.items.length > 0);
   }
 
+  // 根据重复类型筛选
+  if (currentTypeFilters.size > 0) {
+    filteredDuplicates = filteredDuplicates.filter(group => currentTypeFilters.has(group.type));
+  }
+
   if (filteredDuplicates.length === 0) {
     safeSetHTML(container, `
       <div class="empty-state-large">
@@ -640,24 +646,27 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
 
   let html = '';
 
-  // 添加重复类型说明
+  // 添加重复类型说明（可点击筛选）
+  const exactActive = currentTypeFilters.has('exact') ? 'filter-active' : '';
+  const similarActive = currentTypeFilters.has('similar') ? 'filter-active' : '';
+  const normalizedActive = currentTypeFilters.has('normalized') ? 'filter-active' : '';
   html += `
     <div class="duplicates-legend">
-      <div class="legend-item legend-exact">
+      <div class="legend-item legend-exact ${exactActive}" data-action="filter-type" data-type="exact">
         <span class="legend-dot"></span>
         <div class="legend-text">
           <span class="legend-label">${_t('duplicateExact')}</span>
           <span class="legend-desc">${_t('duplicateExactDesc')}</span>
         </div>
       </div>
-      <div class="legend-item legend-similar">
+      <div class="legend-item legend-similar ${similarActive}" data-action="filter-type" data-type="similar">
         <span class="legend-dot"></span>
         <div class="legend-text">
           <span class="legend-label">${_t('duplicateSimilar')}</span>
           <span class="legend-desc">${_t('duplicateSimilarDesc')}</span>
         </div>
       </div>
-      <div class="legend-item legend-normalized">
+      <div class="legend-item legend-normalized ${normalizedActive}" data-action="filter-type" data-type="normalized">
         <span class="legend-dot"></span>
         <div class="legend-text">
           <span class="legend-label">${_t('duplicateNormalized')}</span>
@@ -779,14 +788,29 @@ function bindDuplicateEventsFull() {
   
   // 筛选标签点击事件（使用事件委托）
   newContainer.addEventListener('click', (e) => {
-    // 筛选标签
+    // 类型筛选标签
+    const typeFilter = e.target.closest('[data-action="filter-type"]');
+    if (typeFilter) {
+      const type = typeFilter.dataset.type;
+      if (currentTypeFilters.has(type)) {
+        currentTypeFilters.delete(type);
+      } else {
+        currentTypeFilters.add(type);
+      }
+      // 类型筛选改变时，清除分组筛选（因为组列表可能变化）
+      currentFilterGroupFull = null;
+      displayDuplicatesFull(null, currentDuplicateSearch);
+      return;
+    }
+
+    // 分组筛选标签
     const filterTag = e.target.closest('.filter-tag');
     if (filterTag) {
       const groupIndex = parseInt(filterTag.dataset.groupIndex);
       filterDuplicatesFull(groupIndex);
       return;
     }
-    
+
     // 返回全部按钮
     const backFilter = e.target.closest('[data-action="clear-filter"]');
     if (backFilter) {
@@ -814,6 +838,7 @@ function filterDuplicatesFull(groupIndex) {
 // 清除筛选，显示全部
 function clearDuplicateFilterFull() {
   currentFilterGroupFull = null;
+  currentTypeFilters.clear();
   displayDuplicatesFull(null, currentDuplicateSearch);
 }
 
