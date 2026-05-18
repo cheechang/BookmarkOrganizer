@@ -655,6 +655,10 @@
     "message": "Abbrechen",
     "description": "Cancel button"
   },
+  "btnConfirm": {
+    "message": "Bestätigen",
+    "description": "Confirm button"
+  },
   "msgRuleSaved": {
     "message": "Regel gespeichert",
     "description": "Success message"

@@ -655,6 +655,10 @@
     "message": "取消",
     "description": "Cancel button"
   },
+  "btnConfirm": {
+    "message": "确认",
+    "description": "Confirm button"
+  },
   "msgRuleSaved": {
     "message": "规则已保存",
     "description": "Success message"

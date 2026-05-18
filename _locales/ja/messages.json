@@ -655,6 +655,10 @@
     "message": "キャンセル",
     "description": "Cancel button"
   },
+  "btnConfirm": {
+    "message": "確認",
+    "description": "Confirm button"
+  },
   "msgRuleSaved": {
     "message": "ルールを保存しました",
     "description": "Success message"
