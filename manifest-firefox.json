@@ -22,7 +22,16 @@
   },
   "options_page": "options.html",
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "bookmark-organizer@cheechang.github.io",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
   },
   "permissions": [
     "bookmarks",
