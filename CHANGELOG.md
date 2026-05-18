@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.8.7] - 2026-04-23
+
+### Changed
+
+- **Cross-browser Manifest Separation**
+  - Split `manifest.json` into two platform-specific files:
+    - `manifest.json` — Standard Chromium format (Edge/Chrome), containing only `background.service_worker`.
+    - `manifest-firefox.json` — Firefox format with `background.scripts`, `browser_specific_settings.gecko.id`, and `data_collection_permissions`.
+  - Resolves Edge store upload error: `"background.scripts" is not allowed in Manifest V3`.
+
+### Added
+
+- **CI/CD Cross-platform Build**
+  - Updated GitHub Actions `release.yml` to build both Chromium and Firefox packages simultaneously using matrix strategy.
+  - Firefox build automatically replaces `manifest.json` with `manifest-firefox.json` before packaging.
+  - Release artifacts now include:
+    - `BookmarkOrganizer-v{version}.zip` — Edge/Chrome store upload.
+    - `BookmarkOrganizer-v{version}.crx` — Chromium manual install.
+    - `BookmarkOrganizer-v{version}-firefox.zip` — Firefox store upload.
+
 ## [1.8.5] - 2026-04-23
 
 ### Fixed
