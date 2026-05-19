@@ -1,45 +1,62 @@
 # Bookmark Organizer
 
-[English](README.md) | [中文](README.zh-CN.md) | **Español** | [日本語](README.ja.md) | [Deutsch](README.de.md)
+Inteligente, local y con privacidad como prioridad — organiza automaticamente tus marcadores del navegador.
 
-Dejar que los marcadores del navegador se acumulan es doloroso. Después de acumular cientos de ellos, encontrar cualquier cosa requiere búsquedas, y la barra de favoritos se vuelve inútil. Esta extensión está diseñada para resolver ese problema.
+Una extension de navegador que escanea, categoriza, elimina duplicados y hace copias de seguridad de tus marcadores. Todo el procesamiento ocurre completamente en tu dispositivo; no se sube nada a ningun servidor.
 
-Bookmark Organizer es una extensión de navegador que clasifica automáticamente los marcadores desordenados en categorías, encuentra duplicados y crea copias de seguridad antes de cualquier cambio, para que puedas restaurar con un solo clic si algo sale mal. Todo el procesamiento de datos se realiza localmente en tu dispositivo; no se sube nada a ningún servidor.
+[English](README.md) · [中文](README.zh-CN.md) · **Español** · [日本語](README.ja.md) · [Deutsch](README.de.md)
 
----
-
-## Qué Hace
-
-### 1. Categorización Inteligente
-Escanea todos tus marcadores y sugiere automáticamente categorías basadas en el título, URL y dominio. Por ejemplo, los marcadores que contienen "github" o "stackoverflow" se agrupan bajo "Desarrollo", mientras que "bilibili" o "youtube" van bajo "Entretenimiento". Cada sugerencia incluye una puntuación de confianza (Alta / Media / Baja). Puedes aplicar selectivamente las sugerencias o desmarcar las que no desees.
-
-Las reglas de categoría se definen en `rules/categories.json`. Puedes agregar nuevas categorías o modificar palabras clave sin tocar ningún código.
-
-Como alternativa, abre la página de **Configuración** y usa la sección **Reglas de Categoría Personalizadas** para agregar, editar o eliminar reglas directamente desde la interfaz. Las reglas creadas aquí se guardan en el almacenamiento del navegador y tienen prioridad sobre las reglas predeterminadas de `categories.json`.
-
-### 2. Detección de Duplicados
-Encuentra tres tipos de duplicados:
-- **Duplicados exactos** — marcadores con la URL idéntica
-- **Duplicados normalizados** — marcadores que comparten la misma ruta pero difieren solo en los parámetros de consulta (p. ej., dos enlaces al mismo documento con diferentes valores de `timestamp`)
-- **Duplicados similares** — marcadores en el mismo dominio con títulos y rutas de URL muy similares (p. ej., "React - Documentación Oficial" y "React Docs")
-
-Los resultados se muestran con pestañas de filtro en la parte superior. Cada pestaña representa un grupo de duplicados; haz clic en una pestaña para ver solo ese grupo. Puedes seleccionar elementos en masa para eliminarlos o eliminar marcadores individuales con el botón 🗑 a la derecha. La interfaz se actualiza inmediatamente después de la eliminación sin necesidad de volver a escanear.
-
-Pasa el cursor sobre una pestaña para ver el título completo del marcador y la URL para confirmar.
-
-### 3. Copias de Seguridad y Reversión
-Cada escaneo crea automáticamente una copia de seguridad de todo tu árbol de marcadores. Las copias de seguridad se almacenan en el almacenamiento local del navegador, conservando las 10 más recientes y limpiando automáticamente las más antiguas. Si una categorización sale mal, abre la página "Gestión de Copias de Seguridad" y haz clic en "Restaurar" para revertir.
-
-También puedes exportar manualmente copias de seguridad como archivos JSON a tu computadora para una migración o reinstalación fácil.
-
-### 4. Interfaz Dual
-Haz clic en el icono de la barra de herramientas para abrir la **interfaz de página completa** (`options.html`). La barra lateral izquierda proporciona navegación entre cinco páginas: Escanear, Categorías, Duplicados, Copias de Seguridad y Configuración. La página permanece abierta incluso cuando haces clic fuera.
+README actualizado: 2026-04-23 · Version actual: `1.9.6` · Notas de lanzamiento: [CHANGELOG.md](CHANGELOG.md)
 
 ---
 
-## Instalación
+## Posicionamiento del Proyecto
 
-### Método 1: Modo Desarrollador (para pruebas o uso personal)
+Bookmark Organizer es una extension de navegador construida con JavaScript nativo y Manifest V3. Su objetivo no es reemplazar tu gestor de marcadores, sino hacer que el que ya tienes vuelva a ser realmente util.
+
+- **Organizacion primero**: Sugiere categorias automaticamente basadas en titulo, URL y palabras clave de dominio. Las reglas personalizadas se pueden agregar mediante la UI o JSON.
+- **Limpieza primero**: Detecta duplicados exactos, duplicados normalizados (misma ruta, diferentes parametros) y duplicados similares (mismo dominio, titulos similares).
+- **Seguridad primero**: Cada escaneo crea una copia de seguridad automatica. Conserva las ultimas 10 copias localmente, con restauracion de un clic y exportacion/importacion manual JSON/HTML.
+- **Privacidad primero**: Todos los datos permanecen en el almacenamiento del navegador. Sin solicitudes de red, sin telemetria, sin cuentas.
+- **Personalizacion primero**: 8 skins integradas + generador de skin personalizado (sube cualquier imagen). Soporte completo de modo oscuro e i18n en 5 idiomas.
+
+> **Important**
+>
+> La configuracion predeterminada de la extension esta disenada para uso general. Despues de la instalacion, visita **Configuracion** para ajustar el umbral de similitud, el comportamiento de copia de seguridad automatica, el skin del tema y las reglas de categoria personalizadas.
+
+---
+
+## Capturas de Pantalla
+
+**Pagina de Analisis de Escaneo**  
+![Analisis de Escaneo](docs/screenshots/scan.png)
+
+**Pagina de Sugerencias de Categorias**  
+![Sugerencias de Categorias](docs/screenshots/categories.png)
+
+**Deteccion de Duplicados — Filtrado por Pestañas**  
+![Deteccion de Duplicados](docs/screenshots/duplicates.png)
+
+**Gestion de Copias de Seguridad**  
+![Gestion de Copias de Seguridad](docs/screenshots/backups.png)
+
+---
+
+## Descarga e Instalacion
+
+| Elemento | Detalles |
+| --- | --- |
+| Ultima version | [GitHub Releases](https://github.com/cheechang/BookmarkOrganizer/releases) |
+| Edge Add-ons | [Bookmark Organizer](https://www.crxsoso.com/addon/detail/obmalmnejfkdbbphdmlkimjhfefgfcem) |
+| Firefox Add-ons | [BookmarkTidy](https://addons.crxsoso.com/zh-CN/firefox/addon/bookmarktidy/) |
+| Navegadores | Chrome / Edge / Firefox / Basados en Chromium |
+| Permisos | Bookmarks, Storage, Downloads |
+
+### Metodo 1: Tienda de Extensiones del Navegador
+
+Instala directamente desde los enlaces de la tienda arriba. La extension se actualizara automaticamente.
+
+### Metodo 2: Modo Desarrollador (para pruebas o uso personal)
 
 1. Clona el repositorio:
    ```bash
@@ -47,144 +64,234 @@ Haz clic en el icono de la barra de herramientas para abrir la **interfaz de pá
    cd BookmarkOrganizer
    ```
 
-2. Asegúrate de que el directorio `icons/` contenga archivos PNG en los siguientes tamaños exactos:
-   - `icon16.png` — 16×16
-   - `icon48.png` — 48×48
-   - `icon128.png` — 128×128
+2. Asegurate de que el directorio `icons/` contenga archivos PNG en los siguientes tamanos exactos:
+   - `icon16.png` — 16x16
+   - `icon48.png` — 48x48
+   - `icon128.png` — 128x128
 
-   Si solo tienes un SVG, usa cualquier convertidor en línea para generar los PNG.
+   Si solo tienes un SVG, usa cualquier convertidor en linea para generar los PNG.
 
-3. Abre la página de administración de extensiones de tu navegador (p. ej., `edge://extensions/` en Edge) y habilita "Modo de desarrollador" en la esquina superior derecha.
+3. Abre la pagina de administracion de extensiones de tu navegador (p. ej., `edge://extensions/` en Edge) y habilita **Modo de desarrollador** en la esquina superior derecha.
 
-4. Haz clic en "Cargar descomprimida" y selecciona el directorio raíz del proyecto.
+4. Haz clic en **Cargar descomprimida** y selecciona el directorio raiz del proyecto.
 
-5. El icono de la extensión aparecerá en la barra de herramientas. Haz clic en él para comenzar a usarla.
-
-### Método 2: Tienda de Extensiones del Navegador
-
-- **Microsoft Edge Add-ons**: [Bookmark Organizer](https://www.crxsoso.com/addon/detail/obmalmnejfkdbbphdmlkimjhfefgfcem)
-- **Firefox Add-ons**: [BookmarkTidy](https://addons.crxsoso.com/zh-CN/firefox/addon/bookmarktidy/)
+5. El icono de la extension aparecera en la barra de herramientas. Haz clic en el para comenzar a usarla.
 
 ---
 
-## Uso
+## Capacidades Principales
 
-**Paso 1: Escanear**
-
-Abre la extensión y haz clic en "Iniciar escaneo". La extensión recorre todos tus marcadores, analizando los recuentos no categorizados, duplicados y categorizados. Se crea automáticamente una copia de seguridad antes del escaneo.
-
-**Paso 2: Categorizar**
-
-Cambia a la página "Sugerencias de Categorías" para ver las estructuras de carpetas recomendadas y dónde debería ir cada marcador. Desmarca los elementos que no deseas mover, luego haz clic en "Aplicar Categorías Seleccionadas". La extensión crea automáticamente las carpetas que faltan y mueve los marcadores en consecuencia.
-
-**Paso 3: Eliminar Duplicados**
-
-Cambia a la página "Detección de Duplicados". Una fila de pestañas en la parte superior muestra el nombre y el recuento de cada grupo de duplicados. Haz clic en una pestaña para filtrar ese grupo. La extensión **selecciona duplicados inteligentemente de forma predeterminada**: las copias en la barra de marcadores se preservan, mientras que los duplicados fuera se marcan automáticamente para la limpieza con un solo clic. También puedes ajustar manualmente las selecciones o eliminar marcadores individuales usando el botón de eliminar a la derecha.
-
-**Paso 4: Gestión de Copias de Seguridad**
-
-La página "Gestión de Copias de Seguridad" lista todas las copias de seguridad históricas, mostrando la hora de creación y el recuento de marcadores. Haz clic en "Restaurar" para revertir, o "Eliminar" para liberar espacio de almacenamiento. Recomendamos exportar periódicamente copias de seguridad importantes como archivos JSON locales.
+| Modulo | Capacidad |
+| --- | --- |
+| Categorizacion Inteligente | Escanea marcadores y sugiere carpetas basadas en palabras clave de titulo/URL/dominio. Puntuacion de confianza (Alta / Media / Baja). Soporte para reglas personalizadas mediante UI o `rules/categories.json`. |
+| Deteccion de Duplicados | Tres tipos: exactos (URL identica), normalizados (misma ruta, diferentes parametros) y similares (mismo dominio, titulos comparables). Algoritmo de similitud ponderada (titulo 60%, URL 40%). |
+| Seleccion Inteligente | Los grupos de duplicados se preseleccionan inteligentemente: preserva las copias en la barra de marcadores, el resto se marca automaticamente para limpieza con un clic. |
+| Copias de Seguridad y Reversion | Copia de seguridad automatica antes del escaneo. Conserva las ultimas 10 copias con limpieza automatica. Restauracion de un clic. Soporte para exportar JSON o Netscape HTML estandar. |
+| Comprobacion de Enlaces Rotos | Detecta marcadores inaccesibles mediante HTTP HEAD/GET con tiempo de espera. Identifica 404, 5xx, tiempos de espera y fallos de red. Eliminacion por lotes con integracion de copias de seguridad. |
+| Importacion/Exportacion Multinavegador | Importa HTML Netscape Bookmark estandar de Chrome, Firefox, Edge, Safari. Exporta como HTML o JSON. Modo Fusionar o Reemplazar. |
+| Sistema de Skins | 8 skins integradas (Predeterminado, Nativo del Navegador, Negocio Minimalista, Nostalgia Clasica, Monocromo de Alto Contraste, Cristal Esmerilado, Naturaleza Baja Saturacion, mas 4 temas de degradado). Generador de skin personalizado desde cualquier imagen subida. |
+| i18n Completo | Traduccion completa de la UI en 5 idiomas: Ingles, Chino Simplificado, Espanol, Japones, Aleman. Cambio en tiempo real con renderizado instantaneo. |
+| Modo Oscuro | Cambia entre temas claro y oscuro con un clic. La preferencia se persiste en el almacenamiento del navegador. Todos los skins incluyen paletas oscuras dedicadas. |
 
 ---
 
-## Personalización de Reglas de Categoría
+## Diseno de Experiencia
 
-### Método 1: Mediante la UI de Configuración (Recomendado)
+La interfaz de Bookmark Organizer esta construida en torno a la "claridad, eficiencia y comodidad visual".
 
-Abre la página de **Configuración** de la extensión, encuentra la sección **Reglas de Categoría Personalizadas** y haz clic en **Añadir Regla**. Cada regla requiere:
+- **Interfaz Dual**: Pagina independiente completa (`options.html`) con navegacion por barra lateral, mas un popup compacto (`popup.html`) para acceso rapido. Haz clic en el icono de la barra de herramientas para abrir la pagina completa directamente.
+- **Navegacion por Barra Lateral Izquierda**: Escanear, Categorias, Duplicados, Enlaces Rotos, Copias de Seguridad, Configuracion — cada uno con iconos SVG personalizados e indicadores de estado activo.
+- **Skins Adaptativas**: Cada elemento de la UI — barra lateral, tarjetas, listas, formularios, barras de progreso, etiquetas de filtro — responde dinamicamente al skin seleccionado y al modo claro/oscuro mediante propiedades personalizadas de CSS.
+- **Adaptacion Automatica de DPI**: Las consultas de medios de CSS manejan escalado de pantalla del 100%, 125%, 150% y 200%+ para prevenir rupturas de diseno en pantallas de alta DPI.
+- **Acciones en Linea**: Seleccion por lotes, eliminacion individual, expandir/contraer, columnas ordenables y botones flotantes de asistencia de desplazamiento mantienen las interacciones al alcance.
 
-- **Nombre de Categoría** — el nombre de la carpeta que se creará (p. ej., "Trabajo")
-- **Palabras Clave** — separadas por comas, para coincidir con los títulos de los marcadores (p. ej., `trabajo, oficina, reunión`)
-- **Dominios** — separados por comas, para coincidir con las URLs de los marcadores (p. ej., `slack.com, notion.so`)
+---
 
-Las reglas se guardan automáticamente en el almacenamiento del navegador y surten efecto inmediatamente en el siguiente escaneo. Puedes editarlas o eliminarlas en cualquier momento.
+## Sistema de Skins
 
-> **Nota:** Este método requiere modificar los archivos fuente de la extensión y está destinado a **desarrolladores** que desean compilar la extensión desde el código fuente. Los usuarios normales deberían usar el **Método 1**.
+| Skin | Descripcion |
+| --- | --- |
+| Predeterminado | Limpio degradado purpura-azul en la barra lateral con area de contenido clara neutra. |
+| Nativo del Navegador | Coincide con el tono de UI nativo del navegador host para integracion perfecta. |
+| Negocio Minimalista | Paleta azul-gris profesional y fresca para un entorno de trabajo enfocado. |
+| Nostalgia Clasica | Estetica calida retro de papel y tinta con tonos sepia. |
+| Monocromo de Alto Contraste | Blanco y negro puro para maxima accesibilidad y legibilidad. |
+| Cristal Esmerilado | Aspecto moderno con efecto de desenfoque translucido y fondo dinamico. |
+| Naturaleza Baja Saturacion | Tonos verde-beige suaves y amigables con la vista para reducir la fatiga visual. |
+| Oceano Profundo | Tema de degradado azul profundo inspirado en el oceano. |
+| Resplandor del Atardecer | Tema de degradado calido naranja-rojo inspirado en la puesta de sol. |
+| Noche Estrellada | Tema de degradado purpura-azul profundo con atmosfera celestial. |
+| Flor de Cerezo | Tema de degradado rosa suave con tonos romanticos de sakura. |
+| **Skin Personalizado** | Sube cualquier imagen; la extension extrae los colores dominantes y genera un tema personalizado con cumplimiento automatico de contraste. |
 
-### Método 2: Editar `rules/categories.json` Directamente
+> **Nota**
+>
+> Los skins personalizados se almacenan localmente en el almacenamiento del navegador. Persisten entre sesiones y estan disponibles tanto en el popup como en la interfaz de pagina completa.
 
-Edita el archivo JSON y agrega entradas en el siguiente formato:
+---
 
-```json
-{
-  "categories": [
-    {
-      "name": "Tu Categoría",
-      "keywords": ["palabra1", "palabra2"],
-      "domains": ["example.com", "test.org"]
-    }
-  ]
-}
-```
+## Stack Tecnologico
 
-Después de modificar, recarga la extensión haciendo clic en el botón de actualización en la tarjeta de la extensión en la página de administración de extensiones.
+| Categoria | Eleccion |
+| --- | --- |
+| Lenguaje | JavaScript nativo (ES2020+) |
+| Arquitectura | ES Modules — importaciones modulares sin empaquetador |
+| Manifiesto | Manifest V3 (Chromium) / Manifest V3 con `background.scripts` (Firefox) |
+| UI | HTML + CSS escritos a mano, sin framework |
+| Estilos | Propiedades personalizadas de CSS (`--bo-*`) para el sistema de skins, `color-mix()` para tonos adaptativos |
+| Almacenamiento | `chrome.storage.local` para configuraciones, copias de seguridad, logs y reglas personalizadas |
+| API de Marcadores | `chrome.bookmarks` para lectura, creacion, movimiento, eliminacion y recorrido de arboles |
+| Similitud | Distancia de Levenshtein (distancia de edicion) con promedio ponderado titulo/URL |
+| i18n | `_locales/` con marcadores de posicion `__MSG_*__` y motor `_t()` en tiempo de ejecucion |
+| Iconos | Iconos SVG de estilo lineal personalizados con `currentColor` para adaptacion tematica |
+| CI/CD | GitHub Actions — construccion matricial multiplataforma para Chromium + Firefox |
 
 ---
 
 ## Estructura del Proyecto
 
-| Archivo / Directorio | Descripción |
-|---|---|
-| `manifest.json` | Configuración de la extensión, Manifest V3 |
-| `background.js` | Service Worker; maneja eventos de instalación y clics en el icono |
-| `popup.html` / `popup.css` / `popup.js` | Interfaz emergente (modo rápido) |
-| `options.html` / `options.css` / `options.js` | Interfaz independiente de página completa |
-| `utils.js` | Utilidades compartidas: motor de categorización, detección de duplicados, lógica de copias de seguridad, operaciones de marcadores |
-| `rules/categories.json` | Reglas de categorización predeterminadas |
-| `icons/` | Iconos de la extensión (16px, 48px, 128px) |
-| `docs/` | Documentos de desarrollo y registros de cambios |
-| `PRIVACY_POLICY.md` | Política de privacidad (requerida para el envío a la tienda) |
-
-La lógica principal reside en `utils.js`:
-- `analyzeBookmarks()` — escanea y genera sugerencias de categorías y resultados de detección de duplicados
-- `detectDuplicates()` — detecta duplicados basados en URL y similitud de títulos
-- `createBackup()` / `restoreBackup()` — creación y restauración de copias de seguridad
-- `batchMoveBookmarks()` — mueve marcadores en masa a carpetas especificadas
-
----
-
-## Detalles Técnicos
-
-- **Manifest V3**, completamente del lado del cliente, sin servicio backend
-- Todos los datos usan la API Storage del navegador; sin solicitudes de red
-- Cumplimiento CSP: sin `onclick` en línea; todos los eventos vinculados mediante `addEventListener`
-- Algoritmo de similitud basado en la distancia de Levenshtein, que ahora compara tanto el título como la ruta de la URL con promedio ponderado (título 60%, URL 40%); umbral ajustable en Configuración (predeterminado 80%)
-- Al eliminar carpetas se usa automáticamente `removeTree()` para directorios no vacíos, evitando excepciones de `remove()`
-
----
-
-## Limitaciones Conocidas
-
-- Si tienes miles de marcadores, el escaneo puede tardar unos segundos y la interfaz mostrará una barra de progreso
-- Los datos de copias de seguridad se almacenan localmente en el navegador y se perderán si se desinstala la extensión; por favor exporta copias de seguridad importantes a archivos
-- Si una regla personalizada tiene el mismo nombre que una carpeta existente, los marcadores pueden fusionarse en esa carpeta
+````bash
+BookmarkOrganizer/
+├── manifest.json              # Configuracion de extension Chromium (MV3)
+├── manifest-firefox.json      # Configuracion de extension Firefox (MV3)
+├── background.js              # Service Worker: eventos de instalacion, manejador de clics en icono
+├── options.html/css/js        # Interfaz independiente de pagina completa
+├── popup.html/css/js          # Interfaz de popup compacto
+├── i18n.js                    # Motor de traduccion en tiempo de ejecucion
+├── theme-system.css           # Sistema de skins: 8+ skins x variables claro/oscuro
+│
+├── shared.js                  # Funciones puras de utilidad (escapeHtml, etc.)
+├── bookmark-scanner.js        # Escaneo de marcadores, analisis, deteccion de enlaces rotos
+├── category-manager.js        # Categorizacion inteligente y operaciones de movimiento por lotes
+├── duplicate-detector.js      # Deteccion de duplicados: exactos, normalizados, similares
+├── backup-manager.js          # Copias de seguridad/restauracion, importacion/exportacion HTML/JSON
+├── logger.js                  # Framework de logging de depuracion del lado del cliente
+├── utils.js                   # Utilidades compartidas heredadas (compatibilidad hacia atras)
+│
+├── rules/
+│   └── categories.json        # Reglas de palabras clave de categorizacion predeterminadas
+├── _locales/                  # Mensajes i18n: en, zh_CN, es, ja, de
+├── icons/                     # Iconos de extension (16px, 48px, 128px)
+├── docs/
+│   ├── screenshots/           # Capturas de pantalla de UI para README
+│   ├── DEVELOPMENT_LOG.md     # Historial de desarrollo
+│   └── STORE_LISTING.md       # Copia para tienda
+├── .github/
+│   └── workflows/
+│       └── release.yml        # Pipeline de construccion y lanzamiento automatizado
+├── CHANGELOG.md               # Historial de versiones
+├── PRIVACY_POLICY.md          # Politica de privacidad (requerida para envio a tienda)
+└── LICENSE                    # Licencia MIT
+````
 
 ---
 
-## Capturas de Pantalla
+## Construccion
 
-**Página de Análisis de Escaneo**  
-![Análisis de Escaneo](docs/screenshots/scan.png)
+No se requiere paso de construccion. Esta es una extension nativa escrita a mano con dependencias cero en tiempo de ejecucion.
 
-**Página de Sugerencias de Categorías**  
-![Sugerencias de Categorías](docs/screenshots/categories.png)
+```bash
+git clone https://github.com/cheechang/BookmarkOrganizer.git
+cd BookmarkOrganizer
+```
 
-**Detección de Duplicados — Filtrado por Pestañas**  
-![Detección de Duplicados](docs/screenshots/duplicates.png)
+Carga el directorio raiz del proyecto directamente en el modo desarrollador de tu navegador (ver [Descarga e Instalacion](#descarga-e-instalacion)).
 
-**Gestión de Copias de Seguridad**  
-![Gestión de Copias de Seguridad](docs/screenshots/backups.png)
+Empaquetado para CI (usado por GitHub Actions):
+
+```bash
+# Paquete Chromium
+zip -r BookmarkOrganizer-v1.9.6.zip manifest.json *.js *.css *.html rules/ _locales/ icons/ -x "*.map" "node_modules/*"
+
+# Paquete Firefox
+# (manifest-firefox.json se renombra a manifest.json antes del empaquetado)
+```
+
+---
+
+## Documentacion
+
+| Contenido | Enlace |
+| --- | --- |
+| Registro de cambios | [CHANGELOG.md](CHANGELOG.md) |
+| Politica de privacidad | [PRIVACY_POLICY.md](PRIVACY_POLICY.md) |
+| Registro de desarrollo | [docs/DEVELOPMENT_LOG.md](docs/DEVELOPMENT_LOG.md) |
+| Copia para tienda | [docs/STORE_LISTING.md](docs/STORE_LISTING.md) |
+
+---
+
+## Actualizaciones Recientes
+
+Version actual: **1.9.6**. Las notas de lanzamiento completas estan en [CHANGELOG.md](CHANGELOG.md). Puntos destacados de v1.9.6:
+
+- 4 nuevos skins de degradado: Oceano Profundo, Resplandor del Atardecer, Noche Estrellada, Flor de Cerezo.
+- Nueva funcion de Skin Personalizado: sube cualquier imagen para generar un tema personalizado con extraccion automatica de colores y cumplimiento de contraste.
+- Correccion de adaptacion tematica de la barra lateral en todos los skins y modos; reemplazo de colores codificados por variables CSS.
+- Mejora del contraste de color de los skins en modo oscuro para mejor legibilidad.
+- Correccion de la expresion regular de extraccion de changelog en el workflow de lanzamiento.
+
+---
+
+## Hoja de Ruta
+
+| Estado | Direccion |
+| --- | --- |
+| Completado | Categorizacion inteligente, deteccion de duplicados (3 tipos), copias de seguridad/reversion, deteccion de enlaces rotos, importacion/exportacion multinavegador, reglas de categoria personalizadas, i18n completo (5 idiomas), modo oscuro, 8+ skins, generador de skin personalizado, comprobacion de actualizaciones automatica, arquitectura modular ES Module, sistema de logging de depuracion |
+| En progreso | Documentacion Wiki, benchmarks de rendimiento para grandes conjuntos de marcadores (5000+), skins adicionales |
+| Planificado | Sincronizacion en la nube de copias de seguridad, estadisticas de uso de marcadores, organizacion basada en etiquetas, busqueda dentro de marcadores, atajos de teclado |
+
+---
+
+## Contribuir
+
+Los Issues y Pull Requests son bienvenidos.
+
+1. Haz fork de este repositorio.
+2. Crea una rama feature o fix desde `main`.
+3. Manten los cambios enfocados e incluye pasos de prueba relevantes en la descripcion de tu PR.
+4. Envia el PR con una explicacion clara del proposito del cambio, alcance de impacto y resultados de verificacion.
+
+Se da prioridad a problemas reproducibles, adiciones de funciones claras, retroalimentacion de dispositivos reales y correcciones con registros de verificacion.
+
+---
+
+## Agradecimientos
+
+Bookmark Organizer esta construido sobre APIs estandar de la plataforma web y no incluye bibliotecas de terceros en tiempo de ejecucion. Las siguientes herramientas y recursos se utilizaron durante el desarrollo:
+
+| Proyecto / Recurso | Uso |
+| --- | --- |
+| Chrome Extensions API | Bookmarks, Storage, Downloads, Action, i18n |
+| Distancia de Levenshtein | Puntuacion de similitud para deteccion de duplicados |
+| Propiedades personalizadas de CSS | Sistema de skins tematicos con cascada de variables dinamicas |
+| GitHub Actions | Pipeline de construccion y lanzamiento multiplataforma automatizado |
+| sharp (Node.js) | Generacion por lotes de iconos durante el desarrollo |
+
+---
+
+## Descargo de Responsabilidad
+
+> **Caution**
+>
+> 1. Esta extension modifica tus marcadores del navegador. Aunque se crean copias de seguridad automaticas antes de cada escaneo, se recomienda encarecidamente exportar una copia de seguridad manual antes del primer uso.
+> 2. Todo el procesamiento de datos ocurre localmente en tu navegador. No se suben datos de marcadores a ningun servidor.
+> 3. El comprobador de enlaces rotos envia solicitudes HTTP a las URLs de tus marcadores. Asegurate de que esto cumpla con tu entorno de red y regulaciones locales.
+> 4. Si encuentras perdida de datos o comportamiento inesperado, restaura inmediatamente desde la pagina de Gestion de Copias de Seguridad.
 
 ---
 
 ## Licencia
 
-Este proyecto es de código abierto bajo la [Licencia MIT](LICENSE).
+[Licencia MIT](LICENSE)
 
-En resumen, eres libre de usar, modificar y distribuir este código, incluso para proyectos comerciales. El único requisito es conservar la licencia original y el aviso de copyright al redistribuir.
+Eres libre de usar, modificar y distribuir este codigo, incluso para proyectos comerciales. El unico requisito es conservar la licencia original y el aviso de copyright al redistribuir.
 
 ---
 
-## Comentarios
+## Star History
 
-Para preguntas o sugerencias, por favor abre un [Issue](https://github.com/cheechang/BookmarkOrganizer/issues). La base de código está en desarrollo activo; se aceptan PRs.
+[![Grafico de Historial de Stars](https://api.star-history.com/svg?repos=cheechang/BookmarkOrganizer&type=Date)](https://star-history.com/#cheechang/BookmarkOrganizer&Date)
+
+---
+
+Hecho por [cheechang](https://github.com/cheechang)
