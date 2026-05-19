@@ -64,6 +64,11 @@ body {
   margin-top: 10px;
 }
 
+.footer-row .lang-selector-container {
+  flex: 1;
+  margin-top: 0;
+}
+
 .lang-selector {
   width: 100%;
   padding: 5px 8px;
@@ -133,12 +138,24 @@ body {
 }
 
 .sidebar-footer {
-  padding: 20px;
+  padding: 16px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-row {
+  display: flex;
   align-items: center;
   gap: 8px;
+  width: 100%;
+}
+
+.footer-row .lang-selector,
+.footer-row .skin-selector {
+  flex: 1;
+  min-width: 0;
 }
 
 /* 主内容区 */
@@ -1287,6 +1304,11 @@ body {
 
 .skin-selector-container {
   flex: 1;
+}
+
+.footer-row .skin-selector-container {
+  flex: 1;
+  margin-top: 0;
 }
 
 .skin-selector {

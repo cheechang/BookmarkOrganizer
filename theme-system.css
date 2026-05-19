@@ -78,7 +78,7 @@ body[data-theme="dark"] {
   --bo-text-secondary: #a0a0b0;
   --bo-text-sidebar: #e0e0e0;
   --bo-text-on-accent: #ffffff;
-  --bo-text-muted: #808090;
+  --bo-text-muted: #9090a0;
 
   --bo-border: #2a2a5a;
   --bo-border-sidebar: rgba(255, 255, 255, 0.1);
@@ -181,7 +181,7 @@ body[data-skin="browser-native"][data-theme="dark"] {
   --bo-text-secondary: #9aa0a6;
   --bo-text-sidebar: #e8eaed;
   --bo-text-on-accent: #202124;
-  --bo-text-muted: #80868b;
+  --bo-text-muted: #9aa0a6;
 
   --bo-border: #3c4043;
   --bo-border-sidebar: #3c4043;
@@ -284,7 +284,7 @@ body[data-skin="minimal-business"][data-theme="dark"] {
   --bo-text-secondary: #858585;
   --bo-text-sidebar: #d4d4d4;
   --bo-text-on-accent: #1e1e1e;
-  --bo-text-muted: #606060;
+  --bo-text-muted: #808080;
 
   --bo-border: #3e3e42;
   --bo-border-sidebar: #3e3e42;
@@ -384,10 +384,10 @@ body[data-skin="classic-nostalgic"][data-theme="dark"] {
   --bo-bg-stat: #36322e;
 
   --bo-text-primary: #d8d2ca;
-  --bo-text-secondary: #a09890;
+  --bo-text-secondary: #c0b8b0;
   --bo-text-sidebar: #d8d2ca;
   --bo-text-on-accent: #ffffff;
-  --bo-text-muted: #807870;
+  --bo-text-muted: #a09888;
 
   --bo-border: #4a4540;
   --bo-border-sidebar: #4a4540;
@@ -590,10 +590,10 @@ body[data-skin="frosted-glass"][data-theme="dark"] {
   --bo-bg-stat: rgba(30, 30, 50, 0.8);
 
   --bo-text-primary: #e0e0e0;
-  --bo-text-secondary: #a0a0b0;
+  --bo-text-secondary: #b0b0c0;
   --bo-text-sidebar: #e0e0e0;
   --bo-text-on-accent: #ffffff;
-  --bo-text-muted: #707080;
+  --bo-text-muted: #9090a0;
 
   --bo-border: rgba(255, 255, 255, 0.1);
   --bo-border-sidebar: rgba(255, 255, 255, 0.15);
@@ -693,10 +693,10 @@ body[data-skin="nature-low-saturation"][data-theme="dark"] {
   --bo-bg-stat: #222a22;
 
   --bo-text-primary: #c8d4c8;
-  --bo-text-secondary: #889888;
+  --bo-text-secondary: #a0b0a0;
   --bo-text-sidebar: #c8d4c8;
   --bo-text-on-accent: #1a221a;
-  --bo-text-muted: #687868;
+  --bo-text-muted: #809080;
 
   --bo-border: #3a4a3a;
   --bo-border-sidebar: #3a4a3a;

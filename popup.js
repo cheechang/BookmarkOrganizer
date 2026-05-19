@@ -31,7 +31,7 @@ const SKINS = [
 
 async function initSkin() {
   const result = await chrome.storage.local.get('skin');
-  const skin = result.skin || 'default';
+  const skin = result.skin || 'browser-native';
   applySkin(skin);
 }
 
@@ -57,7 +57,7 @@ function initSkinSelector() {
     const option = document.createElement('option');
     option.value = skin.id;
     option.textContent = _t(skin.nameKey);
-    if (skin.id === (document.body.getAttribute('data-skin') || 'default')) {
+    if (skin.id === (document.body.getAttribute('data-skin') || 'browser-native')) {
       option.selected = true;
     }
     selector.appendChild(option);

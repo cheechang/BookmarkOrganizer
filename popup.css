@@ -73,7 +73,7 @@ header h1 {
 .skin-selector-container {
   position: absolute;
   top: -4px;
-  right: 110px;
+  right: 150px;
 }
 
 .skin-selector {
@@ -85,6 +85,7 @@ header h1 {
   color: var(--bo-text-secondary);
   cursor: pointer;
   outline: none;
+  min-width: 100px;
 }
 
 .skin-selector:hover {
@@ -100,6 +101,7 @@ header h1 {
   color: var(--bo-text-secondary);
   cursor: pointer;
   outline: none;
+  min-width: 90px;
 }
 
 .lang-selector:hover {

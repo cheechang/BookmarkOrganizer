@@ -42,7 +42,7 @@ async function initializeDefaultSettings() {
   }
   const skinResult = await chrome.storage.local.get('skin');
   if (!skinResult.skin) {
-    await chrome.storage.local.set({ skin: 'default' });
+    await chrome.storage.local.set({ skin: 'browser-native' });
   }
 
   console.log('默认设置已初始化');

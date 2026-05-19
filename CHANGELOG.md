@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.9.1] - 2026-04-23
+
+### Fixed
+
+- **Skin Color Contrast**
+  - Improved text readability across all 6 skins in dark mode by lightening `text-muted` and `text-secondary` colors.
+  - Fixed low-contrast issues in Minimal Business, Classic Nostalgic, Frosted Glass, and Nature Low Saturation dark themes.
+
+- **Layout Optimization**
+  - Reorganized `options.html` sidebar footer into two rows:
+    - Row 1: Check-for-Updates button + Language selector.
+    - Row 2: Skin selector + Dark-mode toggle.
+  - This prevents the skin selector from becoming too narrow when switching to languages with longer labels.
+  - Increased popup skin-selector `right` offset and added `min-width` to both selectors to prevent overlap.
+
+- **Default Skin**
+  - Changed the default skin for new installations from `default` to `browser-native` for a more familiar first-run experience.
+
 ## [1.9.0] - 2026-04-23
 
 ### Added
