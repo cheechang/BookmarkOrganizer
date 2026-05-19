@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.9.0] - 2026-04-23
+
+### Added
+
+- **Theme Skin System**
+  - Added a comprehensive theme skin system with 6 distinct visual styles, each supporting both light and dark modes:
+    - **Default** — Clean, neutral browser-native appearance.
+    - **Browser Native** — Matches the host browser's native UI tone.
+    - **Minimalist Business** — Cool, professional blue-grey palette.
+    - **Classic Nostalgic** — Warm, retro paper-and-ink aesthetic.
+    - **High-Contrast Mono** — Pure black & white for maximum accessibility.
+    - **Frosted Glass** — Translucent blur-effect modern look.
+    - **Nature Low-Saturation** — Soft, eye-friendly green-beige tones.
+  - Added a skin selector dropdown next to the dark-mode toggle in both `popup.html` and `options.html`.
+  - Skin preference is persisted via `chrome.storage.local` and applied instantly on page load.
+  - Introduced `theme-system.css` containing ~35 CSS custom properties (`--bo-*`) that cascade per skin and mode.
+  - All existing UI colors in `popup.css` and `options.css` were refactored to use CSS variables for seamless skin switching.
+  - Full i18n support: skin names are translated across all 5 languages (`en`, `zh_CN`, `es`, `ja`, `de`).
+  - Default skin is automatically initialized in `background.js` for new installations.
+
 ## [1.8.8] - 2026-04-23
 
 ### Added

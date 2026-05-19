@@ -32,8 +32,19 @@ async function initializeDefaultSettings() {
     showPath: true,
     lastBackup: null
   };
-  
+
   await chrome.storage.local.set({ settings: defaultSettings });
+
+  // 初始化默认皮肤和主题
+  const themeResult = await chrome.storage.local.get('theme');
+  if (!themeResult.theme) {
+    await chrome.storage.local.set({ theme: 'light' });
+  }
+  const skinResult = await chrome.storage.local.get('skin');
+  if (!skinResult.skin) {
+    await chrome.storage.local.set({ skin: 'default' });
+  }
+
   console.log('默认设置已初始化');
 }
 

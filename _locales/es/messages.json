@@ -711,6 +711,34 @@
     "message": "Modo Claro",
     "description": "Light mode toggle tooltip"
   },
+  "skinDefault": {
+    "message": "Predeterminado",
+    "description": "Default skin name"
+  },
+  "skinBrowserNative": {
+    "message": "Nativo del Navegador",
+    "description": "Browser native skin name"
+  },
+  "skinMinimalBusiness": {
+    "message": "Negocio Minimalista",
+    "description": "Minimalist business skin name"
+  },
+  "skinClassicNostalgic": {
+    "message": "Nostálgico Clásico",
+    "description": "Classic nostalgic skin name"
+  },
+  "skinHighContrastMono": {
+    "message": "Monocromático Alto Contraste",
+    "description": "High contrast monochrome skin name"
+  },
+  "skinFrostedGlass": {
+    "message": "Cristal Esmerilado",
+    "description": "Frosted glass skin name"
+  },
+  "skinNatureLowSaturation": {
+    "message": "Naturaleza Baja Saturación",
+    "description": "Nature low saturation skin name"
+  },
   "emptyNoResults": {
     "message": "No hay resultados coincidentes",
     "description": "Empty state when search returns no results"

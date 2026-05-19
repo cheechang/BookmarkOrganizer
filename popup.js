@@ -17,6 +17,57 @@ let currentCategorySearch = '';
 let currentDuplicateSearch = '';
 let currentTypeFilters = new Set();
 
+// ==================== 皮肤系统 ====================
+
+const SKINS = [
+  { id: 'default', nameKey: 'skinDefault' },
+  { id: 'browser-native', nameKey: 'skinBrowserNative' },
+  { id: 'minimal-business', nameKey: 'skinMinimalBusiness' },
+  { id: 'classic-nostalgic', nameKey: 'skinClassicNostalgic' },
+  { id: 'high-contrast-mono', nameKey: 'skinHighContrastMono' },
+  { id: 'frosted-glass', nameKey: 'skinFrostedGlass' },
+  { id: 'nature-low-saturation', nameKey: 'skinNatureLowSaturation' }
+];
+
+async function initSkin() {
+  const result = await chrome.storage.local.get('skin');
+  const skin = result.skin || 'default';
+  applySkin(skin);
+}
+
+function applySkin(skin) {
+  document.body.setAttribute('data-skin', skin);
+  const selector = document.getElementById('skinSelector');
+  if (selector) {
+    selector.value = skin;
+  }
+}
+
+async function setSkin(skin) {
+  applySkin(skin);
+  await chrome.storage.local.set({ skin });
+}
+
+function initSkinSelector() {
+  const selector = document.getElementById('skinSelector');
+  if (!selector) return;
+
+  selector.textContent = '';
+  SKINS.forEach(skin => {
+    const option = document.createElement('option');
+    option.value = skin.id;
+    option.textContent = _t(skin.nameKey);
+    if (skin.id === (document.body.getAttribute('data-skin') || 'default')) {
+      option.selected = true;
+    }
+    selector.appendChild(option);
+  });
+
+  selector.addEventListener('change', (e) => {
+    setSkin(e.target.value);
+  });
+}
+
 // ==================== 深色模式 ====================
 
 async function initTheme() {
@@ -53,6 +104,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadSettings();
   setupEventListeners();
   await loadBackupsList();
+  await initSkin();
+  initSkinSelector();
   await initTheme();
 });
 
@@ -60,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function initLanguageSelector() {
   const selector = document.getElementById('langSelector');
   if (!selector) return;
-  
+
   const locales = I18n.getSupportedLocales();
   selector.textContent = '';
   locales.forEach(loc => {
@@ -72,7 +125,7 @@ function initLanguageSelector() {
     }
     selector.appendChild(option);
   });
-  
+
   selector.addEventListener('change', (e) => {
     I18n.setLocale(e.target.value);
   });
@@ -82,6 +135,7 @@ function initLanguageSelector() {
 window.addEventListener('localeChanged', () => {
   const currentTheme = document.body.getAttribute('data-theme') || 'light';
   applyTheme(currentTheme);
+  initSkinSelector();
   if (analysisResults.length > 0) {
     displayCategories(currentCategorySearch);
   }
@@ -112,10 +166,10 @@ async function loadSettings() {
   const result = await chrome.storage.local.get('settings');
   const settings = result.settings || {};
   currentSettings = settings;
-  
+
   const autoBackupToggle = document.getElementById('autoBackupToggle');
   autoBackupToggle.checked = settings.autoBackup !== false;
-  
+
   autoBackupToggle.addEventListener('change', async (e) => {
     settings.autoBackup = e.target.checked;
     await chrome.storage.local.set({ settings });
@@ -289,12 +343,12 @@ async function handleScan() {
   const progressContainer = document.getElementById('progressContainer');
   const progressFill = document.getElementById('progressFill');
   const progressText = document.getElementById('progressText');
-  
+
   scanBtn.disabled = true;
   progressContainer.classList.remove('hidden');
   progressFill.style.width = '0%';
   progressText.textContent = _t('progressGettingBookmarks');
-  
+
   try {
     // 自动备份
     const settingsResult = await chrome.storage.local.get('settings');
@@ -303,47 +357,47 @@ async function handleScan() {
       await backupBookmarks();
       await loadBackupsList();
     }
-    
+
     // 获取所有书签
     progressText.textContent = _t('progressAnalyzing');
     const bookmarks = await getAllBookmarks();
-    
+
     // 分析每个书签
     analysisResults = [];
     const total = bookmarks.length;
-    
+
     for (let i = 0; i < total; i++) {
       const result = await analyzeBookmark(bookmarks[i], categories);
       analysisResults.push(result);
-      
+
       // 更新进度
       const progress = ((i + 1) / total) * 100;
       progressFill.style.width = `${progress}%`;
       progressText.textContent = _t('progressAnalyzingItem', [`${i + 1}`, `${total}`]);
-      
+
       // 每处理10个让出控制权,避免阻塞UI
       if (i % 10 === 0) {
         await new Promise(resolve => setTimeout(resolve, 0));
       }
     }
-    
+
     // 检测重复
     progressText.textContent = _t('progressDetectingDuplicates');
     const threshold = (currentSettings.similarityThreshold || 80) / 100;
     duplicates = await detectDuplicates(threshold);
-    
+
     // 显示统计信息
     displayStats(bookmarks.length, duplicates.length);
-    
+
     // 显示分类建议
     displayCategories(currentCategorySearch);
 
     // 显示重复项
     displayDuplicates(currentFilterGroup, currentDuplicateSearch);
-    
+
     progressText.textContent = _t('progressComplete');
     showMessage(_t('msgScanComplete', [`${total}`]), 'success');
-    
+
   } catch (error) {
     console.error('扫描失败:', error);
     showMessage(_t('msgScanFailed') + error.message, 'error');
@@ -359,12 +413,12 @@ async function handleScan() {
 function displayStats(total, duplicateCount) {
   const statsPanel = document.getElementById('statsPanel');
   statsPanel.classList.remove('hidden');
-  
+
   document.getElementById('totalBookmarks').textContent = total;
-  
+
   const uncategorized = analysisResults.filter(r => !r.category || r.confidence === 'none').length;
   document.getElementById('uncategorizedCount').textContent = uncategorized;
-  
+
   document.getElementById('duplicatesCount').textContent = duplicateCount;
 }
 
@@ -590,10 +644,10 @@ function displayDuplicates(filterGroupIndex = null, searchTerm = '') {
 
   // 确定要显示的组列表
   const groupsToShow = filterGroupIndex !== null ?
-    [{...filteredDuplicates[filterGroupIndex], originalIndex: filterGroupIndex}] :
+    [{ ...filteredDuplicates[filterGroupIndex], originalIndex: filterGroupIndex }] :
     filteredDuplicates.map((group, index) => {
       const originalIndex = term ? duplicates.findIndex(g => g.items[0].id === group.items[0].id) : index;
-      return {...group, originalIndex: originalIndex >= 0 ? originalIndex : index};
+      return { ...group, originalIndex: originalIndex >= 0 ? originalIndex : index };
     });
 
   groupsToShow.forEach((group, displayIndex) => {
@@ -664,11 +718,11 @@ function displayDuplicates(filterGroupIndex = null, searchTerm = '') {
 // 绑定重复项相关的事件监听器
 function bindDuplicateEvents() {
   const container = document.getElementById('duplicatesList');
-  
+
   // 克隆节点以移除旧的事件监听器（避免重复绑定）
   const newContainer = container.cloneNode(true);
   container.parentNode.replaceChild(newContainer, container);
-  
+
   // 筛选标签点击事件（使用事件委托）
   newContainer.addEventListener('click', (e) => {
     // 类型筛选标签
@@ -700,7 +754,7 @@ function bindDuplicateEvents() {
       clearDuplicateFilter();
       return;
     }
-    
+
     // 单个删除按钮（使用事件委托）
     const deleteBtn = e.target.closest('[data-action="delete-single"]');
     if (deleteBtn) {
@@ -719,15 +773,15 @@ async function handleApplyCategories() {
     showMessage(_t('msgNoBookmarksSelected'), 'warning');
     return;
   }
-  
+
   if (!confirm(_t('confirmApplyCategories', [`${selectedBookmarks.size}`]))) {
     return;
   }
-  
+
   const applyBtn = document.getElementById('applyCategoriesBtn');
   applyBtn.disabled = true;
   applyBtn.textContent = _t('statusApplying');
-  
+
   try {
     // 收集需要移动的书签
     const moves = [];
@@ -737,7 +791,7 @@ async function handleApplyCategories() {
         folder: checkbox.dataset.folder
       });
     });
-    
+
     // 按文件夹分组
     const folderGroups = {};
     for (const move of moves) {
@@ -746,25 +800,25 @@ async function handleApplyCategories() {
       }
       folderGroups[move.folder].push(move.id);
     }
-    
+
     // 执行移动
     let successCount = 0;
     for (const [folderName, ids] of Object.entries(folderGroups)) {
       // 创建或获取文件夹
       const folder = await createCategoryFolder(folderName);
-      
+
       // 批量移动
       const results = await batchMoveBookmarks(ids, folder.id);
       successCount += results.filter(r => r.success).length;
     }
-    
+
     showMessage(_t('msgApplySuccess', [`${successCount}`]), 'success');
-    
+
     // 重新扫描
     setTimeout(() => {
       handleScan();
     }, 1000);
-    
+
   } catch (error) {
     console.error('应用分类失败:', error);
     showMessage(_t('msgApplyFailed') + error.message, 'error');
@@ -791,11 +845,11 @@ async function deleteSingleDuplicate(bookmarkId, groupIndex, itemIndex) {
   if (!confirm(_t('confirmDeleteBookmark'))) {
     return;
   }
-  
+
   try {
     await chrome.bookmarks.remove(bookmarkId);
     showMessage(_t('msgDeleteSuccess'), 'success');
-    
+
     // 从数据中移除该项
     const group = duplicates[groupIndex];
     if (!group) {
@@ -803,14 +857,14 @@ async function deleteSingleDuplicate(bookmarkId, groupIndex, itemIndex) {
       displayDuplicates(currentFilterGroup);
       return;
     }
-    
+
     group.items.splice(itemIndex, 1);
-    
+
     // 如果该组只剩一个或没有项目，从列表中移除该组
     const groupWasRemoved = group.items.length <= 1;
     if (groupWasRemoved) {
       duplicates.splice(groupIndex, 1);
-      
+
       // 如果当前处于筛选模式，需要调整筛选索引
       if (currentFilterGroup !== null) {
         if (currentFilterGroup === groupIndex) {
@@ -822,10 +876,10 @@ async function deleteSingleDuplicate(bookmarkId, groupIndex, itemIndex) {
         }
       }
     }
-    
+
     // 重新显示（保持当前筛选状态）
     displayDuplicates(currentFilterGroup);
-    
+
   } catch (error) {
     console.error('Delete failed:', error);
     showMessage(_t('msgDeleteFailed') + error.message, 'error');
@@ -836,24 +890,24 @@ async function deleteSingleDuplicate(bookmarkId, groupIndex, itemIndex) {
 async function handleRemoveDuplicates() {
   // 获取所有选中的复选框
   const selectedCheckboxes = document.querySelectorAll('.duplicate-checkbox:checked');
-  
+
   if (selectedCheckboxes.length === 0) {
     showMessage(_t('msgNoDuplicatesSelected'), 'warning');
     return;
   }
-  
+
   if (!confirm(_t('confirmRemoveDuplicates', [`${selectedCheckboxes.length}`]))) {
     return;
   }
-  
+
   const removeBtn = document.getElementById('removeDuplicatesBtn');
   removeBtn.disabled = true;
   removeBtn.textContent = _t('statusDeleting');
-  
+
   try {
     let deleteCount = 0;
     const deletedIds = new Set();
-    
+
     // 批量删除选中的书签
     for (const checkbox of selectedCheckboxes) {
       try {
@@ -864,24 +918,24 @@ async function handleRemoveDuplicates() {
         console.error('删除失败:', error);
       }
     }
-    
+
     showMessage(_t('msgRemoveSuccess', [`${deleteCount}`]), 'success');
-    
+
     // 立即从本地数据中移除被删除的项目（关键修复）
     const groupsToRemove = [];
-    
+
     duplicates.forEach((group, groupIndex) => {
       group.items = group.items.filter(item => !deletedIds.has(item.id));
       if (group.items.length <= 1) {
         groupsToRemove.push(groupIndex);
       }
     });
-    
+
     // 从后往前删除空组，避免索引前移问题
     for (let i = groupsToRemove.length - 1; i >= 0; i--) {
       const groupIndex = groupsToRemove[i];
       duplicates.splice(groupIndex, 1);
-      
+
       // 如果当前处于筛选模式，同步调整筛选索引
       if (currentFilterGroup !== null) {
         if (currentFilterGroup === groupIndex) {
@@ -891,10 +945,10 @@ async function handleRemoveDuplicates() {
         }
       }
     }
-    
+
     // 立即刷新页面显示
     displayDuplicates(currentFilterGroup);
-    
+
   } catch (error) {
     console.error('清理重复失败:', error);
     showMessage(_t('msgRemoveFailed') + error.message, 'error');
@@ -909,7 +963,7 @@ async function handleBackup() {
   const backupBtn = document.getElementById('backupBtn');
   backupBtn.disabled = true;
   backupBtn.textContent = '备份中...';
-  
+
   try {
     await backupBookmarks();
     await loadBackupsList();
@@ -1005,12 +1059,12 @@ async function loadBackupsList() {
   const container = document.getElementById('backupsList');
   const result = await chrome.storage.local.get(['bookmarksBackups']);
   const backups = result.bookmarksBackups || [];
-  
+
   if (backups.length === 0) {
     safeSetHTML(container, `<p class="empty-state">${_t('emptyNoBackups')}</p>`);
     return;
   }
-  
+
   let html = '';
   backups.forEach((backup, index) => {
     const date = new Date(backup.timestamp).toLocaleString(I18n.getLocale() === 'zh_CN' ? 'zh-CN' : I18n.getLocale());
@@ -1040,22 +1094,22 @@ async function restoreBackup(index) {
   if (!confirm(_t('confirmRestoreBackup'))) {
     return;
   }
-  
+
   try {
     const result = await chrome.storage.local.get(['bookmarksBackups']);
     const backups = result.bookmarksBackups || [];
     const backup = backups[index];
-    
+
     if (!backup) {
       throw new Error(_t('backupNotExist'));
     }
-    
+
     await restoreBookmarks(backup.data);
     showMessage(_t('msgRestoreSuccess'), 'success');
-    
+
     // 重新加载备份列表
     await loadBackupsList();
-    
+
   } catch (error) {
     console.error('恢复失败:', error);
     showMessage(_t('msgRestoreFailed') + error.message, 'error');
@@ -1067,17 +1121,17 @@ async function deleteBackup(index) {
   if (!confirm(_t('confirmDeleteBackup'))) {
     return;
   }
-  
+
   try {
     const result = await chrome.storage.local.get(['bookmarksBackups']);
     const backups = result.bookmarksBackups || [];
-    
+
     backups.splice(index, 1);
     await chrome.storage.local.set({ bookmarksBackups: backups });
-    
+
     await loadBackupsList();
     showMessage(_t('msgBackupDeleted'), 'success');
-    
+
   } catch (error) {
     console.error('Delete failed:', error);
     showMessage(_t('msgDeleteFailed') + error.message, 'error');
@@ -1090,7 +1144,7 @@ function switchTab(tabName) {
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.tab === tabName);
   });
-  
+
   // 更新内容显示
   document.querySelectorAll('.tab-content').forEach(content => {
     content.classList.remove('active');
@@ -1104,7 +1158,7 @@ function showMessage(text, type = 'info') {
   messageBox.textContent = text;
   messageBox.className = `message-box ${type}`;
   messageBox.classList.remove('hidden');
-  
+
   setTimeout(() => {
     messageBox.classList.add('hidden');
   }, 3000);

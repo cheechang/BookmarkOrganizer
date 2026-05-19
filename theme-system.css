@@ -1,0 +1,731 @@
+/* theme-system.css - Bookmark Organizer Skin System
+ * Defines CSS custom properties for 6 skins × 2 modes (light/dark)
+ */
+
+/* ===== Default Skin (Original Gradient Style) ===== */
+:root {
+  /* Backgrounds */
+  --bo-bg-body: #f5f7fa;
+  --bo-bg-page: #f5f7fa;
+  --bo-bg-card: #ffffff;
+  --bo-bg-sidebar: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  --bo-bg-header: #ffffff;
+  --bo-bg-input: #ffffff;
+  --bo-bg-item: #f8f9fa;
+  --bo-bg-item-hover: #eef1f5;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #ffffff;
+  --bo-bg-stat: #ffffff;
+
+  /* Text */
+  --bo-text-primary: #2c3e50;
+  --bo-text-secondary: #7f8c8d;
+  --bo-text-sidebar: #ffffff;
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: #a0a0b0;
+
+  /* Borders */
+  --bo-border: #e2e8f0;
+  --bo-border-sidebar: rgba(255, 255, 255, 0.2);
+  --bo-border-input: #e2e8f0;
+  --bo-border-card: transparent;
+
+  /* Accent & Buttons */
+  --bo-accent: #667eea;
+  --bo-accent-hover: #764ba2;
+  --bo-btn-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bo-btn-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --bo-btn-danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --bo-btn-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: #ffffff;
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  /* Progress & Tabs */
+  --bo-progress-bg: #e0e0e0;
+  --bo-progress-fill: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  --bo-tab-text: #7f8c8d;
+  --bo-tab-active-text: #667eea;
+  --bo-tab-active-bg: rgba(102, 126, 234, 0.1);
+  --bo-tab-hover-bg: #f5f7fa;
+
+  /* Misc */
+  --bo-shadow: rgba(0, 0, 0, 0.1);
+  --bo-shadow-sm: rgba(0, 0, 0, 0.08);
+  --bo-scrollbar: #c1c1c1;
+  --bo-scrollbar-hover: #a8a8a8;
+  --bo-link: #667eea;
+  --bo-path-bg: #e8eaf6;
+  --bo-path-text: #5c6bc0;
+}
+
+/* Default Dark */
+body[data-theme="dark"] {
+  --bo-bg-body: #1a1a2e;
+  --bo-bg-page: #1a1a2e;
+  --bo-bg-card: #16213e;
+  --bo-bg-sidebar: linear-gradient(180deg, #4a5568 0%, #2d3748 100%);
+  --bo-bg-header: #16213e;
+  --bo-bg-input: #16213e;
+  --bo-bg-item: #1a1a3e;
+  --bo-bg-item-hover: #202050;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #16213e;
+  --bo-bg-stat: #16213e;
+
+  --bo-text-primary: #e0e0e0;
+  --bo-text-secondary: #a0a0b0;
+  --bo-text-sidebar: #e0e0e0;
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: #808090;
+
+  --bo-border: #2a2a5a;
+  --bo-border-sidebar: rgba(255, 255, 255, 0.1);
+  --bo-border-input: #2a2a5a;
+  --bo-border-card: transparent;
+
+  --bo-accent: #667eea;
+  --bo-accent-hover: #764ba2;
+  --bo-btn-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bo-btn-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  --bo-btn-danger: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+  --bo-btn-success: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: #ffffff;
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  --bo-progress-bg: #2a2a5a;
+  --bo-progress-fill: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  --bo-tab-text: #a0a0b0;
+  --bo-tab-active-text: #667eea;
+  --bo-tab-active-bg: rgba(102, 126, 234, 0.2);
+  --bo-tab-hover-bg: #1e1e45;
+
+  --bo-shadow: rgba(0, 0, 0, 0.3);
+  --bo-shadow-sm: rgba(0, 0, 0, 0.25);
+  --bo-scrollbar: #4a5568;
+  --bo-scrollbar-hover: #718096;
+  --bo-link: #a0b0ff;
+  --bo-path-bg: #252560;
+  --bo-path-text: #a0b0ff;
+}
+
+/* ===== Skin 1: Browser Native ===== */
+body[data-skin="browser-native"] {
+  --bo-bg-body: #ffffff;
+  --bo-bg-page: #ffffff;
+  --bo-bg-card: #ffffff;
+  --bo-bg-sidebar: #f8f9fa;
+  --bo-bg-header: #ffffff;
+  --bo-bg-input: #ffffff;
+  --bo-bg-item: #f8f9fa;
+  --bo-bg-item-hover: #f1f3f4;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #ffffff;
+  --bo-bg-stat: #ffffff;
+
+  --bo-text-primary: #202124;
+  --bo-text-secondary: #5f6368;
+  --bo-text-sidebar: #202124;
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: #9aa0a6;
+
+  --bo-border: #dadce0;
+  --bo-border-sidebar: #dadce0;
+  --bo-border-input: #dadce0;
+  --bo-border-card: #dadce0;
+
+  --bo-accent: #1a73e8;
+  --bo-accent-hover: #1557b0;
+  --bo-btn-primary: #1a73e8;
+  --bo-btn-secondary: #5f6368;
+  --bo-btn-danger: #d93025;
+  --bo-btn-success: #188038;
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: #ffffff;
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  --bo-progress-bg: #e8eaed;
+  --bo-progress-fill: #1a73e8;
+  --bo-tab-text: #5f6368;
+  --bo-tab-active-text: #1a73e8;
+  --bo-tab-active-bg: rgba(26, 115, 232, 0.1);
+  --bo-tab-hover-bg: #f1f3f4;
+
+  --bo-shadow: rgba(60, 64, 67, 0.15);
+  --bo-shadow-sm: rgba(60, 64, 67, 0.08);
+  --bo-scrollbar: #c1c1c1;
+  --bo-scrollbar-hover: #a8a8a8;
+  --bo-link: #1a73e8;
+  --bo-path-bg: #e8f0fe;
+  --bo-path-text: #1967d2;
+}
+
+body[data-skin="browser-native"][data-theme="dark"] {
+  --bo-bg-body: #202124;
+  --bo-bg-page: #202124;
+  --bo-bg-card: #292a2d;
+  --bo-bg-sidebar: #292a2d;
+  --bo-bg-header: #292a2d;
+  --bo-bg-input: #202124;
+  --bo-bg-item: #292a2d;
+  --bo-bg-item-hover: #35363a;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #292a2d;
+  --bo-bg-stat: #292a2d;
+
+  --bo-text-primary: #e8eaed;
+  --bo-text-secondary: #9aa0a6;
+  --bo-text-sidebar: #e8eaed;
+  --bo-text-on-accent: #202124;
+  --bo-text-muted: #80868b;
+
+  --bo-border: #3c4043;
+  --bo-border-sidebar: #3c4043;
+  --bo-border-input: #3c4043;
+  --bo-border-card: #3c4043;
+
+  --bo-accent: #8ab4f8;
+  --bo-accent-hover: #aecbfa;
+  --bo-btn-primary: #8ab4f8;
+  --bo-btn-secondary: #9aa0a6;
+  --bo-btn-danger: #f28b82;
+  --bo-btn-success: #81c995;
+  --bo-btn-primary-text: #202124;
+  --bo-btn-secondary-text: #202124;
+  --bo-btn-danger-text: #202124;
+  --bo-btn-success-text: #202124;
+
+  --bo-progress-bg: #3c4043;
+  --bo-progress-fill: #8ab4f8;
+  --bo-tab-text: #9aa0a6;
+  --bo-tab-active-text: #8ab4f8;
+  --bo-tab-active-bg: rgba(138, 180, 248, 0.15);
+  --bo-tab-hover-bg: #35363a;
+
+  --bo-shadow: rgba(0, 0, 0, 0.3);
+  --bo-shadow-sm: rgba(0, 0, 0, 0.2);
+  --bo-scrollbar: #5f6368;
+  --bo-scrollbar-hover: #80868b;
+  --bo-link: #8ab4f8;
+  --bo-path-bg: #1a2332;
+  --bo-path-text: #8ab4f8;
+}
+
+/* ===== Skin 2: Minimalist Business (VS Code style) ===== */
+body[data-skin="minimal-business"] {
+  --bo-bg-body: #fafafa;
+  --bo-bg-page: #fafafa;
+  --bo-bg-card: #ffffff;
+  --bo-bg-sidebar: #f0f0f0;
+  --bo-bg-header: #ffffff;
+  --bo-bg-input: #ffffff;
+  --bo-bg-item: #f5f5f5;
+  --bo-bg-item-hover: #ebebeb;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #ffffff;
+  --bo-bg-stat: #ffffff;
+
+  --bo-text-primary: #2c2c2c;
+  --bo-text-secondary: #6e6e6e;
+  --bo-text-sidebar: #2c2c2c;
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: #999999;
+
+  --bo-border: #e8e8e8;
+  --bo-border-sidebar: #e0e0e0;
+  --bo-border-input: #d4d4d4;
+  --bo-border-card: #e8e8e8;
+
+  --bo-accent: #569cd6;
+  --bo-accent-hover: #4a8bc2;
+  --bo-btn-primary: #569cd6;
+  --bo-btn-secondary: #808080;
+  --bo-btn-danger: #c75450;
+  --bo-btn-success: #4ec9b0;
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: #ffffff;
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  --bo-progress-bg: #e8e8e8;
+  --bo-progress-fill: #569cd6;
+  --bo-tab-text: #6e6e6e;
+  --bo-tab-active-text: #569cd6;
+  --bo-tab-active-bg: rgba(86, 156, 214, 0.1);
+  --bo-tab-hover-bg: #f0f0f0;
+
+  --bo-shadow: rgba(0, 0, 0, 0.08);
+  --bo-shadow-sm: rgba(0, 0, 0, 0.05);
+  --bo-scrollbar: #c0c0c0;
+  --bo-scrollbar-hover: #a0a0a0;
+  --bo-link: #569cd6;
+  --bo-path-bg: #eef4fb;
+  --bo-path-text: #4a8bc2;
+}
+
+body[data-skin="minimal-business"][data-theme="dark"] {
+  --bo-bg-body: #1e1e1e;
+  --bo-bg-page: #1e1e1e;
+  --bo-bg-card: #252526;
+  --bo-bg-sidebar: #252526;
+  --bo-bg-header: #252526;
+  --bo-bg-input: #3c3c3c;
+  --bo-bg-item: #2d2d30;
+  --bo-bg-item-hover: #3e3e42;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #252526;
+  --bo-bg-stat: #252526;
+
+  --bo-text-primary: #d4d4d4;
+  --bo-text-secondary: #858585;
+  --bo-text-sidebar: #d4d4d4;
+  --bo-text-on-accent: #1e1e1e;
+  --bo-text-muted: #606060;
+
+  --bo-border: #3e3e42;
+  --bo-border-sidebar: #3e3e42;
+  --bo-border-input: #3e3e42;
+  --bo-border-card: #3e3e42;
+
+  --bo-accent: #569cd6;
+  --bo-accent-hover: #6ab3e8;
+  --bo-btn-primary: #569cd6;
+  --bo-btn-secondary: #808080;
+  --bo-btn-danger: #c75450;
+  --bo-btn-success: #4ec9b0;
+  --bo-btn-primary-text: #1e1e1e;
+  --bo-btn-secondary-text: #1e1e1e;
+  --bo-btn-danger-text: #1e1e1e;
+  --bo-btn-success-text: #1e1e1e;
+
+  --bo-progress-bg: #3e3e42;
+  --bo-progress-fill: #569cd6;
+  --bo-tab-text: #858585;
+  --bo-tab-active-text: #569cd6;
+  --bo-tab-active-bg: rgba(86, 156, 214, 0.15);
+  --bo-tab-hover-bg: #3e3e42;
+
+  --bo-shadow: rgba(0, 0, 0, 0.3);
+  --bo-shadow-sm: rgba(0, 0, 0, 0.2);
+  --bo-scrollbar: #424242;
+  --bo-scrollbar-hover: #4f4f4f;
+  --bo-link: #569cd6;
+  --bo-path-bg: #1e2d3d;
+  --bo-path-text: #6ab3e8;
+}
+
+/* ===== Skin 3: Classic Nostalgic ===== */
+body[data-skin="classic-nostalgic"] {
+  --bo-bg-body: #f8f5f0;
+  --bo-bg-page: #f8f5f0;
+  --bo-bg-card: #fffef8;
+  --bo-bg-sidebar: #ebe5db;
+  --bo-bg-header: #fffef8;
+  --bo-bg-input: #fffef8;
+  --bo-bg-item: #f5f0e8;
+  --bo-bg-item-hover: #ede8de;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #fffef8;
+  --bo-bg-stat: #fffef8;
+
+  --bo-text-primary: #3a3532;
+  --bo-text-secondary: #7a7268;
+  --bo-text-sidebar: #3a3532;
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: #a09888;
+
+  --bo-border: #d4cec5;
+  --bo-border-sidebar: #c8c0b4;
+  --bo-border-input: #d4cec5;
+  --bo-border-card: #d4cec5;
+
+  --bo-accent: #4a6fa5;
+  --bo-accent-hover: #2c5282;
+  --bo-btn-primary: #4a6fa5;
+  --bo-btn-secondary: #8b7355;
+  --bo-btn-danger: #a65d57;
+  --bo-btn-success: #5a8f6e;
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: #ffffff;
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  --bo-progress-bg: #e0dbd4;
+  --bo-progress-fill: #4a6fa5;
+  --bo-tab-text: #7a7268;
+  --bo-tab-active-text: #4a6fa5;
+  --bo-tab-active-bg: rgba(74, 111, 165, 0.1);
+  --bo-tab-hover-bg: #f0ebe3;
+
+  --bo-shadow: rgba(58, 53, 50, 0.1);
+  --bo-shadow-sm: rgba(58, 53, 50, 0.06);
+  --bo-scrollbar: #c8c0b4;
+  --bo-scrollbar-hover: #a8a090;
+  --bo-link: #4a6fa5;
+  --bo-path-bg: #e8e4dc;
+  --bo-path-text: #3a5f8a;
+}
+
+body[data-skin="classic-nostalgic"][data-theme="dark"] {
+  --bo-bg-body: #2d2926;
+  --bo-bg-page: #2d2926;
+  --bo-bg-card: #36322e;
+  --bo-bg-sidebar: #36322e;
+  --bo-bg-header: #36322e;
+  --bo-bg-input: #2d2926;
+  --bo-bg-item: #3e3a36;
+  --bo-bg-item-hover: #4a4540;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #36322e;
+  --bo-bg-stat: #36322e;
+
+  --bo-text-primary: #d8d2ca;
+  --bo-text-secondary: #a09890;
+  --bo-text-sidebar: #d8d2ca;
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: #807870;
+
+  --bo-border: #4a4540;
+  --bo-border-sidebar: #4a4540;
+  --bo-border-input: #4a4540;
+  --bo-border-card: #4a4540;
+
+  --bo-accent: #6b8cae;
+  --bo-accent-hover: #8aacce;
+  --bo-btn-primary: #5a7fa8;
+  --bo-btn-secondary: #8b7d6b;
+  --bo-btn-danger: #b0706a;
+  --bo-btn-success: #6a9a7e;
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: #ffffff;
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  --bo-progress-bg: #4a4540;
+  --bo-progress-fill: #6b8cae;
+  --bo-tab-text: #a09890;
+  --bo-tab-active-text: #6b8cae;
+  --bo-tab-active-bg: rgba(107, 140, 174, 0.15);
+  --bo-tab-hover-bg: #4a4540;
+
+  --bo-shadow: rgba(0, 0, 0, 0.3);
+  --bo-shadow-sm: rgba(0, 0, 0, 0.2);
+  --bo-scrollbar: #5a554f;
+  --bo-scrollbar-hover: #6a6560;
+  --bo-link: #8aacce;
+  --bo-path-bg: #2d3640;
+  --bo-path-text: #8aacce;
+}
+
+/* ===== Skin 4: High Contrast Mono ===== */
+body[data-skin="high-contrast-mono"] {
+  --bo-bg-body: #ffffff;
+  --bo-bg-page: #ffffff;
+  --bo-bg-card: #ffffff;
+  --bo-bg-sidebar: #f0f0f0;
+  --bo-bg-header: #ffffff;
+  --bo-bg-input: #ffffff;
+  --bo-bg-item: #f5f5f5;
+  --bo-bg-item-hover: #e0e0e0;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #ffffff;
+  --bo-bg-stat: #ffffff;
+
+  --bo-text-primary: #000000;
+  --bo-text-secondary: #333333;
+  --bo-text-sidebar: #000000;
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: #666666;
+
+  --bo-border: #000000;
+  --bo-border-sidebar: #000000;
+  --bo-border-input: #000000;
+  --bo-border-card: #000000;
+
+  --bo-accent: #000000;
+  --bo-accent-hover: #333333;
+  --bo-btn-primary: #000000;
+  --bo-btn-secondary: #333333;
+  --bo-btn-danger: #000000;
+  --bo-btn-success: #000000;
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: #ffffff;
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  --bo-progress-bg: #e0e0e0;
+  --bo-progress-fill: #000000;
+  --bo-tab-text: #333333;
+  --bo-tab-active-text: #000000;
+  --bo-tab-active-bg: #e0e0e0;
+  --bo-tab-hover-bg: #f0f0f0;
+
+  --bo-shadow: rgba(0, 0, 0, 0.2);
+  --bo-shadow-sm: rgba(0, 0, 0, 0.1);
+  --bo-scrollbar: #888888;
+  --bo-scrollbar-hover: #555555;
+  --bo-link: #000000;
+  --bo-path-bg: #e0e0e0;
+  --bo-path-text: #000000;
+}
+
+body[data-skin="high-contrast-mono"][data-theme="dark"] {
+  --bo-bg-body: #000000;
+  --bo-bg-page: #000000;
+  --bo-bg-card: #111111;
+  --bo-bg-sidebar: #111111;
+  --bo-bg-header: #111111;
+  --bo-bg-input: #000000;
+  --bo-bg-item: #1a1a1a;
+  --bo-bg-item-hover: #222222;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #111111;
+  --bo-bg-stat: #111111;
+
+  --bo-text-primary: #ffffff;
+  --bo-text-secondary: #cccccc;
+  --bo-text-sidebar: #ffffff;
+  --bo-text-on-accent: #000000;
+  --bo-text-muted: #888888;
+
+  --bo-border: #ffffff;
+  --bo-border-sidebar: #ffffff;
+  --bo-border-input: #ffffff;
+  --bo-border-card: #ffffff;
+
+  --bo-accent: #ffffff;
+  --bo-accent-hover: #cccccc;
+  --bo-btn-primary: #ffffff;
+  --bo-btn-secondary: #cccccc;
+  --bo-btn-danger: #ffffff;
+  --bo-btn-success: #ffffff;
+  --bo-btn-primary-text: #000000;
+  --bo-btn-secondary-text: #000000;
+  --bo-btn-danger-text: #000000;
+  --bo-btn-success-text: #000000;
+
+  --bo-progress-bg: #333333;
+  --bo-progress-fill: #ffffff;
+  --bo-tab-text: #cccccc;
+  --bo-tab-active-text: #ffffff;
+  --bo-tab-active-bg: #333333;
+  --bo-tab-hover-bg: #1a1a1a;
+
+  --bo-shadow: rgba(255, 255, 255, 0.1);
+  --bo-shadow-sm: rgba(255, 255, 255, 0.05);
+  --bo-scrollbar: #555555;
+  --bo-scrollbar-hover: #777777;
+  --bo-link: #ffffff;
+  --bo-path-bg: #222222;
+  --bo-path-text: #ffffff;
+}
+
+/* ===== Skin 5: Frosted Glass ===== */
+body[data-skin="frosted-glass"] {
+  --bo-bg-body: #f0f2f5;
+  --bo-bg-page: rgba(255, 255, 255, 0.7);
+  --bo-bg-card: rgba(255, 255, 255, 0.8);
+  --bo-bg-sidebar: rgba(102, 126, 234, 0.85);
+  --bo-bg-header: rgba(255, 255, 255, 0.7);
+  --bo-bg-input: rgba(255, 255, 255, 0.8);
+  --bo-bg-item: rgba(255, 255, 255, 0.6);
+  --bo-bg-item-hover: rgba(255, 255, 255, 0.85);
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: rgba(255, 255, 255, 0.7);
+  --bo-bg-stat: rgba(255, 255, 255, 0.8);
+
+  --bo-text-primary: #1a1a2e;
+  --bo-text-secondary: #555555;
+  --bo-text-sidebar: #ffffff;
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: #777777;
+
+  --bo-border: rgba(255, 255, 255, 0.5);
+  --bo-border-sidebar: rgba(255, 255, 255, 0.3);
+  --bo-border-input: rgba(0, 0, 0, 0.1);
+  --bo-border-card: rgba(255, 255, 255, 0.5);
+
+  --bo-accent: #667eea;
+  --bo-accent-hover: #764ba2;
+  --bo-btn-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bo-btn-secondary: linear-gradient(135deg, #8892b0 0%, #64748b 100%);
+  --bo-btn-danger: linear-gradient(135deg, #e06c75 0%, #c77874 100%);
+  --bo-btn-success: linear-gradient(135deg, #56b6c2 0%, #4ec9b0 100%);
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: #ffffff;
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  --bo-progress-bg: rgba(0, 0, 0, 0.08);
+  --bo-progress-fill: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  --bo-tab-text: #555555;
+  --bo-tab-active-text: #667eea;
+  --bo-tab-active-bg: rgba(102, 126, 234, 0.15);
+  --bo-tab-hover-bg: rgba(255, 255, 255, 0.9);
+
+  --bo-shadow: rgba(0, 0, 0, 0.08);
+  --bo-shadow-sm: rgba(0, 0, 0, 0.05);
+  --bo-scrollbar: rgba(0, 0, 0, 0.2);
+  --bo-scrollbar-hover: rgba(0, 0, 0, 0.3);
+  --bo-link: #667eea;
+  --bo-path-bg: rgba(102, 126, 234, 0.1);
+  --bo-path-text: #5c4ba2;
+}
+
+body[data-skin="frosted-glass"][data-theme="dark"] {
+  --bo-bg-body: #0f0f1a;
+  --bo-bg-page: rgba(20, 20, 40, 0.7);
+  --bo-bg-card: rgba(30, 30, 50, 0.8);
+  --bo-bg-sidebar: rgba(60, 60, 100, 0.85);
+  --bo-bg-header: rgba(20, 20, 40, 0.7);
+  --bo-bg-input: rgba(30, 30, 50, 0.8);
+  --bo-bg-item: rgba(40, 40, 60, 0.6);
+  --bo-bg-item-hover: rgba(50, 50, 70, 0.85);
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: rgba(20, 20, 40, 0.7);
+  --bo-bg-stat: rgba(30, 30, 50, 0.8);
+
+  --bo-text-primary: #e0e0e0;
+  --bo-text-secondary: #a0a0b0;
+  --bo-text-sidebar: #e0e0e0;
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: #707080;
+
+  --bo-border: rgba(255, 255, 255, 0.1);
+  --bo-border-sidebar: rgba(255, 255, 255, 0.15);
+  --bo-border-input: rgba(255, 255, 255, 0.1);
+  --bo-border-card: rgba(255, 255, 255, 0.1);
+
+  --bo-accent: #9ab3f8;
+  --bo-accent-hover: #b0c4f8;
+  --bo-btn-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bo-btn-secondary: linear-gradient(135deg, #8892b0 0%, #64748b 100%);
+  --bo-btn-danger: linear-gradient(135deg, #e06c75 0%, #c77874 100%);
+  --bo-btn-success: linear-gradient(135deg, #56b6c2 0%, #4ec9b0 100%);
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: #ffffff;
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  --bo-progress-bg: rgba(255, 255, 255, 0.08);
+  --bo-progress-fill: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  --bo-tab-text: #a0a0b0;
+  --bo-tab-active-text: #9ab3f8;
+  --bo-tab-active-bg: rgba(154, 179, 248, 0.15);
+  --bo-tab-hover-bg: rgba(50, 50, 70, 0.9);
+
+  --bo-shadow: rgba(0, 0, 0, 0.3);
+  --bo-shadow-sm: rgba(0, 0, 0, 0.2);
+  --bo-scrollbar: rgba(255, 255, 255, 0.2);
+  --bo-scrollbar-hover: rgba(255, 255, 255, 0.3);
+  --bo-link: #9ab3f8;
+  --bo-path-bg: rgba(154, 179, 248, 0.1);
+  --bo-path-text: #b0c4f8;
+}
+
+/* ===== Skin 6: Nature Low Saturation ===== */
+body[data-skin="nature-low-saturation"] {
+  --bo-bg-body: #f0f4f0;
+  --bo-bg-page: #f0f4f0;
+  --bo-bg-card: #f5f8f5;
+  --bo-bg-sidebar: #dce8dc;
+  --bo-bg-header: #f5f8f5;
+  --bo-bg-input: #ffffff;
+  --bo-bg-item: #ebf2eb;
+  --bo-bg-item-hover: #e0ebe0;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #f5f8f5;
+  --bo-bg-stat: #f5f8f5;
+
+  --bo-text-primary: #2d3b2d;
+  --bo-text-secondary: #6b7b6b;
+  --bo-text-sidebar: #2d3b2d;
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: #8a9a8a;
+
+  --bo-border: #c8d4c8;
+  --bo-border-sidebar: #b8c8b8;
+  --bo-border-input: #c8d4c8;
+  --bo-border-card: #c8d4c8;
+
+  --bo-accent: #5a8a6a;
+  --bo-accent-hover: #4a7a5a;
+  --bo-btn-primary: #5a8a6a;
+  --bo-btn-secondary: #7a8a6a;
+  --bo-btn-danger: #9a6a6a;
+  --bo-btn-success: #5a8a7a;
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: #ffffff;
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  --bo-progress-bg: #d8e4d8;
+  --bo-progress-fill: #5a8a6a;
+  --bo-tab-text: #6b7b6b;
+  --bo-tab-active-text: #5a8a6a;
+  --bo-tab-active-bg: rgba(90, 138, 106, 0.1);
+  --bo-tab-hover-bg: #e8f0e8;
+
+  --bo-shadow: rgba(45, 59, 45, 0.08);
+  --bo-shadow-sm: rgba(45, 59, 45, 0.05);
+  --bo-scrollbar: #b8c8b8;
+  --bo-scrollbar-hover: #98a898;
+  --bo-link: #4a7a5a;
+  --bo-path-bg: #e0ece4;
+  --bo-path-text: #3a6a4a;
+}
+
+body[data-skin="nature-low-saturation"][data-theme="dark"] {
+  --bo-bg-body: #1a221a;
+  --bo-bg-page: #1a221a;
+  --bo-bg-card: #222a22;
+  --bo-bg-sidebar: #2a352a;
+  --bo-bg-header: #222a22;
+  --bo-bg-input: #1a221a;
+  --bo-bg-item: #2a322a;
+  --bo-bg-item-hover: #344034;
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: #222a22;
+  --bo-bg-stat: #222a22;
+
+  --bo-text-primary: #c8d4c8;
+  --bo-text-secondary: #889888;
+  --bo-text-sidebar: #c8d4c8;
+  --bo-text-on-accent: #1a221a;
+  --bo-text-muted: #687868;
+
+  --bo-border: #3a4a3a;
+  --bo-border-sidebar: #3a4a3a;
+  --bo-border-input: #3a4a3a;
+  --bo-border-card: #3a4a3a;
+
+  --bo-accent: #7aaa8a;
+  --bo-accent-hover: #8aba9a;
+  --bo-btn-primary: #6a9a7a;
+  --bo-btn-secondary: #7a9a6a;
+  --bo-btn-danger: #9a6a6a;
+  --bo-btn-success: #5a9a7a;
+  --bo-btn-primary-text: #1a221a;
+  --bo-btn-secondary-text: #1a221a;
+  --bo-btn-danger-text: #1a221a;
+  --bo-btn-success-text: #1a221a;
+
+  --bo-progress-bg: #3a4a3a;
+  --bo-progress-fill: #7aaa8a;
+  --bo-tab-text: #889888;
+  --bo-tab-active-text: #7aaa8a;
+  --bo-tab-active-bg: rgba(122, 170, 138, 0.15);
+  --bo-tab-hover-bg: #344034;
+
+  --bo-shadow: rgba(0, 0, 0, 0.3);
+  --bo-shadow-sm: rgba(0, 0, 0, 0.2);
+  --bo-scrollbar: #4a5a4a;
+  --bo-scrollbar-hover: #5a6a5a;
+  --bo-link: #8aba9a;
+  --bo-path-bg: #2a3a32;
+  --bo-path-text: #8aba9a;
+}

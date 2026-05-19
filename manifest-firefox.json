@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "__MSG_extName__",
   "short_name": "__MSG_extShortName__",
-  "version": "1.8.8",
+  "version": "1.9.0",
   "description": "__MSG_extDescription__",
   "default_locale": "en",
   "author": "cheechang",
@@ -23,13 +23,17 @@
   "options_page": "options.html",
   "background": {
     "service_worker": "background.js",
-    "scripts": ["background.js"]
+    "scripts": [
+      "background.js"
+    ]
   },
   "browser_specific_settings": {
     "gecko": {
       "id": "bookmark-organizer@cheechang.github.io",
       "data_collection_permissions": {
-        "required": ["none"]
+        "required": [
+          "none"
+        ]
       }
     }
   },

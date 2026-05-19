@@ -711,6 +711,34 @@
     "message": "ライトモード",
     "description": "Light mode toggle tooltip"
   },
+  "skinDefault": {
+    "message": "デフォルト",
+    "description": "Default skin name"
+  },
+  "skinBrowserNative": {
+    "message": "ブラウザ標準",
+    "description": "Browser native skin name"
+  },
+  "skinMinimalBusiness": {
+    "message": "ミニマルビジネス",
+    "description": "Minimalist business skin name"
+  },
+  "skinClassicNostalgic": {
+    "message": "クラシックノスタルジア",
+    "description": "Classic nostalgic skin name"
+  },
+  "skinHighContrastMono": {
+    "message": "高コントラストモノクロ",
+    "description": "High contrast monochrome skin name"
+  },
+  "skinFrostedGlass": {
+    "message": "フロストガラス",
+    "description": "Frosted glass skin name"
+  },
+  "skinNatureLowSaturation": {
+    "message": "ナチュラル低彩度",
+    "description": "Nature low saturation skin name"
+  },
   "emptyNoResults": {
     "message": "該当する結果がありません",
     "description": "Empty state when search returns no results"

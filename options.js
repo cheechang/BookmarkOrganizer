@@ -19,6 +19,57 @@ let currentDuplicateSearch = '';
 let currentTypeFilters = new Set();
 let pendingHTMLImport = null;
 
+// ==================== 皮肤系统 ====================
+
+const SKINS = [
+  { id: 'default', nameKey: 'skinDefault' },
+  { id: 'browser-native', nameKey: 'skinBrowserNative' },
+  { id: 'minimal-business', nameKey: 'skinMinimalBusiness' },
+  { id: 'classic-nostalgic', nameKey: 'skinClassicNostalgic' },
+  { id: 'high-contrast-mono', nameKey: 'skinHighContrastMono' },
+  { id: 'frosted-glass', nameKey: 'skinFrostedGlass' },
+  { id: 'nature-low-saturation', nameKey: 'skinNatureLowSaturation' }
+];
+
+async function initSkin() {
+  const result = await chrome.storage.local.get('skin');
+  const skin = result.skin || 'default';
+  applySkin(skin);
+}
+
+function applySkin(skin) {
+  document.body.setAttribute('data-skin', skin);
+  const selector = document.getElementById('skinSelector');
+  if (selector) {
+    selector.value = skin;
+  }
+}
+
+async function setSkin(skin) {
+  applySkin(skin);
+  await chrome.storage.local.set({ skin });
+}
+
+function initSkinSelector() {
+  const selector = document.getElementById('skinSelector');
+  if (!selector) return;
+
+  selector.textContent = '';
+  SKINS.forEach(skin => {
+    const option = document.createElement('option');
+    option.value = skin.id;
+    option.textContent = _t(skin.nameKey);
+    if (skin.id === (document.body.getAttribute('data-skin') || 'default')) {
+      option.selected = true;
+    }
+    selector.appendChild(option);
+  });
+
+  selector.addEventListener('change', (e) => {
+    setSkin(e.target.value);
+  });
+}
+
 // ==================== 深色模式 ====================
 
 async function initTheme() {
@@ -57,6 +108,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupEventListeners();
   await loadBackupsListFull();
   await loadCustomRules();
+  await initSkin();
+  initSkinSelector();
   await initTheme();
   await loadLogSettings();
 });
@@ -65,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function initLanguageSelector() {
   const selector = document.getElementById('langSelector');
   if (!selector) return;
-  
+
   const locales = I18n.getSupportedLocales();
   selector.textContent = '';
   locales.forEach(loc => {
@@ -77,7 +130,7 @@ function initLanguageSelector() {
     }
     selector.appendChild(option);
   });
-  
+
   selector.addEventListener('change', (e) => {
     I18n.setLocale(e.target.value);
   });
@@ -87,6 +140,7 @@ function initLanguageSelector() {
 window.addEventListener('localeChanged', () => {
   const currentTheme = document.body.getAttribute('data-theme') || 'light';
   applyTheme(currentTheme);
+  initSkinSelector();
   if (analysisResults.length > 0) {
     displayCategoriesFull(currentCategorySearch);
   }
@@ -116,7 +170,7 @@ async function loadSettings() {
   const result = await chrome.storage.local.get('settings');
   const settings = result.settings || {};
   currentSettings = settings;
-  
+
   // 自动备份
   const autoBackupSetting = document.getElementById('autoBackupSetting');
   if (autoBackupSetting) {
@@ -127,21 +181,21 @@ async function loadSettings() {
       showMessage(_t('msgSettingsSaved'), 'success');
     });
   }
-  
+
   // 相似度阈值
   const thresholdSlider = document.getElementById('similarityThreshold');
   const thresholdValue = document.getElementById('thresholdValue');
   if (thresholdSlider) {
     thresholdSlider.value = settings.similarityThreshold || 80;
     thresholdValue.textContent = thresholdSlider.value;
-    
+
     thresholdSlider.addEventListener('input', async (e) => {
       thresholdValue.textContent = e.target.value;
       settings.similarityThreshold = parseInt(e.target.value);
       await chrome.storage.local.set({ settings });
     });
   }
-  
+
   // 显示书签路径
   const showPathSetting = document.getElementById('showPathSetting');
   if (showPathSetting) {
@@ -169,17 +223,17 @@ function setupNavigation() {
 }
 
 // 切换页面
-window.switchToPage = function(pageName) {
+window.switchToPage = function (pageName) {
   // 更新导航状态
   document.querySelectorAll('.nav-item').forEach(item => {
     item.classList.toggle('active', item.dataset.page === pageName);
   });
-  
+
   // 更新页面显示
   document.querySelectorAll('.page').forEach(page => {
     page.classList.remove('active');
   });
-  
+
   const targetPage = document.getElementById(`${pageName}Page`);
   if (targetPage) {
     targetPage.classList.add('active');
@@ -380,12 +434,12 @@ async function handleFullScan() {
   const progressContainer = document.getElementById('progressContainer');
   const progressFill = document.getElementById('progressFill');
   const progressText = document.getElementById('progressText');
-  
+
   scanBtn.disabled = true;
   progressContainer.classList.remove('hidden');
   progressFill.style.width = '0%';
   progressText.textContent = _t('progressGettingBookmarks');
-  
+
   try {
     // 自动备份
     const settingsResult = await chrome.storage.local.get('settings');
@@ -394,50 +448,50 @@ async function handleFullScan() {
       await backupBookmarks();
       await loadBackupsListFull();
     }
-    
+
     // 获取所有书签
     progressText.textContent = _t('progressAnalyzing');
     const bookmarks = await getAllBookmarks();
-    
+
     // 分析每个书签
     analysisResults = [];
     const total = bookmarks.length;
-    
+
     for (let i = 0; i < total; i++) {
       const result = await analyzeBookmark(bookmarks[i], categories);
       analysisResults.push(result);
-      
+
       const progress = ((i + 1) / total) * 100;
       progressFill.style.width = `${progress}%`;
       progressText.textContent = _t('progressAnalyzingItem', [`${i + 1}`, `${total}`]);
-      
+
       if (i % 10 === 0) {
         await new Promise(resolve => setTimeout(resolve, 0));
       }
     }
-    
+
     // 检测重复
     progressText.textContent = _t('progressDetectingDuplicates');
     const threshold = (currentSettings.similarityThreshold || 80) / 100;
     duplicates = await detectDuplicates(threshold);
-    
+
     // 显示统计信息
     displayStats(bookmarks.length, duplicates.length);
-    
+
     // 显示分类建议
     displayCategoriesFull(currentCategorySearch);
 
     // 显示重复项
     displayDuplicatesFull(currentFilterGroupFull, currentDuplicateSearch);
-    
+
     progressText.textContent = _t('progressComplete');
     showMessage(_t('msgScanComplete', [`${total}`]), 'success');
-    
+
     // 自动切换到分类建议页面
     setTimeout(() => {
       switchToPage('categories');
     }, 1000);
-    
+
   } catch (error) {
     console.error('Scan failed:', error);
     showMessage(_t('msgScanFailed') + error.message, 'error');
@@ -453,15 +507,15 @@ async function handleFullScan() {
 function displayStats(total, duplicateCount) {
   const statsPanel = document.getElementById('statsPanel');
   statsPanel.classList.remove('hidden');
-  
+
   document.getElementById('totalBookmarks').textContent = total;
-  
+
   const uncategorized = analysisResults.filter(r => !r.category || r.confidence === 'none').length;
   document.getElementById('uncategorizedCount').textContent = uncategorized;
-  
+
   const categorized = total - uncategorized;
   document.getElementById('categorizedCount').textContent = categorized;
-  
+
   document.getElementById('duplicatesCount').textContent = duplicateCount;
 }
 
@@ -706,10 +760,10 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
 
   // 确定要显示的组列表
   const groupsToShow = filterGroupIndex !== null ?
-    [{...filteredDuplicates[filterGroupIndex], originalIndex: filterGroupIndex}] :
+    [{ ...filteredDuplicates[filterGroupIndex], originalIndex: filterGroupIndex }] :
     filteredDuplicates.map((group, index) => {
       const originalIndex = term ? duplicates.findIndex(g => g.items[0].id === group.items[0].id) : index;
-      return {...group, originalIndex: originalIndex >= 0 ? originalIndex : index};
+      return { ...group, originalIndex: originalIndex >= 0 ? originalIndex : index };
     });
 
   groupsToShow.forEach((group, displayIndex) => {
@@ -781,11 +835,11 @@ function displayDuplicatesFull(filterGroupIndex = null, searchTerm = '') {
 function bindDuplicateEventsFull() {
   const container = document.getElementById('duplicatesList');
   if (!container) return;
-  
+
   // 移除旧的事件监听器（避免重复绑定）
   const newContainer = container.cloneNode(true);
   container.parentNode.replaceChild(newContainer, container);
-  
+
   // 筛选标签点击事件（使用事件委托）
   newContainer.addEventListener('click', (e) => {
     // 类型筛选标签
@@ -817,7 +871,7 @@ function bindDuplicateEventsFull() {
       clearDuplicateFilterFull();
       return;
     }
-    
+
     // 单个删除按钮（使用事件委托）
     const deleteBtn = e.target.closest('[data-action="delete-single"]');
     if (deleteBtn) {
@@ -847,11 +901,11 @@ async function deleteSingleDuplicateFull(bookmarkId, groupIndex, itemIndex) {
   if (!confirm(_t('confirmDeleteBookmark'))) {
     return;
   }
-  
+
   try {
     await chrome.bookmarks.remove(bookmarkId);
     showMessage(_t('msgDeleteSuccess'), 'success');
-    
+
     // 从数据中移除该项
     const group = duplicates[groupIndex];
     if (!group) {
@@ -859,14 +913,14 @@ async function deleteSingleDuplicateFull(bookmarkId, groupIndex, itemIndex) {
       displayDuplicatesFull(currentFilterGroupFull);
       return;
     }
-    
+
     group.items.splice(itemIndex, 1);
-    
+
     // 如果该组只剩一个或没有项目，从列表中移除该组
     const groupWasRemoved = group.items.length <= 1;
     if (groupWasRemoved) {
       duplicates.splice(groupIndex, 1);
-      
+
       // 如果当前处于筛选模式，需要调整筛选索引
       if (currentFilterGroupFull !== null) {
         if (currentFilterGroupFull === groupIndex) {
@@ -878,10 +932,10 @@ async function deleteSingleDuplicateFull(bookmarkId, groupIndex, itemIndex) {
         }
       }
     }
-    
+
     // 重新显示（保持当前筛选状态）
     displayDuplicatesFull(currentFilterGroupFull);
-    
+
   } catch (error) {
     console.error('Delete failed:', error);
     showMessage(_t('msgDeleteFailed') + error.message, 'error');
@@ -894,15 +948,15 @@ async function handleApplyCategories() {
     showMessage(_t('msgNoBookmarksSelected'), 'warning');
     return;
   }
-  
+
   if (!confirm(_t('confirmApplyCategories', [`${selectedBookmarks.size}`]))) {
     return;
   }
-  
+
   const applyBtn = document.getElementById('applyCategoriesBtnFull');
   applyBtn.disabled = true;
   applyBtn.textContent = _t('statusApplying');
-  
+
   try {
     const moves = [];
     document.querySelectorAll('.bookmark-checkbox:checked').forEach(checkbox => {
@@ -911,7 +965,7 @@ async function handleApplyCategories() {
         folder: checkbox.dataset.folder
       });
     });
-    
+
     const folderGroups = {};
     for (const move of moves) {
       if (!folderGroups[move.folder]) {
@@ -919,20 +973,20 @@ async function handleApplyCategories() {
       }
       folderGroups[move.folder].push(move.id);
     }
-    
+
     let successCount = 0;
     for (const [folderName, ids] of Object.entries(folderGroups)) {
       const folder = await createCategoryFolder(folderName);
       const results = await batchMoveBookmarks(ids, folder.id);
       successCount += results.filter(r => r.success).length;
     }
-    
+
     showMessage(_t('msgApplySuccess', [`${successCount}`]), 'success');
-    
+
     setTimeout(() => {
       handleFullScan();
     }, 1000);
-    
+
   } catch (error) {
     console.error('应用分类失败:', error);
     showMessage(_t('msgApplyFailed') + error.message, 'error');
@@ -946,24 +1000,24 @@ async function handleApplyCategories() {
 async function handleRemoveDuplicates() {
   // 获取所有选中的复选框
   const selectedCheckboxes = document.querySelectorAll('.duplicate-checkbox:checked');
-  
+
   if (selectedCheckboxes.length === 0) {
     showMessage(_t('msgNoDuplicatesSelected'), 'warning');
     return;
   }
-  
+
   if (!confirm(_t('confirmRemoveDuplicates', [`${selectedCheckboxes.length}`]))) {
     return;
   }
-  
+
   const removeBtn = document.getElementById('removeDuplicatesBtnFull');
   removeBtn.disabled = true;
   removeBtn.textContent = _t('statusDeleting');
-  
+
   try {
     let deleteCount = 0;
     const deletedIds = new Set();
-    
+
     // 批量删除选中的书签
     for (const checkbox of selectedCheckboxes) {
       try {
@@ -974,24 +1028,24 @@ async function handleRemoveDuplicates() {
         console.error('Delete failed:', error);
       }
     }
-    
+
     showMessage(_t('msgRemoveSuccess', [`${deleteCount}`]), 'success');
-    
+
     // 立即从本地数据中移除被删除的项目（关键修复）
     const groupsToRemove = [];
-    
+
     duplicates.forEach((group, groupIndex) => {
       group.items = group.items.filter(item => !deletedIds.has(item.id));
       if (group.items.length <= 1) {
         groupsToRemove.push(groupIndex);
       }
     });
-    
+
     // 从后往前删除空组，避免索引前移问题
     for (let i = groupsToRemove.length - 1; i >= 0; i--) {
       const groupIndex = groupsToRemove[i];
       duplicates.splice(groupIndex, 1);
-      
+
       // 如果当前处于筛选模式，同步调整筛选索引
       if (currentFilterGroupFull !== null) {
         if (currentFilterGroupFull === groupIndex) {
@@ -1001,10 +1055,10 @@ async function handleRemoveDuplicates() {
         }
       }
     }
-    
+
     // 立即刷新页面显示
     displayDuplicatesFull(currentFilterGroupFull);
-    
+
   } catch (error) {
     console.error('清理重复失败:', error);
     showMessage(_t('msgRemoveFailed') + error.message, 'error');
@@ -1019,7 +1073,7 @@ async function handleQuickBackup() {
   const btn = document.getElementById('quickBackupBtn');
   btn.disabled = true;
   btn.textContent = _t('statusBackingUp');
-  
+
   try {
     await backupBookmarks();
     await loadBackupsListFull();
@@ -1192,31 +1246,31 @@ function cancelHTMLImport() {
 async function handleImportBackup(event) {
   const file = event.target.files[0];
   if (!file) return;
-  
+
   try {
     const text = await file.text();
     const backup = JSON.parse(text);
-    
+
     if (!backup.data || !backup.timestamp) {
       throw new Error(_t('msgInvalidBackupFormat'));
     }
-    
+
     if (!confirm(_t('confirmImportBackup'))) {
       return;
     }
-    
+
     await restoreBookmarks(backup.data);
-    
+
     // 添加到备份列表
     const result = await chrome.storage.local.get(['bookmarksBackups']);
     const backups = result.bookmarksBackups || [];
     backups.unshift(backup);
     if (backups.length > 10) backups.pop();
     await chrome.storage.local.set({ bookmarksBackups: backups });
-    
+
     await loadBackupsListFull();
     showMessage(_t('msgImportSuccess'), 'success');
-    
+
   } catch (error) {
     console.error('导入失败:', error);
     showMessage(_t('msgImportFailed') + error.message, 'error');
@@ -1230,7 +1284,7 @@ async function loadBackupsListFull() {
   const container = document.getElementById('backupsListFull');
   const result = await chrome.storage.local.get(['bookmarksBackups']);
   const backups = result.bookmarksBackups || [];
-  
+
   if (backups.length === 0) {
     safeSetHTML(container, `
       <div class="empty-state-large">
@@ -1241,7 +1295,7 @@ async function loadBackupsListFull() {
     `);
     return;
   }
-  
+
   let html = '';
   backups.forEach((backup, index) => {
     const date = new Date(backup.timestamp).toLocaleString(I18n.getLocale() === 'zh_CN' ? 'zh-CN' : I18n.getLocale());
@@ -1271,20 +1325,20 @@ async function restoreBackupFull(index) {
   if (!confirm(_t('confirmRestoreBackup'))) {
     return;
   }
-  
+
   try {
     const result = await chrome.storage.local.get(['bookmarksBackups']);
     const backups = result.bookmarksBackups || [];
     const backup = backups[index];
-    
+
     if (!backup) {
       throw new Error(_t('backupNotExist'));
     }
-    
+
     await restoreBookmarks(backup.data);
     showMessage(_t('msgRestoreSuccess'), 'success');
     await loadBackupsListFull();
-    
+
   } catch (error) {
     console.error('恢复失败:', error);
     showMessage(_t('msgRestoreFailed') + error.message, 'error');
@@ -1296,17 +1350,17 @@ async function deleteBackupFull(index) {
   if (!confirm(_t('confirmDeleteBackup'))) {
     return;
   }
-  
+
   try {
     const result = await chrome.storage.local.get(['bookmarksBackups']);
     const backups = result.bookmarksBackups || [];
-    
+
     backups.splice(index, 1);
     await chrome.storage.local.set({ bookmarksBackups: backups });
-    
+
     await loadBackupsListFull();
     showMessage(_t('msgBackupDeleted'), 'success');
-    
+
   } catch (error) {
     console.error('Delete failed:', error);
     showMessage(_t('msgDeleteFailed') + error.message, 'error');
@@ -1318,7 +1372,7 @@ async function handleClearAllData() {
   if (!confirm(_t('confirmClearData'))) {
     return;
   }
-  
+
   try {
     await chrome.storage.local.clear();
     showMessage(_t('msgDataCleared'), 'success');

@@ -711,6 +711,34 @@
     "message": "浅色模式",
     "description": "Light mode toggle tooltip"
   },
+  "skinDefault": {
+    "message": "默认",
+    "description": "Default skin name"
+  },
+  "skinBrowserNative": {
+    "message": "原生浏览器",
+    "description": "Browser native skin name"
+  },
+  "skinMinimalBusiness": {
+    "message": "极简商务",
+    "description": "Minimalist business skin name"
+  },
+  "skinClassicNostalgic": {
+    "message": "经典怀旧",
+    "description": "Classic nostalgic skin name"
+  },
+  "skinHighContrastMono": {
+    "message": "黑白高对比",
+    "description": "High contrast monochrome skin name"
+  },
+  "skinFrostedGlass": {
+    "message": "磨砂轻拟物",
+    "description": "Frosted glass skin name"
+  },
+  "skinNatureLowSaturation": {
+    "message": "护眼自然",
+    "description": "Nature low saturation skin name"
+  },
   "emptyNoResults": {
     "message": "没有匹配的结果",
     "description": "Empty state when search returns no results"
