@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="theme-system.css">
   <link rel="stylesheet" href="options.css">
 </head>
+
 <body>
   <div class="app-container">
     <!-- 侧边栏 -->
@@ -15,44 +17,79 @@
         <h1 data-i18n="appTitle">📚 Bookmark Organizer</h1>
         <p class="subtitle" data-i18n="appSubtitleFull">Full Feature Version</p>
       </div>
-      
+
       <nav class="sidebar-nav">
         <button class="nav-item active" data-page="scan">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="5"/><line x1="12" y1="12" x2="16" y2="16"/></svg>
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="8" cy="8" r="5" />
+            <line x1="12" y1="12" x2="16" y2="16" />
+          </svg>
           <span class="nav-text" data-i18n="navScan">Scan Analysis</span>
         </button>
         <button class="nav-item" data-page="categories">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5h5l2 3h7v7H3z"/></svg>
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 5.5h5l2 3h7v7H3z" />
+          </svg>
           <span class="nav-text" data-i18n="navCategories">Categories</span>
         </button>
         <button class="nav-item" data-page="duplicates">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="9" height="9" rx="1.5"/><rect x="7.5" y="7.5" width="9" height="9" rx="1.5"/></svg>
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="9" height="9" rx="1.5" />
+            <rect x="7.5" y="7.5" width="9" height="9" rx="1.5" />
+          </svg>
           <span class="nav-text" data-i18n="navDuplicates">Duplicates</span>
         </button>
         <button class="nav-item" data-page="brokenLinks">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8q-2.5 2.5 0 5"/><path d="M15 8q2.5 2.5 0 5"/><path d="M7 13l6-6"/></svg>
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 8q-2.5 2.5 0 5" />
+            <path d="M15 8q2.5 2.5 0 5" />
+            <path d="M7 13l6-6" />
+          </svg>
           <span class="nav-text" data-i18n="navBrokenLinks">Broken Links</span>
         </button>
         <button class="nav-item" data-page="backups">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v8"/><path d="M7 9l3 3 3-3"/><path d="M3 14.5h14"/></svg>
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 3v8" />
+            <path d="M7 9l3 3 3-3" />
+            <path d="M3 14.5h14" />
+          </svg>
           <span class="nav-text" data-i18n="navBackups">Backups</span>
         </button>
         <button class="nav-item" data-page="settings">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="3"/><path d="M10 3.5v2.5M10 14v2.5M3.5 10h2.5M14 10h2.5"/></svg>
+          <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="10" cy="10" r="3" />
+            <path d="M10 3.5v2.5M10 14v2.5M3.5 10h2.5M14 10h2.5" />
+          </svg>
           <span class="nav-text" data-i18n="navSettings">Settings</span>
         </button>
       </nav>
-      
+
       <div class="sidebar-footer">
         <div class="footer-row">
-          <button id="checkUpdateBtn" class="btn btn-small btn-toolbar" data-i18n="btnCheckUpdate">Check for Updates</button>
+          <button id="checkUpdateBtn" class="btn btn-small btn-toolbar" data-i18n="btnCheckUpdate">Check for
+            Updates</button>
           <select id="langSelector" class="lang-selector" title="Select Language"></select>
         </div>
         <div class="footer-row">
           <select id="skinSelector" class="skin-selector" title="Select Skin"></select>
           <button id="themeToggle" class="theme-toggle" title="Toggle Dark Mode">
-            <svg class="theme-icon icon-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10.5c0 3.5-2.5 6.5-6 6.5-3 0-5.5-2-6-5 .5.5 1.5 1 2.5 1 3 0 5.5-2.5 5.5-5.5 0-1-.5-2-1-2.5 3 .5 5 3 5 5.5z"/></svg>
-            <svg class="theme-icon icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="10" cy="10" r="3.5"/><path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.6 4.6l1.4 1.4M14 14l1.4 1.4M4.6 15.4l1.4-1.4M14 6l1.4-1.4"/></svg>
+            <svg class="theme-icon icon-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M17 10.5c0 3.5-2.5 6.5-6 6.5-3 0-5.5-2-6-5 .5.5 1.5 1 2.5 1 3 0 5.5-2.5 5.5-5.5 0-1-.5-2-1-2.5 3 .5 5 3 5 5.5z" />
+            </svg>
+            <svg class="theme-icon icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round" style="display:none">
+              <circle cx="10" cy="10" r="3.5" />
+              <path
+                d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.6 4.6l1.4 1.4M14 14l1.4 1.4M4.6 15.4l1.4-1.4M14 6l1.4-1.4" />
+            </svg>
           </button>
         </div>
       </div>
@@ -66,7 +103,7 @@
           <h2 data-i18n="navScan">Scan Analysis</h2>
           <p data-i18n="scanPageDesc">Analyze all bookmarks, provide category suggestions and duplicate detection</p>
         </header>
-        
+
         <div class="content-body">
           <div class="action-cards">
             <div class="action-card primary">
@@ -76,7 +113,7 @@
                 🔍 Start Scan
               </button>
             </div>
-            
+
             <div class="action-card">
               <h3 data-i18n="cardBackupTitle">Quick Backup</h3>
               <p data-i18n="cardBackupDesc">Create bookmark backup immediately</p>
@@ -85,7 +122,7 @@
               </button>
             </div>
           </div>
-          
+
           <!-- 进度条 -->
           <div id="progressContainer" class="progress-container hidden">
             <div class="progress-bar">
@@ -93,7 +130,7 @@
             </div>
             <p id="progressText" class="progress-text" data-i18n="progressAnalyzing">Analyzing...</p>
           </div>
-          
+
           <!-- 统计信息 -->
           <div id="statsPanel" class="stats-panel hidden">
             <div class="stat-card">
@@ -113,10 +150,11 @@
               <div class="stat-label" data-i18n="labelCategorized">Categorized</div>
             </div>
           </div>
-          
+
           <div class="info-box">
-            <strong data-i18n="infoTip">💡 Tip:</strong> 
-            <span data-i18n="infoScanTip">After scanning, switch to Categories or Duplicates page via left navigation to view detailed results. This page will not close on blur.</span>
+            <strong data-i18n="infoTip">💡 Tip:</strong>
+            <span data-i18n="infoScanTip">After scanning, switch to Categories or Duplicates page via left navigation to
+              view detailed results. This page will not close on blur.</span>
           </div>
         </div>
       </div>
@@ -130,10 +168,13 @@
 
         <div class="content-body">
           <div id="categoriesToolbar" class="list-toolbar hidden">
-            <input type="text" id="categoriesSearch" class="search-input" data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
+            <input type="text" id="categoriesSearch" class="search-input"
+              data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
             <div class="toolbar-actions">
-              <button id="expandAllCategories" class="btn btn-small btn-toolbar" data-i18n="btnExpandAll">Expand All</button>
-              <button id="collapseAllCategories" class="btn btn-small btn-toolbar" data-i18n="btnCollapseAll">Collapse All</button>
+              <button id="expandAllCategories" class="btn btn-small btn-toolbar" data-i18n="btnExpandAll">Expand
+                All</button>
+              <button id="collapseAllCategories" class="btn btn-small btn-toolbar" data-i18n="btnCollapseAll">Collapse
+                All</button>
             </div>
           </div>
           <div id="categoriesList" class="categories-list-full">
@@ -146,9 +187,10 @@
               </button>
             </div>
           </div>
-          
+
           <div class="fixed-bottom-actions hidden">
-            <button id="applyCategoriesBtnFull" class="btn btn-success btn-lg hidden" data-i18n="btnApplySelectedCategories">
+            <button id="applyCategoriesBtnFull" class="btn btn-success btn-lg hidden"
+              data-i18n="btnApplySelectedCategories">
               ✓ Apply Selected Categories
             </button>
           </div>
@@ -164,7 +206,8 @@
 
         <div class="content-body">
           <div id="duplicatesToolbar" class="list-toolbar hidden">
-            <input type="text" id="duplicatesSearch" class="search-input" data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
+            <input type="text" id="duplicatesSearch" class="search-input"
+              data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
           </div>
           <div id="duplicatesList" class="duplicates-list-full">
             <div class="empty-state-large">
@@ -176,7 +219,7 @@
               </button>
             </div>
           </div>
-          
+
           <div class="fixed-bottom-actions hidden">
             <button id="removeDuplicatesBtnFull" class="btn btn-danger btn-lg hidden" data-i18n="btnRemoveDuplicates">
               🗑 Clean Selected Duplicates
@@ -208,7 +251,8 @@
             <div class="progress-bar">
               <div id="brokenLinksProgressFill" class="progress-fill"></div>
             </div>
-            <p id="brokenLinksProgressText" class="progress-text" data-i18n="progressCheckingLinks">Checking links...</p>
+            <p id="brokenLinksProgressText" class="progress-text" data-i18n="progressCheckingLinks">Checking links...
+            </p>
           </div>
 
           <!-- 统计信息 -->
@@ -220,10 +264,13 @@
           </div>
 
           <div id="brokenLinksToolbar" class="list-toolbar hidden">
-            <input type="text" id="brokenLinksSearchInput" class="search-input" data-i18n-placeholder="placeholderSearchBroken" placeholder="Search broken links...">
+            <input type="text" id="brokenLinksSearchInput" class="search-input"
+              data-i18n-placeholder="placeholderSearchBroken" placeholder="Search broken links...">
             <div class="toolbar-actions">
-              <button id="selectAllBrokenBtn" class="btn btn-small btn-toolbar" data-i18n="btnSelectAllBroken">Select All</button>
-              <button id="deselectAllBrokenBtn" class="btn btn-small btn-toolbar" data-i18n="btnDeselectAllBroken">Deselect All</button>
+              <button id="selectAllBrokenBtn" class="btn btn-small btn-toolbar" data-i18n="btnSelectAllBroken">Select
+                All</button>
+              <button id="deselectAllBrokenBtn" class="btn btn-small btn-toolbar"
+                data-i18n="btnDeselectAllBroken">Deselect All</button>
             </div>
           </div>
 
@@ -249,17 +296,21 @@
           <h2 data-i18n="navBackups">Backups</h2>
           <p data-i18n="backupsPageDesc">Manage bookmark backups, support export and import</p>
         </header>
-        
+
         <div class="content-body">
           <div class="backup-info-box">
             <h3 data-i18n="storageInfoTitle">📍 Storage Info</h3>
             <p>
-              <strong data-i18n="storageLocation">Current Storage Location:</strong> <span data-i18n="storageLocationValue">Chrome browser internal storage (chrome.storage.local)</span><br>
-              <strong data-i18n="storageLimitation">Access Limitation:</strong> <span data-i18n="storageLimitationValue">Due to Chrome security policy, cannot directly access file system paths</span><br>
-              <strong data-i18n="storageSolution">Solution:</strong> <span data-i18n="storageSolutionValue">Use the Export Backup feature to save backups to your computer</span>
+              <strong data-i18n="storageLocation">Current Storage Location:</strong> <span
+                data-i18n="storageLocationValue">Chrome browser internal storage (chrome.storage.local)</span><br>
+              <strong data-i18n="storageLimitation">Access Limitation:</strong> <span
+                data-i18n="storageLimitationValue">Due to Chrome security policy, cannot directly access file system
+                paths</span><br>
+              <strong data-i18n="storageSolution">Solution:</strong> <span data-i18n="storageSolutionValue">Use the
+                Export Backup feature to save backups to your computer</span>
             </p>
           </div>
-          
+
           <div class="backup-actions-bar">
             <!-- 导出区域 -->
             <div class="backup-action-group">
@@ -304,7 +355,7 @@
               <button id="confirmImportBtn" class="btn btn-primary" data-i18n="btnConfirm">Confirm Import</button>
             </div>
           </div>
-          
+
           <div id="backupsListFull" class="backups-list-full">
             <div class="empty-state-large">
               <div class="empty-icon">💾</div>
@@ -321,45 +372,48 @@
           <h2 data-i18n="navSettings">Settings</h2>
           <p data-i18n="settingsPageDesc">Customize plugin behavior and preferences</p>
         </header>
-        
+
         <div class="content-body">
           <div class="settings-section">
             <h3 data-i18n="sectionGeneral">General Settings</h3>
-            
+
             <div class="setting-item">
               <label class="checkbox-setting">
                 <input type="checkbox" id="autoBackupSetting">
                 <div class="setting-info">
                   <div class="setting-title" data-i18n="settingAutoBackup">Enable Auto Backup</div>
-                  <div class="setting-desc" data-i18n="settingAutoBackupDesc">Automatically create backup before scanning</div>
+                  <div class="setting-desc" data-i18n="settingAutoBackupDesc">Automatically create backup before
+                    scanning</div>
                 </div>
               </label>
             </div>
-            
+
             <div class="setting-item">
               <label class="checkbox-setting">
                 <input type="checkbox" id="showPathSetting" checked>
                 <div class="setting-info">
                   <div class="setting-title" data-i18n="settingShowPath">Show Bookmark Path</div>
-                  <div class="setting-desc" data-i18n="settingShowPathDesc">Display folder path in duplicate detection</div>
+                  <div class="setting-desc" data-i18n="settingShowPathDesc">Display folder path in duplicate detection
+                  </div>
                 </div>
               </label>
             </div>
           </div>
-          
+
           <div class="settings-section">
             <h3 data-i18n="sectionSimilarity">Similarity Settings</h3>
-            
+
             <div class="setting-item">
               <label>
-                <div class="setting-title" data-i18n="settingSimilarityThreshold">Duplicate Detection Similarity Threshold</div>
+                <div class="setting-title" data-i18n="settingSimilarityThreshold">Duplicate Detection Similarity
+                  Threshold</div>
                 <div class="setting-desc" data-i18n="settingSimilarityDesc">Range: 50% - 95%, Default 80%</div>
                 <input type="range" id="similarityThreshold" min="50" max="95" value="80" class="range-input">
                 <div class="range-value"><span id="thresholdValue">80</span>%</div>
               </label>
             </div>
           </div>
-          
+
           <div class="settings-section">
             <h3 data-i18n="sectionCustomRules">Custom Category Rules</h3>
             <p class="setting-desc" style="margin-bottom: 16px;" data-i18n="customRulesDesc">
@@ -376,15 +430,18 @@
               </div>
               <div class="form-group">
                 <label data-i18n="labelRuleKeywords">Match Keywords</label>
-                <input type="text" id="ruleKeywordsInput" class="form-input" data-i18n-placeholder="placeholderRuleKeywords">
+                <input type="text" id="ruleKeywordsInput" class="form-input"
+                  data-i18n-placeholder="placeholderRuleKeywords">
               </div>
               <div class="form-group">
                 <label data-i18n="labelRuleDomains">Match Domains</label>
-                <input type="text" id="ruleDomainsInput" class="form-input" data-i18n-placeholder="placeholderRuleDomains">
+                <input type="text" id="ruleDomainsInput" class="form-input"
+                  data-i18n-placeholder="placeholderRuleDomains">
               </div>
               <div class="form-actions">
                 <button id="saveRuleBtn" class="btn btn-primary" data-i18n="btnSaveRule">Save Rule</button>
-                <button id="cancelRuleBtn" class="btn btn-outline" data-i18n="btnCancel" style="color: #667eea; border-color: #667eea;">Cancel</button>
+                <button id="cancelRuleBtn" class="btn btn-outline" data-i18n="btnCancel"
+                  style="color: #667eea; border-color: #667eea;">Cancel</button>
               </div>
             </div>
 
@@ -412,8 +469,10 @@
 
             <div class="custom-skin-upload">
               <input type="file" id="customSkinImageInput" accept="image/*" style="display: none;">
-              <label for="customSkinImageInput" class="btn btn-secondary" data-i18n="btnUploadImage">Upload Image</label>
-              <button id="resetCustomSkinBtn" class="btn btn-outline hidden" data-i18n="btnResetCustomSkin">Reset Custom Skin</button>
+              <label for="customSkinImageInput" class="btn btn-secondary" data-i18n="btnUploadImage">Upload
+                Image</label>
+              <button id="resetCustomSkinBtn" class="btn btn-outline hidden" data-i18n="btnResetCustomSkin">Reset Custom
+                Skin</button>
             </div>
 
             <div id="customSkinPreview" class="custom-skin-preview hidden">
@@ -422,7 +481,8 @@
             </div>
 
             <div class="setting-item setting-item-inline" style="margin-top: 16px;">
-              <button id="applyCustomSkinBtn" class="btn btn-primary hidden" data-i18n="btnApplyCustomSkin">Apply Custom Skin</button>
+              <button id="applyCustomSkinBtn" class="btn btn-primary hidden" data-i18n="btnApplyCustomSkin">Apply Custom
+                Skin</button>
             </div>
           </div>
 
@@ -458,15 +518,17 @@
               <button id="exportLogsBtn" class="btn btn-secondary" data-i18n="btnExportLogs">Export Logs</button>
             </div>
           </div>
-          
+
           <div class="info-box">
             <strong data-i18n="infoDataStorage">ℹ️ About Data Storage:</strong><br>
-            <span data-i18n="infoDataStorageDesc">Chrome extension data is stored in the browser sandbox and cannot specify custom paths. To backup to other locations, please use the Export Backup feature to download JSON files.</span>
+            <span data-i18n="infoDataStorageDesc">Chrome extension data is stored in the browser sandbox and cannot
+              specify custom paths. To backup to other locations, please use the Export Backup feature to download JSON
+              files.</span>
           </div>
         </div>
       </div>
     </main>
-    
+
     <!-- 消息提示 -->
     <div id="messageBox" class="message-box hidden"></div>
   </div>
@@ -500,4 +562,5 @@
 
   <script type="module" src="options.js"></script>
 </body>
+
 </html>

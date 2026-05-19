@@ -91,3 +91,5 @@ jobs:
         with:
           files: artifacts/**/*
           generate_release_notes: false
+          name: ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.body }}

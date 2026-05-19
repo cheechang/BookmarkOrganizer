@@ -14,13 +14,17 @@ chrome.runtime.onInstalled.addListener((details) => {
 
 // 点击图标时打开完整版页面
 chrome.action.onClicked.addListener((tab) => {
-  chrome.runtime.openOptionsPage(() => {
-    if (chrome.runtime.lastError) {
-      console.error('Failed to open options page:', chrome.runtime.lastError.message);
-      // Fallback: create a new tab with options page URL
-      chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
-    }
-  });
+  try {
+    chrome.runtime.openOptionsPage(() => {
+      if (chrome.runtime.lastError) {
+        console.error('Failed to open options page:', chrome.runtime.lastError.message);
+        chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
+      }
+    });
+  } catch (error) {
+    console.error('Error opening options page:', error);
+    chrome.tabs.create({ url: chrome.runtime.getURL('options.html') });
+  }
 });
 
 // 初始化默认设置

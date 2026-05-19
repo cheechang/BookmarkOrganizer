@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="theme-system.css">
   <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
   <div class="container">
     <header>
@@ -59,19 +61,36 @@
     <!-- 标签页导航 -->
     <nav class="tabs">
       <button class="tab-btn active" data-tab="categories">
-        <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h4l1.5 2.5h6.5v6H2z"/></svg>
+        <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 4h4l1.5 2.5h6.5v6H2z" />
+        </svg>
         <span data-i18n="tabCategories">Categories</span>
       </button>
       <button class="tab-btn" data-tab="duplicates">
-        <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="6" y="6" width="7" height="7" rx="1"/></svg>
+        <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1" />
+          <rect x="6" y="6" width="7" height="7" rx="1" />
+        </svg>
         <span data-i18n="tabDuplicates">Duplicates</span>
       </button>
       <button class="tab-btn" data-tab="backups">
-        <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2.5v7"/><path d="M5.5 8.5L8 11l2.5-2.5"/><path d="M2 12.5h12"/></svg>
+        <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 2.5v7" />
+          <path d="M5.5 8.5L8 11l2.5-2.5" />
+          <path d="M2 12.5h12" />
+        </svg>
         <span data-i18n="tabBackups">Backups</span>
       </button>
       <button class="tab-btn" data-tab="brokenLinks">
-        <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6q-2 2 0 4"/><path d="M12 6q2 2 0 4"/><path d="M5.5 10.5l5-5"/></svg>
+        <svg class="tab-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 6q-2 2 0 4" />
+          <path d="M12 6q2 2 0 4" />
+          <path d="M5.5 10.5l5-5" />
+        </svg>
         <span data-i18n="navBrokenLinks">Broken Links</span>
       </button>
     </nav>
@@ -81,10 +100,13 @@
       <!-- 分类建议面板 -->
       <div id="categoriesTab" class="tab-content active">
         <div id="categoriesToolbar" class="list-toolbar hidden">
-          <input type="text" id="categoriesSearch" class="search-input" data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
+          <input type="text" id="categoriesSearch" class="search-input"
+            data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
           <div class="toolbar-actions">
-            <button id="expandAllCategories" class="btn btn-small btn-toolbar" data-i18n="btnExpandAll">Expand All</button>
-            <button id="collapseAllCategories" class="btn btn-small btn-toolbar" data-i18n="btnCollapseAll">Collapse All</button>
+            <button id="expandAllCategories" class="btn btn-small btn-toolbar" data-i18n="btnExpandAll">Expand
+              All</button>
+            <button id="collapseAllCategories" class="btn btn-small btn-toolbar" data-i18n="btnCollapseAll">Collapse
+              All</button>
           </div>
         </div>
         <div id="categoriesList" class="categories-list">
@@ -95,7 +117,8 @@
       <!-- 重复检测面板 -->
       <div id="duplicatesTab" class="tab-content">
         <div id="duplicatesToolbar" class="list-toolbar hidden">
-          <input type="text" id="duplicatesSearch" class="search-input" data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
+          <input type="text" id="duplicatesSearch" class="search-input"
+            data-i18n-placeholder="placeholderSearchBookmarks" placeholder="Search bookmarks...">
         </div>
         <div id="duplicatesList" class="duplicates-list">
           <p class="empty-state" data-i18n="emptyClickScanDup">Click "Start Scan" to detect duplicate bookmarks</p>
@@ -133,7 +156,8 @@
           <div class="progress-bar">
             <div id="brokenLinksProgressFillPopup" class="progress-fill"></div>
           </div>
-          <p id="brokenLinksProgressTextPopup" class="progress-text" data-i18n="progressCheckingLinks">Checking links...</p>
+          <p id="brokenLinksProgressTextPopup" class="progress-text" data-i18n="progressCheckingLinks">Checking links...
+          </p>
         </div>
         <div id="brokenLinksStatsPopup" class="stats-panel hidden">
           <div class="stat-item">
@@ -142,10 +166,13 @@
           </div>
         </div>
         <div id="brokenLinksToolbarPopup" class="list-toolbar hidden">
-          <input type="text" id="brokenLinksSearchInputPopup" class="search-input" data-i18n-placeholder="placeholderSearchBroken" placeholder="Search broken links...">
+          <input type="text" id="brokenLinksSearchInputPopup" class="search-input"
+            data-i18n-placeholder="placeholderSearchBroken" placeholder="Search broken links...">
           <div class="toolbar-actions">
-            <button id="selectAllBrokenBtnPopup" class="btn btn-small btn-toolbar" data-i18n="btnSelectAllBroken">Select All</button>
-            <button id="deselectAllBrokenBtnPopup" class="btn btn-small btn-toolbar" data-i18n="btnDeselectAllBroken">Deselect All</button>
+            <button id="selectAllBrokenBtnPopup" class="btn btn-small btn-toolbar" data-i18n="btnSelectAllBroken">Select
+              All</button>
+            <button id="deselectAllBrokenBtnPopup" class="btn btn-small btn-toolbar"
+              data-i18n="btnDeselectAllBroken">Deselect All</button>
             <select id="brokenLinksSortPopup" class="sort-select">
               <option value="" data-i18n="labelSort">Sort</option>
               <option value="title" data-i18n="labelTitle">Title</option>
@@ -177,11 +204,21 @@
 
     <!-- 底部工具栏 -->
     <div class="bottom-bar">
-      <button id="checkUpdateBtn" class="btn btn-small btn-toolbar" data-i18n="btnCheckUpdate">Check for Updates</button>
+      <button id="checkUpdateBtn" class="btn btn-small btn-toolbar" data-i18n="btnCheckUpdate">Check for
+        Updates</button>
       <button id="themeToggle" class="theme-toggle" title="Toggle Dark Mode">
-              <svg class="theme-icon icon-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 10.5c0 3.5-2.5 6.5-6 6.5-3 0-5.5-2-6-5 .5.5 1.5 1 2.5 1 3 0 5.5-2.5 5.5-5.5 0-1-.5-2-1-2.5 3 .5 5 3 5 5.5z"/></svg>
-              <svg class="theme-icon icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><circle cx="10" cy="10" r="3.5"/><path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.6 4.6l1.4 1.4M14 14l1.4 1.4M4.6 15.4l1.4-1.4M14 6l1.4-1.4"/></svg>
-            </button>
+        <svg class="theme-icon icon-moon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path
+            d="M17 10.5c0 3.5-2.5 6.5-6 6.5-3 0-5.5-2-6-5 .5.5 1.5 1 2.5 1 3 0 5.5-2.5 5.5-5.5 0-1-.5-2-1-2.5 3 .5 5 3 5 5.5z" />
+        </svg>
+        <svg class="theme-icon icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round" style="display:none">
+          <circle cx="10" cy="10" r="3.5" />
+          <path
+            d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.6 4.6l1.4 1.4M14 14l1.4 1.4M4.6 15.4l1.4-1.4M14 6l1.4-1.4" />
+        </svg>
+      </button>
     </div>
 
     <!-- 消息提示 -->
@@ -217,4 +254,5 @@
 
   <script type="module" src="popup.js"></script>
 </body>
+
 </html>
