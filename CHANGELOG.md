@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.9.2] - 2026-04-23
+
+### Fixed
+
+- **Sidebar Footer Layout**
+  - Corrected the sidebar footer row grouping:
+    - Row 1: Check-for-Updates button + Dark-mode toggle.
+    - Row 2: Skin selector + Language selector.
+  - Added `flex: 1` to the Check-for-Updates button so it stretches properly alongside the fixed-width theme toggle.
+
+- **Skin Color Contrast (Continued)**
+  - Further improved dark-mode text contrast for 5 skins (excluding Frosted Glass):
+    - **Default**: `text-muted` `#9090a0` → `#a0a0b0`.
+    - **Minimal Business**: `text-muted` `#808080` → `#a0a0a0`.
+    - **Classic Nostalgic**: `text-secondary` `#c0b8b0` → `#d0c8c0`; `text-muted` `#a09888` → `#d0c8b8`.
+    - **Nature Low Saturation**: `text-muted` `#809080` → `#a0b0a0`.
+
 ## [1.9.1] - 2026-04-23
 
 ### Fixed

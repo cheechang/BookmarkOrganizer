@@ -158,6 +158,14 @@ body {
   min-width: 0;
 }
 
+.footer-row #checkUpdateBtn {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* 主内容区 */
 .main-content {
   flex: 1;
