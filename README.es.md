@@ -62,7 +62,8 @@ Haz clic en el icono de la barra de herramientas para abrir la **interfaz de pá
 
 ### Método 2: Tienda de Extensiones del Navegador
 
-Enviado a Microsoft Edge Add-ons. Una vez aprobado, busca "Bookmark Organizer" para instalar.
+- **Microsoft Edge Add-ons**: [Bookmark Organizer](https://www.crxsoso.com/addon/detail/obmalmnejfkdbbphdmlkimjhfefgfcem)
+- **Firefox Add-ons**: [BookmarkTidy](https://addons.crxsoso.com/zh-CN/firefox/addon/bookmarktidy/)
 
 ---
 

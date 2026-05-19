@@ -62,7 +62,8 @@ Bookmark Organizer 是一个浏览器扩展，能帮你自动把杂乱的 bookma
 
 ### 方式二：浏览器扩展商店
 
-已提交至 Microsoft Edge Add-ons，审核通过后即可搜索 "Bookmark Organizer" 安装。
+- **Microsoft Edge 扩展商店**: [Bookmark Organizer](https://www.crxsoso.com/addon/detail/obmalmnejfkdbbphdmlkimjhfefgfcem)
+- **Firefox 扩展商店**: [BookmarkTidy](https://addons.crxsoso.com/zh-CN/firefox/addon/bookmarktidy/)
 
 ---
 

@@ -62,7 +62,8 @@ Click the toolbar icon to open the **full-page interface** (`options.html`). The
 
 ### Method 2: Browser Extension Store
 
-Submitted to Microsoft Edge Add-ons. Once approved, search for "Bookmark Organizer" to install.
+- **Microsoft Edge Add-ons**: [Bookmark Organizer](https://www.crxsoso.com/addon/detail/obmalmnejfkdbbphdmlkimjhfefgfcem)
+- **Firefox Add-ons**: [BookmarkTidy](https://addons.crxsoso.com/zh-CN/firefox/addon/bookmarktidy/)
 
 ---
 

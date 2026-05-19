@@ -62,7 +62,8 @@ Klicken Sie auf das Symbol in der Symbolleiste, um die **Vollbild-Oberfläche** 
 
 ### Methode 2: Browser-Erweiterungs-Store
 
-Eingereicht bei Microsoft Edge Add-ons. Sobald genehmigt, suchen Sie nach "Bookmark Organizer", um es zu installieren.
+- **Microsoft Edge Add-ons**: [Bookmark Organizer](https://www.crxsoso.com/addon/detail/obmalmnejfkdbbphdmlkimjhfefgfcem)
+- **Firefox Add-ons**: [BookmarkTidy](https://addons.crxsoso.com/zh-CN/firefox/addon/bookmarktidy/)
 
 ---
 
