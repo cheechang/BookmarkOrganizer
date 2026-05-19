@@ -739,6 +739,66 @@
     "message": "ナチュラル低彩度",
     "description": "Nature low saturation skin name"
   },
+  "skinOceanDeep": {
+    "message": "深海ブルー",
+    "description": "Ocean deep skin name"
+  },
+  "skinSunsetGlow": {
+    "message": "サンセットグロー",
+    "description": "Sunset glow skin name"
+  },
+  "skinStarryNight": {
+    "message": "スターリーナイト",
+    "description": "Starry night skin name"
+  },
+  "skinCherryBlossom": {
+    "message": "桜ピンク",
+    "description": "Cherry blossom skin name"
+  },
+  "skinCustom": {
+    "message": "カスタム",
+    "description": "Custom skin name"
+  },
+  "sectionCustomSkin": {
+    "message": "カスタムスキン",
+    "description": "Custom skin section title"
+  },
+  "customSkinDesc": {
+    "message": "画像をアップロードして、その色に基づいてパーソナライズされたテーマを生成します。",
+    "description": "Custom skin description"
+  },
+  "btnUploadImage": {
+    "message": "画像をアップロード",
+    "description": "Upload image button"
+  },
+  "btnResetCustomSkin": {
+    "message": "カスタムスキンをリセット",
+    "description": "Reset custom skin button"
+  },
+  "btnApplyCustomSkin": {
+    "message": "カスタムスキンを適用",
+    "description": "Apply custom skin button"
+  },
+  "msgAnalyzingImage": {
+    "message": "画像を分析中...",
+    "description": "Analyzing image message"
+  },
+  "msgImageAnalyzed": {
+    "message": "画像の分析が完了しました！適用をクリックしてください。",
+    "description": "Image analyzed success message"
+  },
+  "msgImageAnalysisFailed": {
+    "message": "画像の分析に失敗しました。別の画像を試してください。",
+    "description": "Image analysis failed message"
+  },
+  "msgCustomSkinApplied": {
+    "message": "カスタムスキンを適用しました！",
+    "description": "Custom skin applied message"
+  },
+  "msgCustomSkinReset": {
+    "message": "カスタムスキンをリセットしました。",
+    "description": "Custom skin reset message"
+  },
   "emptyNoResults": {
     "message": "該当する結果がありません",
     "description": "Empty state when search returns no results"

@@ -739,6 +739,66 @@
     "message": "Nature Low Saturation",
     "description": "Nature low saturation skin name"
   },
+  "skinOceanDeep": {
+    "message": "Ocean Deep",
+    "description": "Ocean deep skin name"
+  },
+  "skinSunsetGlow": {
+    "message": "Sunset Glow",
+    "description": "Sunset glow skin name"
+  },
+  "skinStarryNight": {
+    "message": "Starry Night",
+    "description": "Starry night skin name"
+  },
+  "skinCherryBlossom": {
+    "message": "Cherry Blossom",
+    "description": "Cherry blossom skin name"
+  },
+  "skinCustom": {
+    "message": "Custom",
+    "description": "Custom skin name"
+  },
+  "sectionCustomSkin": {
+    "message": "Custom Skin",
+    "description": "Custom skin section title"
+  },
+  "customSkinDesc": {
+    "message": "Upload an image to generate a personalized theme based on its colors.",
+    "description": "Custom skin description"
+  },
+  "btnUploadImage": {
+    "message": "Upload Image",
+    "description": "Upload image button"
+  },
+  "btnResetCustomSkin": {
+    "message": "Reset Custom Skin",
+    "description": "Reset custom skin button"
+  },
+  "btnApplyCustomSkin": {
+    "message": "Apply Custom Skin",
+    "description": "Apply custom skin button"
+  },
+  "msgAnalyzingImage": {
+    "message": "Analyzing image...",
+    "description": "Analyzing image message"
+  },
+  "msgImageAnalyzed": {
+    "message": "Image analyzed! Click Apply to use.",
+    "description": "Image analyzed success message"
+  },
+  "msgImageAnalysisFailed": {
+    "message": "Image analysis failed. Please try another image.",
+    "description": "Image analysis failed message"
+  },
+  "msgCustomSkinApplied": {
+    "message": "Custom skin applied!",
+    "description": "Custom skin applied message"
+  },
+  "msgCustomSkinReset": {
+    "message": "Custom skin reset.",
+    "description": "Custom skin reset message"
+  },
   "emptyNoResults": {
     "message": "No matching results",
     "description": "Empty state when search returns no results"

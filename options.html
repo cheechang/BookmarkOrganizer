@@ -405,6 +405,28 @@
           </div>
 
           <div class="settings-section">
+            <h3 data-i18n="sectionCustomSkin">Custom Skin</h3>
+            <p class="setting-desc" style="margin-bottom: 16px;" data-i18n="customSkinDesc">
+              Upload an image to generate a personalized theme based on its colors.
+            </p>
+
+            <div class="custom-skin-upload">
+              <input type="file" id="customSkinImageInput" accept="image/*" style="display: none;">
+              <label for="customSkinImageInput" class="btn btn-secondary" data-i18n="btnUploadImage">Upload Image</label>
+              <button id="resetCustomSkinBtn" class="btn btn-outline hidden" data-i18n="btnResetCustomSkin">Reset Custom Skin</button>
+            </div>
+
+            <div id="customSkinPreview" class="custom-skin-preview hidden">
+              <img id="customSkinPreviewImg" src="" alt="Preview">
+              <div class="custom-skin-palette" id="customSkinPalette"></div>
+            </div>
+
+            <div class="setting-item setting-item-inline" style="margin-top: 16px;">
+              <button id="applyCustomSkinBtn" class="btn btn-primary hidden" data-i18n="btnApplyCustomSkin">Apply Custom Skin</button>
+            </div>
+          </div>
+
+          <div class="settings-section">
             <h3 data-i18n="sectionLogSettings">Log Settings</h3>
 
             <div class="setting-item">

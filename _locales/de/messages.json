@@ -739,6 +739,66 @@
     "message": "Natur Niedrige Sättigung",
     "description": "Nature low saturation skin name"
   },
+  "skinOceanDeep": {
+    "message": "Tiefes Meer",
+    "description": "Ocean deep skin name"
+  },
+  "skinSunsetGlow": {
+    "message": "Sonnenuntergang",
+    "description": "Sunset glow skin name"
+  },
+  "skinStarryNight": {
+    "message": "Sternennacht",
+    "description": "Starry night skin name"
+  },
+  "skinCherryBlossom": {
+    "message": "Kirschblüte",
+    "description": "Cherry blossom skin name"
+  },
+  "skinCustom": {
+    "message": "Benutzerdefiniert",
+    "description": "Custom skin name"
+  },
+  "sectionCustomSkin": {
+    "message": "Benutzerdefiniertes Skin",
+    "description": "Custom skin section title"
+  },
+  "customSkinDesc": {
+    "message": "Laden Sie ein Bild hoch, um ein personalisiertes Theme basierend auf dessen Farben zu generieren.",
+    "description": "Custom skin description"
+  },
+  "btnUploadImage": {
+    "message": "Bild hochladen",
+    "description": "Upload image button"
+  },
+  "btnResetCustomSkin": {
+    "message": "Benutzerdefiniertes Skin zurücksetzen",
+    "description": "Reset custom skin button"
+  },
+  "btnApplyCustomSkin": {
+    "message": "Benutzerdefiniertes Skin anwenden",
+    "description": "Apply custom skin button"
+  },
+  "msgAnalyzingImage": {
+    "message": "Bild wird analysiert...",
+    "description": "Analyzing image message"
+  },
+  "msgImageAnalyzed": {
+    "message": "Bild analysiert! Klicken Sie auf Anwenden, um zu verwenden.",
+    "description": "Image analyzed success message"
+  },
+  "msgImageAnalysisFailed": {
+    "message": "Bildanalyse fehlgeschlagen. Bitte versuchen Sie ein anderes Bild.",
+    "description": "Image analysis failed message"
+  },
+  "msgCustomSkinApplied": {
+    "message": "Benutzerdefiniertes Skin angewendet!",
+    "description": "Custom skin applied message"
+  },
+  "msgCustomSkinReset": {
+    "message": "Benutzerdefiniertes Skin zurückgesetzt.",
+    "description": "Custom skin reset message"
+  },
   "emptyNoResults": {
     "message": "Keine passenden Ergebnisse",
     "description": "Empty state when search returns no results"

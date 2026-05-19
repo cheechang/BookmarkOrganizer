@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.9.6] - 2026-04-23
+### Added
+- **4 New Skins**
+  - Ocean Deep: Deep blue gradient theme with ocean-inspired color palette
+  - Sunset Glow: Warm orange-red gradient theme with sunset-inspired colors
+  - Starry Night: Deep purple-blue gradient theme with celestial atmosphere
+  - Cherry Blossom: Soft pink gradient theme with romantic sakura colors
+  - Each skin includes complete light/dark mode variable sets with proper contrast ratios
+- **Custom Skin Feature**
+  - New "Custom Skin" section in Settings page
+  - Upload any image to generate a personalized theme based on its dominant colors
+  - Automatic color extraction using canvas pixel analysis with binning algorithm
+  - Dynamic CSS variable generation ensuring text/background contrast compliance
+  - Custom skin persisted to local storage and available in skin selector across popup and options pages
+  - Preview with color palette swatches before applying
+  - Reset function to remove custom skin and revert to default
+
 ## [1.9.5] - 2026-04-23
 ### Fixed
 - **Skin Selector Dropdown Options**

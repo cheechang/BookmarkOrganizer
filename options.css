@@ -2224,3 +2224,46 @@ body[data-theme="dark"] .legend-desc {
 body[data-theme="dark"] .scroll-assist-btn {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
+
+/* ==================== Custom Skin ==================== */
+
+.custom-skin-upload {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.custom-skin-preview {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.custom-skin-preview img {
+  max-width: 200px;
+  max-height: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--bo-border);
+}
+
+.custom-skin-palette {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.color-swatch {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--bo-border);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Custom skin option in selector */
+.skin-selector option[value="custom"] {
+  font-style: italic;
+}

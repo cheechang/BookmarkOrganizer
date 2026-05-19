@@ -28,12 +28,19 @@ const SKINS = [
   { id: 'classic-nostalgic', nameKey: 'skinClassicNostalgic' },
   { id: 'high-contrast-mono', nameKey: 'skinHighContrastMono' },
   { id: 'frosted-glass', nameKey: 'skinFrostedGlass' },
-  { id: 'nature-low-saturation', nameKey: 'skinNatureLowSaturation' }
+  { id: 'nature-low-saturation', nameKey: 'skinNatureLowSaturation' },
+  { id: 'ocean-deep', nameKey: 'skinOceanDeep' },
+  { id: 'sunset-glow', nameKey: 'skinSunsetGlow' },
+  { id: 'starry-night', nameKey: 'skinStarryNight' },
+  { id: 'cherry-blossom', nameKey: 'skinCherryBlossom' }
 ];
 
+let customSkinData = null;
+
 async function initSkin() {
-  const result = await chrome.storage.local.get('skin');
+  const result = await chrome.storage.local.get(['skin', 'customSkin']);
   const skin = result.skin || 'browser-native';
+  customSkinData = result.customSkin || null;
   applySkin(skin);
 }
 
@@ -42,6 +49,20 @@ function applySkin(skin) {
   const selector = document.getElementById('skinSelector');
   if (selector) {
     selector.value = skin;
+  }
+  // Handle custom skin injection
+  const existingStyle = document.getElementById('custom-skin-style');
+  if (skin === 'custom' && customSkinData && customSkinData.css) {
+    if (existingStyle) {
+      existingStyle.textContent = customSkinData.css;
+    } else {
+      const style = document.createElement('style');
+      style.id = 'custom-skin-style';
+      style.textContent = customSkinData.css;
+      document.head.appendChild(style);
+    }
+  } else if (existingStyle) {
+    existingStyle.remove();
   }
 }
 
@@ -64,6 +85,17 @@ function initSkinSelector() {
     }
     selector.appendChild(option);
   });
+
+  // Add custom skin option if exists
+  if (customSkinData) {
+    const customOption = document.createElement('option');
+    customOption.value = 'custom';
+    customOption.textContent = customSkinData.name || _t('skinCustom') || 'Custom';
+    if ('custom' === document.body.getAttribute('data-skin')) {
+      customOption.selected = true;
+    }
+    selector.appendChild(customOption);
+  }
 
   selector.addEventListener('change', (e) => {
     setSkin(e.target.value);
@@ -112,6 +144,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initSkinSelector();
   await initTheme();
   await loadLogSettings();
+  await initCustomSkinUI();
 });
 
 // 初始化语言选择器
@@ -1994,4 +2027,374 @@ async function handleExportLogs() {
   }
   await chrome.downloads.download({ url: result.url, filename: result.filename, saveAs: true });
   showMessage(_t('logExported'), 'success');
+}
+
+// ==================== 自定义皮肤 ====================
+
+async function extractDominantColors(imageUrl) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const size = 50;
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, size, size);
+      const data = ctx.getImageData(0, 0, size, size).data;
+
+      const bins = {};
+      const binSize = 24;
+      let totalR = 0, totalG = 0, totalB = 0;
+      let count = 0;
+
+      for (let i = 0; i < data.length; i += 16) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const a = data[i + 3];
+        if (a < 128) continue;
+
+        totalR += r; totalG += g; totalB += b;
+        count++;
+
+        const br = Math.floor(r / binSize);
+        const bg = Math.floor(g / binSize);
+        const bb = Math.floor(b / binSize);
+        const key = `${br},${bg},${bb}`;
+        bins[key] = (bins[key] || 0) + 1;
+      }
+
+      const sorted = Object.entries(bins).sort((a, b) => b[1] - a[1]);
+      const top1 = sorted[0] ? sorted[0][0].split(',').map(Number).map(v => v * binSize + binSize / 2) : [100, 100, 100];
+      const top2 = sorted[1] ? sorted[1][0].split(',').map(Number).map(v => v * binSize + binSize / 2) : [top1[0] + 30, top1[1] + 20, top1[2] + 10];
+
+      const avg = count > 0 ? [Math.round(totalR / count), Math.round(totalG / count), Math.round(totalB / count)] : top1;
+
+      resolve({
+        primary: top1.map(Math.round),
+        secondary: top2.map(Math.round),
+        average: avg,
+        imageUrl: imageUrl
+      });
+    };
+    img.onerror = reject;
+    img.src = imageUrl;
+  });
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h, s, l = (max + min) / 2;
+
+  if (max === min) {
+    h = s = 0;
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
+    }
+  }
+  return [h * 360, s * 100, l * 100];
+}
+
+function hslToRgb(h, s, l) {
+  h /= 360; s /= 100; l /= 100;
+  let r, g, b;
+  if (s === 0) {
+    r = g = b = l;
+  } else {
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    };
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+    const p = 2 * l - q;
+    r = hue2rgb(p, q, h + 1/3);
+    g = hue2rgb(p, q, h);
+    b = hue2rgb(p, q, h - 1/3);
+  }
+  return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+}
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(x => x.toString(16).padStart(2, '0')).join('');
+}
+
+function getLuminance(r, g, b) {
+  const a = [r, g, b].map(v => {
+    v /= 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+function generateCustomSkinCSS(colors) {
+  const [pr, pg, pb] = colors.primary;
+  const [sr, sg, sb] = colors.secondary;
+  const [ar, ag, ab] = colors.average;
+
+  const primaryHsl = rgbToHsl(pr, pg, pb);
+  const secondaryHsl = rgbToHsl(sr, sg, sb);
+
+  // Generate light mode colors
+  const sidebarStart = rgbToHex(...colors.primary);
+  const sidebarEnd = rgbToHex(...colors.secondary);
+
+  const bgBody = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.3, 5), Math.max(primaryHsl[2] * 1.4, 96)));
+  const bgCard = '#ffffff';
+  const bgItem = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.2, 3), Math.max(primaryHsl[2] * 1.25, 97)));
+  const bgItemHover = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.25, 4), Math.max(primaryHsl[2] * 1.15, 94)));
+
+  const accent = rgbToHex(...colors.primary);
+  const accentHover = rgbToHex(...hslToRgb(primaryHsl[0], Math.min(primaryHsl[1] * 1.1, 95), Math.max(primaryHsl[2] * 0.85, 30)));
+
+  // Text colors based on sidebar luminance
+  const sidebarLum = getLuminance(pr, pg, pb);
+  const textSidebar = sidebarLum > 0.5 ? '#1a1a2e' : '#ffffff';
+  const textPrimary = '#2c3e50';
+  const textSecondary = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.5, 15), 45));
+  const textMuted = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.3, 10), 60));
+
+  const border = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.15, 5), 88));
+
+  // Dark mode
+  const darkBgBody = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.4, 8), 8));
+  const darkBgCard = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.35, 6), 14));
+  const darkBgSidebar = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.5, 12), 18));
+  const darkBgItem = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.3, 6), 18));
+  const darkBgItemHover = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.35, 8), 24));
+
+  const darkTextPrimary = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.2, 10), 90));
+  const darkTextSecondary = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.3, 15), 70));
+  const darkTextSidebar = getLuminance(
+    ...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.5, 12), 18)
+  ) > 0.5 ? '#1a1a2e' : '#e0e0e0';
+  const darkTextMuted = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.25, 10), 55));
+
+  const darkBorder = rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.2, 5), 25));
+
+  // Complementary colors for buttons
+  const dangerHsl = [(primaryHsl[0] + 180) % 360, 70, 55];
+  const successHsl = [(primaryHsl[0] + 120) % 360, 60, 45];
+
+  const css = `/* Custom Skin Generated */
+body[data-skin="custom"] {
+  --bo-bg-body: ${bgBody};
+  --bo-bg-page: ${bgBody};
+  --bo-bg-card: ${bgCard};
+  --bo-bg-sidebar: linear-gradient(135deg, ${sidebarStart} 0%, ${sidebarEnd} 100%);
+  --bo-bg-header: ${bgCard};
+  --bo-bg-input: ${bgCard};
+  --bo-bg-item: ${bgItem};
+  --bo-bg-item-hover: ${bgItemHover};
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: ${bgCard};
+  --bo-bg-stat: ${bgCard};
+
+  --bo-text-primary: ${textPrimary};
+  --bo-text-secondary: ${textSecondary};
+  --bo-text-sidebar: ${textSidebar};
+  --bo-text-on-accent: #ffffff;
+  --bo-text-muted: ${textMuted};
+
+  --bo-border: ${border};
+  --bo-border-sidebar: rgba(255,255,255,0.2);
+  --bo-border-input: ${border};
+  --bo-border-card: ${border};
+
+  --bo-accent: ${accent};
+  --bo-accent-hover: ${accentHover};
+  --bo-btn-primary: linear-gradient(135deg, ${accent} 0%, ${accentHover} 100%);
+  --bo-btn-secondary: linear-gradient(135deg, ${rgbToHex(...hslToRgb(secondaryHsl[0], secondaryHsl[1], secondaryHsl[2]))} 0%, ${rgbToHex(...hslToRgb(secondaryHsl[0], secondaryHsl[1] * 0.8, secondaryHsl[2] * 0.9))} 100%);
+  --bo-btn-danger: linear-gradient(135deg, ${rgbToHex(...hslToRgb(dangerHsl[0], dangerHsl[1], dangerHsl[2]))} 0%, ${rgbToHex(...hslToRgb(dangerHsl[0], dangerHsl[1], dangerHsl[2] * 0.8))} 100%);
+  --bo-btn-success: linear-gradient(135deg, ${rgbToHex(...hslToRgb(successHsl[0], successHsl[1], successHsl[2]))} 0%, ${rgbToHex(...hslToRgb(successHsl[0], successHsl[1], successHsl[2] * 0.8))} 100%);
+  --bo-btn-primary-text: #ffffff;
+  --bo-btn-secondary-text: ${textPrimary};
+  --bo-btn-danger-text: #ffffff;
+  --bo-btn-success-text: #ffffff;
+
+  --bo-progress-bg: ${border};
+  --bo-progress-fill: linear-gradient(90deg, ${accent} 0%, ${accentHover} 100%);
+  --bo-tab-text: ${textSecondary};
+  --bo-tab-active-text: ${accent};
+  --bo-tab-active-bg: rgba(${pr},${pg},${pb},0.1);
+  --bo-tab-hover-bg: ${bgItem};
+
+  --bo-shadow: rgba(${ar},${ag},${ab},0.12);
+  --bo-shadow-sm: rgba(${ar},${ag},${ab},0.08);
+  --bo-scrollbar: ${rgbToHex(...hslToRgb(primaryHsl[0], 20, 75))};
+  --bo-scrollbar-hover: ${rgbToHex(...hslToRgb(primaryHsl[0], 25, 65))};
+  --bo-link: ${accentHover};
+  --bo-path-bg: rgba(${pr},${pg},${pb},0.08);
+  --bo-path-text: ${accentHover};
+}
+
+body[data-skin="custom"][data-theme="dark"] {
+  --bo-bg-body: ${darkBgBody};
+  --bo-bg-page: ${darkBgBody};
+  --bo-bg-card: ${darkBgCard};
+  --bo-bg-sidebar: linear-gradient(135deg, ${darkBgSidebar} 0%, ${rgbToHex(...hslToRgb(primaryHsl[0], Math.max(primaryHsl[1] * 0.4, 10), 12))} 100%);
+  --bo-bg-header: ${darkBgCard};
+  --bo-bg-input: ${darkBgBody};
+  --bo-bg-item: ${darkBgItem};
+  --bo-bg-item-hover: ${darkBgItemHover};
+  --bo-bg-toolbar: transparent;
+  --bo-bg-tab: ${darkBgCard};
+  --bo-bg-stat: ${darkBgCard};
+
+  --bo-text-primary: ${darkTextPrimary};
+  --bo-text-secondary: ${darkTextSecondary};
+  --bo-text-sidebar: ${darkTextSidebar};
+  --bo-text-on-accent: ${darkBgBody};
+  --bo-text-muted: ${darkTextMuted};
+
+  --bo-border: ${darkBorder};
+  --bo-border-sidebar: rgba(255,255,255,0.1);
+  --bo-border-input: ${darkBorder};
+  --bo-border-card: ${darkBorder};
+
+  --bo-accent: ${rgbToHex(...hslToRgb(primaryHsl[0], Math.min(primaryHsl[1] * 1.1, 90), Math.min(primaryHsl[2] * 1.3, 70)))};
+  --bo-accent-hover: ${rgbToHex(...hslToRgb(primaryHsl[0], Math.min(primaryHsl[1] * 1.2, 95), Math.min(primaryHsl[2] * 1.5, 80)))};
+  --bo-btn-primary: linear-gradient(135deg, ${accent} 0%, ${accentHover} 100%);
+  --bo-btn-secondary: linear-gradient(135deg, ${rgbToHex(...hslToRgb(secondaryHsl[0], secondaryHsl[1], secondaryHsl[2] * 0.7))} 0%, ${rgbToHex(...hslToRgb(secondaryHsl[0], secondaryHsl[1] * 0.8, secondaryHsl[2] * 0.6))} 100%);
+  --bo-btn-danger: linear-gradient(135deg, ${rgbToHex(...hslToRgb(dangerHsl[0], dangerHsl[1], dangerHsl[2]))} 0%, ${rgbToHex(...hslToRgb(dangerHsl[0], dangerHsl[1], dangerHsl[2] * 0.8))} 100%);
+  --bo-btn-success: linear-gradient(135deg, ${rgbToHex(...hslToRgb(successHsl[0], successHsl[1], successHsl[2]))} 0%, ${rgbToHex(...hslToRgb(successHsl[0], successHsl[1], successHsl[2] * 0.8))} 100%);
+  --bo-btn-primary-text: ${darkBgBody};
+  --bo-btn-secondary-text: ${darkBgBody};
+  --bo-btn-danger-text: ${darkBgBody};
+  --bo-btn-success-text: ${darkBgBody};
+
+  --bo-progress-bg: ${darkBorder};
+  --bo-progress-fill: linear-gradient(90deg, ${accent} 0%, ${accentHover} 100%);
+  --bo-tab-text: ${darkTextMuted};
+  --bo-tab-active-text: ${rgbToHex(...hslToRgb(primaryHsl[0], Math.min(primaryHsl[1] * 1.1, 90), Math.min(primaryHsl[2] * 1.3, 70)))};
+  --bo-tab-active-bg: rgba(${pr},${pg},${pb},0.15);
+  --bo-tab-hover-bg: ${darkBgItemHover};
+
+  --bo-shadow: rgba(0,0,0,0.4);
+  --bo-shadow-sm: rgba(0,0,0,0.3);
+  --bo-scrollbar: ${rgbToHex(...hslToRgb(primaryHsl[0], 15, 30))};
+  --bo-scrollbar-hover: ${rgbToHex(...hslToRgb(primaryHsl[0], 20, 40))};
+  --bo-link: ${rgbToHex(...hslToRgb(primaryHsl[0], Math.min(primaryHsl[1] * 1.1, 90), Math.min(primaryHsl[2] * 1.5, 80)))};
+  --bo-path-bg: rgba(${pr},${pg},${pb},0.1);
+  --bo-path-text: ${rgbToHex(...hslToRgb(primaryHsl[0], Math.min(primaryHsl[1] * 1.1, 90), Math.min(primaryHsl[2] * 1.5, 80)))};
+}`;
+
+  return css;
+}
+
+async function handleCustomSkinUpload(e) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = async (ev) => {
+    const imageUrl = ev.target.result;
+    try {
+      showMessage(_t('msgAnalyzingImage'), 'info');
+      const colors = await extractDominantColors(imageUrl);
+      const css = generateCustomSkinCSS(colors);
+
+      customSkinData = {
+        name: _t('skinCustom') || 'Custom',
+        imageUrl: imageUrl,
+        css: css,
+        colors: colors
+      };
+
+      // Update preview
+      const preview = document.getElementById('customSkinPreview');
+      const previewImg = document.getElementById('customSkinPreviewImg');
+      const palette = document.getElementById('customSkinPalette');
+      const applyBtn = document.getElementById('applyCustomSkinBtn');
+      const resetBtn = document.getElementById('resetCustomSkinBtn');
+
+      if (preview) preview.classList.remove('hidden');
+      if (previewImg) previewImg.src = imageUrl;
+      if (applyBtn) applyBtn.classList.remove('hidden');
+      if (resetBtn) resetBtn.classList.remove('hidden');
+
+      if (palette) {
+        palette.textContent = '';
+        [colors.primary, colors.secondary, colors.average].forEach(c => {
+          const swatch = document.createElement('span');
+          swatch.className = 'color-swatch';
+          swatch.style.backgroundColor = `rgb(${c[0]},${c[1]},${c[2]})`;
+          palette.appendChild(swatch);
+        });
+      }
+
+      showMessage(_t('msgImageAnalyzed'), 'success');
+    } catch (err) {
+      console.error('Custom skin analysis failed:', err);
+      showMessage(_t('msgImageAnalysisFailed'), 'error');
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+async function applyCustomSkin() {
+  if (!customSkinData) return;
+  await chrome.storage.local.set({ customSkin: customSkinData, skin: 'custom' });
+  applySkin('custom');
+  initSkinSelector();
+  showMessage(_t('msgCustomSkinApplied'), 'success');
+}
+
+async function resetCustomSkin() {
+  customSkinData = null;
+  await chrome.storage.local.remove(['customSkin']);
+  const currentSkin = (await chrome.storage.local.get('skin')).skin || 'browser-native';
+  if (currentSkin === 'custom') {
+    await setSkin('browser-native');
+  }
+  applySkin(currentSkin === 'custom' ? 'browser-native' : currentSkin);
+  initSkinSelector();
+
+  document.getElementById('customSkinPreview')?.classList.add('hidden');
+  document.getElementById('applyCustomSkinBtn')?.classList.add('hidden');
+  document.getElementById('resetCustomSkinBtn')?.classList.add('hidden');
+  document.getElementById('customSkinImageInput').value = '';
+  showMessage(_t('msgCustomSkinReset'), 'success');
+}
+
+async function initCustomSkinUI() {
+  const uploadInput = document.getElementById('customSkinImageInput');
+  const applyBtn = document.getElementById('applyCustomSkinBtn');
+  const resetBtn = document.getElementById('resetCustomSkinBtn');
+
+  uploadInput?.addEventListener('change', handleCustomSkinUpload);
+  applyBtn?.addEventListener('click', applyCustomSkin);
+  resetBtn?.addEventListener('click', resetCustomSkin);
+
+  // Restore preview if custom skin exists
+  if (customSkinData && customSkinData.imageUrl) {
+    const preview = document.getElementById('customSkinPreview');
+    const previewImg = document.getElementById('customSkinPreviewImg');
+    const palette = document.getElementById('customSkinPalette');
+    if (preview) preview.classList.remove('hidden');
+    if (previewImg) previewImg.src = customSkinData.imageUrl;
+    if (applyBtn) applyBtn.classList.remove('hidden');
+    if (resetBtn) resetBtn.classList.remove('hidden');
+    if (palette && customSkinData.colors) {
+      palette.textContent = '';
+      [customSkinData.colors.primary, customSkinData.colors.secondary, customSkinData.colors.average].forEach(c => {
+        const swatch = document.createElement('span');
+        swatch.className = 'color-swatch';
+        swatch.style.backgroundColor = `rgb(${c[0]},${c[1]},${c[2]})`;
+        palette.appendChild(swatch);
+      });
+    }
+  }
 }

@@ -26,12 +26,19 @@ const SKINS = [
   { id: 'classic-nostalgic', nameKey: 'skinClassicNostalgic' },
   { id: 'high-contrast-mono', nameKey: 'skinHighContrastMono' },
   { id: 'frosted-glass', nameKey: 'skinFrostedGlass' },
-  { id: 'nature-low-saturation', nameKey: 'skinNatureLowSaturation' }
+  { id: 'nature-low-saturation', nameKey: 'skinNatureLowSaturation' },
+  { id: 'ocean-deep', nameKey: 'skinOceanDeep' },
+  { id: 'sunset-glow', nameKey: 'skinSunsetGlow' },
+  { id: 'starry-night', nameKey: 'skinStarryNight' },
+  { id: 'cherry-blossom', nameKey: 'skinCherryBlossom' }
 ];
 
+let customSkinData = null;
+
 async function initSkin() {
-  const result = await chrome.storage.local.get('skin');
+  const result = await chrome.storage.local.get(['skin', 'customSkin']);
   const skin = result.skin || 'browser-native';
+  customSkinData = result.customSkin || null;
   applySkin(skin);
 }
 
@@ -40,6 +47,19 @@ function applySkin(skin) {
   const selector = document.getElementById('skinSelector');
   if (selector) {
     selector.value = skin;
+  }
+  const existingStyle = document.getElementById('custom-skin-style');
+  if (skin === 'custom' && customSkinData && customSkinData.css) {
+    if (existingStyle) {
+      existingStyle.textContent = customSkinData.css;
+    } else {
+      const style = document.createElement('style');
+      style.id = 'custom-skin-style';
+      style.textContent = customSkinData.css;
+      document.head.appendChild(style);
+    }
+  } else if (existingStyle) {
+    existingStyle.remove();
   }
 }
 
@@ -62,6 +82,16 @@ function initSkinSelector() {
     }
     selector.appendChild(option);
   });
+
+  if (customSkinData) {
+    const customOption = document.createElement('option');
+    customOption.value = 'custom';
+    customOption.textContent = customSkinData.name || _t('skinCustom') || 'Custom';
+    if ('custom' === document.body.getAttribute('data-skin')) {
+      customOption.selected = true;
+    }
+    selector.appendChild(customOption);
+  }
 
   selector.addEventListener('change', (e) => {
     setSkin(e.target.value);

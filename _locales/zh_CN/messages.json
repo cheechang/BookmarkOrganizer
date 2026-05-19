@@ -739,6 +739,66 @@
     "message": "护眼自然",
     "description": "Nature low saturation skin name"
   },
+  "skinOceanDeep": {
+    "message": "深海蓝",
+    "description": "Ocean deep skin name"
+  },
+  "skinSunsetGlow": {
+    "message": "日落霞光",
+    "description": "Sunset glow skin name"
+  },
+  "skinStarryNight": {
+    "message": "星空夜",
+    "description": "Starry night skin name"
+  },
+  "skinCherryBlossom": {
+    "message": "樱花粉",
+    "description": "Cherry blossom skin name"
+  },
+  "skinCustom": {
+    "message": "自定义",
+    "description": "Custom skin name"
+  },
+  "sectionCustomSkin": {
+    "message": "自定义皮肤",
+    "description": "Custom skin section title"
+  },
+  "customSkinDesc": {
+    "message": "上传图片，根据其颜色生成个性化主题。",
+    "description": "Custom skin description"
+  },
+  "btnUploadImage": {
+    "message": "上传图片",
+    "description": "Upload image button"
+  },
+  "btnResetCustomSkin": {
+    "message": "重置自定义皮肤",
+    "description": "Reset custom skin button"
+  },
+  "btnApplyCustomSkin": {
+    "message": "应用自定义皮肤",
+    "description": "Apply custom skin button"
+  },
+  "msgAnalyzingImage": {
+    "message": "正在分析图片...",
+    "description": "Analyzing image message"
+  },
+  "msgImageAnalyzed": {
+    "message": "图片分析完成！点击应用以使用。",
+    "description": "Image analyzed success message"
+  },
+  "msgImageAnalysisFailed": {
+    "message": "图片分析失败，请尝试其他图片。",
+    "description": "Image analysis failed message"
+  },
+  "msgCustomSkinApplied": {
+    "message": "自定义皮肤已应用！",
+    "description": "Custom skin applied message"
+  },
+  "msgCustomSkinReset": {
+    "message": "自定义皮肤已重置。",
+    "description": "Custom skin reset message"
+  },
   "emptyNoResults": {
     "message": "没有匹配的结果",
     "description": "Empty state when search returns no results"

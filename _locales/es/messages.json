@@ -739,6 +739,66 @@
     "message": "Naturaleza Baja Saturación",
     "description": "Nature low saturation skin name"
   },
+  "skinOceanDeep": {
+    "message": "Océano Profundo",
+    "description": "Ocean deep skin name"
+  },
+  "skinSunsetGlow": {
+    "message": "Brillo Atardecer",
+    "description": "Sunset glow skin name"
+  },
+  "skinStarryNight": {
+    "message": "Noche Estrellada",
+    "description": "Starry night skin name"
+  },
+  "skinCherryBlossom": {
+    "message": "Flor de Cerezo",
+    "description": "Cherry blossom skin name"
+  },
+  "skinCustom": {
+    "message": "Personalizado",
+    "description": "Custom skin name"
+  },
+  "sectionCustomSkin": {
+    "message": "Piel Personalizada",
+    "description": "Custom skin section title"
+  },
+  "customSkinDesc": {
+    "message": "Suba una imagen para generar un tema personalizado basado en sus colores.",
+    "description": "Custom skin description"
+  },
+  "btnUploadImage": {
+    "message": "Subir Imagen",
+    "description": "Upload image button"
+  },
+  "btnResetCustomSkin": {
+    "message": "Restablecer Piel Personalizada",
+    "description": "Reset custom skin button"
+  },
+  "btnApplyCustomSkin": {
+    "message": "Aplicar Piel Personalizada",
+    "description": "Apply custom skin button"
+  },
+  "msgAnalyzingImage": {
+    "message": "Analizando imagen...",
+    "description": "Analyzing image message"
+  },
+  "msgImageAnalyzed": {
+    "message": "¡Imagen analizada! Haga clic en Aplicar para usar.",
+    "description": "Image analyzed success message"
+  },
+  "msgImageAnalysisFailed": {
+    "message": "Error al analizar la imagen. Intente con otra imagen.",
+    "description": "Image analysis failed message"
+  },
+  "msgCustomSkinApplied": {
+    "message": "¡Piel personalizada aplicada!",
+    "description": "Custom skin applied message"
+  },
+  "msgCustomSkinReset": {
+    "message": "Piel personalizada restablecida.",
+    "description": "Custom skin reset message"
+  },
   "emptyNoResults": {
     "message": "No hay resultados coincidentes",
     "description": "Empty state when search returns no results"
