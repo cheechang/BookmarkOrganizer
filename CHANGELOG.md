@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.9.3] - 2026-04-23
+
+### Fixed
+
+- **Sidebar Theme Adaptation**
+  - Replaced all hard-coded white colors in the sidebar with CSS variables so the sidebar correctly adapts to all 6 skins in both light and dark modes.
+  - Fixed `.nav-item` text color: removed `color: white` so it inherits `var(--bo-text-sidebar)`.
+  - Fixed `.nav-item:hover` / `.nav-item.active` backgrounds: replaced `rgba(255,255,255,...)` with `color-mix(in srgb, var(--bo-text-sidebar) X%, transparent)`.
+  - Fixed `.nav-item.active` border-left: replaced hard-coded `white` with `var(--bo-text-sidebar)`.
+  - Fixed `.sidebar-header` and `.sidebar-footer` borders: replaced hard-coded `rgba(255,255,255,0.2)` with `var(--bo-border-sidebar)`.
+  - Fixed `.lang-selector` and `.theme-toggle` in the sidebar: border, background, and text color now use `var(--bo-border-sidebar)`, `color-mix(...)` and `var(--bo-text-sidebar)`.
+  - Fixed `.lang-selector option` dropdown: replaced hard-coded `#2d3748` background and `white` text with `var(--bo-bg-card)` and `var(--bo-text-primary)`.
+  - Fixed `.sidebar-footer .btn-toolbar` (Check-for-Updates button): added sidebar-specific overrides so it follows the sidebar theme instead of using hard-coded grays.
+
 ## [1.9.2] - 2026-04-23
 
 ### Fixed
