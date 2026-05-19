@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.9.5] - 2026-04-23
+### Fixed
+- **Skin Selector Dropdown Options**
+  - Added missing `.skin-selector option` styles to ensure dropdown options use consistent theme colors (`--bo-bg-card` background and `--bo-text-primary` text color), preventing system default colors from breaking theme consistency
+
 ## [1.9.4] - 2026-04-23
 ### Fixed
 - **Sidebar Theme Adaptation**

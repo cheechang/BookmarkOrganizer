@@ -1330,6 +1330,11 @@ body {
   outline: none;
 }
 
+.skin-selector option {
+  background: var(--bo-bg-card);
+  color: var(--bo-text-primary);
+}
+
 .skin-selector:hover {
   border-color: var(--bo-accent);
 }
