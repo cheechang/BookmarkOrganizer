@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [1.9.4] - 2026-04-23
+### Fixed
+- **Sidebar Theme Adaptation**
+  - Exchanged positions of dark mode toggle and language selector in sidebar footer (row 1: check update + language; row 2: skin selector + dark mode toggle)
+- **Frosted Glass Sidebar Contrast**
+  - Fixed unreadable sidebar text in Frosted Glass light mode: changed `--bo-text-sidebar` from `#ffffff` to `#1a1a2e` for dark text on semi-transparent light background
+  - Updated `--bo-border`, `--bo-border-sidebar`, `--bo-border-card` to dark semi-transparent (`rgba(0,0,0,...)`) in Frosted Glass light mode to match dark sidebar text
+  - Improved Frosted Glass dark mode sidebar text contrast: changed `--bo-text-sidebar` from `#e0e0e0` to `#ffffff`
+
 ## [1.9.3] - 2026-04-23
 
 ### Fixed
