@@ -78,7 +78,7 @@ jobs:
         run: |
           VERSION="${{ github.ref_name }}"
           VER_TAG="${VERSION#v}"
-          BODY=$(awk "/^## \[$VER_TAG\]/{flag=1;next}/^## \[/{flag=0}flag" CHANGELOG.md | sed -e :a -e '/./,$!d;/^$/{$d;N;};/\n$/{$d;N;};/\n$/ba' | sed 's/$/\\n/' | tr -d '\n')
+          BODY=$(sed -n "/^## \[$VER_TAG\]/,/^## \[/p" CHANGELOG.md | sed '$d' | sed -e :a -e '/./,$!d;/^$/{$d;N;};/\n$/{$d;N;};/\n$/ba' | sed 's/$/\\n/' | tr -d '\n')
           if [ -z "$BODY" ]; then
             BODY="See CHANGELOG.md for details."
           fi
